@@ -6,53 +6,53 @@ _DBThanatus_
 _deathz0r_
 * __Base, Actors, Code and Sprites__  
 _Reilsss_
-* __Actors and General Help__
+* __Actors and General Help__  
 _Thiny93/Lolo_is_cool_
-* __Code for the Weapon Limit System__
+* __Code for the Weapon Limit System__  
 _Yholl_
-* __Code for the Weapon Limit System and General Help__
+* __Code for the Weapon Limit System and General Help__  
 _Misery_
-* __Code for the Weapon Limit System__
+* __Code for the Weapon Limit System__  
 _VoidWeaver_
-* __Some Actors from Doom 3__
+* __Some Actors from Doom 3__  
 _Ghastly_dragon_
-* __Decorate Code and Sprites__
+* __Decorate Code and Sprites__  
 _pzndoom_
-* __Actors and Beta Tester__
+* __Actors and Beta Tester__  
 _Eggbert_
-* __Actors and Beta Tester__
+* __Actors and Beta Tester__  
 _WRW Team_
-* __Actors and Beta Tester__
+* __Actors and Beta Tester__  
 _Doom Armory Team_
-* __Actors and Resources in general__
+* __Actors and Resources in general__  
 _Realm667 Beastiary_
-* __Sprites and Sounds__
+* __Sprites and Sounds__  
 _Xaser_
-* __Sprites and Sounds__
+* __Sprites and Sounds__  
 _Daniel_
-* __Decorate Code, Beta Tester and General Help__
+* __Decorate Code, Beta Tester and General Help__  
 _Space Marine_
-* __placeholder__
+* __placeholder__  
 _PLACEHOLDER_
-* __placeholder__
+* __placeholder__  
 _PLACEHOLDER_
-* __placeholder__
+* __placeholder__  
 _PLACEHOLDER_
-* __placeholder__
+* __placeholder__  
 _PLACEHOLDER_
-* __placeholder__
+* __placeholder__  
 _PLACEHOLDER_
-* __placeholder__
+* __placeholder__  
 _PLACEHOLDER_
 
--Ricardo Assad (Beta Tester)
--Duducrazy (Actors and Decorate Code)
--Pedro VC(Decorate Code)
--Mauricio Rocks(Actors)
--Bouncy(Actors And Sprites)
--Cutmanmike(Actors and Sprites)
--Captain Ventris (Code)
--Juan "JacKThERiPPeR"(Decorate Code and Sprites)
+-Ricardo Assad (Beta Tester)  
+-Duducrazy (Actors and Decorate Code)  
+-Pedro VC(Decorate Code)  
+-Mauricio Rocks(Actors)  
+-Bouncy(Actors And Sprites)  
+-Cutmanmike(Actors and Sprites)  
+-Captain Ventris (Code)  
+-Juan "JacKThERiPPeR"(Decorate Code and Sprites)  
 -Nash(Nash Gore System)
 -zer0(Blood System)
 -Ichor(Decorate Code)
