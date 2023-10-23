@@ -46,10 +46,12 @@ _Doom Armory Team_
 _Duducrazy_
 * __Actors and Decorate Code__  
 _jimmy91_
-*__Actors and Decorate Code__  
+* __Actors and Decorate Code__  
 _Tesajaxa_
 * __Actors and Decorate Code__  
 _Sekto_
+* __Actors and Decorate Code__  
+_PhAyzoN_
 * __Actors And Sprites__  
 _Bouncy_
 * __Actors and Sprites__  
@@ -145,7 +147,7 @@ _Obsidian Entertainment_
 _Hellbound Crew_
 * __Serious Sam resources__  
 _Croteam_
-* __Duke Nukem resources__  
+* __Duke Nukem and Rise of the Triad resources__  
 _3dRealm_
 * __Half Life resources__  
 _Valve_
@@ -153,6 +155,8 @@ _Valve_
 _Epic Games_
 * __Doom, Doom Beta and Quake resources__  
 _Id Software_
+* __Heretic, Hexen and Necrodome resources__  
+_Raven Software_
 * __TimeSplitters resources__  
 _Free Radical Design_
 * __Hades2 resources__  
