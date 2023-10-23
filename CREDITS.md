@@ -8,109 +8,164 @@ _deathz0r_
 _Reilsss_
 * __Actors and General Help__  
 _Thiny93/Lolo_is_cool_
+* __General Help__  
+_DavidB1000_
+* __Decorate Code, Beta Tester and General Help__  
+_Space Marine_
+* __Decorate, beta testing and support__  
+_jdredalert_
+* __Actors, Beta Tester, General Help__  
+_ZMan_
+* __Decorate Code, Actors and General Help__  
+_X-CrAzYkOoL-X_
 * __Code for the Weapon Limit System__  
 _Yholl_
 * __Code for the Weapon Limit System and General Help__  
 _Misery_
 * __Code for the Weapon Limit System__  
 _VoidWeaver_
-* __Some Actors from Doom 3__  
+* __ACS__  
+_vaecrius_
+* __Actors__  
+_Doomanic_
+* __Actor__  
+_Espi_
+* __Actors__  
 _Ghastly_dragon_
-* __Decorate Code and Sprites__  
-_pzndoom_
+* __Actors__  
+_Mauricio Rocks_
 * __Actors and Beta Tester__  
 _Eggbert_
-* __Actors and Beta Tester__  
+* __Actors and Code__  
+_AlwaysDoomed_
+* __Actors and Decorate Code__  
 _WRW Team_
-* __Actors and Beta Tester__  
+* __Actors and Decorate Code__  
 _Doom Armory Team_
-* __Actors and Resources in general__  
-_Realm667 Beastiary_
+* __Actors and Decorate Code__  
+_Duducrazy_
+* __Actors and Decorate Code__  
+_jimmy91_
+*__Actors and Decorate Code__  
+_Tesajaxa_
+* __Actors and Decorate Code__  
+_Sekto_
+* __Actors And Sprites__  
+_Bouncy_
+* __Actors and Sprites__  
+_Cutmanmike_
+* __Actors and Sprites__  
+_nexar2_
+* __Beta Tester__  
+_Ricardo Assad_
+* __Decorate Code__  
+_Pedro VC_
+* __Decorate Code__  
+_Captain Ventris_
+* __Decorate Code__  
+_Daniel_
+* __Decorate Code__  
+_Ichor_
+* __Decorate Code__  
+_MartinHowe_
+* __Decorate Code and Sprites__  
+_pzndoom_
+* __Decorate Code and Sprites__  
+_Juan "JacKThERiPPeR"_
+* __Decorate Code and Sprites__  
+_scalliano_
+* __Gore System__  
+_Nash_
+* __Gore System__  
+_zer0_
+* __HUD and fonts__  
+_Jimmy_
+* __MAPINFO__  
+_Master Matheus_
+* __Sounds__  
+_Kaiser_
+* __Sound__  
+_qubodup_
+* __Sounds and Sprites__  
+_Enjay_
+* __Sounds and sprites rips__  
+_Marrub_
+* __Sprites__  
+_Hellstorm Archon_
+* __Sprites__  
+_icytux_
+* __Sprites__  
+_Captain J_
+* __Sprites__  
+_osjclatchford_
+* __Sprites__  
+_Mike12_
+* __Sprites__  
+_chronoteeth_
+* __Sprites__  
+_Batandy_
+* __Sprites__  
+_Doom Nukem_
+* __Sprites__  
+_Carbon Dioxide_
+* __Sprites__  
+_Zirius1994_
+* __Sprites__  
+_zrrion the insect_
+* __Sprites and Actors__  
+_LilWhiteMouse_
+* __Sprites, Actors and Sounds__  
+_CaptainToenail_
 * __Sprites and Sounds__  
 _Xaser_
-* __Sprites and Sounds__  
-_Daniel_
-* __Decorate Code, Beta Tester and General Help__  
-_Space Marine_
-* __placeholder__  
-_PLACEHOLDER_
-* __placeholder__  
-_PLACEHOLDER_
-* __placeholder__  
-_PLACEHOLDER_
-* __placeholder__  
-_PLACEHOLDER_
-* __placeholder__  
-_PLACEHOLDER_
-* __placeholder__  
-_PLACEHOLDER_
+* __Sprite edit and Code__  
+_Deco_
+* __Sprite sources__  
+_Ghost623671 from Gamebanana.com_
+* __Sprite rips__  
+_Kaiser_
+* __ZScript Code__  
+_Nanami_
+* __ZScript Code__  
+_doomplayer_
+* __ZScript Code__  
+_Mikk-_
+* __Corridor 7 rips__  
+_SPECT_
+* __Serious Sam rips__  
+_BAZOOKA_
+* __Wolf3d HD rips__  
+_Ringman_
+* __INTERPIC__  
+_Sinister-One_
 
--Ricardo Assad (Beta Tester)  
--Duducrazy (Actors and Decorate Code)  
--Pedro VC(Decorate Code)  
--Mauricio Rocks(Actors)  
--Bouncy(Actors And Sprites)  
--Cutmanmike(Actors and Sprites)  
--Captain Ventris (Code)  
--Juan "JacKThERiPPeR"(Decorate Code and Sprites)  
--Nash(Nash Gore System)
--zer0(Blood System)
--Ichor(Decorate Code)
--icytux(Sprites)
--Espi (Actor)
--Nanami (Code)
--jimmy91(Actors and Decorate Code)
--Enjay (Sounds and Sprites)
--nexar2 (Actors and Sprites)
--Eriance(Actors and Sprites)
--Doomanic (Actors)
--MartinHowe (Decorate Code)
--vaecrius (ACS)
--Tesajaxa (Monsters and Decorate Code)
--ZMan (Actors, Beta Tester General Help)
--X-CrAzYkOoL-X (Code, Actors and General Help)
--DavidB1000 (General Help)
--Marrub (Sounds and sprites rips)
--CaptainToenail (Sprites, monsters, Actors and Sounds)
--Captain J (Sprite edits)
--scalliano (Decorate and sprite edits)
--Jimmy (HUD and fonts)
--Kaiser (Sounds)
--Sinael (Sprite rips)
--Batandy (Sprites)
--Zirius1994 (Sprites)
--qubodup (sound)
--AlwaysDoomed (Code and Actors)
--Hellstorm Archon (Sprites)
--zrrion the insect (Sprites)
--LilWhiteMouse (Sprites and Monsters)
--Sekto (Monsters and weapons)
--osjclatchford (Sprite edits)
--chronoteeth (Sprite)
--doomplayer (code)
--Deco (code and sprite edit)
--Doom Nukem (Sprites)
--Carbon Dioxide (Sprites)
--Mike12 (Sprite)
--Master Matheus(MAPINFO Skills)
--Ghost623671 from Gamebanana.com (Sprite sources)
--SPECT (Corridor 7 rips)
--BAZOOKA (Serious Sam rips)
--Ringman (Wolf3d HD rips)
--jdredalert (Decorate, beta testing and support)
--Obsidian Entertainment (Fallout New Vegas Sounds)
--Hellbound Crew (Hellrider TC resources)
--Croteam (Serious Sam resources)
--3dRealm (Duke Nukem resources)
--Valve (Half Life resources)
-
--Epic Games (Unreal resources)
--Id Software (Doom, Doom Beta and Quake resources)
--Free Radical Design (TimeSplitters resources)
--Espaço Informática Ltda (Hades2 resources)
--Delight Works (Fate/Grand Order resources)
--Ocean Software Ltd. (sprite sources)
--DeathMatchParadise Sweps (sprite sources)
--Zipper Interactive (DeathDrome resources)
--Sinister-One(INTERPIC)
--Wraith Corporation (Hell2Pay resources)
+* __Fallout New Vegas resources__  
+_Obsidian Entertainment_
+* __Hellrider Doom TC resources__  
+_Hellbound Crew_
+* __Serious Sam resources__  
+_Croteam_
+* __Duke Nukem resources__  
+_3dRealm_
+* __Half Life resources__  
+_Valve_
+* __Unreal resources__  
+_Epic Games_
+* __Doom, Doom Beta and Quake resources__  
+_Id Software_
+* __TimeSplitters resources__  
+_Free Radical Design_
+* __Hades2 resources__  
+_Espaço Informática Ltda_
+* __Fate/Grand Order resources__  
+_Delight Works_
+* __Sprite sources__  
+_Ocean Software Ltd._
+* __Sprite sources__  
+_DeathMatchParadise Sweps_
+* __DeathDrome resources__  
+_Zipper Interactive_
+* __Hell2Pay resources__  
+_Wraith Corporation_
+* __DeathDrome resources__  
+_Zipper Interactive_
