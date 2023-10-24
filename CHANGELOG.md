@@ -116,13 +116,16 @@
 =====
 #fixed machine pistol and icewand drops  
 #fixed drop velocity/force  
-#fixed chainsaw not being throwable  
+#fixed chainsaw not being throwable 
+#fixed grenade infinite ammo bug
+#fixed wicked's body being targetable
 #reduced grenade ammo and flaregun spawns  
 #reduced low tier spawns  
 #reduced Heavyrockets spawn  
 #removed lots of redudant sprites/sounds  
 #removed the Klayz (overlapping with D3caco and octobrain imo)  
 #new enemies! Hunker (from Hades 2), GreatScorpionMinion, BipodStalker and BiomechBipod (from Mouse), Crystal Elemental and Air Elemental (from Might and Magic), Ailoprobe and Bandor (from Corridor 7) and more!  
+#merged zrebel and grey chaingunner into one enemy
 #lots of code cleaning/update  
 #lots of buffing and nerfing (mostly making enemies less spongy and swapping some spawners)  
 #every lingering powerup (NightVision, Steroids, etc.) now shows an icon on your screen while on effect  
