@@ -2,7 +2,6 @@
 
 - [ ] new behavior for spirit master  
 - [ ] New sprites for the DKGuns3 Railgun, SuperRocket and GodHand  
-- [ ] rework that grey chaingunner  
 - [ ] New pickup sprites for the PlasmaAutoRifle  
 - [ ] fix/buff punching revenant  
 - [ ] novos sons de pickup gerais  
@@ -21,4 +20,5 @@
 
 ### Done ✓
 
-- [x] Create my first TODO.md  
+- [x] create a github repository
+- [x] rework that grey chaingunner  
