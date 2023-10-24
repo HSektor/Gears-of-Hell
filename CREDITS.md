@@ -70,6 +70,8 @@ _Daniel_
 _Ichor_
 * __Decorate Code__  
 _MartinHowe_
+* __Decorate Code__
+_ant1991331_
 * __Decorate Code and Sprites__  
 _pzndoom_
 * __Decorate Code and Sprites__  
