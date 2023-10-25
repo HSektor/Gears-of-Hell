@@ -1,0 +1,1031 @@
+#include "WEAPS1"
+#include "WEAPS2"
+#include "Weaps3"
+#include "ZMAN_SP"
+#include "SGUY_SP"
+#include "CGUY_SP"
+#include "IMP_SP"
+#include "DEMON_SP"
+#include "LSOUL_SP"
+#include "CACOD_SP"
+#include "REVNT_SP"
+#include "HELLK_SP"
+#include "BAROH_SP"
+#include "ARACH_SP"
+#include "PAINE_SP"
+#include "MANCB_SP"
+#include "ARCHV_SP"
+#include "CYBDM_SP"
+#include "SPIMS_SP"
+#include "NAZI_SP"
+#include "MISC"
+#include "ITEMS"
+#include "AMMODEC"
+#include "NASH"
+
+actor Doomer : ZGohPlayer replaces DoomPlayer
+{
+   Health 101
+   Painchance 225
+   Player.maxhealth 200
+   Player.StartItem "CoolPistol"
+   Player.StartItem "Fists"
+   Player.StartItem "Token", 1
+   Player.StartItem "Clip", 42
+   Player.StartItem "Cell", 30
+   Player.DisplayName "Doomer"
+   Player.runhealth 0
+   DamageFactor "Friend", 0
+}
+
+Actor Cheat1 : RandomSpawner
+{
+   DropItem LimitLSCQ2Railgun 
+   DropItem LimitNeoShotgun
+   DropItem LimitLongRifle
+   DropItem LimitEmbercaster
+   DropItem LimitRevolver
+   DropItem LimitUnmaker
+   DropItem LimitQuadShotgun
+   DropItem LimitTommygun 
+   DropItem LimitAliensGBR 
+   DropItem LimitDispersionRocketLauncher 
+   DropItem LimitSuperRocket
+   DropItem LimitPlasmaGun 
+   DropItem LimitShockRifle2000
+   DropItem LimitFlakCannon
+   DropItem LimitSuperCrossbow 
+   DropItem LimitDemonCannon
+   DropItem LimitNeoRocketLauncher
+   DropItem LimitWinchesterRifle
+   DropItem LimitUnmakerMKVI 
+   DropItem LimitDemonicFirepower
+   DropItem LimitPlasmaAutoRifle
+   DropItem LimitLaserCannon
+   DropItem LimitRailCannon
+   DropItem LimitStinger
+   DropItem LimitDemonBane
+   DropItem LimitRaygun
+   DropItem LimitLSCMinigun
+   DropItem LimitM14
+}
+
+//===========================================================================
+//===========================================================================
+
+Actor ChainsawSpawner : CustomInventory replaces Chainsaw
+{
+	Inventory.Amount 0
+	Inventory.MaxAmount 999
+	Inventory.RespawnTics 1032
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.QUIET
+	-COUNTITEM
+	+THRUACTORS
+	RenderStyle None
+	States
+	{
+	Spawn:
+	      TNT1 A 0 A_Jump(88,"C01","C02","C03")
+		  TNT1 A 0 A_SpawnItemEx("MMZombie",0,0,0,0,0,0,0,0,200)
+		  loop
+	C01:
+	      TNT1 A 0 A_SpawnItemEx("LimitChainsaw_", 0, 0, 0, 0)
+		  Goto Spawn2
+	C02:
+	      TNT1 A 0 A_SpawnItemEx("LimitKnife", 0, 0, 0, 0)
+		  Goto Spawn2
+	C03:
+	      TNT1 A 0 A_SpawnItemEx("LimitBaseballBat", 0, 0, 0, 0)
+		  Goto Spawn2
+	Spawn2:
+		  TNT1 A -1 A_ChangeFlag("THRUACTORS",false)
+		  Loop
+	}
+}
+
+//===========================================================================
+//===========================================================================
+
+Actor ShotgunSpawner : CustomInventory replaces Shotgun
+{
+	Inventory.Amount 0
+	Inventory.MaxAmount 999
+	Inventory.RespawnTics 1032
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.QUIET
+	-COUNTITEM
+	+THRUACTORS
+	RenderStyle None
+	States
+	{
+	Spawn:
+	      TNT1 A 0 A_Jump(51,"S01","S02","S03","S04","S05")
+		  TNT1 A 0 A_SpawnItemEx("MMZombie",random(10,-10),random(10,-10),0,0,0,0,0,0,200)
+		  loop
+	S01:
+	      TNT1 A 0 A_SpawnItem("LimitWinchesterRifle", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("RifleShells",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	S02:
+	      TNT1 A 0 A_SpawnItem("LimitRevolver", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("RifleShells",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	S03:
+	      TNT1 A 0 A_SpawnItem("LimitNeoShotgun", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Shell",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	S04:
+	      TNT1 A 0 A_SpawnItem("LimitStinger", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Clip",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	S05:
+	      TNT1 A 0 A_SpawnItem("LimitGoreWyrm", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Mana",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	Spawn2:
+		  TNT1 A -1 A_ChangeFlag("THRUACTORS",false)
+		  Loop
+	}
+}
+
+ACTOR ShellSpawner 2008
+{
+	Radius 1
+	Height 1
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItemEx("Shell",random(10,-10),random(10,-10),0,0,0,0,0,0)
+		TNT1 A 0 A_Jump(152,2)
+		TNT1 A 0 A_SpawnItemEx("RifleShells",random(10,-10),random(10,-10),0,0,0,0,0,0)
+		TNT1 A 0 A_Jump(199,2)
+		TNT1 A 0 A_SpawnItemEx("MMZombie",0,0,0,0,0,0,0,0,64)
+		TNT1 A 1
+		TNT1 AA 1
+		Stop
+	}
+}
+
+Actor ShellBoxSpawner 2049
+{
+	Radius 1
+	Height 1
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItemEx("ShellBox",random(10,-10),random(10,-10),0,0,0,0,0,0)
+		TNT1 A 0 A_Jump(152,2)
+		TNT1 A 0 A_SpawnItemEx("RifleShellBox",random(10,-10),random(10,-10),0,0,0,0,0,0)
+		TNT1 A 0 A_Jump(152,2)
+		TNT1 A 0 A_SpawnItemEx("Cell",random(10,-10),random(10,-10),0,0,0,0,0,0)
+		TNT1 A 0 A_Jump(152,2)
+		TNT1 A 0 A_SpawnItemEx("Mana",random(10,-10),random(10,-10),0,0,0,0,0,0)
+		TNT1 A 0 A_Jump(199,2)
+		TNT1 A 0 A_SpawnItemEx("MMZombie",0,0,0,0,0,0,0,0,64)
+		TNT1 A 1
+		Stop
+	}
+}
+
+//===========================================================================
+//===========================================================================
+
+Actor SSGSpawner : CustomInventory replaces SuperShotgun
+{
+	Inventory.Amount 0
+	Inventory.MaxAmount 999
+	Inventory.RespawnTics 1032
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.QUIET
+	-COUNTITEM
+	+THRUACTORS
+	RenderStyle None
+	States
+	{
+	Spawn:
+	      TNT1 A 0 A_Jump(42,"SS01","SS02","SS03","SS04","SS05","SS06")
+		TNT1 A 0 A_SpawnItemEx("MMZombie",random(10,-10),random(10,-10),0,0,0,0,0,0,200)
+		  loop
+	SS01:
+	      TNT1 A 0 A_SpawnItem("LimitFlakCannon", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Clip",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  TNT1 A 0 A_SpawnItemEx("RocketAmmo",random(10,-10),random(10,-10),0,0,0,0,0,32,0)
+		  Goto Spawn2
+	SS02:
+	      TNT1 A 0 A_SpawnItem("LimitQuadShotgun", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Shell",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	SS03:
+	      TNT1 A 0 A_SpawnItem("LimitLSCQ2Railgun", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Cell",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	SS04:
+	      TNT1 A 0 A_SpawnItem("LimitBloodAlphaSawedoff", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Shell",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	SS05:
+	      TNT1 A 0 A_SpawnItem("LimitPKShotgun", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Shell",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  TNT1 A 0 A_SpawnItemEx("Mana",random(10,-10),random(10,-10),0,0,0,0,0,32,0)
+		  TNT1 A 0 A_SpawnItemEx("Mana",random(10,-10),random(10,-10),0,0,0,0,0,32,0)
+		  Goto Spawn2
+	SS06:
+	      TNT1 A 0 A_SpawnItem("LimitSuperCrossbow", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Mana",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	Spawn2:
+		  TNT1 A -1 A_ChangeFlag("THRUACTORS",false)
+		  Loop
+	}
+}
+
+//===========================================================================
+//===========================================================================
+
+Actor ChaingunSpawner : CustomInventory replaces Chaingun
+{
+	Inventory.Amount 0
+	Inventory.MaxAmount 999
+	Inventory.RespawnTics 1032
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.QUIET
+	-COUNTITEM
+	+THRUACTORS
+	RenderStyle None
+	States
+	{
+	Spawn:
+	      TNT1 A 0 A_Jump(42,"CH01","CH02","CH03","CH04","CH05")
+	      TNT1 A 0 A_Jump(83,"CH06")
+	      TNT1 A 0 A_SpawnItemEx("MMZombie",random(10,-10),random(10,-10),0,0,0,0,0,0,200)
+		  loop
+	CH01:
+	      TNT1 A 0 A_SpawnItem("LimitAliensGBR", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Clip",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  TNT1 A 0 A_SpawnItemEx("RocketAmmo",random(10,-10),random(10,-10),0,0,0,0,0,32,0)
+		  Goto Spawn2
+	CH02:
+	      TNT1 A 0 A_SpawnItem("LimitTommygun", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Clip",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	CH03:
+	      TNT1 A 0 A_SpawnItem("LimitBlood2Scorpions", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Clip",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	CH04:
+	      TNT1 A 0 A_SpawnItem("LimitPlasmaAutoRifle", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Cell",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	CH05:
+	      TNT1 A 0 A_SpawnItem("LimitM14", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Clip",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	CH06:
+	      TNT1 A 0 A_SpawnItem("LimitLSCMinigun", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Clip",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	Spawn2:
+		  TNT1 A -1 A_ChangeFlag("THRUACTORS",false)
+		  Loop
+	}
+}
+
+Actor ClipSpawner 2007
+{
+	Radius 1
+	Height 1
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItemEx("Clip",0,0,0,0,0,0,0,32,0)
+		TNT1 A 0 A_Jump(199,2)
+		TNT1 A 0 A_SpawnItemEx("MMZombie",0,0,0,0,0,0,0,0,32)
+		TNT1 AA 1
+		Stop
+	}
+}
+
+ACTOR ClipBoxSpawner 2048
+{
+	Radius 1
+	Height 1
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItemEx("ClipBox",random(10,-10),random(10,-10),0,0,0,0,0,32)
+		TNT1 A 0 A_Jump(152,2)
+		TNT1 A 0 A_SpawnItemEx("Cell",random(10,-10),random(10,-10),0,0,0,0,0,0)
+		TNT1 A 0 A_Jump(152,2)
+		TNT1 A 0 A_SpawnItemEx("Mana",random(10,-10),random(10,-10),0,0,0,0,0,32)
+		TNT1 A 0 A_Jump(199,2)
+		TNT1 A 0 A_SpawnItemEx("MMZombie",random(10,-10),random(10,-10),0,0,0,0,0,0)
+		TNT1 AA 1
+		Stop
+	}
+}
+
+//===========================================================================
+//===========================================================================
+
+Actor RLSpawner : CustomInventory replaces RocketLauncher
+{
+	Inventory.Amount 0
+	Inventory.MaxAmount 999
+	Inventory.RespawnTics 1032
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.QUIET
+	-COUNTITEM
+	+THRUACTORS
+	RenderStyle None
+	States
+	{
+	Spawn:
+	      TNT1 A 0 A_Jump(128,"R01","R02")
+	      TNT1 A 0 A_Jump(32,"R03")
+	      TNT1 A 0 A_SpawnItemEx("MMZombie",random(10,-10),random(10,-10),0,0,0,0,0,0,200)
+		  loop
+	R01:
+	      TNT1 A 0 A_SpawnItem("LimitNeoRocketLauncher", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("RocketAmmo",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	R02:
+	      TNT1 A 0 A_SpawnItem("LimitMultiRocketLauncher", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("RocketAmmo",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	R03:
+	      TNT1 A 0 A_SpawnItem("LimitSuperRocket", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("HeavyMissile",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	Spawn2:
+		  TNT1 A -1 A_ChangeFlag("THRUACTORS",false)
+		  Loop
+	}
+}
+
+ACTOR RocketSpawner 2010
+{
+	Radius 1
+	Height 1
+	States
+	{
+	Spawn:
+        TNT1 A 0
+        TNT1 A 0 A_SpawnItemEx("RocketAmmo",random(10,-10),random(10,-10),0,0,0,0,0,0)
+        TNT1 A 0 A_Jump(205,2)
+        TNT1 A 0 A_SpawnItemEx("HandGrenade",random(10,-10),random(10,-10),0,0,0,0,0,32)
+	    TNT1 A 0 A_Jump(200,2)
+        TNT1 A 0 A_SpawnItemEx("HeavyMissile",random(10,-10),random(10,-10),0,0,0,0,0,32)
+		TNT1 A 0 A_Jump(84,2)
+		TNT1 A 0 A_SpawnItemEx("Mana",random(10,-10),random(10,-10),0,0,0,0,0,32)
+		TNT1 A 0 A_Jump(184,2)
+		TNT1 A 0 A_SpawnItemEx("AutoDetectMine",random(10,-10),random(10,-10),0,0,0,0,0,32)
+		TNT1 A 0 A_Jump(199,2)
+		TNT1 A 0 A_SpawnItemEx("MMZombie",0,0,0,0,0,0,0,0,128)
+	TNT1 AA 1
+	Stop
+	}
+}
+
+ACTOR RocketBoxSpawner 2046
+{
+	Radius 1
+	Height 1
+	States
+	{
+	Spawn:
+	TNT1 A 0
+	TNT1 A 0 A_SpawnItemEx("RocketBox",random(10,-10),random(10,-10),0,0,0,0,0,32)
+	TNT1 A 0 A_Jump(205,2)
+    TNT1 A 0 A_SpawnItemEx("HandGrenadeBox",random(10,-10),random(10,-10),0,0,0,0,0,32)
+    TNT1 A 0 A_Jump(199,2)
+    TNT1 AAA 0 A_SpawnItemEx("HeavyMissile",random(10,-10),random(10,-10),0,0,0,0,0,32)
+    TNT1 A 0 A_Jump(189,2)
+    TNT1 A 0 A_SpawnItemEx("Mana",random(10,-10),random(10,-10),0,0,0,0,0,32)
+	TNT1 A 0 A_Jump(200,2)
+	TNT1 A 0 A_SpawnItemEx("5AutoDetectMine",random(10,-10),random(10,-10),0,0,0,0,0,32)
+	TNT1 A 0 A_Jump(199,2)
+	TNT1 A 0 A_SpawnItemEx("MMZombie",0,0,0,0,0,0,0,0,128)
+	TNT1 AA 1
+	Stop
+	}
+}
+
+//===========================================================================
+//===========================================================================
+
+Actor PlasmaSpawner : CustomInventory replaces PlasmaRifle
+{
+	Inventory.Amount 0
+	Inventory.MaxAmount 999
+	Inventory.RespawnTics 1032
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.QUIET
+	-COUNTITEM
+	+THRUACTORS
+	RenderStyle None
+	States
+	{
+	Spawn:
+	      TNT1 A 0 A_Jump(128,"P01","P02","P03","P04","P05")
+	      TNT1 A 0 A_SpawnItemEx("MMZombie",random(10,-10),random(10,-10),0,0,0,0,0,0,200)
+		  TNT1 A 0 A_Jump(205,1)
+	      TNT1 A 0 A_SpawnItemEx("ItemSpawner",random(10,-10),random(10,-10),0,0,0,0,0,0,200)
+		  loop
+	P01:
+	      TNT1 A 0 A_SpawnItem("LimitShockRifle2000", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Cell",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	P02:
+	      TNT1 A 0 A_SpawnItem("LimitPlasmaGun", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Cell",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	P03:
+	      TNT1 A 0 A_SpawnItem("LimitRaygun", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Cell",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	P04:
+	      TNT1 A 0 A_SpawnItem("LimitLaserCannon", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Cell",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	P05:
+	      TNT1 A 0 A_SpawnItem("LimitAlienCannon", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Cell",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	Spawn2:
+		  TNT1 A -1 A_ChangeFlag("THRUACTORS",false)
+		  Loop
+	}
+}
+
+ACTOR CellSpawner 2047
+{
+	Radius 1
+	Height 1
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItemEx("Cell",random(10,-10),random(10,-10),0,0,0,0,0,32)
+		TNT1 A 0 A_Jump(155,2)
+		TNT1 A 0 A_SpawnItemEx("Mana",random(10,-10),random(10,-10),0,0,0,0,0,32)
+		TNT1 A 0 A_Jump(155,2)
+		TNT1 A 0 A_SpawnItemEx("Fuel",random(10,-10),random(10,-10),0,0,0,0,0,0)
+		TNT1 A 0 A_Jump(199,2)
+		TNT1 A 0 A_SpawnItemEx("MMZombie",random(10,-10),random(10,-10),0,0,0,0,0,0)
+		TNT1 AA 1
+		Stop
+	}
+}
+
+ACTOR CellPackSpawner 17
+{
+	Radius 1
+	Height 1
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItemEx("CellPack",random(10,-10),random(10,-10),0,0,0,0,0,32)
+		TNT1 A 0 A_Jump(155,2)
+		TNT1 A 0 A_SpawnItemEx("ManaRune",random(10,-10),random(10,-10),0,0,0,0,0,32)
+		TNT1 A 0 A_Jump(155,2)
+		TNT1 A 0 A_SpawnItemEx("3Fuel",random(10,-10),random(10,-10),0,0,0,0,0,0)
+		TNT1 A 0 A_Jump(199,2)
+		TNT1 A 0 A_SpawnItemEx("Mana",random(10,-10),random(10,-10),0,0,0,0,0,32)
+		TNT1 A 0 A_Jump(199,2)
+		TNT1 A 0 A_SpawnItemEx("MMZombie",random(10,-10),random(10,-10),0,0,0,0,0,0)
+		TNT1 AA 13
+		Stop
+	}
+}
+
+//===========================================================================
+//===========================================================================
+
+Actor ItemSpawner : RandomSpawner
+{
+    DropItem HelperMarine
+    DropItem PlasmaWaveItem
+	DropItem TimeStopDevice
+	DropItem NightVisionGoggles
+	DropItem DoubleDamage
+	DropItem Backpack2
+}
+
+Actor BackpackSpawner 144
+{
+	Radius 1
+	Height 1
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 0 A_SpawnItemEx("Backpack2",0,0,0,0,0,0,0,32)
+		TNT1 A 0 A_Jump(169,2)
+		TNT1 A 0 A_SpawnItemEx("HelperMarine",0,0,0,0,0,0,0,0)
+		TNT1 A 0 A_Jump(209,2)
+		TNT1 A 0 A_SpawnItemEx("CellPack",0,0,0,0,0,0,0,0)
+		TNT1 A 0 A_Jump(209,2)
+		TNT1 A 0 A_SpawnItemEx("RocketBox",0,0,0,0,0,0,0,0)
+		TNT1 A 0 A_Jump(199,2)
+		TNT1 A 0 A_SpawnItemEx("MMZombie",0,0,0,0,0,0,0,0,128)
+		TNT1 AA 1
+		Stop
+	}
+}
+
+Actor Backpack2 : Backpack
+{
+}
+
+
+Actor HBSpawner : RandomSpawner replaces HealthBonus
+{
+   DropItem "HealthVile"
+   DropItem "Pills"
+   DropItem "SeriousPills"
+   DropItem "AutoDetectMine" 
+}
+
+Actor ABSpawner : RandomSpawner replaces ArmorBonus
+{
+   DropItem "ArmorChip"
+   DropItem "WarSpirit"
+   DropItem "SeriousArmor"
+   DropItem "NewArmor"
+}
+
+Actor MedSpawner : RandomSpawner replaces Medikit
+{
+   DropItem "NewMedikit"
+   DropItem "DemonicHeart"   
+}
+
+Actor ZerkerSpawner : RandomSpawner replaces Berserk
+{
+   DropItem NewBerserk
+   DropItem Steroids
+   DropItem HelperMarine
+}
+
+Actor PowerupSpawner : RandomSpawner
+{
+   DropItem Steroids
+   DropItem TitanArmor
+   DropItem HealingHeart
+   DropItem DoubleDamage
+   DropItem TimeStopDevice
+   DropItem HelperMarine
+}
+
+Actor BlursphereSpawner : RandomSpawner replaces Blursphere
+{
+   DropItem Steroids 255 5
+   DropItem TimeStopDevice 255 5
+   DropItem HelperMarine 255 5
+   DropItem DoubleDamage 255 5
+}
+
+
+//===========================================================================
+//===========================================================================
+
+Actor BFGSpawner : CustomInventory replaces BFG9000
+{
+	Inventory.Amount 0
+	Inventory.MaxAmount 999
+	Inventory.RespawnTics 1032
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.QUIET
+	-COUNTITEM
+	+THRUACTORS
+	RenderStyle None
+	States
+	{
+	Spawn:
+	      TNT1 A 0 A_Jump(100,"B01","B02","B03","B04","B05")
+	      TNT1 A 0 A_SpawnItemEx("MMZombie",random(10,-10),random(10,-10),0,0,0,0,0,0,200)
+	      TNT1 A 0 A_SpawnItemEx("ItemSpawner",0,0,0,0,0,0,0,0,164)
+		  loop
+	B01:
+	      TNT1 A 0 A_SpawnItem("LimitPhotonReactorCannon", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Cell",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	B02:
+	      TNT1 A 0 A_SpawnItem("LimitDemonCannon", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Mana",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	B03:
+	      TNT1 A 0 A_SpawnItem("LimitDemonicFirepower", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Mana",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	B04:
+	      TNT1 A 0 A_SpawnItem("LimitUnmakerMKVI", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Mana",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	B05:
+	      TNT1 A 0 A_SpawnItem("LimitRailCannon", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Cell",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	B06:
+	      TNT1 A 0 A_SpawnItem("LimitDispersionRocketLauncher", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("RocketAmmo",random(10,-10),random(10,-10),0,0,0,0,0,128)
+		  TNT1 A 0 A_SpawnItemEx("Fuel",random(10,-10),random(10,-10),0,0,0,0,0,128)
+		  Goto Spawn2
+	Spawn2:
+		  TNT1 A -1 A_ChangeFlag("THRUACTORS",false)
+		  Loop
+	}
+}
+
+//===========================================================================
+//===========================================================================
+
+Actor ZombiemanSpawner : RandomSpawner replaces Zombieman
+{
+   DropItem "ZSecPistol" 255 5
+   DropItem "ZSoldier"  255 5
+   DropItem "HSScientist" 255 5
+   DropItem "Monk" 255 5
+   DropItem "Homeless1" 255 5
+   DropItem "FistMarine" 255 5
+   DropItem "zrebel" 255 5
+   DropItem "WeakHellGuard" 255 5
+   DropItem "BloodSoldier" 255 5
+   DropItem "FSoldier" 255 5
+   DropItem "Q2Soldier1" 255 5
+   DropItem "Ailoprobe" 255 3
+   DropItem "magmaZombieMan" 255 2
+   DropItem "LiquidZombieMan" 255 2
+   DropItem "stoneZombieMan" 255 2
+   DropItem "Cobra" 255 2
+   DropItem "T93Reaper" 255 1
+}
+
+Actor SZombieManSpawner : ZombieManSpawner replaces StealthZombieMan
+{}
+
+//===========================================================================
+//===========================================================================
+
+Actor ShotgunguySpawner : RandomSpawner replaces ShotgunGuy
+{
+   DropItem "RapidFireTrooper" 255 5
+   DropItem "ZSecShotgun" 255 5
+   DropItem "ShotgunSoldier" 255 5
+   DropItem "Pigcop" 255 5
+   DropItem "BottleBum" 255 5
+   DropItem "MolotovBum" 255 5
+   DropItem "cyborg" 255 5
+   DropItem "Uberzombie" 255 5
+   DropItem "UndeadPriest" 255 5
+   DropItem "Q2Soldier2" 255 5
+   DropItem "RifleTroop" 255 5
+   DropItem "Parasite" 255 5
+   DropItem "KnightArcher" 255 5
+   DropItem "BiomechBipod" 255 4
+   DropItem "NightmareZombie" 255 3
+   DropItem "Bandor" 255 3
+   DropItem "stoneshotgunguy" 255 2
+   DropItem "MagmaShotgunguy" 255 2
+   DropItem "LiquidShotgunGuy" 255 2
+}
+
+Actor SShotgunGuySpawner : ShotgunGuySpawner replaces StealthShotgunGuy
+{}
+
+//===========================================================================
+//===========================================================================
+
+Actor ChaingunGuySpawner : RandomSpawner replaces ChaingunGuy
+{
+   DropItem "Enforcer" 255 5
+   DropItem "FanaticSpawner" 255 5
+   DropItem "PlasmaZombie" 255 5
+   DropItem "Q2Chaingunner" 255 5
+   DropItem "Q2Soldier3" 255 5
+   DropItem "EliteZombie" 255 5
+   DropItem "ZSecMachinegun" 255 5
+   DropItem "CyberSarge" 255 4
+   DropItem "MarineNoob" 255 4
+   DropItem "Trooper_M20" 255 4
+   DropItem "GoreRocketGuy" 255 3
+   DropItem "NightmareShotgunguy" 255 3
+   DropItem "UndeadCultist" 255 3
+   DropItem "MagmaChaingunguy" 255 2
+   DropItem "stonechaingunguy" 255 2
+   DropItem "LiquidChaingunguy" 255 2
+}
+
+Actor SChaingunGuySpawner  : ShotgunGuySpawner replaces StealthChaingunGuy
+{}
+
+Actor FanaticSpawner : RandomSpawner
+{
+	DropItem "Fanatic" 255 5
+	DropItem "BloodFanatic" 255 5 
+	DropItem "StingerFanatic" 255 5 
+	DropItem "RayFanatic" 255 4
+	DropItem "MagicFanatic" 255 3
+}
+
+//===========================================================================
+//===========================================================================
+
+Actor NaziSpawner : RandomSpawner replaces WolfensteinSS
+{
+	DropItem "zrebel" 255 5
+	DropItem "RedNazi" 255 5
+    DropItem "NeoNazi" 255 5
+	DropItem "SSCommando" 255 5
+    DropItem "SSSoldier" 255 5
+    DropItem "Moe" 255 3
+	DropItem "Tenaj" 255 2
+	DropItem "Bandor" 255 2
+    DropItem "SunMonk" 255 2
+	DropItem "FanaticSpawner" 255 2
+	DropItem "T93Reaper" 255 1
+    DropItem "ninjaimp" 255 1
+    DropItem "SubZero" 255 1
+}
+
+//===========================================================================
+//===========================================================================
+
+Actor ImpSpawner : RandomSpawner replaces DoomImp
+{
+   DropItem "BlackHorrorImp" 255 5
+   DropItem "PhaseImp" 255 5
+   DropItem "AssaultTrooper" 255 5
+   DropItem "TrickImp" 255 5
+   DropItem "SunMonk" 255 5
+   DropItem "Hellion" 255 5
+   DropItem "ArchMinion" 255 2
+   DropItem "StoneDoomImp" 255 2
+   DropItem "magmaDoomImp" 255 2
+   DropItem "WaterImp" 255 2
+   DropItem "NewMarineRailgun" 255 1
+}
+
+Actor SImpSpawner  : ImpSpawner replaces StealthDoomImp
+{}
+
+//===========================================================================
+//===========================================================================
+
+Actor DemonSpawner : RandomSpawner replaces Demon
+{
+   DropItem "GauntletDemon"
+   DropItem "CorpseWorm"
+   DropItem "StoneDemon"
+   DropItem "Dog"
+   DropItem "SlimeWorm"
+   DropItem "MiniEttin"
+   DropItem "FrozenDemon"
+   DropItem "FlameDemon"
+   DropItem "DarkSoul"
+   DropItem "ScorpionMinion"
+   DropItem "BaronDemon"
+   DropItem "BerserkMarine"
+   DropItem "Berserker"
+   DropItem "Tenaj"
+}
+
+Actor SDemonSpawner : DemonSpawner replaces StealthDemon
+{}
+
+//===========================================================================
+//===========================================================================
+
+Actor SpectreSpawner : RandomSpawner replaces Spectre
+{
+   DropItem "SpiritImp" 255 15
+   DropItem "DarkSoulGhost" 255 15
+   DropItem "ShadowMiniEttin" 255 15
+   DropItem "D3Wraith" 255 15
+   DropItem "StealthDog" 255 15
+   DropItem "BaronSpectre" 255 15
+   DropItem "StealthBerserker" 255 15
+   DropItem "StealthLavaDemon" 255 5
+}
+
+//===========================================================================
+//===========================================================================
+
+Actor LostSoulSpawner : RandomSpawner replaces LostSoul
+{
+   DropItem "D3ForgottenOne" 255 15
+   DropItem "VampireBatNesting" 255 15
+   DropItem "DragonFamiliar" 255 15
+   DropItem "Flyer" 255 15
+   DropItem "BetaSoul" 255 15
+   DropItem "OutcastStalker" 256 12
+   DropItem "Metroidclone" 255 5
+   DropItem "DarkFenix" 255 5
+}
+
+//===========================================================================
+//===========================================================================
+
+Actor CacodemonSpawner : RandomSpawner replaces Cacodemon
+{
+   DropItem "Octabrain" 255 15
+   DropItem "Hover" 255 15
+   DropItem "SkyOvum" 255 15
+   DropItem "D3Cacodemon" 255 15
+   DropItem "Disciple" 255 9
+   DropItem "Wicked" 255 9
+   DropItem "Newbishop" 255 9
+   DropItem "GreaterCacodemon" 255 5
+}
+
+Actor SCacodemonSpawner : CacodemonSpawner replaces StealthCacodemon
+{}
+
+Actor PainElementalSpawner : RandomSpawner replaces PainElemental
+{
+	DropItem "Defiler" 255 15
+	DropItem "Inferno" 255 15
+	DropItem "BombElemental" 255 15
+	DropItem "PatronWizard" 255 15
+	DropItem "DeathElemental" 255 15
+	DropItem "dreadcaco" 255 10
+    DropItem "NightmareCacodemon" 255 8
+	DropItem "FireElemental" 255 8
+}
+
+//===========================================================================
+//===========================================================================
+
+Actor HellKnightSpawner : RandomSpawner replaces HellKnight
+{
+   DropItem "MagicImp"
+   DropItem "OldHellWarrior"
+   DropItem "CursedMummy"
+   DropItem "FWarrior"
+   DropItem "Q2Mutant"   
+   DropItem "EXMonk"
+   DropItem "D3HellKnight"
+   DropItem "Nemesis"
+   DropItem "HellSquire" 
+   DropItem "ApocZombie"
+}
+
+Actor SHellKnightSpawner : HellKnightSpawner replaces StealthHellKnight
+{}
+
+//===========================================================================
+//===========================================================================
+
+Actor BaronOfHellSpawner : RandomSpawner replaces BaronOfHell
+{
+   DropItem "Chex" 255 15
+   DropItem "SpiritMaster" 255 15
+   DropItem "ObsidianStatue" 255 15
+   DropItem "SuperBaron" 255 15
+   DropItem "IronMaiden" 255 15
+   DropItem "AcidDemon" 255 15
+   DropItem "SurrealKnight" 255 10
+   DropItem "Q2Brains" 255 10
+   DropItem "MegaMarine" 255 5
+   DropItem "TRNemesis" 255 5
+} 
+
+Actor SBaronOfHellSpawner : BaronOfHellSpawner replaces StealthBaron
+{}
+
+//===========================================================================
+//===========================================================================
+
+Actor RevenantSpawner : RandomSpawner replaces Revenant
+{
+   DropItem "Malevos" 256 12
+   DropItem "DeathKnight" 256 12
+   DropItem "Gunner" 256 12
+   DropItem "CorruptFBIAgent" 256 8
+   DropItem "BipodStalker" 8
+   DropItem "Desolet" 256 8
+   DropItem "Boxer" 256 6
+   DropItem "Archer" 256 6
+   DropItem "NightmareImp" 255 5
+}
+
+Actor SRevenantSpawner : RevenantSpawner replaces StealthRevenant
+{}
+
+//===========================================================================
+//===========================================================================
+
+ACTOR ArchVileSpawner : RandomSpawner replaces Archvile
+{
+	DropItem "AOEMonk" 256 12
+	DropItem "Skyvile" 256 12
+    DropItem "Q2Medic" 255 12
+	DropItem "FireArchvile" 255 10
+	DropItem "Trickvile" 256 7
+    DropItem "Terminator" 255 7
+	DropItem "shadowImp" 256 5
+	DropItem "Icevile" 256 4
+    DropItem "Earthvile" 255 4
+	spawnid 111
+}
+
+Actor SArchVileSpawner : ArchVileSpawner replaces StealthArchvile
+{}
+
+//===========================================================================
+//===========================================================================
+
+Actor MancubusSpawner : RandomSpawner replaces Fatso
+{
+	DropItem "1337Ettin" 255
+	DropItem "SuperIceGuy" 255
+    DropItem "Magicubus" 225
+    DropItem "Predador" 255
+	DropItem "Baatezu" 255
+	DropItem "Fatcubus" 255
+    DropItem "stonefatso" 255
+	DropItem "Tank" 255
+	DropItem "AirElemental" 255
+	DropItem "CrystalElemental" 255
+	//DropItem "AdolfHitler" 255
+	//DropItem "RailgunNazi" 255
+}
+
+
+Actor SMancubusSpawner  : MancubusSpawner replaces StealthFatso
+{}
+
+//===========================================================================
+//===========================================================================
+
+Actor ArachnotronSpawner : RandomSpawner replaces Arachnotron
+{
+	DropItem "Lightmech" 255 10
+	DropItem "Sentrydrone" 255 10
+	DropItem "DalekSpawner" 255 10
+	DropItem "GScorpionMinion" 255 8
+	DropItem "Gladiator" 255 8
+	DropItem "SuperD3Trite" 255 5
+    DropItem "RailgunnerEX" 225 5
+	DropItem "MiniBattlelord" 255 5
+	DropItem "Hunker" 255 5
+}
+
+Actor DalekSpawner : RandomSpawner
+{
+	DropItem "Dalek1" 255
+	DropItem "Dalek2" 255
+	DropItem "Dalek3" 255
+	DropItem "Dalek4" 255
+	DropItem "Dalek5" 255
+}
+
+Actor SArachnotronSpawner : ArachnotronSpawner replaces StealthArachnotron
+{}
+
+//===========================================================================
+//===========================================================================
+
+Actor SpiderMastermindSpawner : RandomSpawner replaces SpiderMastermind
+{		
+	DropItem "CrackoDemon"	
+	DropItem "Battlelord"	
+	DropItem "ww2tank"
+	DropItem "InsanitySpider"
+	DropItem "EvilDoomguy"
+	DropItem "LSCDoom3Bruiser"
+	DropItem "HoverBoss"
+	DropItem "TankBoss"
+	DropItem "DarknessRift"
+	DropItem "Overlord"
+	DropItem "UltimateImp"
+	DropItem "Balor"
+	DropItem "ReverendMother"
+}
+
+//===========================================================================
+//===========================================================================
+
+ACTOR CyberdemonSpawner : RandomSpawner replaces Cyberdemon
+{
+	DropItem "LSCD3Cyberdemon" 255 20
+	DropItem "SourceGuardian" 255 20
+	DropItem "MakronPet" 255 15
+	DropItem "Titan" 255 15
+	DropItem "DiamondGolem" 255 15
+	DropItem "HellWizard" 255 15
+	DropItem "DemonMonk" 255 15
+	DropItem "NightmareBaron" 255 15
+	DropItem "MotherDemon" 255 10
+	DropItem "LichKing" 255 10
+	DropItem "Desolator" 255 10
+	DropItem "Burns" 255 6
+	DropItem "Thiny93" 255 3
+	DropItem "RareImp" 255 3
+}

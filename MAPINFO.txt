@@ -1,0 +1,115 @@
+//Skills by master matheus
+clearskills
+
+skill Easy
+{
+	Name = "Easy"
+	SpawnFilter = "Easy"
+	Textcolor = "Blue"
+	EasyBossBrain
+	DamageFactor = 0.5
+    aggressiveness = 0.0
+    ammofactor = 2
+    doubleammofactor = 3.0
+	MustConfirm = "Easy Spawn, double ammo, half damage."
+	Key = "i"
+	autousehealth
+}
+
+skill Normal
+{
+	Name = "Normal"
+	SpawnFilter = "Normal"
+	Textcolor = Green
+	EasyBossBrain
+	DamageFactor = 1.0
+    aggressiveness = 0.0
+    ammofactor = 1.0
+    doubleammofactor = 2.0
+	DefaultSkill
+	MustConfirm = "Normal Spawn, normal ammo and damage."
+	Key = "n"
+	autousehealth
+}
+	
+skill Hard
+{
+	Name = "Hard"
+	Textcolor = "Yellow"
+	SpawnFilter = "Hard"
+	DamageFactor = 1.0
+    aggressiveness = 0.3
+    ammofactor = 1.0
+    doubleammofactor = 2.0
+	MustConfirm = "Hard Spawn, normal ammo and damage."
+	Key = "h"	
+	autousehealth
+}
+
+skill VeryHard
+{
+	Name = "Very Hard"
+	Textcolor = "orange"
+	SpawnFilter = "Hard"
+	DamageFactor = 1.5
+	aggressiveness = 0.5
+	ammofactor = 1.0
+    doubleammofactor = 1.5
+	MustConfirm = "Hard Spawn, normal ammo and 1.5 damage. Portable Packs do not save you automatically."
+	Key = "u"
+}
+
+skill Chaos
+{
+	Name = "Chaos"
+	Textcolor = "red"
+	AmmoFactor = 1.3
+	FastMonsters
+	DisableCheats
+	TotalInfighting
+	aggressiveness = 1.0
+	SpawnFilter = "Hard"
+	DamageFactor = 1.5
+	doubleammofactor = 1.0
+	MustConfirm = "Hard Spawn, more ammo, 1.5 damage, aggressive monsters, no portable packs autouses. No cheats!"
+	autousehealth
+}
+
+skill HeavenOrHell
+{
+	Name = "Doomguy must die"
+    monsterhealth  = 0.001
+	Textcolor = Brown
+	DamageFactor = 255
+	SpawnFilter = "Normal"
+	aggressiveness = 0.1
+	ammofactor = 3.0
+	MustConfirm = "Instagib Mode. No portable packs autouses."
+}
+
+skill Elite
+{
+	Name = "Elite"
+	Textcolor = White
+	DamageFactor = 0.5
+	FastMonsters
+	DisableCheats
+	SpawnFilter = "Hard"
+	aggressiveness = 1.0
+	MustConfirm = "Fast Monsters, but less damage. No cheats! No portable packs autouses."
+}
+
+skill hellish
+{
+	Name = "Onslaught"
+	Textcolor = "Black"
+	FastMonsters
+	DisableCheats
+	SpawnFilter = "Hard"
+	aggressiveness = 1.0
+	ReplaceActor = "HellKnight", "BaronOfHell"
+	ReplaceActor = "ZombieMan", "ShotgunGuy"
+	ReplaceActor = "ShotgunGuy", "ChaingunGuy"
+	ReplaceActor = "Demon", "Spectre"
+	MustConfirm = "Weaker monsters got replaced by stronger and agressive ones. No cheats! No portable packs autouses."
+}

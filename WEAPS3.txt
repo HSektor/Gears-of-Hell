@@ -1,0 +1,1969 @@
+//From LSC_Weapons Pack, sounds from WEAPS16 (99Weaps by daniel)
+//DELETED
+ACTOR RevolverOLD : GoHWeapon
+{
+Weapon.SelectionOrder 3000
+Weapon.Ammotype "RifleShells"
+Weapon.Ammouse 1
+Weapon.Ammogive 0
+Attacksound "RVLVFIR"
+scale 0.5
+inventory.pickupsound "weapons/getweapon02"
+Inventory.Pickupmessage "You got the Revolver!"
+Obituary "%o was blasted by a Revolver"
+States
+{
+Spawn:
+HGUN C 1
+Loop
+User1: 
+TNT1 A 0 A_SpawnItemEx("LimitRevolver", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER)
+TNT1 A 0 A_TakeInventory("Token",1)
+TNT1 A 0 A_TakeInventory("Revolver",1)
+stop
+Ready:
+RVLV A 1 A_WeaponReady(WRF_ALLOWUSER1)
+LOOP
+Deselect:
+RVLV A 1 A_Lower
+NULL AA 0 A_Lower
+Goto Deselect
+Select:
+RVLV A 1 A_Raise
+NULL AA 0 A_Raise
+Goto Select
+Fire:
+TNT1 A 0 A_JumpIfNoAmmo("Deselect")
+RVLV B 0 A_TakeInventory("RifleShells",1)
+RVLV B 2 Bright A_FireBullets (0,0,1,55,"Puff2",0)
+RVLV B 0 A_FireProjectile("762MMCasingSpawner", 3, 0, 1, 3)
+RVLV CDD 4 ACS_Execute(287,0,30,0,0)
+RVLV CAA 4 ACS_Execute(287,0,-30,0,0)
+Goto Ready
+}
+}
+
+//From LSC_Weapons Pack
+Actor DarkMatterGun : GoHWeapon
+{
+  radius 20
+  height 20
+  inventory.pickupmessage "you got the Dark Matter Gun!!!!!"
+  inventory.pickupsound "weaponpickup"
+  weapon.selectionorder 2502
+  weapon.kickback 100
+  weapon.ammotype "cell"
+  weapon.ammotype2 "cell"
+  weapon.ammouse 50
+  weapon.ammouse2 100
+  weapon.ammogive 0
+  +WEAPON.NOAUTOFIRE
+  +WEAPON.BFG
+  +FLOATBOB
+  states
+  {
+  Ready:
+    DMGG A 1 A_WeaponReady(WRF_ALLOWUSER1)
+    loop
+  User1: 
+	TNT1 A 0 A_SpawnItemEx("LimitDarkMatterGun", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER)
+	TNT1 A 0 A_TakeInventory("Token",1)
+	TNT1 A 0 A_TakeInventory("DarkMatterGun",1)
+	stop
+  Deselect:
+    DMGG A 1 A_Lower
+	NULL AA 0 A_LOWER
+    loop
+  Select:
+    DMGG A 1 A_Raise
+	NULL AA 0 A_RAISE
+    loop
+  Fire:
+    TNT1 A 0 A_JumpIfNoAmmo("Deselect")
+    DMGG A 20 A_PlayWeaponSound("Weapons/DMGHum")
+    DMGG E 5
+    DMGG D 0 radius_quake(2, 2, 0, 1, 0)
+	TNT1 A 0 A_SetBlend("blue",0.5,25)
+    DMGG D 0 A_PlaySoundEx("Weapons/DMGFire", "SoundSlot7", 0)
+	NULL A 0 ACS_Execute(287,0,16,0,0)
+    DMGG G 5 A_FireProjectile ("DMGBall", 0, 1, 7)
+	NULL A 0 ACS_Execute(287,0,16,0,0)
+    DMGG H 5 A_PlayWeaponSound ("Weapons/DMGCharge")
+	DMGG I 3 ACS_Execute(287,0,16,0,0)
+	DMGG H 3 ACS_Execute(287,0,16,0,0)
+	DMGG G 3 ACS_Execute(287,0,16,0,0)
+	DMGG E 3 ACS_Execute(287,0,16,0,0)
+    DMGG JKLMNOPQ 5 ACS_Execute(287,0,-7,0,0)
+	DMGG R 40
+	DMGG P 5
+	DMGG O 5
+	DMGG N 5
+	DMGG M 5
+	DMGG L 5
+	DMGG K 5
+	DMGG J 5
+    DMGG A 10 A_Refire
+    goto Ready
+  AltFire:
+    TNT1 A 0 A_JumpIfNoAmmo("Deselect")
+	DMGG A 20 A_PlayWeaponSound("Weapons/DMGHum")
+    DMGG E 5
+	TNT1 A 0 A_SetBlend("purple",0.5,25)
+    DMGG D 0 radius_quake(2, 2, 0, 1, 0)
+    DMGG D 0 A_PlaySoundEx("Weapons/DMGFire", "SoundSlot7", 0)
+	NULL A 0 ACS_Execute(287,0,16,0,0)
+    DMGG G 5 A_FireProjectile ("HYPERball", 0, 1, 7)
+    NULL A 0 ACS_Execute(287,0,16,0,0)
+    DMGG H 5 A_PlayWeaponSound ("Weapons/DMGCharge")
+	DMGG I 3 ACS_Execute(287,0,16,0,0)
+	DMGG H 3 ACS_Execute(287,0,16,0,0)
+	DMGG G 3 ACS_Execute(287,0,16,0,0)
+	DMGG E 3 ACS_Execute(287,0,16,0,0)
+    DMGG JKLMNOPQ 5 ACS_Execute(287,0,-7,0,0)
+	DMGG R 40
+	DMGG P 5
+	DMGG O 5
+	DMGG N 5
+	DMGG M 5
+	DMGG L 5
+	DMGG K 5
+	DMGG J 5
+    DMGG A 10 A_Refire
+	goto Ready
+  Spawn:
+    DMGP A -1
+    stop
+  }
+}
+
+Actor DMGBall
+{
+  obituary "%o was squished to an infinitely small size by %k's dark matter gun."
+  radius 13
+  height 36
+  speed 10
+  damage (30)
+  renderstyle Add
+  alpha 0.9
+  deathsound "Weapons/DMGHit"
+  PROJECTILE
+  +RANDOMIZE
+  +RIPPER
+  +DONTREFLECT
+  +BLOODLESSIMPACT
+  -BLOODSPLATTER
+  states
+  {
+  Spawn:
+    DMGB ABC 3 bright
+    loop
+  Death:
+    DMGE E 2 bright A_Explode(500,192,1)
+    DMGE D 2 bright
+    DMGE D 0 bright radius_quake(30,30,0,30,0)
+    DMGE CB 2 bright 
+	DMGE A 6 bright A_SpawnItem("LBFG10KShot",0,0,0,0)
+    DMGE BCDEF 2 bright A_SpawnItem("PortalvaperSpawner1",0,0,0,0)
+    stop
+  }
+}
+
+Actor HYPERball
+{
+  obituary "%o was squished to an infinitely small size by %k's dark matter gun."
+  radius 13
+  height 36
+  speed 10
+  damage 5000
+  renderstyle Translucent
+  alpha 0.5
+  deathsound "Weapons/DMGHit"
+  PROJECTILE
+  +RANDOMIZE
+  +DONTREFLECT
+  +BLOODLESSIMPACT
+  -BLOODSPLATTER
+  translation "192:207=168:191","208:223=192:199","48:79=80:111","16:47=80:111","80:111=168:191","128:151=176:183","9:12=108:111","232:239=104:111"
+  states
+  {
+  Spawn:
+    DMGB ABC 3 bright
+    loop
+  Death:
+    DMGE E 2 bright A_Explode(500,192,1)
+    DMGE D 2 bright
+    DMGE D 0 bright radius_quake(30,30,0,30,0)
+    DMGE CB 2 bright 
+    DMGE A 6 bright 
+	DMGE A 6 bright A_SpawnItem("SuperShot",0,0,0,0)
+    DMGE BC 2 bright A_SpawnItem("PortalvaperSpawner2",0,0,0,0)
+	 DMGE DEF 2 bright A_SpawnItem("PortalvaperSpawner2",0,0,0,0)
+    stop
+  }
+}
+ACTOR Portalvaper1
+{
+renderstyle add
+Alpha 0.5
+PROJECTILE
+Damage 0
++DOOMBOUNCE
++RIPPER
+Translation "80:127=192:207"
+Speed 10
+Radius 6
+Height 5
+States
+{
+Spawn:
+PUF2 MNOPQRSTUVWXYZ 1
+PUF3 ABC 1
+Stop
+}
+}
+
+ACTOR Portalvaperspawner1
+{
++NOCLIP
+Radius 3
+Height 3
+Damage 1
+- SOLID
++NOBLOCKMAP
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 AAAAAAAA 0 A_CustomMissile("Portalvaper1", 0, 0, random(0,360), 2, random(-90,90))
+TNT1 A 1
+Stop
+}
+}
+
+ACTOR Portalvaper2 : Portalvaper1
+{
+translation "192:207=168:191","208:223=192:199","48:79=80:111","16:47=80:111","80:111=168:191","128:151=176:183","9:12=108:111","232:239=104:111"
+}
+
+ACTOR Portalvaperspawner2 : Portalvaperspawner1
+{
+States
+{
+Spawn:
+TNT1 A 0
+TNT1 AAAAAA 0 A_CustomMissile("Portalvaper2", 0, 0, random(0,360), 2, random(-90,90))
+TNT1 A 1
+Stop
+  }
+}
+
+ACTOR LBFG10KShot
+{
+    Radius 12
+    Height 12
+    Speed 10
+    Damage 120
+    RenderStyle Add
+    Alpha 0.8
+    PROJECTILE
+	translation "80:127=192:207"
+    Obituary "%o was melted by the Makron's BFG10K shot."
+    DeathSound "q2weapon/bfgballexplo"
+    States
+    {
+    Spawn:
+     BFS1 AAAAA 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     BFS1 BBBBB 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+    Death:
+        BFE1 A 1 Bright A_Explode(256,64,1)
+        BFE1 BC 4 Bright
+        BFE1 D 4 Bright A_BFGSpray
+        BFE1 EF 4 Bright
+	NULL A 0 A_SpawnItem("Portalvaperspawner1")
+        Stop
+    }
+}
+ACTOR SuperShot
+{
+    Radius 12
+    Height 12
+    Speed 10
+    Damage 120
+    RenderStyle Add
+    Alpha 0.8
+    PROJECTILE
+	translation "80:127=192:207"
+    Obituary "%o was melted by the Makron's BFG10K shot."
+    DeathSound "q2weapon/bfgballexplo"
+    States
+    {
+    Spawn:
+     BFS1 AAAAA 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     BFS1 BBBBB 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+		NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner1",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+     NULL A 0 A_CustomMissile("BFGAlpha2M2",0,0,0)
+        BFS1 B 1 Bright A_CustomMissile("Portalvaperspawner2",0+random(10,-10),0+random(10,-10),0+random(22,-22),0)
+    Death:
+        BFE1 A 1 Bright A_Explode(256,64,1)
+	  NULL AAAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("BFG10Extra2",0,0,10,random(-3,3),random(-3,3),random(-3,3),random(1,360))
+	  NULL AAAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("BFG10Extra2",0,0,10,random(-3,3),random(-3,3),random(-3,3),random(1,360))
+	  NULL AAAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("BFG10Extra2",0,0,10,random(-3,3),random(-3,3),random(-3,3),random(1,360))
+	  NULL AAAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("BFG10Extra2",0,0,10,random(-3,3),random(-3,3),random(-3,3),random(1,360))
+	  NULL AAAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("BFG10Extra1",0,0,10,random(-3,3),random(-3,3),random(-3,3),random(1,360))
+	  NULL AAAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("BFG10Extra1",0,0,10,random(-3,3),random(-3,3),random(-3,3),random(1,360))
+	  NULL AAAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("BFG10Extra1",0,0,10,random(-3,3),random(-3,3),random(-3,3),random(1,360))
+	  NULL AAAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("BFG10Extra1",0,0,10,random(-3,3),random(-3,3),random(-3,3),random(1,360))
+        BFE1 BC 4 Bright
+        BFE1 D 4 Bright A_BFGSpray
+        BFE1 EF 4 Bright
+	NULL A 0 A_SpawnItem("Portalvaperspawner1")
+        Stop
+    }
+}
+
+ACTOR BFG10KTrailA : PlasmaBall
+{ 
+    Alpha 0.25
+    Damage 0
+    Scale 0.4
+    Speed 1
+    + NOCLIP
+	translation "80:127=192:207"
+    SeeSound ""
+    DeathSound ""
+    States
+    {
+    Spawn:
+      BFS1 A 12 BRIGHT
+	BFS1 A 1 Bright A_FadeOut
+      Wait
+    }
+}
+
+ACTOR BFGAlpha2M
+{
+    Radius 6
+    Height 8
+    Speed 1
+    Damage 0
+    +RIPPER
+    +DOOMBOUNCE
+	Translation "80:127=192:207"
+    Scale 1
+    PROJECTILE
+    RENDERSTYLE ADD
+    ALPHA 0.6
+    States
+    {
+    Spawn:
+       NULL A 0 Bright
+       NULL A 1 Bright A_SpawnItem("BFGTurn2M",1,0,0)
+       Stop
+    }
+}
+ACTOR BFGAlpha2M2
+{
+    Radius 6
+    Height 8
+    Speed 1
+    Damage 0
+    +RIPPER
+    +DOOMBOUNCE
+	Translation "80:127=192:207"
+    Scale 1
+    PROJECTILE
+    RENDERSTYLE ADD
+    ALPHA 0.6
+    States
+    {
+    Spawn:
+       NULL A 0 Bright
+       NULL A 1 Bright A_SpawnItem("BFGTurn2M2",1,0,0)
+       Stop
+    }
+}
+
+Actor BFG10Extra2
+{
+	Projectile
+	Damage 0
+	+RIPPER
+	+BLOODLESSIMPACT
+	Speed 0
+	Radius 1
+	Height 1
+	Scale 0.3
+	RenderStyle Add
+	Translation "80:127=192:207"
+	States
+	{
+	Spawn:
+		PUF2 AAA 1 Bright
+		NULL A 0 A_Jump(160,1)
+		Loop
+		PUF2 AAA 1 Bright
+		PUF2 A 1 Bright A_FadeOut
+		Wait
+	Death:
+		NULL A 1
+		Stop
+	}
+}
+
+Actor BFG10Extra1
+{
+	Projectile
+	Damage 0
+	+RIPPER
+	+BLOODLESSIMPACT
+	Speed 0
+	Radius 1
+	Height 1
+	Scale 0.2
+	RenderStyle Add
+	Translation "80:127=192:207"
+	States
+	{
+	Spawn:
+		PUF2 AA 1 Bright
+		NULL A 0 A_Jump(165,1)
+		Loop
+		PUF2 AA 1 Bright
+		PUF2 A 1 Bright A_FadeOut
+		Wait
+	Death:
+		NULL A 1
+		Stop
+	}
+}
+
+ACTOR BFGTurn2M
+{ 
+    +FRIENDLY
+    MONSTER
+    Radius 1
+    Height 1
+    Speed 0
+    +NOGRAVITY
+    +NOCLIP
+    +LOOKALLAROUND
+    +MISSILEMORE
+    +MISSILEEVENMORE
+   -SOLID
+   -SHOOTABLE
+  Translation "80:127=192:207"
+    MinMissileChance 0
+    RenderStyle None
+    ReactionTime 25
+    Obituary "%o was melted by the Makron's BFG10K shot."
+    States
+    {
+    Spawn:
+   NULL A 0 A_CountDown
+       PLAY A 1 A_Look
+//    loop
+    See:
+       PLAY A 0 A_Chase
+    Missile:
+       PLAY A 0 A_FaceTarget
+       PLAY A 0 A_CustomRailgun(random(10,15),0,none,"FF FF FF",1,10,3)
+   Stop
+    }
+}
+ACTOR BFGTurn2M2
+{ 
+    +FRIENDLY
+    MONSTER
+    Radius 1
+    Height 1
+    Speed 0
+    +NOGRAVITY
+    +NOCLIP
+    +LOOKALLAROUND
+    +MISSILEMORE
+    +MISSILEEVENMORE
+   -SOLID
+   -SHOOTABLE
+  Translation "80:127=192:207"
+    MinMissileChance 0
+    RenderStyle None
+    ReactionTime 25
+    Obituary "%o was melted by the Makron's BFG10K shot."
+    States
+    {
+    Spawn:
+   NULL A 0 A_CountDown
+       PLAY A 1 A_Look
+//    loop
+    See:
+       PLAY A 0 A_Chase
+    Missile:
+       PLAY A 0 A_FaceTarget
+       PLAY A 0 A_CustomRailgun(random(10,15),0,none,"FF FF FF",1,10,3)
+	   PLAY A 0 A_CustomRailgun(random(10,15),0,none,"FF FF FF",1,10,3)
+	   PLAY A 0 A_CustomRailgun(random(10,15),0,none,"FF FF FF",1,10,3)
+	   stop
+    }
+}
+
+ACTOR PowerStaff : GoHWeapon //Code by me, Sprites by lolo_is_cool
+{
+Weapon.SelectionOrder 3000
+Weapon.Ammotype1 "Mana"
+Weapon.Ammouse1 20
+Weapon.Ammotype2 "Mana"
+Weapon.Ammouse2 30
+Weapon.Ammogive1 0
+Attacksound "ASSFIR"
++DONTBOB
++NOAUTOFIRE
++CHEATNOTWEAPON
+Obituary "%o was stomped"
+scale 0.5
+inventory.pickupsound "T93ACT"
+Inventory.Pickupmessage "You got the PowerStaff!!!!"
+States
+{
+Spawn:
+POST A -1
+stop
+Select:
+STUP A 1 A_Raise
+NULL AAAAAA 0 A_RAISE
+Loop
+Ready:
+STUP A 0 A_PlaySound("BSTRDY")
+STUP ABCDEFGHIJK 2
+STFF ABCDEFG 2
+Ready2:
+STFF H 1 A_WeaponReady(WRF_ALLOWUSER1)
+loop
+User1: 
+TNT1 A 0 A_SpawnItemEx("LimitPowerStaff", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER)
+TNT1 A 0 A_TakeInventory("Token",1)
+TNT1 A 0 A_TakeInventory("PowerStaff",1)
+stop
+Deselect:
+STFF GFEDCBA 1
+STUP KJIHGFEDCBA 1
+NULL AA 0 A_Lower
+Goto Deselect+18
+Fire:
+STFF I 4
+STFF JK 2 BRIGHT
+NULL A 0 A_PlaySound("BASTSMP")
+NULL A 0 A_GunFlash
+TNT1 A 0 A_SetBlend("white",1.0,35)
+STFF LMLMLMLMLMLMLMLMLMLMLMLMLMLMLM 1
+STFF LKJI 2
+Goto Ready2
+AltFire:
+STFF I 4
+STFF JK 2 BRIGHT
+NULL A 0 A_PlaySound("BASTSMP")
+TNT1 A 0 A_SetBlend("white",1.0,35)
+UNKF C 0 Bright A_FireProjectile("T93ghostSpawner2", 0, 1, 0, 0)
+STFF LMLMLMLMLMLMLM 1
+STFF LKJI 2
+Goto Ready2
+Flash:
+UNKF C 0 Bright A_FireProjectile("T93Blader", 0, 1, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", 10, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", 20, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", 30, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", 40, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", 50, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", 60, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", 70, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", 80, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", 90, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", 100, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", 110, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", 120, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", 130, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", 140, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", 150, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", 160, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", 170, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", 180, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", -10, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", -20, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", -30, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", -40, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", -50, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", -60, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", -70, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", -80, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", -90, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", -100, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", -110, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", -120, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", -130, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", -140, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", -150, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", -160, 0, 0, 0)
+UNKF C 0 Bright A_FireProjectile("T93Blader", -170, 0, 0, 0)
+NULL AAAAAA 1 A_Light1
+Stop
+}
+}
+
+actor PKShotgun : GoHWeapon //By lolo_is_cool and bagheadspidey
+{
+    scale .4
+    inventory.pickupsound "weapons/PKshotgun/pickup"
+    inventory.pickupmessage "You picked up a shotgun!"
+    weapon.ammotype1 "Shell"
+    weapon.ammotype2 "Mana"
+    weapon.ammogive1 0
+    weapon.ammouse1 1
+    weapon.ammogive2 0
+    weapon.ammouse2 1
+    weapon.upsound "weapons/PKshotgun/up"
+    decal BulletMark
+    +FLOATBOB
+    weapon.kickback 1500
+    states
+	{
+	spawn:
+		SHOZ ABCDEFGH 4
+		loop
+	select:
+		// PKSH B 1  offset(-158,-34) A_raise  
+		PKSH A 1 A_raise
+		NULL AA 0 A_RAISE
+		loop
+	deselect:
+		PKSH A 1  A_lower
+		NULL AA 0 A_lower
+		loop
+	ready:
+		PKSH A 1 A_WeaponReady(WRF_ALLOWUSER1)
+		loop
+	User1: 
+		TNT1 A 0 A_SpawnItemEx("LimitPKShotgun", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER)
+		TNT1 A 0 A_TakeInventory("Token",1)
+		TNT1 A 0 A_TakeInventory("PKShotgun",1)
+		stop
+	fire:
+        TNT1 A 0 A_JumpIfNoAmmo("Deselect")
+		TNT1 A 0 A_PlayWeaponsound("weapons/PKshotgun/fire")
+		TNT1 A 0 A_FireProjectile("SmokeSpawner",0,0,8,4)
+		TNT1 A 0 A_FireProjectile("SmokeSpawner",0,0,11,4)
+		PKSF A 2 bright A_firebullets(2,1.5,10,random(2,4),"Puff2")
+		PKSF A 1 ACS_Execute(287,0,60,0,0)
+		TNT1 A 0 A_Recoil(1.4)
+		PKSF BC 2 bright ACS_Execute(287,0,-30,0,0)
+		PKSH B 3  offset(-189,-76)
+		PKSH B 3  offset(-219,-75)
+		PKSH B 2  offset(-239,-78)
+		PKSH B 2  offset(-251,-101)
+		PKSH B 2  offset(-241,-105)
+		PKSH B 2  offset(-226,-121)
+		PKSH B 1  offset(-200,-111)
+		PKSH B 1  offset(-183,-105)
+		PKSH B 1  offset(-156,-97)
+		KKSH B 1  offset(-56,-37)
+		PKSH B 1  offset(-33,-15)
+		PKSH B 1  offset(-10,-1)
+		PKSH A 0
+		goto ready
+    AltFire:
+        TNT1 A 0 A_JumpIfNoAmmo("Deselect")
+		NULL A 0 A_PlaySound("weapons/PKshotgun/freezer")
+		NULL A 0 A_GunFlash
+		NULL A 0 A_FireProjectile("FreezerShot",0,0,3,2)
+		NULL A 0 A_FireProjectile("FreezerShot",0,1,5,2)
+		PKF2 A 1
+		PKF2 STUUTS 1
+		PKF2 A 15
+		PKF2 BCDEFGHIJKLMNOPQR 1
+		goto ready
+	 }
+}
+
+ACTOR FreezerShot
+{
+   Radius 4
+   Height 5
+   Speed 25
+   Damage 6
+   PROJECTILE
+   RENDERSTYLE ADD
+   ALPHA 1.0
+   ExplosionDamage 80
+   ExplosionRadius 20
+   DeathSound "weapons/crbreak"   
+   States
+   {
+   Spawn:
+      CRYS A 2 Bright A_CustomMissile("FreezerTrail",0,0,0)
+      Loop
+   Death:
+      CRYE A 3 Bright A_Explode
+      CRYE BC 3 Bright
+      CRYE DEF 2 Bright
+      Stop
+   }
+}
+
+ACTOR FreezerTrail
+{
+   PROJECTILE
+   RenderStyle Add
+   Alpha 0.75
+   States
+   {
+   Spawn:
+      CRYE BCDEF 2 BRIGHT
+	  stop
+   }
+}
+
+actor BrokenShotgun : PKShotgun
+{
+states
+	{
+	select:
+		PKSH B 1  offset(-158,-34) A_raise  
+		// PKSH A 1 A_raise
+		loop
+	}
+}
+
+Actor SmokeSpawner
+{
+    Radius 1
+    Height 1
+    Speed 20
+    PROJECTILE
+    +NOCLIP
+    States
+    {
+    Spawn:
+        TNT1 A 1
+        Goto Death
+    Death:
+        TNT1 A 0 A_CustomMissile("PkShotSmoke",0,0)
+        Stop
+    }
+}
+actor PkShotSmoke
+{
+   Radius 1
+   Height 1
+   PROJECTILE
+   +NOCLIP
+   Speed 0
+   RENDERSTYLE TRANSLUCENT
+   ALPHA 0.3
+   scale 0.4
+   States
+   {
+   Spawn:
+      PUF2 ABCDEFGHIJKLMNOPQRSTUVWXYZ 1 bright A_FadeOut(0.01) 
+	  PUF3 ABC 1 bright A_FadeOut(0.01) 
+      Stop
+   Death:
+      TNT1 A 0
+      Stop
+   }
+}
+
+actor AlienCannon : GoHWeapon //By Lolo_is_cool
+{
+  obituary "%o was blasted by %k's Alien  Cannon."
+  radius 20
+  height 16
+  scale 0.5
+  inventory.pickupsound "weapons/getweapon11"
+  inventory.pickupmessage "You got the Alien Cannon!"
+  weapon.ammotype "cell"
+  weapon.ammotype2 "Cell"
+  weapon.ammouse 2
+  weapon.ammogive 0
+  weapon.ammouse2 5
+  weapon.ammogive2 0
+  states
+  {
+  Ready:
+    RRAC A 1 A_WeaponReady(WRF_ALLOWUSER1)
+    loop
+  User1: 
+	TNT1 A 0 A_SpawnItemEx("LimitAlienCannon", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER)
+	TNT1 A 0 A_TakeInventory("Token",1)
+	TNT1 A 0 A_TakeInventory("AlienCannon",1)
+	stop
+  Deselect:
+    RRAC A 1 A_Lower
+	NULL AA 0 A_Lower
+    loop
+  Select:
+    RRAC A 1 A_Raise
+	NULL AA 0 A_RAISE
+    loop
+  Fire:
+    TNT1 A 0 A_JumpIfNoAmmo("Deselect")
+    RRAC B 6
+	Hold:
+	NULL A 0 A_PlayWeaponSound("DSAHACA")
+	NULL A 0 A_SetBlend("Blue",0.5,10)
+    RRAC C 1 Bright A_FireProjectile("RailShot2",0,1,9)
+    RRAC D 2 Bright ACS_Execute(287,0,random(-15,15),0,0)
+	RRAC A 0 A_ReFire
+	RRAC EEDCBA 1 ACS_Execute(287,0,-5,0,0)
+	goto Ready
+  AltFire:
+    TNT1 A 0 A_JumpIfNoAmmo("Deselect")
+    RRAC AB 3
+	NULL A 0 A_PlayWeaponSound("DSAHACA")
+	NULL A 0 A_SetBlend("Blue",0.7,30)
+	NULL A 0 A_FireProjectile("RailShot2",0,0,3,2)
+	NULL A 0 A_FireProjectile("RailShot2",0,1,5,2)
+	TNT1 A 0 A_FireProjectile("RailShot2",0,0,8,4)
+	TNT1 A 0 A_FireProjectile("RailShot2",0,0,11,4)
+    OMCN B 0 A_FireProjectile("RailShot2",1,0,4,5)
+    RRAC CDEE 3 ACS_Execute(287,0,15,0,0)
+	RRAC DCBA 3 ACS_Execute(287,0,-15,0,0)
+    goto Ready
+  Spawn:
+    RR04 A -1
+    stop
+  }
+}
+ACTOR RailShot2
+{
+ Damage 6
+ Speed 50
+ Radius 5
+ Height 5
+ PROJECTILE
+ Renderstyle Add
+ Alpha 1.0
+ MissileType "RailTrail"
+ MissileHeight 0
+ SeeSound "railfire2"
+ DeathSound "raildeath"
+ Scale 0.6
+ States
+ {
+  Spawn:
+   D3PP A 1 BRIGHT A_MissileAttack
+   D3PP B 1 BRIGHT
+   D3PP C 1 BRIGHT A_MissileAttack
+   D3PP D 1 BRIGHT
+   D3PP E 1 BRIGHT A_MissileAttack
+   D3PP F 1 BRIGHT
+   D3PP G 1 BRIGHT A_MissileAttack
+   D3PP H 1 BRIGHT
+   D3PP I 1 BRIGHT A_MissileAttack
+   D3PP J 1 BRIGHT
+   D3PP K 1 BRIGHT A_MissileAttack
+   D3PP L 1 BRIGHT
+   D3PP M 1 BRIGHT A_MissileAttack
+   D3PP N 1 BRIGHT
+   D3PP O 1 BRIGHT A_MissileAttack
+   D3PP P 1 BRIGHT
+   D3PP Q 1 BRIGHT A_MissileAttack
+   D3PP R 1 BRIGHT
+   D3PP S 1 BRIGHT A_MissileAttack
+   D3PP T 1 BRIGHT
+   D3PP U 1 BRIGHT A_MissileAttack
+   D3PP V 1 BRIGHT
+   Loop
+  Death:
+   PLSZ A 1 BRIGHT A_Scream
+   PLSZ BC 1 BRIGHT
+   Stop
+ }
+}
+
+ACTOR RailTrail
+{
+ Damage 0
+ Speed 0
+ Radius 1
+ Height 1
+ PROJECTILE
+ +NOBLOCKMAP
+ Renderstyle Add
+ Alpha 0.6
+ Scale 0.4
+ States
+ {
+  Spawn:
+   PBTG ABCDEFGHIJKLMNOPQRSTU 2
+   Stop
+ }
+}
+
+Actor SerpentStaff : GoHWeapon //Ideia by me :D, sprites and part of the code by Lolo_is_cool
+{
+Weapon.SelectionOrder 3000
+Weapon.Ammotype "Mana"
+Weapon.Ammotype2 "Mana"
+Weapon.Ammouse1 2
+Weapon.Ammouse2 18
+Weapon.Ammogive1 0
++NOAUTOFIRE
+inventory.pickupsound "SAMPLE11"
+Inventory.Pickupmessage "You got the SerpentStaff!!!!"
+Obituary "%o was was poisoned"
+States
+{
+spawn:
+SRPW A 1
+Loop
+Ready:
+SRAN A 0 A_PlaySound("SRPRAGE")
+SRAN ABCDABCDABCDABCDABCD 2 A_WeaponReady(WRF_ALLOWUSER1)
+Ready2:
+SRST A 1 A_WeaponReady(WRF_ALLOWUSER1)
+Loop
+User1: 
+TNT1 A 0 A_SpawnItemEx("LimitSerpentStaff", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER)
+TNT1 A 0 A_TakeInventory("Token",1)
+TNT1 A 0 A_TakeInventory("SerpentStaff",1)
+stop
+Select:
+SRST A 1 A_RAISE
+NULL AA 0 A_RAISE
+Loop
+Deselect:
+SRST A 1 A_LOWER
+NULL AA 0 A_LOWER
+Loop
+Fire:
+TNT1 A 0 A_JumpIfNoAmmo("Deselect")
+SRST BCDEFG 2 Bright
+Hold:
+NULL A 0 A_PlayWeaponSound("DSSRPFIR")
+SRSF ABCD 2 ACS_Execute(287,0,random(-20,20),random(-20,20),0)
+NULL A 0 A_FireProjectile("PoisonCloud_", 0, 2, 0, 0)
+NULL A 0 A_ReFire
+SRST HIJJIH 1
+SRST GFEDCB 2
+goto ready2
+AltFire:
+TNT1 A 0 A_JumpIfNoAmmo("Deselect")
+SRST BCDEFG 2 Bright
+AltHold:
+NULL A 0 A_PlayWeaponSound("DSSRPFI2")
+SRF2 ABCD 3 BRIGHT
+SRF2 E 5
+NULL A 0 A_FireProjectile("PoisonballMissile",0,1,0,0)
+SRST HIJJIH 1
+NULL A 0 A_ReFire
+SRST GFEDCB 2
+goto ready2
+}
+}
+
+actor PoisonCloud_
+{ 
+    Radius 24 
+    Height 6 
+    Speed 5 
+    Damage 2 
+    +STRIFEDAMAGE 
+    +RIPPER 
+    PROJECTILE 
+    RENDERSTYLE Translucent 
+    ALPHA 0.67 
+	DamageType "Friend"
+    States 
+    { 
+    Spawn: 
+        TRPS ABCDEFGDEFGDEFGDEFGDEFGDCBA 4 
+        Stop 
+    Death: 
+        TRPS DCBA 4 
+        Stop 
+    } 
+} 	
+
+ACTOR PoisonballMissile
+{
+ +NOBLOCKMAP +NOTELEPORT +ACTIVATEIMPACT +ACTIVATEPCROSS +RANDOMIZE +MISSILE +DROPOFF
+	Damage 10
+	Speed 60
+	Radius 4
+	Height 8
+	SeeSound "weapons/poisonballthrow"
+	DeathSound "weapons/poisonballhit"
+	States
+	{
+		Death:
+		SNOM CDEF 3
+        SNOM A 0 Bright A_CustomMissile("PoisonCloud_", 20, 0, 0)
+        SNOM A 0 Bright A_CustomMissile("PoisonCloud_", 20, 0, 20)
+        SNOM A 0 Bright A_CustomMissile("PoisonCloud_", 20, 0, 40)
+        SNOM A 0 Bright A_CustomMissile("PoisonCloud_", 20, 0, 60)
+        SNOM A 0 Bright A_CustomMissile("PoisonCloud_", 20, 0, 80)
+        SNOM A 0 Bright A_CustomMissile("PoisonCloud_", 20, 0, 100)
+        SNOM A 0 Bright A_CustomMissile("PoisonCloud_", 20, 0, 120)
+        SNOM A 0 Bright A_CustomMissile("PoisonCloud_", 20, 0, 140)
+        SNOM A 0 Bright A_CustomMissile("PoisonCloud_", 20, 0, 160)
+        SNOM A 0 Bright A_CustomMissile("PoisonCloud_", 20, 0, 180)
+        SNOM A 0 Bright A_CustomMissile("PoisonCloud_", 20, 0, 200)
+        SNOM A 0 Bright A_CustomMissile("PoisonCloud_", 20, 0, 220)
+        SNOM A 0 Bright A_CustomMissile("PoisonCloud_", 20, 0, 240)
+        SNOM A 0 Bright A_CustomMissile("PoisonCloud_", 20, 0, 260)
+        SNOM A 0 Bright A_CustomMissile("PoisonCloud_", 20, 0, 280)
+        SNOM A 0 Bright A_CustomMissile("PoisonCloud_", 20, 0, 300)
+        SNOM A 0 Bright A_CustomMissile("PoisonCloud_", 20, 0, 320)
+        SNOM A 0 Bright A_CustomMissile("PoisonCloud_", 20, 0, 340)
+        Stop
+     	Spawn:
+			SNOM AB 4
+			loop
+	}
+}
+
+//By Script by Lolo_is_cool and Sprite by BLAZING_DUST
+ACTOR LSCMinigun : GoHWeapon
+{
+	scale 0.3
+    Inventory.PickupMessage "You got the LSCMinigun!"
+    inventory.pickupsound "weapons/getweapon12"
+    Weapon.SelectionOrder 400
+    Weapon.Kickback 90
+    Weapon.AmmoType "Clip"
+    Weapon.AmmoGive 0
+    Weapon.AmmoUse 1
+    Obituary "%k turned %o into swiss cheese using %p LSCminigun"
+    States
+    {
+    Spawn:
+       MNGS A -1
+       LOOP
+    Ready:
+       MNGR A 9 A_WeaponReady(WRF_ALLOWUSER1)
+       Loop
+	User1: 
+		TNT1 A 0 A_SpawnItemEx("LimitLSCMinigun", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER)
+		TNT1 A 0 A_TakeInventory("Token",1)
+		TNT1 A 0 A_TakeInventory("LSCMinigun",1)
+		stop
+    Deselect: 
+       MNGR A 1 A_Lower
+	   NULL AA 0 A_Lower
+       LOOP
+    Select: 
+       MNGR A 1 A_Raise
+	   NULL AA 0 A_RAISE
+       LOOP
+    Fire:
+       TNT1 A 0 A_JumpIfNoAmmo("Deselect")
+       MNGR A 0 A_PlaySound("weapons/minigunup")
+       MNGR BCD 3
+	   MNGR A 3
+       MNGR BCD 2
+	   MNGR A 2
+	   MNGR BCD 2
+	   MNGR A 1
+	   MNGR BCD 1
+    Hold:
+       MNGF A 0 A_GunFlash
+	   MNGF A 0 A_PlayweaponSound("weapons/minigun")
+       MNGF A 1 BRIGHT A_FireBullets (5.6, 0, 2, 5, "Puff2")
+       MNGF B 1 A_FireProjectile("BulletCasing",50+Random(-20,20),0,0,1)
+       MNGF A 0 ACS_Execute(287,0,random(20,-20),random(-25,25),0)
+       MNGF A 1 BRIGHT A_PlaySound("weapons/minigunhold")
+       MNGF B 1 BRIGHT
+       MNGF C 0 A_ReFire
+       MNGF A 0 A_PlaySound("weapons/minigundown")
+	   MNGR A 1
+	   MNGR BCD 1
+	   MNGR A 1
+	   MNGR BCD 1
+	   MNGR A 2
+	   MNGR BCD 2
+	   MNGR A 2 A_ReFire
+	   MNGR BCD 3
+	   MNGR A 3 
+       Goto Ready
+    }
+}
+
+ACTOR M14 : GoHWeapon //By Crazykool
+{
+Weapon.SelectionOrder 3000
+inventory.pickupsound "weapons/getweapon03"
+Inventory.PickupMessage "You got the M-14 High Caliber Hunting Rifle!"
+Obituary "%o got hunted down by %k's Hunting Rifle"
+Weapon.Ammotype1 Clip
+Weapon.Ammouse1 1
+Weapon.Ammotype2 Clip
+Weapon.Ammouse2 1
+Weapon.Ammogive 0
+AttackSound "weapons/m-14fire"
+States
+{
+Spawn:
+FRIF A -1
+loop
+Ready:
+T3TG A 1 A_WeaponReady(WRF_ALLOWUSER1)
+LOOP
+User1: 
+TNT1 A 0 A_SpawnItemEx("LimitM14", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER)
+TNT1 A 0 A_TakeInventory("Token",1)
+TNT1 A 0 A_TakeInventory("M14",1)
+stop
+Deselect:
+T3TG A 1 A_Lower
+NULL AA 0 A_Lower
+Goto Deselect+1
+Select:
+T3TG A 1 A_Raise
+NULL AA 0 A_RAISE
+Goto Select+1
+Fire:
+T3TG A 0 A_JumpIfNoAmmo (4)
+T3TF A 0 A_GunFlash
+T3TF A 1 A_FireBullets(3,3,1,random(8,14),"BulletPuff")
+T3TF A 1 A_FireProjectile("BulletCasing",-50+Random(-20,20),0,0)
+T3TF B 1 ACS_Execute(287,0,12,random(-4,4),0)
+T3TG A 1 ACS_Execute(287,0,-12,random(-4,4),0)
+T3TG A 2
+Goto Ready
+AltFire:
+T3TG A 0 A_JumpIfNoAmmo (4)
+T3TF A 1 A_GunFlash
+T3TF A 1 A_FireBullets(3,3,1,random(4,8),"BulletPuff")
+T3TF A 1 A_FireProjectile("BulletCasing",-50+Random(-20,20),0,0)
+T3TF B 1 
+T3TF B 0 A_JumpIfNoAmmo (4)
+T3TF A 1 A_GunFlash
+T3TF A 1 A_FireBullets(3,3,1,random(4,8),"BulletPuff")
+T3TF A 1 A_FireProjectile("BulletCasing",-50+Random(-20,20),0,0)
+T3TF B 1 
+T3TF B 0 A_JumpIfNoAmmo (4)
+T3TF A 1 A_GunFlash
+T3TF A 1 A_FireBullets(3,3,1,random(4,8),"BulletPuff")
+T3TF A 1 A_FireProjectile("BulletCasing",-50+Random(-20,20),0,0)
+T3TF B 3 
+T3TG AAAA 4
+T3TG A 3 A_ReFire
+Goto Ready
+Flash:
+AAAA A 0 A_Light1
+TCAS A 1
+TCAS B 0 A_Light2
+TCAS DEG 1
+AAAA A 0 A_Light0
+AAAA A 0 
+stop
+}
+}
+
+//Weapon: Flak Cannon
+//By: ant1991331
+ACTOR FlakCannon : GoHWeapon 25023
+{
+   Scale 0.25
+   Inventory.PickupSound "weapons/flakl"
+   Inventory.PickupMessage "You got the Flak Cannon!"
+   Weapon.AmmoType "Clip"
+   Weapon.AmmoGive 0
+   Weapon.AmmoUse 1
+   Weapon.AmmoType2 "RocketAmmo"
+   Weapon.AmmoGive2 0
+   Weapon.AmmoUse2 1
+   Obituary "%o is picking %k's shrapnel out his teeth."
+   States
+   {
+   Spawn:
+      FLKK A -1
+      Loop
+   Ready:
+      FLKR A 0 A_PlayWeaponSound("weapons/flakl")
+      FLKR A 1 A_WeaponReady(WRF_ALLOWUSER1)
+      Goto Ready+1
+   User1: 
+	  TNT1 A 0 A_SpawnItemEx("LimitFlakCannon", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER)
+	  TNT1 A 0 A_TakeInventory("Token",1)
+	  TNT1 A 0 A_TakeInventory("FlakCannon",1)
+	  stop
+   Deselect:
+      FLKR A 1 A_Lower
+	  NULL AA 0 A_Lower
+      Loop
+   Select:
+      FLKF A 1 A_Raise
+	  NULL AA 0 A_Raise
+      Loop
+   Fire:
+      FLKF B 0 A_PlayWeaponSound("weapons/flaks")
+	  TNT1 A 0 ACS_Execute(287,0,80,random(-20,-20),0)
+      FLKF B 1 A_FireProjectile(Chunk1,0,1,15,-18)
+      FLKF B 0 A_FireProjectile(Chunk2,0,1,18,13)
+      FLKF B 0 A_FireProjectile(Chunk3,0,1,13,5)
+      FLKF B 0 A_FireProjectile(Chunk4,0,1,0,-15)
+      FLKF B 0 A_FireProjectile(Chunk2,0,1,-18,12)
+      FLKF B 0 A_FireProjectile(Chunk1,0,0,-13,8)
+      FLKF C 1 Bright ACS_Execute(287,0,-30,0,0)
+      FLKF D 1 Bright ACS_Execute(287,0,-30,0,0)
+      FLKF E 1 ACS_Execute(287,0,-20,0,0)
+	  FLKF FGHIJKLMN 2
+      FLKR OPQ 2
+      FLKR RSTU 1 A_PlayWeaponSound("weapons/flakl")
+      FLKR VWXYZ 1
+      FLKR A 2
+      Goto Ready+1
+   AltFire: 
+      FLKS A 0 A_PlayWeaponSound("weapons/flakalt")
+	  TNT1 A 0 ACS_Execute(287,0,80,random(-20,-20),0)
+      FLKS B 1 A_FireProjectile("Flakgrenade2", 1, 1, 5, 0)  
+      FLKS C 1 Bright ACS_Execute(287,0,-30,0,0)
+      FLKS D 1 Bright ACS_Execute(287,0,-30,0,0)
+      FLKS E 1 ACS_Execute(287,0,-20,0,0)
+	  FLKS FGHIJK 2
+      FLKR OPQ 2
+      FLKR RSTU 1 A_PlayWeaponSound("weapons/flakl")
+      FLKR VWXYZ 1
+      FLKR A 2
+      Goto Ready+1
+      Flash: 
+      TNT1 A 5 BRIGHT A_Light1       
+      TNT1 B 5 BRIGHT A_Light1 
+      TNT1 C 5 BRIGHT A_Light2 
+      TNT1 D 5 BRIGHT A_Light0 
+      Stop 
+   }
+}
+
+ACTOR Chunk1
+{
+   Radius 3
+   Height 4
+   Speed 35
+   Damage 7
+   Mass 250
+   Scale 0.2
+   +MISSILE
+   +HEXENBOUNCE
+   +LOWGRAVITY
+   +ROCKETTRAIL
+   States
+   {
+   Spawn:
+      FLAS A 200
+      Stop
+   Death:
+      BLUD C 10
+      BLUD BA 10
+      Stop
+   }
+}
+
+ACTOR Chunk2 : Chunk1
+{
+   States
+   {
+   Spawn:
+      FLAS B 200
+      Stop
+   }
+}
+
+ACTOR Chunk3 : Chunk1
+{
+    States
+    {
+    Spawn:
+        FLAS C 200
+        stop
+    }
+}
+
+ACTOR Chunk4 : Chunk1
+{
+    States
+    {
+    Spawn:
+        FLAS D 200
+        stop
+    }
+}
+
+ACTOR Metalshrapnel
+{
+   Radius 3
+   Height 4
+   Speed 30
+   Damage 3
+   Translation "160:167=96:111" , "64:79=96:111"
+   Mass 2500
+   Scale 0.4
+   +MISSILE
+   +DOOMBOUNCE
+   +NOGRAVITY
+   States
+   {
+   Spawn:
+      PUFF A 35 Bright A_CustomMissile ("ShrapnelTrail",0,0,0,5)
+      Stop
+   Death:
+      BLUD A 2 A_CustomMissile ("ShrapnelTrail",0,0,0,5)
+      BLUD BC 2 A_CustomMissile ("ShrapnelTrail",0,0,0,5)
+      Stop
+   }
+}
+
+ACTOR FMetalshrapnel : MetalShrapnel
+{
+  Damagetype "Friend"
+}
+
+ACTOR ShrapnelTrail
+{
+	PROJECTILE
+	Height 8
+	Radius 8
+	Scale 0.5
+	Speed 2
+	RenderStyle Add
+	
+	States
+	{
+	Spawn:
+		FRTB ABCDEFGHI 1 BRIGHT
+		Stop
+	}
+}
+
+ACTOR Metalshrapnel2 : Metalshrapnel
+{
+   Damage 1
+}
+
+actor Flakgrenade2
+{
+	Radius 12
+	Height 8
+	Speed 25
+	Damage 22
+	Scale 0.5
+	Projectile
+	+LOWGRAVITY
+	-NOGRAVITY
+	ExplosionDamage 64
+	ExplosionRadius 64
+	SeeSound "gun/flak"
+	DeathSound "weapons/rocklx"
+	States
+	{
+	Spawn:
+        FLGR A 2 A_CustomMissile("M202A1RocketTrail",0,0,0)
+		Loop
+	Death:
+		MISL B 2 Bright A_Explode
+		MISL CD 2 Bright A_Mushroom("Metalshrapnel" , 10)
+        MISL D 1 A_CustomMissile("Smoke", 32, 0, 0)
+		Stop
+	}
+}
+
+actor Stinger : GoHWeapon
+{
+  scale 0.2
+  inventory.pickupmessage "You got the Stinger!"
+  obituary "%o was punctured by %k's Stinger."
+  weapon.ammotype "Clip"
+  weapon.ammotype2 "Clip"
+  weapon.ammouse 1
+  weapon.ammogive 0
+  weapon.ammouse2 5
+  weapon.ammogive2 0
+  states
+  {
+  Spawn:
+    STNG P -1
+    stop
+  Ready:
+    STNG I 1 A_WeaponReady(WRF_ALLOWUSER1)
+    loop
+  User1: 
+	TNT1 A 0 A_SpawnItemEx("LimitStinger", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER)
+	TNT1 A 0 A_TakeInventory("Token",1)
+	TNT1 A 0 A_TakeInventory("Stinger",1)
+	stop
+  Deselect:
+    STNG I 1 A_Lower
+	NULL AA 0 A_Lower
+    loop
+  Select:
+    STNG I 0 A_StartSound("stingerdraw",1, CHANF_NOSTOP)
+    STNG I 1 A_Raise
+	NULL AA 0 A_RAISE
+    loop
+  Fire:
+    TNT1 A 0 A_JumpIfNoAmmo("Deselect")
+    STNG A 6
+	Hold:
+	STNG B 0 A_StartSound("stingerfire",1)
+    STNG B 2 Bright A_FireProjectile("StingerShot",0,1,5,3)
+    SPIT A 0 A_GunFlash
+    STNG C 3 Bright ACS_Execute(287,0,random(-15,15),0,0)
+	STNG D 0 A_ReFire
+	STNG EFG 3 ACS_Execute(287,0,-5,0,0)
+	goto Ready
+  AltFire:
+    TNT1 A 0 A_JumpIfNoAmmo("Deselect")
+    STNG A 0 A_StartSound("stingeraltfire",1)
+	STNG AB 3 
+    SPIT A 0 A_GunFlash
+	NULL A 0 A_FireProjectile("StingerShot",0,1,random(-10,20),random(-10,20))
+	NULL A 0 A_FireProjectile("StingerShot",0,0,random(-10,20),random(-10,20))
+	TNT1 A 0 A_FireProjectile("StingerShot",0,0,random(-10,20),random(-10,20))
+	TNT1 A 0 A_FireProjectile("StingerShot",0,0,random(-10,20),random(-10,20))
+    STNG B 0 A_FireProjectile("StingerShot",0,0,random(-10,20),random(-10,20))
+    STNG CDEFG 3 ACS_Execute(287,0,15,0,0)
+	STNG I 10 ACS_Execute(287,0,-15,0,0)
+    goto Ready
+  Flash:
+    TNT1 A 4 bright A_Light1
+    TNT1 B 3 bright A_Light2
+    TNT1 B 0 bright A_Light0
+    stop
+  }
+}
+
+ACTOR StingerShot
+{
+   Radius 4
+   Height 5
+   Speed 30
+   Damage 3
+   PROJECTILE
+   +SEEKERMISSILE
+   RENDERSTYLE ADD
+   ALPHA 0.9
+   scale 0.5
+   DeathSound "weapons/crbreak"   
+   States
+   {
+   Spawn:
+      CRYS A 5 Bright 
+      Loop
+   Death:
+      CRYE A 3 Bright
+      CRYE BC 3 Bright
+      CRYE DEF 2 Bright
+      Stop
+   }
+}
+
+///////////////////////////////
+//Q2GrenadeLauncher TDB
+//GDRL A 0 A_PlaySound("q2weapon/grenadelaunfire")
+////////////////////////////////
+actor QGrenade
+{
+    Radius 8
+    Height 8
+    Speed 20
+    Scale 0.65
+    Damage 6
+    ExplosionDamage 15
+    ExplosionRadius 32
+    PROJECTILE
+    +DOOMBOUNCE
+    +GRENADETRAIL
+    +CANBOUNCEWATER
+    SeeSound "q2weapon/grenadelbounce"
+    DeathSound "DSQKLDTH"
+    States
+    {
+    Spawn:
+		NULL A 0 A_PlaySound("null")
+		QGRP KJIHGFEDCBA 3 Bright A_Gravity
+		Goto Spawn+1
+    Death:
+		NULL A 0 A_NoGravity
+		TNT1 A 0 A_Mushroom("Metalshrapnel" , 10)
+		EXPL AA 0 A_CustomMissile("ExploSmoke",0+Random(0,25),0+Random(5,-5),0+Random(0,370))
+		EXPL B 3 Bright A_Explode
+		EXPL CDEFGHIJKLMNOPQRSTU 2 Bright
+		Stop
+    }
+}

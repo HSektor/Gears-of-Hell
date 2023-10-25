@@ -1,0 +1,22 @@
+clearplayerclasses 
+weaponsection GoH
+addplayerclass Doomer nomenu
+
+setslot 1 Fists BaseballBat Knife Chainsaw_
+setslot 2 Q2Blaster CoolPistol Flaregun MachinePistol Revolver
+setslot 3 WinchesterRifle Longrifle NeoShotgun BloodAlphaSawedoff PKShotgun QuadShotgun
+setslot 4 Blood2Scorpions M14 Tommygun AliensGBR PlasmaAutoRifle LSCMinigun
+setslot 5 DispersionRocketLauncher MultiRocketLauncher NeoRocketLauncher SuperRocket
+setslot 6 LaserCannon Raygun PlasmaGun LSCQ2Railgun ShockRifle2000
+setslot 7 RailCannon AlienCannon PhotonReactorCannon DarkMatterGun
+setslot 8 Stinger UnmakerMKVI FlakCannon
+setslot 9 IceWand GoreWyrm SuperCrossbow Embercaster DemonCannon SerpentStaff
+setslot 0 Unmaker DemonicFirepower DemonBane GodHand PowerStaff
+
+alias Zoom "fov 10; m_pitch .125;m_yaw .2; set autoaim 0; crosshairgrow 10; echo Zoom in; rebind Zoom_out;"
+alias Zoom_out "fov 90; m_pitch 1;m_yaw 1; set autoaim 0; crosshairgrow 1; echo Zoom out; rebind Zoom;"
+
+addkeysection "Gears of Hell Stuff" GoHKeys
+addmenukey "Grenades" grenadekey
+alias grenadekey "use TheHandGrenade"
+defaultbind g grenadekey

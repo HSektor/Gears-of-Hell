@@ -1,0 +1,677 @@
+ACTOR Metroidclone 32066
+{
+    Health 100
+    Radius 14
+    Height 30
+    Speed 9
+    Damage 3
+    PainChance 5
+    scale 0.4
+    MASS 100
+    MONSTER 
+    +NOBLOCKMONST
+    +NOGRAVITY
+    +FLOAT
+    +QUICKTORETALIATE
+    SeeSound metriod1
+    PainSound metriod2
+    ActiveSound metriod1
+    DeathSound metriod3
+    dropitem WarSpirit 28
+    Obituary "%o got too close to a metroid"
+    States
+    {
+    Spawn:
+        METR ABCED 7 A_Look
+        METR ABCED 3 A_Look
+        Loop
+    See:
+        METR AABBCCEEDD 3 A_Chase
+        Loop
+    Melee:
+        METR A 10 A_FaceTarget
+        METR B 4 A_SkullAttack
+        Goto See
+    Pain:
+        METR D 1 A_PlaySound ("Metriodr")
+        METR E 3 A_Pain
+        Goto See
+    Missile:
+        METR A 10 A_FaceTarget
+        METR B 4 A_SkullAttack
+        Goto See
+    Death:
+		SKUL I 0 A_PlaySound ("weapons/rocklx")
+		SKUL IJK 8
+		Stop
+    }
+}
+
+Actor D3ForgottenOne
+{
+  obituary "A forgotten one rammed %o"
+  health 90
+  radius 14
+  height 30
+  mass 50
+  speed 8
+  painchance 230
+  scale 0.7
+  PainSound "D3Forgotten/Pain"
+  SeeSound "D3Forgotten/Sight"
+  DeathSound "D3Forgotten/Death"
+  ActiveSound "D3Forgotten/Active"
+  Damage 3
+  DamageFactor "Fire", 0.5
+  MONSTER
+  +FLOORCLIP
+  +FLOAT
+  +NOGRAVITY
+  +NOICEDEATH
+  +DONTFALL
+  +FLOATBOB
+  +NOBLOOD
+  +NOBLOODDECALS
+  DropItem Mana 
+  DropItem Mana 75
+  states
+  {
+  Spawn:
+    3FOR A 0 Bright A_ChangeFlag("FloatBob", 1)
+    3FOR AAAAAABBBBBB 1 Bright A_Look
+    3FOR AAAAAABBBBBB 1 Bright A_Look
+    3FOR AAAAAABBBBBB 1 Bright A_Look
+    3FOR AAAAAABBBBBB 1 Bright A_Look
+    3FOR AAAAAABBBBBB 1 Bright A_Look
+    3FOR A 0 Bright A_Jump(16, 1)
+    Loop
+    3FOR A 0 Bright A_PlaySound("D3Forgotten/Active")
+    Loop
+  See:
+    3FOR A 0 A_ChangeFlag("FloatBob", 1)
+    3FOR AABB 3 Bright A_Chase
+    Loop
+  Missile:
+    3FOR C 0 A_ChangeFlag("FloatBob", 0)
+    3FOR C 10 Bright A_FaceTarget
+    3FOR D 0 Bright A_PlaySound("D3Forgotten/Sight")
+    3FOR D 4 Bright A_SkullAttack
+    3FOR CCCC 1 Bright
+    3FOR C 0 A_Jump(16, 6)
+    3FOR DDDD 1 Bright
+    3FOR D 0 A_Jump(16, 1)
+    Goto Missile+4
+    3FOR C 0
+    Goto Missile+2
+  Pain:
+    3FOR E 0 A_ChangeFlag("FloatBob", 1)
+    3FOR E 3 Bright
+    3FOR E 3 Bright A_Pain
+    Goto See
+  Death:
+    3FOR E 0 A_ChangeFlag("FloatBob", 0)
+    3FOR E 0 A_Stop
+    3FOR EF 4 Bright
+    3FOR G 6 Bright A_Scream
+    3FOR H 6 Bright
+    TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+    3FOR I 6 Bright A_NoBlocking
+    3FOR J 6
+    Stop
+  }
+}
+
+ACTOR VampireBatNesting 3306
+{
+	Health		100
+	Radius		 12
+	Height		 18
+	Speed		 15
+	PainChance	255
+	Mass		 50
+	MeleeDamage	  3
+	SeeSound	"vampirebat/sight"
+	AttackSound	"vampirebat/attack"
+	PainSound	"vampirebat/pain"
+	DeathSound	"vampirebat/death"
+	ActiveSound	"vampirebat/active"
+	Obituary	"%o was desanguinated by a vampire bat."
+    dropitem WarSpirit 32
+	DropItem Healthvile 8
+	MONSTER
+	+FLOORCLIP
+	+NOGRAVITY
+	+FLOAT
+	States
+	{
+	Spawn:
+		VBAT A 10 A_Look
+		VBAT B 10 A_Look
+		Loop
+	See:
+		VBAT A 6 A_Chase
+		VBAT B 6 A_Chase
+		Loop
+	Melee:
+		VBAT C 8 A_FaceTarget
+		VBAT D 4 A_MeleeAttack
+		VBAT C 4 A_FaceTarget
+		VBAT B 4 A_FaceTarget
+		Goto See
+	Pain:
+		VBAT E 3
+		VBAT E 3 A_Pain
+		Goto See
+	Death:
+		VBAT F 6
+		VBAT G 6 A_Scream
+		VBAT H 6
+		VBAT I 6 A_NoBlocking
+		VBAT J 6
+		VBAT K -1
+		Stop
+	Raise:
+		VBAT K 5
+		VBAT J 5
+		VBAT I 5
+		VBAT H 5
+		VBAT G 5
+		VBAT F -1
+		Goto See
+	}
+}
+
+//===========================================================================
+//===========================================================================
+
+ACTOR Flyer
+{ 
+   Health 100
+   Speed 10 
+   Radius 16
+   Height 32
+   PainChance 170
+   Mass 150
+   Meleedamage 4
+   Scale 0.6
+   REACTIONTIME 8 
+   MONSTER
+   +NOGRAVITY
+   +FLOAT
+   +NOBLOOD
+   SeeSound "q2flyer/sight"
+   PainSound "q2flyer/pain"
+   DeathSound "q2flyer/death"
+   ActiveSound "q2flyer/search"
+   Obituary "%o was melt by a flyer." 
+   DropItem Cell
+   dropitem PortablePack 88
+   dropitem MeatSpawner 90
+   DropItem WarSpirit 48
+   DropItem LimitQ2Blaster 16
+    States
+    {
+   Spawn: 
+		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEW AB 5 A_Look 
+		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEW CD 5 A_Look 
+		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEW EF 5 A_Look 
+		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEW GH 5 A_Look 
+		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEW IJ 5 A_Look 
+		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEW KL 5 A_Look 
+		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEW MN 5 A_Look 
+		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEW OP 5 A_Look 
+		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEW QR 5 A_Look 
+		Loop 
+   See: 
+		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEW AB 5 A_Chase 
+		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEW CD 5 A_Chase 
+		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEW EF 5 A_Chase 
+		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEW GH 5 A_Chase 
+		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEW IJ 5 A_Chase 
+		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEW KL 5 A_Chase 
+		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEW MN 5 A_Chase 
+		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEW OP 5 A_Chase 
+		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEW QR 5 A_Chase 
+		Loop 
+   Melee:
+		LYEM ABCDEF 3 A_FaceTarget
+		LYEM G 0 A_PlaySound("q2flyer/wingattack2")
+		LYEM G 4 A_MeleeAttack
+		LYEM HIJK 3
+		LYEM L 0 A_PlaySound("q2flyer/wingattack2")
+		LYEM L 4 A_MeleeAttack
+		LYEM MNOPQR 3
+		Goto See
+   Missile: 
+		ZZZZ Z 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEA ABCD 5 A_FaceTarget
+		ZZZZ Z 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEA E 3 Bright A_CustomMissile("WeakBlasterBolt",21,-10,0)
+		LYEA Z 0 A_FaceTarget
+		LYEA F 3 Bright A_CustomMissile("WeakBlasterBolt",21,10,0)
+		LYEA Z 0 A_FaceTarget
+		LYEA G 3 Bright A_CustomMissile("WeakBlasterBolt",21,-10,0)
+		ZZZZ Z 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEA Z 0 A_FaceTarget
+		LYEA H 3 Bright A_CustomMissile("WeakBlasterBolt",21,10,0)
+		LYEA Z 0 A_FaceTarget
+		LYEA I 3 Bright A_CustomMissile("WeakBlasterBolt",21,-10,0)
+		LYEA Z 0 A_FaceTarget
+		LYEA J 3 Bright A_CustomMissile("WeakBlasterBolt",21,10,0)
+		ZZZZ Z 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEA Z 0 A_FaceTarget
+		LYEA K 3 Bright A_CustomMissile("WeakBlasterBolt",21,-10,0)
+		LYEA Z 0 A_FaceTarget
+		LYEA L 3 Bright A_CustomMissile("WeakBlasterBolt",21,10,0)
+		ZZZZ Z 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEA MN 6 A_FaceTarget
+		Goto See 
+   Pain: 
+		LYEP ABC 4
+		LYEP D 4 A_Pain 
+		Goto See 
+   Death: 
+		LYEP A 0 A_StopSound
+		TNT1 A 0 A_CustomMissile("ExplosionSmoke",0,0,0)
+		EXPL AA 0 A_CustomMissile("ExploSmoke",0+Random(0,25),0+Random(5,-5),0+Random(0,370))
+		NULL AAAAAAAA 0 A_TossGib
+		LYEP A 5 A_CustomMissile("Q2FlyingThingsExplo",0,0,0)
+		Stop
+   } 
+} 
+
+ACTOR Q2FlyingThingsExplo
+{
+	Speed 0
+	+NOBLOCKMAP
+	+NOGRAVITY
+	+NOCLIP
+	+NONSHOOTABLE
+	RenderStyle Add
+	ExplosionDamage 8
+	ExplosionRadius 128
+	SeeSound "weapons/rockexplo"
+	States
+	{
+	Spawn:
+		BBOM A 2 BRIGHT A_CustomMissile("ExploSmoke",0+Random(0,25),0+Random(5,-5),0+Random(0,370))
+		BBOM B 2 BRIGHT A_Explode
+		BBOM C 2 BRIGHT
+		BBOM D 2 BRIGHT
+		BBOM E 2 BRIGHT
+		BBOM F 2 BRIGHT
+		BBOM G 2 BRIGHT
+		BBOM H 2 BRIGHT
+		BBOM I 2 BRIGHT
+		BBOM J 2 BRIGHT
+		BBOM K 2 BRIGHT
+		BBOM L 2 BRIGHT
+		BBOM M 2 BRIGHT
+		BBOM N 2 BRIGHT
+		Stop
+	}
+}
+
+actor FlyerBlaster
+{
+    Mass 1
+    Radius 8
+    Height 6
+    Speed 34
+	Damage 3
+	Scale 0.4
+	RenderStyle Add
+    +ROCKETTRAIL
+	+STRIFEDAMAGE
+    SeeSound "q2makron2/blasterattack"
+    DeathSound "q2weapon/laserhit"
+    PROJECTILE
+    States
+    {
+    Spawn:
+        ENFL A 1 Bright
+        Loop
+    Death:
+	  TNT1 AAAAAAAAAAAA 0 A_SpawnItemEx("Q2BlasterParticleGravity",0,0,4,random(-3,3),random(-3,3),random(1,3),random(305,410),0)
+	  ENFL BCD 4 Bright
+        Stop
+    }
+}
+
+Actor FFlyerD : Flyer 
+{
+	+AMBUSH
+}
+
+Actor BetaSoul : LostSoul 29037
+{
+  -DONTFALL
+  DropItem Mana 
+  DropItem Mana 75
+  States
+  {
+  Spawn:
+    SKBT A 10 A_Look
+    Loop
+  See:
+    SKBT ABABAB 2 A_Chase
+    Loop
+  Missile:
+    NULL A 0 A_Jump(128,6)
+    SKBT B 4 A_FaceTarget
+	SKBT E 0 A_PlaySound("skull/melee")
+    SKBT C 5 A_CustomBulletAttack(0,0,1,5,None)
+    SKBT DE 2
+    Goto See
+	SKBT A 10 Bright A_FaceTarget
+    SKBT B 4 Bright A_SkullAttack
+    SKBT BA 4 Bright
+    Goto Missile+8
+  Pain:
+    SKBT G 4
+    SKBT H 2 A_Pain
+    SKBT I 4
+    Goto See
+  Death:
+    SKBT JKLM 5
+    SKBT N 5 A_Scream
+    SKBT O 5
+    SKBT P 5 A_NoBlocking
+    SKBT Q 5 A_Stop
+	SKBT Q -1 A_SetFloorClip
+    Wait
+  }
+}
+
+Actor OutcastStalker
+{
+  spawnid 219
+  obituary "%o was flambeed by a Stalker"
+  health 200
+  radius 14
+  height 40
+  mass 50
+  speed 12
+  painchance 256
+  PainSound "stlkpn"
+  SeeSound "stlkst"
+  deathsound "stalker/death"
+  ActiveSound "skull/active"
+  missiletype "StalkerTracer"
+  Damage 3
+  RenderStyle SoulTrans
+  DropItem Mana 
+  DropItem Mana 75
+  MONSTER
+  +FLOORCLIP
+  +FLOAT
+  +NOGRAVITY
+  +NOICEDEATH
+  +DONTFALL
+  +FLOATBOB
+  +NOBLOOD
+  states
+  {
+  Spawn:
+    OSTK A 0 Bright
+    OSTK A 0 Bright A_ChangeFlag("FloatBob", 1)
+    OSTK AAAAAA 1 Bright A_Look
+    OSTK AAAAAA 1 Bright A_Look
+    OSTK AAAAAA 1 Bright A_Look
+    OSTK AAAAAA 1 Bright A_Look
+    OSTK AAAAAA 1 Bright A_Look
+    Loop
+  See:
+    OSTK A 0 A_ChangeFlag("FloatBob", 1)
+    OSTK AAAA 3 Bright A_Chase
+    Loop
+  Missile:
+    OSTK A 0 A_ChangeFlag("FloatBob", 0)
+    OSTK A 0 A_Jump(128,"Teleport")
+	goto RealMissile
+  RealMissile:
+    OSTK A 0 A_ChangeFlag("FloatBob", 0)
+    OSTK A 0 A_Jump(128,"RealMissile2")
+    OSTK A 10 Bright A_FaceTarget
+    OSTK B 10 Bright A_CustomMissile ("StalkerTracer", 12, 0)
+    Goto See
+  RealMissile2:
+    OSTK B 10 bright A_Facetarget
+    OSTK B 1 bright A_CustomMissile("RedBall",8,0,Random(95,-95),0)
+    OSTK B 2 bright A_CustomMissile("RedBall",8,0,Random(75,-75),0)
+    OSTK B 3 bright A_CustomMissile("RedBall",8,0,Random(55,-55),0)
+    OSTK B 1 bright A_CustomMissile("RedBall",8,0,Random(95,-95),0)
+    OSTK B 2 bright A_CustomMissile("RedBall",8,0,Random(75,-75),0)
+    OSTK B 3 bright A_CustomMissile("RedBall",8,0,Random(55,-55),0)
+    OSTK B 0 bright A_SpidRefire
+    goto See
+  Teleport:
+    OSTK AAA 0 A_CustomMissile("StalkerTeleportMissile",32,0,random(0,360),2,random(-20,20))
+	OSTK A 0 A_Teleport("RealMissile","StalkerTeleportSpot","StalkerTeleFog",2)
+	goto See
+  Pain:
+    OSTK C 0 A_ChangeFlag("FloatBob", 1)
+    OSTK C 3 Bright
+    OSTK C 3 Bright A_Pain
+    Goto See
+  Death:
+    OSTK F 0 A_ChangeFlag("FloatBob", 0)
+    OSTK F 0 A_Stop
+    OSTK F 6 Bright
+    OSTK G 6 Bright A_Scream
+    OSTK H 6 Bright
+    OSTK I 6 Bright A_NoBlocking
+    OSTK J 6 Bright
+    OSTK K 6 Bright
+    Stop
+  }
+}
+
+actor StalkerTracer : RevenantTracer
+{
+  Game Doom
+  Radius 11
+  Height 8
+  Speed 10
+  Damage 8
+  Projectile
+  +SEEKERMISSILE
+  +RANDOMIZE
+  +GRENADETRAIL
+  SeeSound "imp/attack"
+  DeathSound "skeleton/tracex"
+  RenderStyle Add
+  States
+  {
+  Spawn:
+    STKM AB 2 bright A_Tracer
+    loop
+  Death:
+    STKM C 8 bright
+    STKM D 6 bright
+    STKM E 4 bright
+    stop
+  }
+}
+
+actor StalkerTeleportMissile : DoomImpBall
+{
+	radius 24
+	height 64
+	speed 30
+	fastspeed 30
+	damage 0
+	seesound ""
+	deathsound ""
+	-NOGRAVITY
+	gravity 0.125
+	bouncetype "Doom"
+	bouncefactor 0.95
+	bouncecount 3
+	states
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 1
+		loop
+	Death:
+		TNT1 A 1 A_SpawnItemEx("StalkerTeleportSpot",0,0,0)
+		stop
+	}
+}
+
+ACTOR StalkerTeleportSpot : SpecialSpot
+{
+	+INVISIBLE
+	states
+	{
+	Spawn:
+		TNT1 A 0
+		TNT1 A 300
+		stop
+	}
+}
+
+ACTOR StalkerTeleFog
+{
+	+NOBLOCKMAP
+	+NOTELEPORT
+	+NOGRAVITY
+	RenderStyle Add
+	States
+	{
+	Spawn:
+		TNT1 A 0 bright
+		HFOG A 0 bright A_PlaySound("misc/teleport")
+		HFOG ABCDEFGHIJ 2 Bright
+		Stop
+	}
+}
+
+actor DragonFamiliar 3106
+{
+	//$Category "ZDoom Monster pack"
+    Health 80
+    Radius 16
+    Height 32
+    Speed 10
+    PainChance 200
+    MONSTER 
+    +NOGRAVITY
+    +FLOAT
+    +STRIFEDAMAGE
+    SeeSound "dragonfam/see"
+    PainSound "dragonfam/pain"
+    DeathSound "dragonfam/death"
+    ActiveSound "dragonfam/idle"
+    Obituary "%o was cooked by a dragon familiar."
+	DropItem Mana 64
+	DropItem WarSpirit 28
+    States
+    {
+    Spawn:
+        DFAM ABCD 10 A_Look
+        Loop
+    See:
+        DFAM AABBCCDD 3 A_Chase
+        Loop
+    Missile:
+        DFAM E 0 A_PlaySound("dragonfam/attack")
+        DFAM E 0 A_Jump(208,7)
+        DFAM E 2 Bright A_FaceTarget
+        DFAM E 0 A_CustomMissile("MiniFirePuff", 12, 0, 0)
+        DFAM E 2 Bright A_FaceTarget
+        DFAM E 0 A_CustomMissile("MiniFirePuff", 12, 0, 2)
+        DFAM E 2 Bright A_FaceTarget
+        DFAM E 0 A_CustomMissile("MiniFirePuff", 12, 0, -2)
+        Goto See
+        DFAM E 2 Bright A_FaceTarget
+        DFAM E 0 A_CustomMissile("MiniFirePuff", 12, 0, 0)
+        DFAM E 2 Bright A_FaceTarget
+        DFAM E 0 A_CustomMissile("MiniFirePuff", 12, 0, 2)
+        DFAM E 2 Bright A_FaceTarget
+        DFAM E 0 A_CustomMissile("MiniFirePuff", 12, 0, -2)
+        Goto Missile+1
+    Pain:
+        DFAM F 2
+        DFAM F 2 A_Pain
+        Goto See
+    Death:
+        DFAM G 0 A_Die
+        DFAM G 8 A_NoBlocking 
+        DFAM H 8 A_Scream
+        DFAM I 6 A_SetFloorClip
+        DFAM JKL 6
+        DFAM M -1
+        Stop
+    }
+}
+
+ACTOR DarkFenix 3093
+{
+	Health 150
+	Radius 16
+	Height 56
+	Mass 50
+	Speed 16
+	Damage 6
+	PainChance 20
+	Monster
+	+FLOAT 
+	+NOGRAVITY 
+	+NOICEDEATH
+	+DONTFALL
+	+MISSILEMORE
+	+SEEKERMISSILE
+	AttackSound "skull/melee"
+	PainSound "skull/pain"
+	DeathSound "skull/death"
+	ActiveSound "skull/active"
+	Obituary "%o was blinded by a Dark Fenix."
+	RenderStyle SoulTrans
+	DropItem WarSpirit 28
+    States
+	{
+	Spawn:
+		DKFL AB 10 BRIGHT A_Look
+		Loop
+	See:
+		DKFL AB 6 BRIGHT A_Chase
+		Loop
+	Missile:
+		DKFL C 10 BRIGHT A_FaceTarget
+		DKFL D 4 BRIGHT A_SkullAttack
+		DKFL D 0 A_CustomRailgun(random(3,6),0,none,"White",1,5)
+		DKFL CD 4 BRIGHT
+		Goto Missile+2
+	Pain:
+		DKFL E 3 BRIGHT
+		DKFL E 3 BRIGHT A_Pain
+		Goto See
+	Death:
+		DKFL F 6 BRIGHT
+		DKFL G 6 BRIGHT A_Scream
+		DKFL H 6 BRIGHT
+		DKFL I 6 BRIGHT A_NoBlocking
+		DKFL JK 6   
+		Stop
+	}
+}

@@ -1,0 +1,249 @@
+#include "LimWeaps"
+#include "ZWeaps1"
+#include "ZItems"
+
+//const maxweap = 6;
+
+Class ZGohPlayer : DoomPlayer
+{
+	bool runhealthsetting;	
+	transient Cvar 	CRunHealth;
+	
+	void GetCvars()
+	{
+		if (!CRunHealth)			CRunHealth   = Cvar.FindCvar("user_RunHealth");
+		if (CRunHealth)			runhealthsetting = CRunHealth.GetBool();
+	}
+		
+	override void postbeginplay()
+	{
+		GetCvars();
+		if (runhealthsetting==true)      self.runhealth = 25;
+		super.postbeginplay(); //<-- don't forget this line or it won't work properly
+	}
+}
+
+
+Class Token : Inventory
+{
+   Default
+   {
+      Inventory.MaxAmount 0x7FFFFFFF;
+   }
+}
+
+Class TokenSystem : CustomInventory
+{
+   int limitweap;
+   
+	override void BeginPlay()
+    {
+        if (CVar.FindCVar("GoH_LimitSystem").GetBool()) limitweap = CVar.FindCVar("maxweap").GetInt();
+        else limitweap = 999;
+    }
+   Default
+   {
+	+NOBLOCKMONST
+   }
+   States
+   {
+      Spawn:
+         TNT1 A -1;
+         Stop;
+      Pickup:
+         TNT1 A 0 A_TakeInventory("Token"); //Reset any cap tokens before checks ladder begins
+		 
+         TNT1 A 0 A_JumpIfInventory ("Chainsaw_", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("Knife", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("BaseballBat", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("Q2Blaster", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("CoolPistol", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("MachinePistol", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("Revolver", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("Flaregun", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+
+         TNT1 A 0 A_JumpIfInventory ("WinchesterRifle", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("Longrifle", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("NeoShotgun", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("BloodAlphaSawedoff", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("PKShotgun", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("QuadShotgun", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+
+         TNT1 A 0 A_JumpIfInventory ("Blood2Scorpions", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("M14", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("Tommygun", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("AliensGBR", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+
+         TNT1 A 0 A_JumpIfInventory ("PlasmaAutoRifle", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("LSCMinigun", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("DispersionRocketLauncher", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+
+         TNT1 A 0 A_JumpIfInventory ("MultiRocketLauncher", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("NeoRocketLauncher", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("SuperRocket", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("LaserCannon", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("Raygun", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("PlasmaGun", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("LSCQ2Railgun", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("ShockRifle2000", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("RailCannon", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("AlienCannon", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("PhotonReactorCannon", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("DarkMatterGun", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("Stinger", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("UnmakerMKVI", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("FlakCannon", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("IceWand", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("GoreWyrm", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("SuperCrossbow", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("Embercaster", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("DemonCannon", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("SerpentStaff", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+		 
+         TNT1 A 0 A_JumpIfInventory ("Unmaker", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("DemonicFirepower", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("DemonBane", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("GodHand", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+         
+         TNT1 A 0 A_JumpIfInventory ("PowerStaff", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+		 
+         TNT1 A 0 A_Jump (256, "FinalCheck");
+	Nothing:
+		 TNT1 A 0 A_PrintBold ("\cgYou're holding too many weapons. You might want to drop something.");
+		 Fail;
+     }
+}

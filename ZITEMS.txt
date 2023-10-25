@@ -1,0 +1,21 @@
+/*class ToggleableWings : ToggleableInventory
+    {
+    default
+        {
+        ToggleableInventory.Type "PowerFlight";
+        
+        ToggleableInventory.DepletePeriod 10;    
+        ToggleableInventory.RegenPeriod -2;        
+        
+        // cannot regenerate power when in the air.
+        +ToggleableInventory.CHECKFLOORREGEN;
+        }
+    
+    // causes an orange flash when activated.
+    override void ActivatePowerup()
+        {
+        super.ActivatePowerup();
+        
+        owner.A_SetBlend("ff9900", 0.5, 25);
+        }
+    }*/

@@ -1,0 +1,119 @@
+
+height 32;
+monospacefonts true, "0";
+
+statusbar normal // Standard Doom Status bar
+{
+    drawimage "STBAR", 0, 168;
+    drawimage "STTPRCNT", 90, 171;
+    drawimage "STTPRCNT", 221, 171;
+    drawnumber 3, STAT_LWR, untranslated, ammo1, 44, 171;
+    drawnumber 3, STAT_LWR, untranslated, health, 90, 171;
+    drawnumber 3, STAT_LWR, untranslated, armor, 221, 171;
+
+    //keys
+    drawswitchableimage keyslot 2 && 5, "nullimage", "STKEYS0", "STKEYS3", "STKEYS6", 239, 171;
+    drawswitchableimage keyslot 3 && 6, "nullimage", "STKEYS1", "STKEYS4", "STKEYS7", 239, 181;
+    drawswitchableimage keyslot 1 && 4, "nullimage", "STKEYS2", "STKEYS5", "STKEYS8", 239, 191;
+
+    drawnumber 3, STAT_LWR, gold, ammo Clip, 288, 173;
+    drawnumber 3, STAT_LWR, gold, ammo Shell, 288, 179;
+    drawnumber 3, STAT_LWR, gold, ammo RocketAmmo, 288, 185;
+    drawnumber 3, STAT_LWR, gold, ammo Cell, 288, 191;
+
+    drawnumber 3, STAT_LWR, gold, ammocapacity Clip, 314, 173;
+    drawnumber 3, STAT_LWR, gold, ammocapacity Shell, 314, 179;
+    drawnumber 3, STAT_LWR, gold, ammocapacity RocketAmmo, 314, 185;
+    drawnumber 3, STAT_LWR, gold, ammocapacity Cell, 314, 191;
+    gamemode deathmatch, teamgame
+    {
+        drawnumber 2, STAT_LWR, untranslated, frags, 138, 171;
+    }
+    gamemode cooperative, singleplayer
+    {
+        drawimage "STARMS", 104, 168;
+        drawswitchableimage weaponslot 2, "STGNUM2", "STYSNUM2", 111, 172; 
+        drawswitchableimage weaponslot 3, "STGNUM3", "STYSNUM3", 123, 172;
+        drawswitchableimage weaponslot 4, "STGNUM4", "STYSNUM4", 135, 172;
+        drawswitchableimage weaponslot 5, "STGNUM5", "STYSNUM5", 111, 182;
+        drawswitchableimage weaponslot 6, "STGNUM6", "STYSNUM6", 123, 182;
+        drawswitchableimage weaponslot 7, "STGNUM7", "STYSNUM7", 135, 182;
+    }
+    gamemode cooperative, deathmatch, teamgame
+    {
+        drawimage translatable "STFBANY", 144, 169;
+    }
+    drawselectedinventory alternateonempty, STAT_LWR, 143, 168
+    {
+        drawmugshot 5, 143, 168;
+    }
+}
+
+statusbar fullscreen, fullscreenoffsets // ZDoom HUD
+{
+	//health
+	drawimage "MINI_HP", 0, -10;
+	drawnumber 4, STAT_LWR, red, health, 42, -8, red, 100, lightblue, 101;
+
+	//armor
+	drawimage "MINI_ARM", 0, -20;
+	drawnumber 4, STAT_LWR, green, armor, whennotzero, 42, -18, red, 100, lightblue, 101;
+
+	//health
+	drawimage "MINI_HP", 0, -30;
+	drawnumber 4, STAT_LWR, red, "Token", 42, -28, red, 100, lightblue, 101;
+
+	//ammo
+	drawimage "MINI_AMO", -34, -40;
+	drawimage ammoicon1, -46, -1, centerbottom, 11, 11, forcescale;
+	drawnumber 4, STAT_LWR, red, ammo1,  -2, -8;
+	usesammo
+	{
+		usessecondaryammo
+		{
+         	drawimage "MINI_AMO", -34, -50;
+	        drawimage ammoicon2, -46, -11, centerbottom, 11, 11, forcescale;
+	        drawnumber 4, STAT_LWR, red, ammo2,  -2, -18;
+		}
+	}
+	
+	
+	DrawKeyBar 9, vertical, 9, -9, -92;
+	
+	/*InInventory Token, 1
+		{ 
+		Drawimage "PISTA0", -24, 48, centerbottom, 11, 11, forcescale;
+		DrawNumber 1, SMALLFONT, White, Token, alignment (right), -21, 40, 0, Gray, 0, Gold, 6;
+		}*/
+	
+	drawswitchableimage weaponslot 1, "", "STYSNUM1", 260, -20;
+	drawswitchableimage weaponslot 2, "", "STYSNUM2", 265, -20;
+	drawswitchableimage weaponslot 3, "", "STYSNUM3", 270, -20;
+	drawswitchableimage weaponslot 4, "", "STYSNUM4", 275, -20;
+	drawswitchableimage weaponslot 5, "", "STYSNUM5", 280, -20;
+	drawswitchableimage weaponslot 6, "", "STYSNUM6", 260, -10;
+	drawswitchableimage weaponslot 7, "", "STYSNUM7", 265, -10;
+	drawswitchableimage weaponslot 8, "", "STYSNUM8", 270, -10;
+	drawswitchableimage weaponslot 9, "", "STYSNUM9", 275, -10;
+	drawswitchableimage weaponslot 0, "", "STYSNUM0", 280, -10;
+
+	drawselectedinventory alternateonempty, alwaysshowcounter, STATSMAL, -15+center, -32, 15+center, -8, gold
+	{
+		drawmugshot "STF", 5, -17+center, -32;
+	}
+
+	gamemode deathmatch
+	{
+		drawnumber 3, HUDFONT_DOOM, untranslated, frags, alignment(left), 16+center, -17;
+	}
+}
+
+statusbar inventory // Standard bar overlay (ZDoom Addition)
+{
+	drawinventorybar Doom, 7, STATSMAL, 50, 170;
+}
+
+statusbar inventoryfullscreen, fullscreenoffsets // ZDoom HUD overlay.
+{
+	drawinventorybar Doom, translucent, 7, STATSMAL, -106+center, -31;
+}

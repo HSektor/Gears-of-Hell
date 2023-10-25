@@ -1,0 +1,558 @@
+ACTOR SubZero 21003
+{
+	Health 30
+	Radius 18
+	Height 56 
+	Mass 100 
+	Speed 12 
+	Damage 40
+	PainChance 70 
+	MONSTER 
+	+FLOORCLIP 
+	SeeSound "Zombie/sight" 
+	PainSound "SubZero/pain" 
+	DeathSound "SubZero/death" 
+	ActiveSound "SubZero/active" 
+	DropItem LimitIceWand 16
+	DropItem Mana 210
+    dropitem PortablePack 90
+    DropItem WarSpirit 32
+	DropItem ManaRune 4
+  DropItem HBSpawner 24
+  DropItem ABSpawner 24
+    BloodColor White
+	Obituary "%o was freeze by THE SUBZERO!FATALITY!!."
+	States 
+	{ 
+	Spawn: 
+		SUBZ AB 10 A_Look 
+		Loop 
+
+	See: 
+		SUBZ AABBCCDD 4 A_FastChase 
+		Loop
+
+	Missile:
+		SUBZ E 5 A_FaceTarget
+		SUBZ E 0 A_PlaySound("weapons/iceattack")
+		SUBZ F 5 A_CustomMissile("IceBall",32,0,0)
+		SUBZ E 10
+		Goto See
+ 
+	Pain: 
+		SUBZ G 3 
+		SUBZ G 3 A_Pain 
+		Goto See 
+
+	Death: 
+		SUBZ H 5 
+		SUBZ I 5 A_Scream 
+		SUBZ J 5 A_NoBlocking 
+		SUBZ K 5 
+		SUBZ L -1 
+		Stop
+
+	XDeath: 
+		SUBZ A 1 A_IceGuyDie
+		Stop
+
+	Raise: 
+		SUBZ KJIH 5 
+		Goto See 
+	} 
+}
+
+ACTOR Moe 21669
+{
+	Health 30
+	Radius 18 
+	Height 56 
+	Mass 100 
+	Speed 8 
+	PainChance 200 
+	Scale 0.5
+	MONSTER 
+	+FLOORCLIP 
+        +LONGMELEERANGE
+	SeeSound "moe/see" 
+	AttackSound "moe/shot"
+	PainSound "moe/pain" 
+	DeathSound "moe/death" 
+	ActiveSound "moe/see" 
+	DropItem Shell
+	DropItem Shell 100
+	DropItem Shell 100
+    dropitem PortablePack 80
+	DropItem Warspirit 32
+	DropItem HealthVile 210
+	Obituary "%o was killed by the Moe...WTF."
+	States 
+	{ 
+	Spawn: 
+		MOEZ AB 10 A_Look 
+		Loop 
+	See:
+		MOEZ A 0 A_JumpIfInventory("ShotgunClip",2,"Reload")
+        MOEZ AABBCCDD 4 A_Chase
+		Loop
+    Missile:
+        MOEZ DE 3 A_FaceTarget
+		MOEZ A 0 A_PlaySound("Moe/shot")
+        MOEZ F 3 BRIGHT A_CustomBulletAttack(13,3,6,3,"bulletpuff")
+	    MOEZ E 5 A_GiveInventory("ShotgunClip",1)
+        Goto See
+	Reload:
+		MOEZ E 8 A_Wander
+		MOEZ E 16
+		MOEZ D 4 A_PlaySound("weapons/sshoto")
+		MOEZ E 14 A_TakeInventory("ShotgunClip",1)
+		MOEZ D 4 A_PlaySound("weapons/sshotl")
+		MOEZ E 14 A_TakeInventory("ShotgunClip",1)
+		MOEZ D 4 A_PlaySound("weapons/sshotl")
+		Goto See
+       Pain: 
+ 		MOEZ G 3 
+		MOEZ G 3 A_Pain 
+		Goto See 
+       Death:
+        MOEZ G 3
+        MOEZ H 5
+        MOEZ I 5 A_Scream
+        MOEZ J 5 A_NoBlocking
+        MOEZ K 5
+        MOEZ L -1        
+        Stop
+       XDeath: 
+		MOEZ M 5 
+		MOEZ N 5 A_XScream 
+		MOEZ O 5 A_NoBlocking 
+		MOEZ PQRST 5 
+        TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+        TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+        TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+		MOEZ U -1 
+        Stop
+    Burn:                
+        APBX A 1 A_HideThing
+        BCUL I 0 A_NoBlocking
+        BCUL I 0 A_SpawnItem("BurnDeath",1,0,0)
+        APBX A -1
+        Stop
+	Raise: 
+		MOEZ KJIH 5 
+		Goto See 
+	} 
+}
+
+ACTOR ninjaimp : DoomImp 32075
+{
+Radius 16
+Health 2
+Speed 10
+Damage 4
++SHORTMISSILERANGE 
+HitObituary "%o was kicked out by a ninja imp"
+Obituary "%o was kicked out by a ninja imp"
+dropitem MeatSpawner 50
+Dropitem Warspirit 32
+states
+{
+Spawn:
+NINJ A 0 A_Gravity
+NINJ A 1 A_Look
+Loop
+See:
+NINJ A 0 A_Gravity
+NINJ ABCD 3 A_Chase
+Loop
+Missile:
+NINJ A 0 A_Gravity
+NINJ E 7 A_Facetarget
+NINJ F 0 A_PlaySound("Hiya")
+NINJ F 6 A_Facetarget
+NINJ F 4 A_Facetarget
+NINJ F 0 A_NoGravity
+NINJ F 5 A_SkullAttack
+NINJ F 1
+Goto Missile+7
+Melee:
+NINJ A 0 A_Gravity
+NINJ E 10 A_Facetarget
+NINJ F 0 A_PlaySound("Hiya")
+NINJ F 6 A_Facetarget
+NINJ F 4 A_Facetarget
+NINJ F 0 A_NoGravity
+NINJ F 5 A_SkullAttack
+NINJ F 1
+Goto Missile+7
+Pain:
+NINJ A 0 A_Gravity
+NINJ H 2 A_Pain
+Goto See
+XDeath:
+TROO N 5
+TROO O 5 A_XScream
+TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+TROO P 5
+TROO Q 5 A_NoBlocking
+TROO RST 5
+TROO U -1
+stop
+Burn:                
+APBX A 1 A_HideThing
+BCUL I 0 A_NoBlocking
+BCUL I 0 A_SpawnItem("BurnDeath",1,0,0)
+APBX A -1
+Stop
+}
+}
+
+actor NeoNazi : WolfensteinSS
+{
+  Translation "192:207=48:75","240:245=76:79"
+  Obituary "%o was killed by an NeoNazi."
+  AttackSound "weapons/m20"
+  Dropitem Clip
+  Dropitem ClipBox
+  DropItem HealthVile 210
+  DropItem PortablePack 64
+  DropItem WarSpirit 28
+  DropItem LimitAliensGBR 32
+  Health 90
+  Scale 1.05
+  States
+  {
+  Missile:
+    SSWV E 0 A_Jump(164,"Missile2")
+    SSWV AEF 4 A_FaceTarget
+    SSWV E 0 A_PlaySound("weapons/m20")
+    SSWV G 4 A_PosAttack
+    SSWV G 0 A_CPosRefire
+    Goto Missile+3
+  Missile2:
+    SSWV AEF 4 A_FaceTarget
+    SSWV G 4 A_CustomMissile("ARGrenade", 53, 3, 0)
+    SSWV G 8 A_FaceTarget
+    Goto See
+  XDeath:
+    SSWV N 5
+    SSWV O 5 A_XScream
+    TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+    TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+    SSWV P 5 A_NoBlocking
+    SSWV QRSTU 5
+    SSWV V -1
+    stop
+  Burn:                
+    APBX A 1 A_HideThing
+    BCUL I 0 A_NoBlocking
+    BCUL I 0 A_SpawnItem("BurnDeath",1,0,0)
+    APBX A -1
+    Stop
+  }
+}
+
+ACTOR SSSoldier 3301
+{
+	Health		 20
+	Radius		 20
+	Height		 56
+	Speed		  8
+	PainChance	200
+	Scale		1.1
+	SeeSound	"sssoldier/sight"
+	PainSound	"sssoldier/pain"
+	DeathSound	"sssoldier/death"
+	ActiveSound	"wolfss/active"
+	Obituary	"%o was killed by an SS soldier."
+    DropItem ClipBox 36
+    DropItem HealthVile 210
+    DropItem PortablePack 64
+    DropItem WarSpirit 32
+	MONSTER
+	+FLOORCLIP
+	States
+	{
+	Spawn:
+		SSSD A 10 A_Look
+		SSSD B 10 A_Look
+		Loop
+	See:
+		SSSD A 4 A_Chase
+		SSSD A 4 A_Chase
+		SSSD B 4 A_Chase
+		SSSD B 4 A_Chase
+		SSSD C 4 A_Chase
+		SSSD C 4 A_Chase
+		SSSD D 4 A_Chase
+		SSSD D 4 A_Chase
+		Loop
+	Missile:
+		SSSD E 10 A_FaceTarget
+		SSSD F 8 A_PosAttack
+		SSSD E 8
+		Goto See
+	Pain:
+		SSSD G 3
+		SSSD G 3 A_Pain
+		Goto See
+	Death:
+		SSSD H 5
+		SSSD I 5 A_Scream
+		SSSD J 5 A_NoBlocking
+		SSSD K 5
+		SSSD L -1
+		Stop
+	XDeath:
+		SSSD M 5
+		SSSD N 5 A_XScream
+		SSSD O 5 A_NoBlocking
+        TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+        TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+		SSSD P 5
+		SSSD Q 5
+		SSSD R 5
+		SSSD S 5
+		SSSD T 5
+		SSSD U -1
+		Stop
+	Burn:                
+        APBX A 1 A_HideThing
+        BCUL I 0 A_NoBlocking
+        BCUL I 0 A_SpawnItem("BurnDeath",1,0,0)
+        APBX A -1
+        Stop
+	Raise:
+		SSSD L 5
+		SSSD K 5
+		SSSD J 5
+		SSSD I 5
+		SSSD H 5
+		Goto See
+	}
+}
+
+ACTOR SSCommando 3302
+{
+	Health		150
+	Radius		 20
+	Height		 56
+	Speed		  8
+	PainChance	150
+	SeeSound	"sscommando/sight"
+	AttackSound	"sscommando/attack"
+	PainSound	"sscommando/pain"
+	DeathSound	"sscommando/death"
+	ActiveSound	"wolfss/active"
+	Obituary	"%o was killed by an SS commando."
+    DropItem Clip
+    DropItem Clip
+    DropItem HealthVile 210
+    DropItem PortablePack 64
+    DropItem WarSpirit 32
+	MONSTER
+	+FLOORCLIP
+	States
+	{
+	Spawn:
+		SSCM A 10 A_Look
+		SSCM B 10 A_Look
+		Loop
+	See:
+		SSCM A 3 A_Chase
+		SSCM A 3 A_Chase
+		SSCM B 3 A_Chase
+		SSCM B 3 A_Chase
+		SSCM C 3 A_Chase
+		SSCM C 3 A_Chase
+		SSCM D 3 A_Chase
+		SSCM D 3 A_Chase
+		Loop
+	Missile:
+		SSCM E 10        A_FaceTarget
+		SSCM F 10        A_FaceTarget
+		SSCM G  4 BRIGHT A_CPosAttack
+		SSCM F  6        A_FaceTarget
+		SSCM G  4 BRIGHT A_CPosAttack
+		SSCM F  1        A_CPosRefire
+		Goto Missile+1
+	Pain:
+		SSCM H 3
+		SSCM H 3 A_Pain
+		Goto See
+	Death:
+		SSCM I 5
+		SSCM J 5 A_Scream
+		SSCM K 5 A_NoBlocking
+		SSCM L 5
+		SSCM M -1
+		Stop
+	XDeath:
+		SSCM N 5
+		SSCM O 5 A_XScream
+		SSCM P 5 A_NoBlocking
+	    TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+        TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+		SSCM Q 5
+		SSCM R 5
+		SSCM S 5
+		SSCM T 5
+		SSCM U 5
+		SSCM V -1
+		Stop
+	Burn:                
+        APBX A 1 A_HideThing
+        BCUL I 0 A_NoBlocking
+        BCUL I 0 A_SpawnItem("BurnDeath",1,0,0)
+        APBX A -1
+        Stop
+	Raise:
+		SSCM M 5
+		SSCM L 5
+		SSCM K 5
+		SSCM J 5
+		SSCM I 5
+		Goto See
+	}
+}
+
+ACTOR RedNazi 21038
+{
+	Health 30
+	Radius 20 
+	Height 56 
+	Mass 100 
+	Speed 8 
+	PainChance 70 
+	MONSTER 
+	+FLOORCLIP 
+	SeeSound "wolfss/sight" 
+	PainSound "wolfss/pain" 
+	DeathSound "wolfss/death" 
+	ActiveSound "wolfss/active" 
+    Dropitem Clip
+    Dropitem ClipBox
+    DropItem HealthVile 210
+    DropItem PortablePack 64
+    DropItem WarSpirit 28
+	Translation "198:207=178:187", "240:247=188:191", "250:251=0:0"
+	Obituary "%o met a red nazi."
+	States 
+	{ 
+         Spawn:
+                SSWV A 1 A_Look
+                loop
+	
+	See:
+		SSWV AABBCCDD 4 A_Chase
+		Loop
+
+	Missile:
+		SSWV E 10 A_FaceTarget
+		SSWV F 0 A_PlaySound("chainguy/attack")
+		SSWV G 3 A_CustomBulletAttack (15, 8, 2, 4, "puff2")
+		SSWV G 3 A_CustomBulletAttack (15, 8, 2, 4, "puff2")
+		SSWV G 3 A_CustomBulletAttack (15, 8, 2, 4, "puff2")
+		SSWV E 10 A_CPosRefire
+		SSWV G 3 A_CustomBulletAttack (15, 8, 2, 4, "puff2")
+		SSWV E 10 A_CPosRefire
+		Goto Missile+1
+ 
+	Pain: 
+		SSWV H 3 
+		SSWV H 3 A_Pain 
+		Goto See 
+
+	Death: 
+		SSWV I 5 
+		SSWV J 5 A_Scream 
+		SSWV K 5 A_NoBlocking 
+		SSWV L 5 
+		SSWV M -1 
+    XDeath:
+        SSWV N 5
+        SSWV O 5 A_XScream
+        TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+        TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+        SSWV P 5 A_NoBlocking
+        SSWV QRSTU 5
+        SSWV V -1
+        stop
+	Burn:                
+        APBX A 1 A_HideThing
+        BCUL I 0 A_NoBlocking
+        BCUL I 0 A_SpawnItem("BurnDeath",1,0,0)
+        APBX A -1
+        Stop
+	Raise: 
+		SSWV LKJI 5 
+		Goto See 
+	} 
+}
+
+actor NaziPistol
+{
+  obituary "%o was killed by a Nazi."
+  health 40
+  radius 20
+  height 56
+  mass 100
+  speed 8
+  painchance 200
+  SeeSound	    "sssoldier/sight"
+  PainSound	    "sssoldier/pain"
+  DeathSound	"sssoldier/death"
+  ActiveSound	"sssoldier/active"
+  Dropitem Clip
+  DropItem HealthVile 210
+  DropItem WarSpirit 28
+  DropItem PortablePack 64
+  MONSTER
+  +FLOORCLIP
+  states
+  {
+  Spawn:
+    NZ01 AB 10 A_Look
+    loop
+  See:
+    NZ01 AABBCCDD 4 A_Chase
+    loop
+  Missile:
+    NZ01 E 10 A_FaceTarget
+    NZ01 F 8 A_PosAttack
+	NZ01 E 10 A_FaceTarget
+    NZ01 F 8 A_PosAttack
+    NZ01 E 8
+    goto See
+  Pain:
+    NZ01 G 3
+    NZ01 G 3 A_Pain
+    goto See
+  Death:
+    NZ01 H 5
+    NZ01 I 5 A_Scream
+    NZ01 J 5 A_NoBlocking
+    NZ01 K 5
+    NZ01 L -1
+    stop
+  XDeath:
+    NZ01 M 5
+    NZ01 N 5 A_XScream
+    TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+    TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+    NZ01 O 5 A_NoBlocking
+    NZ01 PQRST 5
+    NZ01 U -1
+    stop
+  Burn:                
+    APBX A 1 A_HideThing
+    BCUL I 0 A_NoBlocking
+    BCUL I 0 A_SpawnItem("BurnDeath",1,0,0)
+    APBX A -1
+    Stop
+  Raise:
+    NZ01 KJIH 5
+    goto See
+  }
+}

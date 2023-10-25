@@ -1,0 +1,1232 @@
+ACTOR BlackHorrorImp 3123
+{  
+   Health 80
+   Radius 18
+   Height 56
+   Speed 10
+   PainChance 100
+   MONSTER
+   +FLOORCLIP
+   SeeSound "imp/sight" 
+   PainSound "demon/pain"
+   DeathSound "imp/death"
+   ActiveSound "demon/active"
+   MeleeSound "imp/melee"
+   Obituary "%o was cursed by an shadow wraith."
+   HitObituary "An shadow wraith ripped %o apart."
+   BloodColor Black
+   DropItem WarSpirit 48
+   dropitem MeatSpawner 80
+   DropItem DemonicHeart 8
+   DropItem HBSpawner 24
+   DropItem ABSpawner 24
+   DropItem Mana 20
+   States
+   { 
+   Spawn:
+       BHIM AB 10 A_Look
+       Loop
+   See:
+       BHIM AABBCCDD 4 A_Chase
+       Loop
+   Melee:
+   Missile:
+       BHIM E 0 A_Jump(128, "Missile2")
+       BHIM EF 10 A_FaceTarget
+       BHIM G 6 A_BasicAttack (4, "imp/melee", "HellFireBall", 24)
+       Goto See
+   Missile2:
+       BHIM AAA 3 A_FaceTarget
+       BHIM F 0 A_PlaySound("D3Trite/Attack")
+       BHIM F 0 A_SkullAttack
+       BHIM F 0 A_MeleeAttack
+       BHIM F 10 ThrustThingZ(0, 6, 0, 1)
+       BHIM E 8 A_Stop
+       Goto See
+   Pain:
+       BHIM H 3
+       BHIM H 3 A_Pain
+       Goto See
+   Death:
+       BHIM I 5 A_Scream
+       BHIM J 5 A_NoBlocking
+       BHIM K 5 
+       BHIM L 5
+       BHIM M -1
+       Stop
+   XDeath:
+       BHIM N 5 
+       BHIM O 5 A_XScream
+       BHIM P 5 
+       TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+       TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+       TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+       BHIM Q 5 A_NoBlocking
+       BHIM RST 5
+       BHIM U -1
+       Stop
+   Raise:
+       BHIM LKJI 5
+       Goto See
+   Burn:                
+       APBX A 1 A_HideThing
+       BCUL I 0 A_NoBlocking
+       BCUL I 0 A_SpawnItem("BurnDeath",1,0,0)
+       APBX A -1
+       Stop
+   }
+}
+
+ACTOR DeadBHImp
+{
+  States
+  {
+  Spawn:
+    BHIM M -1
+    Stop
+  }
+}
+
+ACTOR HellFireBall
+{
+    Speed 20
+    Radius 6
+    Height 8
+    Damage 8
+    SeeSound "imp/attack"
+    DeathSound "imp/shotx"
+    PROJECTILE
+    RENDERSTYLE ADD
+    States
+    {
+    Spawn: 
+        HLFI AB 4 Bright A_CustomMissile("HellFireBallTrail", 0, 0, 0)
+        Loop
+    Death:
+        HLFI CDE 4 Bright
+        Stop
+    }
+}
+
+ACTOR HellFireBallTrail
+{
+        Speed 0
+        Damage 0
+        Height 8
+        Radius 5
+        SeeSound "NULL"
+        DeathSound "NULL"
+        PROJECTILE
+        RENDERSTYLE ADD
+        States
+        {
+        Spawn:
+           FUCK ABCDE 4 BRIGHT
+           Stop
+        }
+}
+
+ACTOR PhaseImp 24105
+{
+    Health 80
+    Radius 16
+    Height 56
+    Mass 120
+    Speed 8
+    PainChance 192
+    MONSTER
+    +FLOORCLIP
+    SeeSound "neodarkimp/sight"
+    PainSound "neodarkimp/pain"
+    DeathSound "neodarkimp/death"
+    ActiveSound "neodarkimp/active"
+    MeleeSound "neodarkimp/melee"
+    Obituary "%o was incinerated by a Dark Imp."
+    HitObituary "%o was scratched by a Dark Imp."
+    DropItem Mana 40
+    DropItem WarSpirit 48
+    DropItem HBSpawner 24
+    DropItem ABSpawner 24
+	DropItem DemonicHeart 8
+    States
+    {
+    Spawn:
+        DIMP AB 10 A_Look
+        Loop
+    See:
+        DIMP AABBCCDD 3 A_Chase
+        Loop
+        DIMP AABBCCDDAABBCCDDAABBCCDDAABBCCDD 1 A_ExtChase(0,0)
+        DIMP AABBCCDDAABBCCDD 1 A_Chase
+        Goto See+40
+    Missile:
+        DIMP E 0 A_Jump (64,6)
+        DIMP E 0 A_UnHideThing
+        DIMP E 0 A_SetTranslucent(1)
+        DIMP EF 8 A_FaceTarget
+        DIMP G 6 A_BasicAttack (4, "neodarkimp/melee", "DarkImpBall", 24)
+        Goto See
+        DIMP E 0
+        DIMP E 0 A_PlaySound("neodarkimp/teleport")
+        DIMP E 5 Bright A_FaceTarget
+        DIMP E 0 A_FaceTarget
+        DIMP E 1 Bright A_SetTranslucent(0.9)
+        DIMP E 1 Bright A_SetTranslucent(0.8)
+        DIMP E 1 Bright A_SetTranslucent(0.7)
+        DIMP E 1 Bright A_SetTranslucent(0.6)
+        DIMP E 1 Bright A_SetTranslucent(0.5)
+        DIMP E 1 Bright A_SetTranslucent(0.4)
+        DIMP E 1 Bright A_SetTranslucent(0.3)
+        DIMP E 1 Bright A_SetTranslucent(0.2)
+        DIMP E 1 Bright A_SetTranslucent(0.1)
+        DIMP E 0 A_HideThing
+        Goto See+8
+    Pain:
+        DIMP H 0 A_UnHideThing
+        DIMP H 2 A_SetTranslucent(1)
+        DIMP H 2 A_Pain
+        Goto See
+    Death:
+        DIMP I 0 A_UnHideThing
+        DIMP I 8 A_SetTranslucent(1)
+        DIMP J 8 A_Scream
+        DIMP K 6
+        DIMP L 6 A_NoBlocking
+        DIMP M -1
+        Stop
+    XDeath:
+        DIMP N 0 A_UnHideThing
+        DIMP N 5 A_SetTranslucent(1)
+        TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+        TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+        TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+        DIMP O 5 A_XScream
+        DIMP P 5 A_NoBlocking
+        DIMP RST 5
+        DIMP U -1
+        Stop
+    Raise:
+        DIMP LK 8
+        DIMP JI 6
+        Goto See
+    Burn:                
+        APBX A 1 A_HideThing
+        BCUL I 0 A_NoBlocking
+        BCUL I 0 A_SpawnItem("BurnDeath",1,0,0)
+        APBX A -1
+        Stop
+    }
+}
+
+ACTOR DeadPhaseImp
+{
+  States
+  {
+  Spawn:
+    DIMP M -1
+    Stop
+  }
+}
+
+ACTOR DarkImpBall : DoomImpBall
+{
+	PROJECTILE
+	+SEEKERMISSILE
+    Radius 6
+    Height 8
+    Speed 12
+    Damage 4
+    SeeSound "neodarkimp/attack"
+    DeathSound "neodarkimp/shotx"
+    RenderStyle Add
+    Alpha 0.75
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		DIMB ABABAB 2 BRIGHT
+		DIMB ABABAB 2 BRIGHT A_SeekerMissile (20,0)
+	See:
+		DIMB AB 2 BRIGHT A_SpawnItemEx ("DarkImpBallTail", -1, 0, 0, 6, 0, 0, 0, 160)
+		DIMB AB 1 BRIGHT
+		DIMB A 2 BRIGHT A_SpawnItemEx ("DarkImpBallTail", -1, 0, 0, 6, 0, 0, 0, 160)
+		DIMB BA 1 BRIGHT
+		DIMB B 2 BRIGHT A_SpawnItemEx ("DarkImpBallTail", -1, 0, 0, 6, 0, 0, 0, 160)
+		DIMB AB 1 BRIGHT A_BishopMissileWeave
+		DIMB A 2 BRIGHT A_SpawnItemEx ("DarkImpBallTail", -1, 0, 0, 6, 0, 0, 0, 160)
+		DIMB B 2 A_JumpIfTargetInLOS (2,360)
+		DIMB B 0 A_Jump (256,2)
+		DIMB B 0 BRIGHT A_SeekerMissile (20,0)
+		DIMB A 0 BRIGHT ThrustThingZ (0, random(-2, 4), random(0,1), 1)
+		Loop
+	Death:
+		DIMB CDE 4 BRIGHT A_FadeOut (0.2)
+		Stop
+	}
+}
+
+ACTOR DarkImpBallTail
+{
+	RenderStyle Add
+	Alpha 0.5
+	Scale 0.6
+  	Radius 1
+  	Height 1
+  	+NOGRAVITY
+	States
+	{
+		Spawn:
+			DIMB BCD 3 BRIGHT
+		Death:
+			DIMB DEE 3 BRIGHT A_FadeOut (0.2)
+			Stop
+	}
+}
+
+//By: wario
+ACTOR AssaultTrooper 7159
+{
+	MONSTER
+	MASS 500
+	HEALTH 70
+	PAINCHANCE 110
+	scale 0.7
+  	Radius 20
+  	Height 56
+  	Speed 11
+  	Painchance 150
+  	+FLOORCLIP
+	Obituary "%o got shot down by an Assault Trooper"
+	seesound "LIZTSEE"
+	attacksound "LIZTSHOO"
+  	painsound "LIZTPAIN"
+  	deathsound "LIZTDIE" 
+  	activesound "LIZTACT"
+    DropItem Cell
+    dropitem MeatSpawner 50
+    dropitem PortablePack 80
+    DropItem HBSpawner 24
+    DropItem ABSpawner 24
+	DropItem LimitQ2Blaster 16
+	States
+	{
+	Spawn:
+		LIZT A 5 A_Look
+		Loop
+	See:
+		LIZT A 5 A_Chase
+		LIZT B 5 A_chase
+		LIZT C 5 A_chase
+		LIZT D 5 A_chase
+		Loop
+	Missile:
+ 		LIZT E 10 Bright A_Facetarget
+ 		LIZT E 0 A_PLAYSOUND ("LIZTSHOO")
+ 		LIZT F 10 A_CustomMissile("Lizardprojectile", 35, 23, 0)
+ 		LIZT E 10 Bright A_Facetarget
+ 		LIZT E 0 A_PLAYSOUND ("LIZTSHOO")
+ 		LIZT F 10 A_CustomMissile("Lizardprojectile", 35, 23, 0)
+ 		goto see
+	Pain:
+		LIZT E 4 A_PAIN
+		goto see
+	Death:
+		LIZT G 5 A_Scream
+		LIZT HI 5
+		LIZT J 5 A_Noblocking
+		LIZT K -1 A_SetFloorClip
+		Stop
+    Burn:                
+        APBX A 1 A_HideThing
+        BCUL I 0 A_NoBlocking
+        BCUL I 0 A_SpawnItem("BurnDeath",1,0,0)
+        APBX A -1
+        Stop
+	}
+}
+
+ACTOR DeadAssaultTrooper
+{
+  scale 0.7
+  States
+  {
+  Spawn:
+    LIZT K -1
+    Stop
+  }
+}
+
+//By: wario
+ACTOR Lizardprojectile
+{
+	PROJECTILE
+	Speed 50
+	radius 10
+	height 5
+	speed 24
+	damage 3
+	Scale 0.5
+	States
+	{
+	Spawn:
+		LIZP AAAA 1 BRIGHT A_CustomMissile("Lizardprojectile2",0,0,0)
+		Loop
+	Death:
+		LIZP A 1 BRIGHT
+		Stop
+	}
+}
+
+//By: wario
+ACTOR Lizardprojectile2
+{
+	+NOCLIP
+	PROJECTILE
+	Speed 0
+	Scale 0.5
+	Alpha 0.5
+	States
+	{
+	Spawn:
+		LIZP AAAAAAAAA 1 BRIGHT A_FadeOut(0.1)
+		Stop
+	}
+}
+
+
+ACTOR SunMonk 28888
+{ 
+Health 100
+PainChance 100
+Scale 0.29
+Speed 10
+MeleeDamage 2 
+Radius 20 
+Height 56 
+Mass 100 
+MONSTER
++FLOORCLIP
++DONTHURTSPECIES
+-NOGRAVITY
+-FLOAT
+Obituary "%o was killed by a Cultist of the Sun."
+AttackSound "monster/bolt"
+SeeSound "monster/dmsee"  
+PainSound "monster/wizpai" 
+DeathSound "monster/wizdth" 
+ActiveSound "monster/dmsee"
+DropItem ManaRune 16
+DropItem WarSpirit 40
+DropItem WarSpirit
+DropItem Mana 80
+DropItem MeatSpawner 90
+States 
+   { 
+   Spawn: 
+       M170 Z 20 A_Look 
+       Loop 
+   See: 
+       M170 LLNNOOPPQQRRSS 2 A_Chase 
+       Loop 
+   Melee:
+       M170 ABC 3 Bright A_FaceTarget              
+       M170 D 5 Bright A_MeleeAttack
+	   M170 EFT 2
+       Goto See
+   Missile:
+       M170 A 0 A_PlaySound("monster/pop")
+       M170 ABC 3 Bright A_FaceTarget
+       M170 F 0 Bright A_CustomMissile ("wizsht",35,0,0,1,0)
+       M170 D 6 Bright A_PlaySound("monster/bolt")
+	   M170 EFT 2
+       Goto See
+    Pain:
+       M170 GH 2
+       M170 I 2 A_Pain
+       M170 JK 2
+       Goto See
+    Death:
+        M170 U 4
+        M170 V 4 A_Scream
+        M170 W 4
+	    TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+        TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+        M170 X 4 A_NoBlocking
+        M170 Y -1
+        Stop
+  Burn:                
+        APBX A 1 A_HideThing
+        BCUL I 0 A_NoBlocking
+        BCUL I 0 A_SpawnItem("BurnDeath",1,0,0)
+        APBX A -1
+        Stop
+   Raise: 
+       M170 XWVU 5 
+       Goto See 
+   } 
+}
+
+
+ACTOR DeadSunMonk
+{
+Scale 0.29
+  States
+  {
+  Spawn:
+    M170 Y -1
+    Stop
+  }
+}
+
+ACTOR wizsht
+{
+   Radius 4
+   Height 6
+   Speed 20
+   Damage 3
+   Scale 0.80
+   PROJECTILE
+   +THRUGHOST
+   DeathSound "imp/shotx"
+   Translation "168:191=224:231", "16:31=224:231"
+   States
+   {
+   Spawn:
+      FIRW A 2 Bright
+      FIRW B 2 Bright A_CustomMissile("wizshtfx",0,0,0,0)
+      loop
+   Death:
+      FIEX ABC 3 Bright
+      FIEX D 5 Bright A_FadeOut(0.10) 
+      stop
+   }
+}   
+
+ACTOR wizshtfx
+{   
+   Radius 3
+   Height 3
+   Speed 0
+   PROJECTILE
+   RENDERSTYLE TRANSLUCENT
+   ALPHA 0.80
+   Translation "168:191=224:231", "16:31=224:231"
+   States
+   {
+   Spawn:
+      NULL A 2 Bright
+      WSFX ABC 2 BRIGHT A_FadeOut(0.10)
+      Stop 
+   }
+}
+
+//Hellion
+actor Hellion 30132
+{
+	obituary "A Hellion burned %o was to a crisp."
+	health 70
+	radius 20
+	height 56
+	mass 120
+	speed 10
+	painchance 24
+	seesound "monster/hlnsit"
+	painsound "monster/hlnpai"
+	deathsound "monster/hlndth"
+	activesound "monster/hlnact"
+	DropItem MeatSpawner 196
+	Scale 0.9
+	dropitem Mana 80
+	DropItem WarSpirit 48
+	DropItem DemonicHeart 8
+	DropItem HBSpawner 24
+	DropItem ABSpawner 24
+	MONSTER
+	+FLOORCLIP
+	states
+	{
+	Spawn:
+		HELN AB 10 A_Look
+		loop
+	See:
+		HELN AABBCCDDEEFF 2 A_Chase
+		loop
+	Missile:
+		HELN G 0 A_PlaySound("vile/start", CHAN_VOICE)
+		HELN GHIJK 6 Bright A_FaceTarget
+		HELN L 6 Bright A_CustomMissile("HellionBall",32,0,0,0,0)
+		HELN L 2
+		goto See
+	Pain:
+		HELN M 2
+		HELN M 2 A_Pain
+		goto See
+	Death:
+		HELN N 6
+		HELN O 6 A_Scream
+		HELN PQR 6
+		HELN S 6 A_NoBlocking
+		HELN T -1
+		stop
+	XDeath:
+		HELN U 5
+		HELN V 5 A_XScream
+		HELN W 5
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+		HELN X 5 A_NoBlocking
+		HELN YZ 5
+		HELN "[\]" 5
+		HELN ] -1
+		stop
+	Raise:
+		HELN TSRQPON 6
+		goto See
+	Burn:                
+		APBX A 1 A_HideThing
+		BCUL I 0 A_NoBlocking
+		BCUL I 0 A_SpawnItem("BurnDeath",1,0,0)
+		APBX A -1
+		Stop
+  }
+}
+
+ACTOR DeadHellion
+{
+  Scale 0.9
+  States
+  {
+  Spawn:
+    HELN T -1
+    Stop
+  }
+}
+
+ACTOR HellionBall : CacodemonBall
+{
+Damage 8
+Speed 15
+Alpha 0.80
+DamageType fire
++THRUGHOST
++FORCEXYBILLBOARD
+SeeSound "Monster/hlnatk"
+DeathSound "Monster/hlnexp"
+ states
+  {
+  Spawn:
+    HLBL AB 3 bright A_SpawnItemEx("HellionPuff",0,0,0,0,0,0)
+    loop
+  Death:
+    HLBL JKLMN 3 bright
+    stop
+  }
+}
+
+ACTOR HellionPuff
+{   
+   Radius 3
+   Height 3
+   RENDERSTYLE ADD
+   Alpha 0.67
+   +NOGRAVITY
+   +NOBLOCKMAP
+   +DONTSPLASH
+   +FORCEXYBILLBOARD
+   States
+   {
+   Spawn:
+      NULL A 3 Bright
+      HLBL CDEFGHI 3 BRIGHT
+      Stop 
+   }
+}
+//End of Hellion
+
+ACTOR TrickImp 21012
+{
+	Health 70
+	Radius 16
+	Height 56
+	Mass 100
+	Speed 18
+	PainChance 200
+	MONSTER
+	+FLOORCLIP
+    +PUSHABLE
+    +NoTarget
+	SeeSound "imp/sight"
+	PainSound "imp/pain"
+	DeathSound "imp/death"
+	ActiveSound "imp/active"
+	Translation "48:71=202:207", "72:79=240:247"
+	Obituary "%o was burned by a Trick imp."
+	dropitem Mana 80
+	DropItem WarSpirit 48
+	DropItem DemonicHeart 8
+   DropItem HBSpawner 24
+   DropItem ABSpawner 24
+	States
+	{
+	Spawn:
+		TROO AB 10 A_Look
+		Loop
+
+	See:
+		TROO AABBCCDD 3 A_Chase
+		Loop
+
+	Missile:
+		TROO EF 8 A_FaceTarget
+	    TROO G 2 BRIGHT A_CustomMissile("TricksterBallFake",32,16,random(-32,32),0,0)
+	    TROO G 2 BRIGHT A_CustomMissile("TricksterBall",32,0,random(-32,32),0,0)
+	    TROO G 2 BRIGHT A_CustomMissile("TricksterBallFake",32,-16,random(-32,32),0,0)
+		Goto See
+	Pain:
+		TROO H 2
+		TROO H 2 A_Pain
+		Goto See
+
+	Death:
+		TROO I 8
+		TROO J 8 A_Scream
+		TROO K 6
+		TROO L 6 A_NoBlocking
+		TROO M -1
+		Stop
+  XDeath:
+		TROO N 5
+		TROO O 5 A_XScream
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+		TROO P 5
+		TROO Q 5 A_NoBlocking
+		TROO RST 5
+		TROO U -1
+		stop
+    Burn:                
+        APBX A 1 A_HideThing
+        BCUL I 0 A_NoBlocking
+        BCUL I 0 A_SpawnItem("BurnDeath",1,0,0)
+        APBX A -1
+        Stop
+	Raise:
+		TROO LKJI 6
+		Goto See
+	}
+}
+
+ACTOR DeadTrickImp
+
+{
+  Translation "48:71=202:207", "72:79=240:247"
+  States
+  {
+  Spawn:
+    TROO M -1
+    Stop
+  }
+}
+
+actor WaterImp 15895
+{
+  obituary "%o was drowned by a water imp."
+  hitobituary "%o was suffocated by a water imp."
+  health 55
+  radius 20
+  height 56
+  mass 100
+  speed 6
+  painchance 200
+  SEESOUND "SpiritImp/Sight"
+  DEATHSOUND "SpiritImp/Death"
+  ACTIVESOUND "SpiritImp/Active"
+  bloodcolor "33 33 33"
+  damagefactor "ice",0
+  dropitem Mana 40
+  DropItem WarSpirit 48
+  DropItem DemonicHeart 8
+  DropItem HBSpawner 24
+  DropItem HBSpawner 24
+  DropItem HBSpawner 24
+  DropItem ABSpawner 24
+  MONSTER
+  -SOLID
+  +FLOORCLIP
+  +JUMPDOWN
+  +LOOKALLAROUND
+  states
+  {
+  Spawn:
+    KIGL A 0 A_UnSetShootable
+    KIGL AB 10 A_Look
+    loop
+  See:
+    KIGL A 0 A_UnSetShootable
+    KIGL A 0 A_UnSetSolid
+    KIGL AABB 4 A_Chase
+    loop
+  Melee:
+  Missile:
+    KIGL A 0 A_SetShootable
+    KIGL A 0 A_SetSolid
+	TRSE ABCD 4 A_Chase("","",CHF_NORANDOMTURN)
+    TRSE EF 8 A_FaceTarget
+    TRSE G 6 A_BasicAttack (4, "imp/melee", "waterball", 24)
+    goto See
+  Pain:
+    TRSE H 2
+    TRSE H 2 A_Pain
+    goto See
+  Death:
+    TRSE I 8
+    TRSE J 8 A_Scream
+    TRSE K 6
+    TRSE L 6 A_NoBlocking
+    TRSE M -1
+    stop
+  Raise:
+    TRSE LKJI 4
+    goto See
+  }
+}
+
+ACTOR DeadWaterImp
+
+{
+  States
+  {
+  Spawn:
+    TRSE M -1
+    Stop
+  }
+}
+
+actor WaterBall
+{
+  Radius 6
+  Height 8
+  Speed 14
+  FastSpeed 28
+  Damage 3
+  Projectile
+  +RANDOMIZE
+  RenderStyle Add
+  SeeSound "imp/attack"
+  DeathSound "imp/shotx"
+  States
+  {
+  Spawn:
+    WBL1 ABCD 4 bright A_SpawnItemEx ("WaterImpBallTrail", -1, 0, 0, 2, 0, 0, 0, 160, 0)
+    loop
+  Death:
+    WBL1 EFGH 6 bright
+    stop
+  }
+}
+
+actor WaterImpBallTrail
+{
+	scale 0.4
+	renderstyle add
+	alpha 0.6
+    translation "231:161=203:205","212:218=204:206","179:184=205:207"
+	states
+	{
+	spawn:
+		BAL1 A 0
+		BAL1 A 6 bright A_FadeOut (0.1)
+		loop
+	}
+}
+
+Actor magmaDoomImp : DoomImp 997
+{
+	obituary "%o became babecue"
+	hitobituary "%o became babecue"
+	translation "64:79=176:191"
+	damagefactor "fire",0
+	damagefactor "ice",2.0
+	dropitem Mana 40
+	DropItem WarSpirit 48
+	DropItem DemonicHeart 8
+    DropItem HBSpawner 24
+    DropItem ABSpawner 24
+	states
+	{
+		Spawn:
+		TROO A 0 A_CustomMissile("HFirex2",8,0)
+		TROO AB 10 A_Look
+		loop
+		See:
+		TROO A 0 A_CustomMissile("HFirex2",8,0)
+		TROO AABB 3 A_Chase
+		TROO A 0 A_CustomMissile("HFirex2",8,0)
+		TROO CCDD 3 A_Chase
+		loop
+		Melee:
+		TROO A 0 A_CustomMissile("HFirex2",8,0)
+		Missile:
+		TROO A 0 A_Jump(150,"Missile.Superball")
+		TROO EF 4 A_FaceTarget
+		TROO G 4 A_CustomMissile("SuperDoomImpBall", 50, 0, 0)
+		goto See
+		Missile.Superball:
+		TROO E 2 A_FaceTarget
+		TROO E 0 A_PlaySound ("imp/sight")
+		TROO EEEEE 2 A_SpawnItemEx ("ReverseImpBallTail", 4, 24, random(31,33), 1, 0, 0, 0, 160)
+		TROO EF 4
+		TROO G 0 A_FaceTarget
+		TROO G 0 A_CustomMissile ("DrunkImpBall", (random(31,33)), 6, (random(6,14)))
+		TROO G 0 A_CustomMissile ("DrunkImpBall", (random(31,33)), 6, (random(-4,4)))
+		TROO G 0 A_CustomMissile ("DrunkImpBall", (random(31,33)), 6, (random(-6,-14)))
+		TROO GGFE 5
+		goto See
+	}
+}
+
+ACTOR DeadMagmaImp
+{
+  translation "64:79=176:191"
+  States
+  {
+  Spawn:
+    TROO M -1
+    Stop
+  }
+}
+
+ACTOR DrunkImpBallTail
+{
+	RenderStyle Add
+	Alpha 0.5
+	Scale 0.6
+  	Radius 1
+  	Height 1
+  	+NOGRAVITY
+	States
+	{
+		Spawn:
+			BAL1 BCD 3 BRIGHT
+		Death:
+			BAL1 DEE 3 BRIGHT A_FadeOut (0.2)
+			Stop
+	}
+}
+
+ACTOR DrunkImpBall : DoomImpBall
+{
+	PROJECTILE
+	+SEEKERMISSILE
+	Decal "DoomImpScorch"
+	Radius 5
+	Height 6
+	Speed 12
+	Damage 3
+	Scale 0.8
+	DamageType "Thermal"
+	States
+	{
+	Spawn:
+		TNT1 A 0
+		BAL1 ABABAB 2 BRIGHT
+		BAL1 ABABAB 2 BRIGHT A_SeekerMissile (6, 9)
+	See:
+		BAL1 AB 2 BRIGHT A_SpawnItemEx ("DrunkImpBallTail", -1, 0, 0, 6, 0, 0, 0, 160)
+		BAL1 AB 1 BRIGHT
+		BAL1 A 2 BRIGHT A_SpawnItemEx ("DrunkImpBallTail", -1, 0, 0, 6, 0, 0, 0, 160)
+		BAL1 BA 1 BRIGHT
+		BAL1 B 2 BRIGHT A_SpawnItemEx ("DrunkImpBallTail", -1, 0, 0, 6, 0, 0, 0, 160)
+		BAL1 AB 1 BRIGHT A_BishopMissileWeave
+		BAL1 A 2 BRIGHT A_SpawnItemEx ("DrunkImpBallTail", -1, 0, 0, 6, 0, 0, 0, 160)
+		BAL1 B 2 A_JumpIfTargetInLOS (2,360)
+		BAL1 B 0 A_Jump (256,2)
+		BAL1 B 0 BRIGHT A_SeekerMissile (6, 9)
+		BAL1 A 0 BRIGHT ThrustThingZ (0, random(-2, 4), random(0,1), 1)
+		Loop
+	Death:
+		BAL1 CDE 4 BRIGHT A_FadeOut (0.2)
+		Stop
+	}
+}
+
+ACTOR ReverseImpBallTail : DrunkImpBallTail
+{
+	Alpha 0
+	States
+	{
+		Spawn:
+			BAL1 EEDC 2 BRIGHT A_FadeIn (0.2)
+		Death:
+			BAL1 BAB 2 BRIGHT A_FadeIn (0.2)
+			Stop
+	}
+}
+
+Actor SuperDoomImpBall : DoomImpBall
+{
+   +DOOMBOUNCE
+    +GRENADETRAIL
+    +CANBOUNCEWATER
+   States
+   {
+   Spawn:
+      BAL1 ABABABABABABABABABABAB 4 BRIGHT A_Gravity
+      Loop
+   Death:
+       TNT1 A 0 A_Jump(255,"De1","De2")
+   De1:
+       TNT1 A 0 A_Explode(5,10,0)
+      BAL1 CDE 6 BRIGHT
+      Stop
+   De2:
+      TNT1 A 0 A_CustomMissile("MiniImpBall",0,0,30)
+      TNT1 A 0 A_CustomMissile("MiniImpBall",0,0,60)
+      TNT1 A 0 A_CustomMissile("MiniImpBall",0,0,90)
+      TNT1 A 0 A_CustomMissile("MiniImpBall",0,0,120)
+      TNT1 A 0 A_CustomMissile("MiniImpBall",0,0,150)
+      TNT1 A 0 A_CustomMissile("MiniImpBall",0,0,180)
+      TNT1 A 0 A_CustomMissile("MiniImpBall",0,0,0)
+      TNT1 A 0 A_CustomMissile("MiniImpBall",0,0,-30)
+      TNT1 A 0 A_CustomMissile("MiniImpBall",0,0,-60)
+      TNT1 A 0 A_CustomMissile("MiniImpBall",0,0,-90)
+      TNT1 A 0 A_CustomMissile("MiniImpBall",0,0,-120)
+      TNT1 A 0 A_CustomMissile("MiniImpBall",0,0,-150)
+      TNT1 A 0 A_CustomMissile("MiniImpBall",0,0,-180)      
+      BAL1 CDE 6 BRIGHT
+      Stop
+   }
+}
+
+Actor MiniImpBall : DoomImpBall
+{
+   Radius 1
+   Height 2
+   Speed 20
+   Damage 2
+   Scale 0.3
+   +DOOMBOUNCE
+   +HEXENBOUNCE
+   States
+   {
+   Spawn:
+      BAL1 ABABABABABABABABABABABABABABABABABABABABABABAB 5 BRIGHT
+      Goto Death
+   Death:
+      BAL1 CDE 3 BRIGHT
+      Stop
+        }
+}
+
+Actor StoneDoomImp : DoomImp 1471
+{
+	+AMBUSH
+	translation "64:79=96:111"
+	health 135
+	mass 9999
+	painchance 0
+	+NOBLOOD
+	dropitem Mana 40
+	dropitem MeatSpawner 100
+	DropItem WarSpirit 58
+	states
+	{
+		death:
+		NULL A 1 A_NoBlocking
+		STON IIIIIIIIII 0 A_CustomMissile("StoneDemonMiniBoulder",16,0,random(0,359),2,random(0,40))
+		stop
+		xdeath:
+		goto death
+	}
+}
+
+ACTOR ArchMinion 21132
+{
+	Health 60
+	Radius 20
+	Height 56
+	Mass 500
+	Speed 16
+	Scale 0.75
+	PainChance 50
+	MONSTER
+	+FLOORCLIP
+	+NOTARGET
+	+QUICKTORETALIATE
+	SeeSound "vile/sight"
+	PainSound "vile/pain"
+	DeathSound "vile/death"
+	ActiveSound "vile/active"
+	BloodColor DimGray
+	Obituary "%o was killed by a Arch Minion."
+    dropitem WarSpirit 28
+	DropItem Mana
+	DropItem MeatSpawner 128
+	Translation "0:255=#[244,244,244]"
+	States
+	{
+	Spawn:
+		VILE AB 10 A_Look
+		Loop
+
+	See:
+		VILE AABBCCDDEEFF 2 A_VileChase
+		Loop
+
+	Missile:
+		VILE GHIJ 3 BRIGHT A_FaceTarget
+		VILE K 3 BRIGHT A_CustomMissile("DiscipleShot1", 36)
+		VILE LM 1
+		Goto See
+
+	Heal:
+		VILE [ 6 BRIGHT
+		VILE \ 6 BRIGHT
+		VILE ] 6 BRIGHT
+		Goto See
+
+	Pain:
+		VILE Q 3
+		VILE Q 3 A_Pain
+		Goto See
+
+	Death:
+		VILE Q 7
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+		VILE R 7 A_Scream
+		VILE S 7 A_NoBlocking
+		VILE TUVW 7
+		VILE XY 5
+		VILE Z -1
+		Stop	
+	}
+}
+
+ACTOR DeadArchMinion
+
+{
+  Translation "0:255=#[244,244,244]"
+  States
+  {
+  Spawn:
+    VILE Z -1
+    Stop
+  }
+}
+
+actor NewMarineRailgun 32009
+{
+	Health 70
+	Radius 20
+	Height 56 
+	Mass 100 
+	Speed 10
+	PainChance 200
+	MONSTER 
+	+FLOORCLIP
+	+CANPUSHWALLS
+	+CANUSEWALLS
+	-ACTIVATEMCROSS
+	+TELESTOMP
+    activesound "misc/combineidle"
+    seesound "misc/combineidle"
+	PainSound "misc/combinepain"
+	DeathSound "misc/combinedeath"
+	DropItem LimitLSCQ2Railgun 32
+    DropItem PortablePack 64
+	DropItem Cell 
+	DropItem CellPack 16
+	DropItem WarSpirit 28
+    DropItem HealthVile 210
+    Translation "112:127=80:111"
+	Obituary "%o was killed by a Railgun Marine."
+	States 
+	{ 
+	Spawn: 
+		PLAY AB 5 A_Look 
+		Loop 
+	
+	See:
+		PLAY A 0 A_ClearTarget
+		PLAY A 0 A_Chase
+		PLAY A 1 A_Chase
+		PLAY A 1 A_Recoil (-1)
+		PLAY B 0 A_Chase
+		PLAY B 1 A_Chase
+		PLAY B 1 A_Recoil (-1)
+		PLAY C 0 A_Chase
+		PLAY C 1 A_Chase
+		PLAY C 1 A_Recoil (-1)
+		PLAY D 0 A_Chase
+		PLAY D 1 A_Chase
+		PLAY D 1 A_Recoil (-1)
+		Loop		
+	Missile:
+		PLAY E 10 A_FaceTarget
+		PLAY F 8 A_CustomRailgun(random(15,20), 0, "White", none)
+		PLAY E 0 NoiseAlert (0, 0)
+		PLAY A 0 A_ExtChase (0, 0)
+		PLAY A 1 A_FaceTarget
+		PLAY A 1 ThrustThing (random(-255, 255), random(0, 4), 0, 0)
+		PLAY A 0 A_ExtChase (0, 0)
+		PLAY A 2 A_FaceTarget
+		PLAY A 1 ThrustThing (random(-255, 255), random(0, 4), 0, 0)
+		PLAY B 0 A_ExtChase (0, 0)
+		PLAY B 1 A_FaceTarget
+		PLAY B 1 ThrustThing (random(-255, 255), random(0, 4), 0, 0)
+		PLAY B 0 A_ExtChase (0, 0)
+		PLAY B 2 A_FaceTarget
+		PLAY B 1 ThrustThing (random(-255, 255), random(0, 4), 0, 0)
+		Goto See 
+	Pain:
+		PLAY G 0 A_ExtChase (0, 0)
+		PLAY G 0 A_ExtChase (0, 0)
+		PLAY G 1 A_Recoil (1.718)
+		PLAY G 0 A_ExtChase (0, 0)
+		PLAY G 0 A_ExtChase (0, 0)
+		PLAY G 0 A_Pain
+		PLAY G 1 A_Recoil (1.718)
+		PLAY G 0 A_ExtChase (0, 0)
+		PLAY G 0 A_ExtChase (0, 0)
+		PLAY G 1 A_Recoil (1.718)
+		Goto See
+	Death: 
+		PLAY H 5 
+		PLAY I 5 A_Scream 
+		PLAY J 5 A_NoBlocking 
+		PLAY K 5 
+		PLAY L -1
+        Stop 
+    XDeath:
+       PLAY O 5
+       PLAY P 5 A_XScream
+       TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+       TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+       PLAY Q 5 A_NoBlocking
+       PLAY RSTUV 5
+       PLAY W -1
+       Stop
+    Burn:                
+        APBX A 1 A_HideThing
+        BCUL I 0 A_NoBlocking
+        BCUL I 0 A_SpawnItem("BurnDeath",1,0,0)
+        APBX A -1
+        Stop
+    Raise: 
+		PLAY KJIH 5 
+		Goto See 
+	} 
+}
+
+ACTOR DeadRailgunMarine
+
+{
+  Translation "112:127=80:111"
+  States
+  {
+  Spawn:
+    PLAY L -1
+    Stop
+  }
+}

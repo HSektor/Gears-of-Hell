@@ -1,0 +1,1097 @@
+actor MMZombie 20108
+{
+    Health 30
+    Radius 20
+    Height 56
+    Speed 3
+    PainChance 55
+    Scale 0.28
+    MONSTER 
+    +FLOORCLIP
+    SeeSound "Zombie/sight"
+    PainSound "Zombie/pain"
+    DeathSound "Zombie/death"
+    ActiveSound "zombie/active"
+    MeleeSound "weapons/dspunch"
+    Obituary "%o knew the pain."
+    DropItem MeatSpawner 50
+    DropItem WarSpirit 58
+	DropItem HealthVile 210
+    MeleeDamage 2
+    States
+    {
+    Spawn:
+        ZOMB A 10 A_Look
+        Loop
+    See:
+        ZOMB B 3 A_Chase
+        ZOMB C 4 A_Chase
+        ZOMB D 3 A_Chase   
+        ZOMB E 5 A_Chase
+        ZOMB F 1 A_Chase
+        ZOMB G 2 A_Chase
+        ZOMB H 4 A_Chase
+        ZOMB I 3 A_Chase
+        Loop
+    Melee:
+        ZOMB JK 4 A_FaceTarget
+        ZOMB L 4 A_MeleeAttack
+        ZOMB MNOP 4
+        Goto See
+    Pain:
+        ZOMB Q 2
+        ZOMB R 2 A_Pain
+        ZOMB STUVA 2
+        Goto See
+    Death:
+        ZOMB QR 2
+        ZOMB W 2 A_Scream
+        ZOMB X 2
+        ZOMB Y 2
+        ZOMB Z 2 A_Fall
+		ZOMD A -1
+        Stop
+    Raise:
+        ZOMD A 2
+        ZOMB ZYXWRQ 2
+        Goto See
+    Burn:                
+        APBX A 1 A_HideThing
+        BCUL I 0 A_Fall
+        BCUL I 0 A_SpawnItem("BurnDeath",1,0,0)
+        APBX A -1
+        Stop
+		}
+}
+
+ACTOR BulletCasing
+{
+        Radius 3
+        Height 3
+        Speed 6
+	Scale 0.15
+	PROJECTILE
+	+DOOMBOUNCE
+	-NOGRAVITY
+	SeeSound "weapons/bulletcasing"
+	States
+	{
+	Spawn:
+           CAS1 A 0 A_CustomMissile("CasingSmoketrail",0,0,0)
+	   CAS1 ABCDEFGH 1 A_CustomMissile("CasingSmoketrail",0,0,0)
+	   Loop
+	Death:
+   	   TNT1 A 0 A_jump(128,10)
+   	   TNT1 A 0 A_jump(128,8)
+   	   TNT1 A 0 A_jump(128,6)
+   	   TNT1 A 0 A_jump(128,4)
+	   TNT1 A 0 A_jump(128,2)
+           CAS1 I -1
+           stop
+           CAS1 J -1
+           stop
+           CAS1 K -1
+           stop
+           CAS1 L -1
+           stop
+           CAS1 M -1
+           stop
+           CAS1 N -1
+           stop
+	}
+}
+
+ACTOR ShotgunCasing
+{
+	Height 3.5
+	Radius 1.5
+	Speed 6
+        Scale 0.15
+	PROJECTILE
+	+DOOMBOUNCE
+	-NOGRAVITY
+	SeeSound "weapons/shellcasing"
+	States
+	{
+	Spawn:
+           CAS2 A 0 A_CustomMissile("CasingSmoketrail",0,0,0)
+	   CAS2 ABCDEFGH 1 A_CustomMissile("CasingSmoketrail",0,0,0)
+	   Loop
+	Death:
+   	   TNT1 A 0 A_jump(128,10)
+   	   TNT1 A 0 A_jump(128,8)
+   	   TNT1 A 0 A_jump(128,6)
+   	   TNT1 A 0 A_jump(128,4)
+	   TNT1 A 0 A_jump(128,2)
+           CAS2 I -1
+           stop
+           CAS2 J -1
+           stop
+           CAS2 K -1
+           stop
+           CAS2 L -1
+           stop
+           CAS2 M -1
+           stop
+           CAS2 N -1
+           stop
+	}
+}
+
+ACTOR 762MMCasing
+{
+	Height 3
+	Radius 3
+	Speed 6
+	Scale 0.16
+	PROJECTILE
+	+DOOMBOUNCE
+	-NOGRAVITY
+	SeeSound "weapons/bulletcasing"
+	States
+	{
+	Spawn:
+	   CAS3 A 0 A_CustomMissile("CasingSmoketrail",0,0,0)
+	   CAS3 ABCDEFGH 1 A_CustomMissile("CasingSmoketrail",0,0,0)
+	   Loop
+	Death:
+   	   TNT1 A 0 A_jump(128,10)
+   	   TNT1 A 0 A_jump(128,8)
+   	   TNT1 A 0 A_jump(128,6)
+   	   TNT1 A 0 A_jump(128,4)
+	   TNT1 A 0 A_jump(128,2)
+           CAS3 I -1
+           stop
+           CAS3 J -1
+           stop
+           CAS3 K -1
+           stop
+           CAS3 L -1
+           stop
+           CAS3 M -1
+           stop
+           CAS3 N -1
+           stop
+	}
+}
+
+ACTOR CasingSmoketrail 
+{
+   Speed 2
+   Height 2
+   Radius 4
+   PROJECTILE
+   +NOGRAVITY
+   Scale 0.5
+   RenderStyle Translucent
+   Alpha 0.2
+   States
+   {
+   Spawn:
+      SMKE A 0
+      goto death       
+   Death: 
+      SMKE ABCDEFGH 1
+      STOP      
+   }
+}
+
+ACTOR BulletCasingSpawner
+{
+    Radius 1
+    Height 1
+    Speed 20
+    PROJECTILE
+    +noblockmap
+    States
+    {
+    Spawn:
+        TNT1 A 1
+        Goto Death
+    Death:
+        TNT1 A 0 A_CustomMissile("BulletCasing",0,0,random(-80,-100),2,random(40,60))
+        Stop
+    }
+}
+
+ACTOR ShotgunCasingSpawner
+{
+    Radius 1
+    Height 1
+    Speed 12
+    PROJECTILE
+    +noblockmap
+    scale 0.15
+    States
+    {
+    Spawn:
+        NULL A 1
+        NULL A 0 A_Die
+        Goto Death
+    Death:
+        NULL A 0 A_CustomMissile("ShotgunCasing",-2,0,random(-80,-100),2,random(40,60))
+        Stop
+    }
+}
+
+ACTOR 762MMCasingSpawner
+{
+    Radius 1
+    Height 1
+    Speed 14
+    PROJECTILE
+    +noblockmap
+    States
+    {
+    Spawn:
+        TNT1 A 1
+        TNT1 A 0 A_Die
+        Goto Death
+    Death:
+        TNT1 A 0 A_CustomMissile("762MMCasing",-2,0,random(-80,-100),2,random(40,60))
+        Stop
+    }
+}
+
+ACTOR FistPuff2
+{ 
+   +NOGRAVITY
+   +NOEXTREMEDEATH
+   DamageType "FriendlyFire"
+   States
+   {
+   Spawn:
+      TNT1 A 0
+      TNT1 A 1 A_PlaySound("weapons/fistwall")
+      Stop
+   }
+}
+
+ACTOR Puff2 replaces BulletPuff
+{
+	Radius 1
+	Height 1
+	RenderStyle ADD
+	Alpha 1
+	Scale .15
+	+NOGRAVITY
+	+NOBLOCKMAP
+	+FLOORCLIP
+	States
+	{
+	Spawn:
+                BPUF A 1
+		BPUF A 0 A_PlaySound("puff/ric")
+		BPUF A 0 Bright A_SpawnDebris("BulletSpark")
+		BPUF A 0 Bright A_SpawnItem("BulletPuffShrapnel",0,0,0,0)
+		BPUF B 1 Bright A_SetTranslucent(.75,1)
+		BPUF C 1 Bright A_SetTranslucent(.5,1)
+		BPUF D 1 Bright A_SetTranslucent(.25,1)
+		Stop
+	}
+}
+
+ACTOR BulletSpark
+{
+	Health 4
+	Radius 3
+	Height 6
+	Speed .1
+	RenderStyle ADD
+	Alpha 1
+	Scale .032
+	Mass 0
+	+MISSILE
+	+DOOMBOUNCE
+	+FLOORCLIP
+	+DONTSPLASH
+	+NOTELEPORT
+	States
+	{
+	Spawn:
+		BPUF A 1
+		BPUF ABCDA 1  Bright A_SetTranslucent(.8,1)
+		BPUF BCDABC 1  Bright A_SetTranslucent(.6,1)
+		BPUF DABCDABC 1  Bright A_SetTranslucent(.4,1)
+		BPUF DABCDABCDA 1 Bright A_SetTranslucent(.2,1)
+		Stop
+	}
+}
+
+ACTOR BarrelShrapnel
+{
+Health 1
+Mass 1
+Scale 0.5
+PROJECTILE
++DOOMBOUNCE
+-NOGRAVITY
+States
+{
+Spawn:
+SHRD LMNLMNLMNLMNLMNLMNLMNLMNLMNLMN 1
+Goto Death
+Death:
+SHRD L 50
+Stop
+}
+}
+
+ACTOR BulletPuffShrapnel : BarrelShrapnel
+{
+Scale 0.2
+}
+
+Actor Puff3 : Puff2
+{
+Damagetype Fire
+}
+
+actor KDIZDImpBall : DoomImpBall replaces DoomImpBall
+{
+Radius 6
+Height 8
+Speed 10
+Damage 3
+Health 20
+PROJECTILE
+RENDERSTYLE ADD
+ALPHA 0.7
+SeeSound "imp/attack"
+DeathSound "imp/shotx"
+MissileType Ball1Trail
+MissileHeight 0
+Decal DoomImpScorch
+States
+	{
+Spawn:
+BAL1 A 3 Bright A_MissileAttack
+BAL1 B 3 Bright A_MissileAttack
+Loop
+
+Death:
+BAL1 C 3 Bright  A_MissileAttack
+BAL1 D 3 Bright  
+BAL1 E 3 Bright
+Stop
+	}
+}
+
+actor Ball1Trail
+{
+PROJECTILE
+RENDERSTYLE TRANSLUCENT
++NOCLIP
+ALPHA 0.3
+Scale 0.5
+States
+{
+Spawn:
+SMK1 J 3
+SMK1 ABCDEFGHI 2 Bright
+Stop
+}
+}
+
+ACTOR BurnDeath
+{
+    Radius 20
+    Height 56
+    Speed 4
+    Scale 0.5
+    radiusdamagefactor 0 
+    +FIREDAMAGE
+    +RANDOMIZE
+    +DONTSPLASH
+    +LOOKALLAROUND
+    +FLOORCLIP
+    Obituary "%o was near someone in flames."
+    activesound "DSBDYBRN"
+    deathsound "chainguy/death"
+    States
+    {
+    Spawn:
+        FGUY A 0 A_KillMaster
+        FGUY A 3 Bright A_Look
+        goto See
+    See:
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)        
+        FGUY A 0 A_Jump(128, 37)        
+        FGUY A 0 A_Jump(128, 66)
+        FGUY AAA 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY BBB 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY CCC 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY DDD 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY EEE 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY FFF 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY AAA 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY BBB 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY CCC 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY DDD 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY EEE 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY FFF 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY AAA 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY BBB 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY CCC 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY DDD 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY EEE 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY FFF 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY AAA 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY BBB 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY CCC 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY DDD 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY EEE 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY FFF 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY AAA 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY BBB 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY CCC 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY DDD 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY EEE 1 Bright A_Wander
+        FGUY A 0 A_LoopActiveSound
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        FGUY FFF 1 Bright A_Wander
+        FGUY A 0 A_SpawnItem ("BFireTrail",8+random(-5,5),58+random(-5,5),0,0)
+        FGUY A 0 A_Explode (4,16,0)
+        Goto XDeath    
+    XDeath:
+        FGUY A 0 A_Scream
+        FGUY A 0 A_LoopActiveSound
+        FGUY GGGGG 0 A_SpawnDebris("NashGore_FlyingBlood")
+        FGUY G 0 A_Fall
+        FGUY G 0 A_SpawnDebris ("NapalmDebris")
+        FGUY GGHHII 3 Bright A_SpawnItem ("BFireTrail",8+random(-5,5),20+random(-5,5),0,0)
+        FGUY A 0 A_LoopActiveSound        
+        FGUY A 0 Bright A_SpawnItem ("BurnDeathSmoke")
+        FGUY JJKKLLMMNNOO 3  Bright A_SpawnItem ("BFireTrail",8+random(-5,5),20+random(-5,5),0,0)
+        FGUY A 0 A_LoopActiveSound 
+        FGUY JJKKLLMMNNOO 3  Bright A_SpawnItem ("BFireTrail",8+random(-5,5),20+random(-5,5),0,0)
+        FGUY A 0 A_LoopActiveSound
+        FGUY JJKKLLMMNNOO 3  Bright A_SpawnItem ("BFireTrail",8+random(-5,5),20+random(-5,5),0,0)
+        FGUY O 0 A_StopSound
+        FGUY PPQQRRTTSS 3 Bright
+        FGUY S -1
+        Stop
+    }
+}
+
+actor BFireTrail : BulletPuff
+{
+  radius 13
+  height 8
+  RENDERSTYLE ADD
+  Scale 0.3
+  alpha 0.9
+  +NOBLOCKMAP
+  +RANDOMIZE
+  +NOGRAVITY
+  +WINDTHRUST
+  states
+  {
+  Spawn:   
+    FTRL A 0 bright A_Jump(128,9)
+    FTRL A 0 bright A_Jump(220,1,2,3,4,5,6,7)
+    FTRL IJKLMNOP 4 bright
+    stop
+    FTRL A 0 bright A_Jump(220,1,2,3,4,5,6,7)
+    FTRL ABCDEFGH 4 bright
+    stop
+  }
+}
+
+actor BurnDeathSmoke
+{  
+  radius 64
+  height 16
+  RENDERSTYLE Translucent
+  ALPHA 0.30
+  +NOBLOCKMAP
+  +NOGRAVITY  
+  +DONTSPLASH
+  +FIXMAPTHINGPOS
+  -SOLID
+  states
+  {
+  Spawn:
+    LVAS KGHIJGHIJGHIJGHIJGHIJGHIJGHIJGHIJGHIJGHIJGHIJGHIJGHIJGHIJGHIJK 4
+    Stop
+  }
+}
+
+Actor RandomBarrelSpawner : RandomSpawner replaces ExplosiveBarrel 2035
+{
+   DropItem AlienBarrel
+   DropItem C9Barrel
+   DropItem StandardBarrel
+   DropItem NoxiousBall
+}
+
+ACTOR AlienBarrel
+{
+  +PUSHABLE
+  +SOLID
+  +SHOOTABLE
+  +NOBLOOD
+  +DONTGIB
+  +NOICEDEATH
+  Scale 0.60
+  health 20
+  radius 10
+  height 34
+  deathsound "rocketexplode"
+  states
+  {
+  Spawn:
+    ABRL ABC 2
+    loop
+  Death:
+    TNT1 A 0 A_Scream
+    TNT1 A 0 A_Explode
+    TNT1 A 0 A_SpawnItem("Explosion3")
+    stop
+  }
+}
+
+ACTOR NoxiousBall
+{
+  +PUSHABLE
+  +SOLID
+  +SHOOTABLE
+  +NOBLOOD
+  +DONTGIB
+  +NOICEDEATH
+  +FLOATBOB
+  Scale 0.80
+  health 20
+  radius 10
+  height 34
+  deathsound "CorpseWormHit"
+  states
+  {
+  Spawn:
+    GGBL AX 5
+    loop
+  Death:
+    GGBL B 4 A_Scream
+    GGBL C 4 
+    GGBL C 0 A_Explode
+    GGBL D 4 A_SpawnItem("PoisonCloudN")
+    GGBL E 4
+    stop
+  }
+}
+
+actor PoisonCloudN : PoisonCloud_
+{
+Damagetype "Poison"
+Damage 1
+    States 
+    { 
+    Spawn: 
+        TRPS ABCDEFGDEFGDEFGDCBA 3 
+        Stop 
+    Death: 
+        TRPS DCBA 3 
+        Stop 
+    } 
+}
+
+ACTOR C9Barrel
+{
+  +PUSHABLE
+  +SOLID
+  +SHOOTABLE
+  +NOBLOOD
+  +DONTGIB
+  +NOICEDEATH
+  Scale 0.60
+  health 14
+  radius 10
+  height 38
+  deathsound "rocketexplode"
+  states
+  {
+  Spawn:
+    C9AA A 1
+    loop
+  Death:
+    C9AA BC 2 Bright
+    C9AA C 0 A_Scream
+    C9AA C 0 A_Explode
+    C9AA C 0 A_SpawnItem("Explosion3")
+    stop
+  }
+}
+
+ACTOR StandardBarrel
+{
+  +PUSHABLE
+  +SOLID
+  +SHOOTABLE
+  +NOBLOOD
+  +DONTGIB
+  +NOICEDEATH
+  Scale 0.60
+  health 25
+  radius 10
+  height 28
+  deathsound "rocketexplode"
+  states
+  {
+  Spawn:
+    NBR1 A 1
+    loop
+  Death:
+    NBR1 B 0 A_Scream
+    NBR1 B 0 A_Explode
+    NBR1 B 1 Bright
+    NBR1 B 0 A_SpawnItem("Explosion3")
+    stop
+  }
+}
+
+ACTOR BurningBarrel2 replaces BurningBarrel
+{
+  radius 16
+  height 25
+  Scale 0.7
+  +SOLID
+  states
+  {
+  Spawn:
+    FCN2 ABCD 2 bright
+    loop
+  }
+}
+
+ACTOR Explosion3
+{
+   Renderstyle Add
+   Radius 10
+   Height 32
+   SeeSound "weapons/m202a1rcktexp"
+   DeathSound "weapons/m202a1rcktexp"
+   PROJECTILE
+   DamageType "FriendlyFire"
+   States
+   {
+   Spawn:
+      EXP3 A 0 BRIGHT
+      EXP3 ABCDEFGHIJKLMNOPQRSTUVWXYZ 1 BRIGHT 
+      Stop
+   }
+}
+
+actor FlyingImpBall
+{
+  radius 6
+  height 8
+  speed 10
+  damage 3
+  renderstyle Add
+  seesound "imp/attack"
+  deathsound "imp/shotx"
+  Damagetype Fire
+  PROJECTILE
+  +RANDOMIZE
+  states
+  {
+  Spawn:
+    DRFX ABCDEF 4 bright
+    loop
+  Death:
+    DRFX GHIJKL 6 bright
+    stop
+  }
+}
+
+Actor magmaflame
+{
+obituary "%o was cooked"
+Radius 1
+Height 1
+PROJECTILE
+renderstyle Add
+DamageType "Fire"
+Alpha 0.90
+scale .6
+DontHurtShooter
++BLOODLESSIMPACT
++RIPPER
+-NOGRAVITY
++LOWGRAVITY
++NOEXPLODEFLOOR
++NODAMAGETHRUST
+States
+{
+Spawn:
+FLWS A 1 bright A_PlaySound("Weapons/Firewall/Burning")
+FLWS A 1 bright A_Explode(8,8,1)
+FLWS BCDEFGHIJKLMN 2 bright A_Explode(8,8,1)
+FLWS A 1 bright
+FLWS A 1 bright A_Explode(8,8,1)
+FLWS BCDEFGHIJKLMN 2 bright A_Explode(8,8,1)
+FLWS A 1 bright
+FLWS A 1 bright A_Explode(8,8,1)
+FLWS BCDEFGHIJKLMN 2 bright A_Explode(8,8,1)
+FLWS A 1 bright
+FLWS A 1 bright A_Explode(8,32,1)
+FLWS BCDEFGHIJKLMN 2 bright A_Explode(8,16,1)
+FLWS A 1 bright
+FLWS A 1 bright A_Explode(8,32,1)
+FLWS BCDEFGHIJKLMN 2 bright A_Explode(8,16,1)
+FLWS A 0 A_Jump(192,1)
+loop
+NULL A 0
+goto death
+Death:
+NULL A 1 bright
+stop
+}
+}
+
+// ===============================================================
+// Randomized corpses.
+//================================================================
+
+//Actor DeadMarineSpawner replaces DeadMarine
+
+Actor DeadZombieManSpawner replaces DeadZombieMan
+{
+	+NOINTERACTION
+	States
+	{
+	Spawn:		
+		TNT1 A 1
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadZSecPistol",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadZSoldier",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadZRebel",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadBloodSoldier",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadHSScientist",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadMonk",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadHomeless",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadCobra",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadSkeleton",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadHellGuard",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadMagmaZman",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadLiquidZman",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadQ2Soldier1",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadFSoldier",1) 
+		Goto End
+		TNT1 A 0 A_Jump(256,"Spawn")
+		Goto Spawn
+	End:
+		TNT1 A 1
+		Stop
+	}
+}
+
+Actor DeadShotguySpawner replaces DeadShotgunGuy
+{
+	+NOINTERACTION
+	States
+	{
+	Spawn:
+		TNT1 A 1
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadPigcop",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadZSecShotgun",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadRapidfire",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadNightmareZman",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadCyborg",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadRifleTroop",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadRailgunguy",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadMagmaShotgunGuy",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadLiquidShotgunGuy",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadQ2Soldier2",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadParasite",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadPriest",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadKnightArcher",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadBandor",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadHomeless",1) 
+		Goto End
+		TNT1 A 0 A_Jump(256,"Spawn")
+		Goto Spawn
+	End:
+		TNT1 A 1
+		Stop
+	}
+}
+
+Actor DeadImpSpawner replaces DeadDoomImp
+{
+	+NOINTERACTION
+	States
+	{
+	Spawn:
+		TNT1 A 1
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadBHImp",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadPhaseImp",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadAssaultTrooper",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadSunMonk",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadHellion",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadTrickImp",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadWaterImp",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadMagmaImp",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadArchMinion",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadRailgunMarine",1) 
+		Goto End
+		TNT1 A 0 A_Jump(256,"Spawn")
+		Goto Spawn
+	End:
+		TNT1 A 1
+		Stop
+	}
+}
+
+
+Actor DeadDemonSpawner replaces DeadDemon
+{
+	+NOINTERACTION
+	States
+	{
+	Spawn:
+		TNT1 A 1
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadGauntletDemon",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadBaronDemon",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadCorpseWorm",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadLavaDemon",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadStoneDemon",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadSlimeWorm",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadScorpionMinion",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadDog",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadMiniEttin",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadFlameDemon",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadWraith",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadBerserkMarine",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadBerserker",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadTenaj",1) 
+		Goto End
+		TNT1 A 0 A_Jump(256,"Spawn")
+		Goto Spawn
+	End:
+		TNT1 A 1
+		Stop
+	}
+}
+
+
+Actor DeadCacoSpawner replaces DeadCacodemon
+{
+	+NOINTERACTION
+	States
+	{
+	Spawn:
+		TNT1 A 1
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadOctobrain",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadWicked",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadDisciple",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadGreaterCacodemon",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadSkyOvum",1) 
+		Goto End
+		TNT1 A 0 A_Jump(210,2)
+		TNT1 A 1 A_SpawnItem("DeadD3Cacodemon",1) 
+		Goto End
+		TNT1 A 0 A_Jump(256,"Spawn")
+		Goto Spawn
+	End:
+		TNT1 A 1
+		Stop
+	}
+}

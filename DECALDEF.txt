@@ -1,0 +1,297 @@
+decal BulletMark
+{
+  pic BLTHOL
+   shade "00 00 00"
+   solid
+   x-scale 0.15
+   y-scale 0.15
+   randomflipx
+   randomflipy
+}
+
+generator Revolver                                      bulletmark
+generator CoolPistol		                    		BulletMark
+generator QuadShotgun		                     		BulletMark
+generator LSCMinigun                                    BulletMark
+generator NeoShotgun                                    BulletMark
+generator Longrifle                                     BulletMark
+
+decal DarkImpBallScorch1
+{
+	pic CBALSCR1
+	shade "00 00 00"
+	x-scale 0.78125
+	y-scale 0.78125
+	randomflipx
+	randomflipy
+}
+
+decal DarkImpBallScorch2
+{
+	pic CBALSCR2
+	shade "00 00 00"
+	x-scale 0.78125
+	y-scale 0.78125
+	randomflipx
+	randomflipy
+}
+
+decalgroup DarkImpBallScorch
+{
+	DarkImpBallScorch1	1
+	DarkImpBallScorch2	1
+}
+
+generator DarkImpBall			DarkImpBallScorch
+
+generator Tommygun              BulletMark
+generator AliensGBR		        BulletMark
+
+decal KnifeChip
+{
+	pic CBALSCR1
+	shade "00 00 00"
+	x-scale 0.5
+	y-scale 0.05
+	randomflipx
+	randomflipy
+}
+
+generator Knife         			KnifeChip
+
+/***** Arachnotron Plasma Scorches *****************************************/
+
+decal ArachScorch1
+{
+	pic APBXB0
+	add 1.0
+	animator GoAway
+	x-scale 0.5
+	y-scale 0.5
+	lowerdecal PlasmaScorchLower1
+	randomflipx
+	randomflipy
+
+}
+
+decal ArachScorch2
+{
+	pic APBXC0
+	add 1.0
+	animator GoAway
+	x-scale 0.5
+	y-scale 0.5
+	lowerdecal PlasmaScorchLower2
+	randomflipx
+	randomflipy
+
+}
+
+decalgroup ArachnotronScorch
+{
+	ArachScorch1	1
+	ArachScorch2	1
+}
+
+/***** Rail Gun Scorches *********************/
+
+decal RailScorchLower1
+{
+	pic CBALSCR1
+	shade "00 00 00"
+	x-scale 0.2
+	y-scale 0.2
+	randomflipx
+	randomflipy
+}
+
+decal RailScorchLower2
+{
+	pic CBALSCR2
+	shade "00 00 00"
+	x-scale 0.2
+	y-scale 0.2
+	randomflipx
+	randomflipy
+}
+
+decalgroup RailScorchLower
+{
+	RailScorchLower1 1
+	RailScorchLower2 1
+}
+
+
+
+decal RailScorch1
+{
+	pic CBALSCR1
+	shade "56 00 00"
+	fullbright
+	x-scale 0.4
+	y-scale 0.4
+	animator GoAway
+	lowerdecal RailScorchLower
+}
+
+decal RailScorch2
+{
+	pic CBALSCR2
+	shade "56 00 00"
+	fullbright
+	x-scale 0.4
+	y-scale 0.4
+	animator GoAway
+	lowerdecal RailScorchLower
+}
+
+decalgroup RailScorch
+{
+	RailScorch1 1
+	RailScorch2 1
+}
+
+decal ChexBallScorch
+{
+	pic CHXBA0
+	shade "60 00 00"
+	x-scale 0.7
+	y-scale 0.7
+}
+
+decal RocketScorch
+{
+	pic SCORCH1
+	shade "00 00 00"
+	x-scale 0.5
+	y-scale 0.5
+	randomflipx
+	randomflipy
+}
+
+decal GeneratorScorch
+{
+	pic SCORCH1
+	shade "00 00 00"
+	x-scale 0.2
+	y-scale 0.2
+	randomflipx
+	randomflipy
+}
+
+generator CoolPistol             RailScorch
+generator ChexBall		         ChexBallScorch
+generator HellWarriorBall    	 BaronScorch 
+generator CrackodemonBall        CacoScorch
+generator Blusoul                CacoScorch
+generator LaserFX                BulletMark
+generator Flakgrenade2           Scorch
+generator M202A1Rocket           Scorch
+generator FireRocket             Scorch
+
+generator DispersionRocketShot		         	RocketScorch
+generator DispersionRocketExplosionGenerator	GeneratorScorch
+generator FlamewallShot				            RocketScorch
+
+// Photon Reactor Cannon Scorches
+
+decal PhotonReactorScorch1Lower
+{
+	pic PR2EH0
+	x-scale 0.5
+	y-scale 0.5
+	shade "00 00 00"
+	randomflipx
+	randomflipy
+}
+
+decal PhotonReactorScorch1
+{
+	pic PR2EH0
+	x-scale 0.5
+	y-scale 0.5
+	add 1.0
+	fullbright
+	animator GoAway
+	lowerdecal PhotonReactorScorch1Lower
+}
+
+decal PhotonReactorScorch2Lower
+{
+	pic PR1SU0
+	x-scale 0.8
+	y-scale 0.8
+	shade "00 00 00"
+	randomflipx
+	randomflipy
+}
+
+decal PhotonReactorScorch2
+{
+	pic PR1SU0
+	x-scale 0.8
+	y-scale 0.8
+	add 1.0
+	shade "00 00 00"
+	lowerdecal PhotonReactorScorch2Lower
+}
+
+generator PhotonReactorCannonShot		    PhotonReactorScorch1
+generator PhotonReactorCannonAltShot1		PhotonReactorScorch2
+generator PhotonReactorCannonAltShot2		PhotonReactorScorch1
+
+decal BlasterDecal 4
+{
+       pic ZBSBB0
+       shade "00 10 00"
+       x-scale 0.25
+       y-scale 0.25
+       randomflipx
+       randomflipy
+}
+generator Q2BlasterBolt		BlasterDecal
+   
+generator BalorBall        scorch
+generator BloodAlphaSawedoff   BulletMark
+generator BitchRocket      RocketScorch
+generator M14             bulletMark
+
+Fader Q3PlasmaFade
+{
+	DecayStart 1.0
+	DecayTime 0.5
+}
+
+Decal Q3PlasmaDecal
+{
+	Pic PLSMMARK
+	X-Scale 0.5
+	Y-Scale 0.5
+	RandomFlipX
+	RandomFlipY
+	FullBright
+	add 0.75
+	Animator Q3PlasmaFade
+}
+
+Fader RaygunFade
+{
+	DecayStart 1.0
+	DecayTime 0.5
+}
+
+Decal RaygunDecal
+{
+	Pic GPRTA0
+	X-Scale 0.1
+	Y-Scale 0.1
+	RandomFlipX
+	RandomFlipY
+	FullBright
+	add 0.75
+	Animator RaygunFade
+}
+
+Generator Bloodshot                     BloodSplat
+Generator GoreWyrm                      BloodSplat
+Generator GoreShot1                     BloodSplat

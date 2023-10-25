@@ -1,0 +1,1397 @@
+ACTOR PortablePack : HealthPickup
+{
+   +INVBAR
+   +NOTELESTOMP
+   HealthPickup.AutoUse 1
+   Inventory.Amount 1
+   Inventory.MaxAmount 15
+   Inventory.PickupSound "misc/i_pkup"
+   Inventory.UseSound "DSHEALUP"
+   Inventory.PickupMessage "Picked up a portable stimpack."
+   Tag "Portable stimpack. (+15 HP)"
+   Inventory.Icon ARTIPOPA
+   Health 15
+   States
+   {
+   Spawn:
+      POPA A -1
+      Stop
+   } 
+}
+
+ACTOR NewMedikit : Medikit
+{
+}
+
+ACTOR NewSoulsphere : UpgradeStamina replaces SoulSphere
+{
+	+COUNTITEM
+	+AUTOACTIVATE
+	+ALWAYSPICKUP
+	+FANCYPICKUPSOUND
+      +FLOORCLIP
+    Inventory.Amount 15
+    Inventory.MaxAmount 999
+	Inventory.PickupMessage "$GOTSUPER"
+	Inventory.PickupSound "misc/p_pkup"
+      RenderStyle SoulTrans
+      Alpha 1.0
+	States
+	{
+	Spawn:
+	  SOUL ABCDCB 6 Bright
+	  Loop
+	}
+}
+
+ACTOR Pills : HealthBonus
+{
+  Inventory.PickupSound "DSHEVILE"
+  Inventory.Amount 2
+  Inventory.MaxAmount 666
+  Inventory.PickupMessage "Picked up some medicine pills."
+	States
+	{
+	Spawn:
+          PILL A -1
+	  Loop
+	}
+}
+
+ACTOR DemonMeat : Health
+{
+  +COUNTITEM
+  Inventory.PickupSound "DSBLUD01"
+  Inventory.Amount 15
+  Inventory.MaxAmount 200
+  Inventory.PickupMessage "Picked up some Demon Meat"
+  States
+  {
+  Spawn:
+    MEAT AB 4
+    Loop
+  }
+}
+
+ACTOR DemonMeat2 : Health
+{
+  +COUNTITEM
+  Inventory.PickupSound "DSBLUD01"
+  Inventory.Amount 15
+  Inventory.MaxAmount 200
+  Inventory.PickupMessage "Picked up some Demon Meat"
+  States
+  {
+  Spawn:
+    MEA2 A -1
+    Loop
+  }
+}
+
+ACTOR DemonMeat3 : Health
+{
+  +COUNTITEM
+  Inventory.PickupSound "DSBLUD01"
+  Inventory.Amount 15
+  Inventory.MaxAmount 200
+  Inventory.PickupMessage "Picked up some Demon Meat"
+  States
+  {
+  Spawn:
+    MEA4 A -1
+    Loop
+  }
+}
+
+ACTOR DemonMeat4 : Health
+{
+  +COUNTITEM
+  Inventory.PickupSound "DSBLUD01"
+  Inventory.Amount 15
+  Inventory.MaxAmount 200
+  Inventory.PickupMessage "Picked up some Demon Meat"
+  States
+  {
+  Spawn:
+    MEA3 A -1
+    Loop
+  }
+}
+
+Actor MeatSpawner : RandomSpawner
+{
+   DropItem "DemonMeat"
+   DropItem "DemonMeat2"
+   DropItem "DemonMeat3"
+   DropItem "DemonMeat4"
+}
+
+Actor Healthvile : Health
+{
+radius 20
+height 16
+Inventory.PickupSound "DSHEVILE"
+inventory.pickupmessage "Picked up a health vile. (+5)"
+inventory.amount 5
+inventory.maxamount 1000
+-COUNTITEM
++ALWAYSPICKUP
++FLOATBOB
+Scale 0.35
+States
+{
+Spawn:
+     HLTH A 1 Bright
+     Loop
+    }
+}
+
+// *** AUTO-DETECT MINE ***
+
+ACTOR AutoDetectMine : CustomInventory
+{
+   Inventory.Amount 1
+   Inventory.MaxAmount 30
+   Inventory.PickupSound "items/getinvautodetectmine"
+   Inventory.UseSound "misc/invuse"
+   Inventory.PickupMessage "Picked up an Auto-Detect Mine."
+   Inventory.Icon ARTIADTM
+   Tag "Auto-Detect Mine."
+   +INVBAR
+   +FLOORCLIP
+   +NOTELESTOMP
+   States
+   {
+   Spawn:
+      ADTM A -1
+      Stop
+   Use:
+      ADTM A 0 A_ThrowGrenade("AutoDetectMineDropper",1,7,3,0)
+      Stop
+   } 
+}
+
+ACTOR 5AutoDetectMine
+{
+	Radius 1
+	Height 1
+	States
+	{
+	Spawn:
+        TNT1 A 0
+        TNT1 AAAAA 0 A_SpawnItemEx("AutoDetectMine",random(15,-15),random(15,-15),0,0,0,0,0,0)
+	TNT1 AA 1
+	Stop
+	}
+}
+
+
+ACTOR AutoDetectMineDropper
+{
+   Radius 5
+   Height 10
+   +DROPOFF
+   +MISSILE
+   +FLOORCLIP
+   +CANBOUNCEWATER
+   States
+   {
+   Spawn:
+      ADTM A 1
+      Loop
+   Death:
+      ADTM A 1
+      ADTM A 0 A_SpawnItem("AutoDetectMineActivated",1,0,0)
+      Stop
+   } 
+}
+
+ACTOR AutoDetectMineActivated
+{
+   Radius 9
+   Height 10
+   Health 16
+   Mass 30
+   +ISMONSTER
+   +FRIENDLY
+   +SHOOTABLE
+   +NOBLOOD
+   +LOOKALLAROUND
+   +QUICKTORETALIATE
+   +FLOORCLIP
+   +WINDTHRUST
+   +PUSHABLE
+   +NOICEDEATH
+   Obituary "%o was caught by %k's Auto-Detect Mine"
+   DeathSound "weapons/bulletexplode"
+   ExplosionDamage 192
+   ExplosionRadius 192
+   States
+   {
+   Spawn:
+      ADTM A 25 A_Look
+      ADTM A 1 A_Look
+   See:
+      ADTM B 1 Bright
+      ADTM B 0 A_PlaySound("items/autodetectminelook")
+      ADTM BBBBB 1 Bright A_Chase
+      ADTM AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA 1 A_Chase
+      Goto Spawn+1
+   Melee:
+      ADTM C 1 Bright A_UnSetShootable
+      ADTM C 8 Bright A_PlaySound("weapons/bulletexplode")
+      Goto Death
+   Death:
+      EXP1 A 0 A_SetTranslucent(0.7,1)
+      EXP1 A 3 Bright A_PlaySound("weapons/bulletexplode")
+      EXP1 B 3 Bright A_Explode
+      EXP1 C 3 Bright
+      EXP1 D 3 Bright
+      EXP1 E 3 Bright
+      EXP1 FGHIJKLMNOPQ 3 Bright
+      Stop
+   }
+}
+
+ACTOR Steroids : CustomInventory
+{
+   Inventory.Amount 1
+   Inventory.MaxAmount 556
+   Inventory.PickupSound "items/getinvadrenaline"
+   Inventory.PickupMessage "You got the Steroids!"
+   Inventory.Icon ARTISTER
+   Tag "Steroids (Superjump, superspeed and higher fire rate)."
+   Scale 0.8
+   +INVBAR
+   +FLOORCLIP
+   +FANCYPICKUPSOUND
+   States
+   {
+   Spawn:
+      STER A -1 Bright
+      Loop
+   Use:
+      STER A 0 A_SetBlend("DD DD DD",0.5,8)
+      STER A 0 A_GiveInventory("SteroidsSpeed",1)
+      STER A 0 A_GiveInventory("SteroidsHighJump",1)
+      STER A 0 A_GiveInventory("SteroidsDoubleFiringSpeed",1)
+      Stop
+   } 
+}
+
+ACTOR SteroidsSpeed : PowerupGiver
+{
+   Powerup.Type "Speed"
+   Powerup.Duration 1000
+   +AUTOACTIVATE
+}
+
+ACTOR SteroidsHighJump : PowerupGiver
+{
+   Powerup.Type "HighJump"
+   Powerup.Duration 1000
+   +AUTOACTIVATE
+}
+
+ACTOR SteroidsDoubleFiringSpeed : PowerupGiver
+{
+   Powerup.Type "DoubleFiringRate"
+   Powerup.Duration 1000
+   Powerup.Color white 0.05
+   +AUTOACTIVATE
+}
+
+ACTOR PowerDoubleFiringRate : PowerDoubleFiringSpeed
+{
+   Inventory.icon "ARTISTER"
+   +AUTOACTIVATE
+}
+
+ACTOR NewBerserk : Berserk
+{
+	+COUNTITEM
+	+AUTOACTIVATE
+	+FANCYPICKUPSOUND
+    +FLOORCLIP
+	Inventory.PickupMessage "$GOTBERSERK"
+   Inventory.PickupSound "items/getinvadrenaline"
+	States
+	{
+	Spawn:
+	  PSTR A -1
+	  Loop
+	}
+}
+
+actor WarSpirit : CustomInventory
+{
+  +COUNTITEM
+  +AUTOACTIVATE
+  +ALWAYSPICKUP
+  +FLOATBOB
+  Inventory.Amount 15
+  Inventory.MaxAmount 200
+  Inventory.PickupSound "dknight/see"
+  Inventory.PickupMessage "Picked up a War Spirit"
+  Scale 0.9
+ States
+  {
+  Spawn:
+    WARS ABCD 3 A_SpawnItemEx("WarSparkle", Random(-5,5), Random(-5,5), Random(0,10), Random(-1, 1), Random(-1, 1), Random(2, 4), 0, 128, 0)
+    Loop
+  Pickup:
+    TNT1 A 0 A_Jump(160,2)
+    TNT1 A 0 A_GiveInventory ("RocketAmmo", 1)
+    TNT1 A 0 A_Jump(160,2)
+    TNT1 A 0 A_GiveInventory ("Clip", 10)
+    TNT1 A 0 A_Jump(160,2)
+    TNT1 A 0 A_GiveInventory("RifleShells", 5)
+    TNT1 A 0 A_Jump(160,2)
+    TNT1 A 0 A_GiveInventory("HandGrenade", 1)
+    TNT1 A 0 A_Jump(160,2)
+    TNT1 A 0 A_GiveInventory("Shell", 4)
+    TNT1 A 0 A_Jump(160,2)
+    TNT1 A 0 A_GiveInventory ("Cell", 20)
+    TNT1 A 0 A_Jump(160,2)
+    TNT1 A 0 A_GiveInventory("Mana", 14)
+    TNT1 A 0 A_GiveInventory("Fuel", 6)
+    stop
+	}
+}
+
+
+ACTOR WarSparkle
+{
+  Radius 8
+  Height 8
+  Speed 1
+  Scale 0.1
+  Translation "112:127=192:207"
+  RenderStyle Add
+  PROJECTILE
+  +DONTSPLASH
+  +CANBOUNCEWATER
+  +HEXENBOUNCE
+  +SPAWNSOUNDSOURCE
+   States
+   {
+   Spawn:
+      RPLE E 16 Bright 
+      goto death
+   Death:
+      RPLE E 1 Bright A_SetTranslucent(0.5)
+      RPLE E 1 Bright A_SetTranslucent(0.4)
+      RPLE E 1 Bright A_SetTranslucent(0.3)
+      RPLE E 1 Bright A_SetTranslucent(0.2)
+      RPLE E 1 Bright A_SetTranslucent(0.1)
+      stop
+   }
+}
+
+actor PortHealthSphere : HealthPickup
+{
+   +COUNTITEM
+   +FLOATBOB
+   +INVBAR
+   HealthPickup.AutoUse 1
+   Inventory.Amount 1
+   Inventory.MaxAmount 1
+   Inventory.PickupSound "misc/i_pkup"
+   Inventory.UseSound "DSHEALUP"
+   Inventory.PickupMessage "Picked up a portable health sphere."
+   Inventory.Icon "GRSPI0"
+    Scale 0.5
+   Health 100
+   States
+   {
+   Spawn:
+     GRSP ABCDEFGH 3 A_SpawnItemEx("PortHealthSparkle", Random(-5,5), Random(-5,5), Random(0,10), Random(-1, 1), Random(-1, 1), Random(2, 4), 0, 128, 0)
+     Loop
+	}
+}
+
+ACTOR PortHealthSparkle
+{
+  Radius 8
+  Height 8
+  Speed 1
+  Scale 0.1
+  RenderStyle Add
+  PROJECTILE
+  +DONTSPLASH
+  +CANBOUNCEWATER
+  +HEXENBOUNCE
+  +SPAWNSOUNDSOURCE
+   States
+   {
+   Spawn:
+      RPLE E 16 Bright 
+      goto death
+   Death:
+      RPLE E 1 Bright A_SetTranslucent(0.5)
+      RPLE E 1 Bright A_SetTranslucent(0.4)
+      RPLE E 1 Bright A_SetTranslucent(0.3)
+      RPLE E 1 Bright A_SetTranslucent(0.2)
+      RPLE E 1 Bright A_SetTranslucent(0.1)
+      stop
+   }
+}
+
+Actor ArmorChip : ArmorBonus
+{
+	+FLOORCLIP
+    Inventory.PickupSound "DSARMOUP"
+    Inventory.Icon CHIPA0
+    Armor.Saveamount 2
+    Armor.Maxsaveamount 500
+    Inventory.PickupMessage "Picked up a eletric armor Chip."
+    Scale 0.7
+    States
+    {
+    Spawn:
+        CHIP ABC 3
+        Loop
+    }
+}
+
+ACTOR SeriousPills : HealthBonus
+{
+  Inventory.Amount 1
+  Inventory.MaxAmount 666
+  Inventory.PickupSound "dssepill"
+  +ALWAYSPICKUP
+  +FLOATBOB
+  Inventory.PickupMessage "You picked up +1 health"
+	States
+	{
+	Spawn:
+          SSPI A -1
+	  Loop
+	}
+}
+
+
+
+Actor SeriousArmor : ArmorBonus
+{
+    Inventory.Icon CHIPA0
+    Armor.Saveamount 1
+    Armor.Maxsaveamount 500
+	Inventory.PickupSound "dssearm"
+    Inventory.PickupMessage "You picked up +1 armor"
+	+ALWAYSPICKUP
+    +FLOATBOB
+    States
+    {
+    Spawn:
+        SSAR A -1
+        Loop
+    }
+}
+
+ACTOR NewArmor : ArmorBonus
+{
+  Inventory.PickupSound "dssearm"
+  Armor.MaxBonus 1
+  Armor.MaxBonusMax 100
+  States
+  {
+  Spawn:
+    NBO2 ABCD 4
+    Loop
+  }
+}
+
+actor TitanArmor : BasicArmorPickup replaces MegaSphere
+{
+  radius 20
+  height 16
+  inventory.pickupmessage "Picked up the titanium armor."
+  inventory.icon "ARM3A0"
+  Inventory.PickupSound "dssearm"
+  armor.savepercent 100
+  armor.saveamount 300
+  states
+  {
+  Spawn:
+    ARM3 A 6
+    ARM3 B 7 bright
+    loop
+  }
+}
+
+Actor DemonicHeart : Health
+{
+    height 20
+    radius 16
+	+FLOORCLIP
+	+FLOATBOB
+	Scale 0.8
+	Inventory.Amount 25
+	Inventory.PickupMessage "You found a Life Essence."
+	Health.LowMessage 25, "You found a Life Essence. That was close."
+	Inventory.PickupSound "DSHEALSP"
+	States
+	{
+	Spawn:
+       HEAR ABCD 4
+	Loop
+	}	
+}
+
+ACTOR PowerHealing : PowerRegeneration 
+{
+   Inventory.Icon ARTIHHRT
+}
+
+ACTOR HealingHeart : PowerupGiver
+{
+   Inventory.Amount 1
+   Inventory.MaxAmount 20
+   Inventory.PickupSound "items/getinvhealingheart"
+   Inventory.UseSound "items/healingheart"
+   Inventory.PickupMessage "You found the Healing Heart!"
+   Powerup.Type "Healing"
+   Powerup.Duration 1000
+   Powerup.Color 255 55 90 0.2
+   Inventory.Icon ARTIHHRT
+   Tag "Healing Heart (Regenerate HP)."
+   +INVBAR
+   +FLOORCLIP
+   +COUNTITEM
+   Scale 0.7
+   States
+   {
+   Spawn:
+      HHRT A 36
+      HHRT B 13 A_PlaySound("items/healingheartbeat")
+      Loop
+   }
+}
+
+actor PowerDamageMultiplier : PowerDamage
+{
+	DamageFactor "normal", 2
+	Inventory.icon "DOUBE0"
+}
+
+actor DoubleDamage : PowerupGiver
+{
+	inventory.pickupmessage "Obtained Double Damage!"
+	inventory.maxamount 3
+	inventory.icon "DOUBE0"
+	inventory.pickupsound "misc/p_pkup"
+	inventory.usesound "doub/up"
+	scale 0.5
+	inventory.respawntics 2100
+	+INVENTORY.FANCYPICKUPSOUND
+	+FLOATBOB
+	+COUNTITEM
+	powerup.color 192 128 64 0.25
+	powerup.type "DamageMultiplier"
+	powerup.duration 725
+    Tag "Double Damage (Damage is doubled)."
+	states
+	{
+	Spawn:
+		DOUB ABCD 6
+		loop
+	}
+}
+
+actor PowerNightVision : PowerLightAmp
+{
+	Inventory.icon "ARTINIGH"
+}
+
+ACTOR NightVisionGoggles : PowerupGiver replaces Infrared
+{
+   Inventory.Amount 1
+   Inventory.MaxAmount 5
+   Inventory.PickupSound "weapons/prcweapon"
+   Inventory.UseSound "misc/i_pkup"
+   Inventory.PickupMessage "Night Vision Goggles."
+   Powerup.Type "NightVision"
+   Powerup.Duration 4200
+   Inventory.Icon ARTINIGH
+   Tag "Night Vision Goggles."
+   Scale 0.62
+   +INVBAR
+   +FLOORCLIP
+   States
+   {
+   Spawn:
+      NIGH T -1
+      Loop
+   } 
+}
+
+actor PowerTimeStop : PowerTimeFreezer
+{
+	Inventory.icon "ARTIV3BL"
+}
+
+ACTOR TimeStopDevice : PowerupGiver
+{
+   Inventory.Amount 1
+   Inventory.MaxAmount 5
+   Inventory.PickupMessage "Time Stop Device"
+   Inventory.PickupSound "weapons/prcweapon"
+   Inventory.UseSound "misc/i_pkup"
+   Powerup.Type "TimeStop"
+   Powerup.Duration 800
+   Powerup.Color 242 242 242 0.4
+   Inventory.Icon ARTIV3BL
+   Tag "Time Stop Device."
+   +INVBAR
+   +FLOORCLIP
+	+FLOATBOB
+   Alpha 1
+   Scale 0.45
+   States
+   {
+   Spawn:
+      V3BL ABCDEF 2
+      V3BL GHIJ 3
+      Loop
+   }
+}
+
+actor PlasmaWaveItem : CustomInventory
+	{
+	Inventory.amount 1
+	Inventory.pickupmessage "You've got the Plasma Wave"
+	Inventory.pickupsound "misc/p_pkup"
+	Inventory.MaxAmount 3
+	Inventory.icon ARTIPLWA
+    Tag "Summons a wave of plasmaballs around you."
+	-COUNTITEM
+	+INVBAR
+	+FLOATBOB
+	+FLOORCLIP
+	states
+	{
+	Spawn:
+	PLSS A 1
+	loop
+	Use:
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-180,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-179,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-178,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-177,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-176,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-175,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-174,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-173,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-172,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-171,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-170,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-169,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-168,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-167,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-166,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-165,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-164,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-163,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-162,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-161,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-160,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-159,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-158,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-157,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-156,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-155,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-154,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-153,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-152,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-151,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-150,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-149,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-148,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-147,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-146,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-145,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-144,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-143,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-142,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-141,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-140,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-139,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-138,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-137,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-136,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-135,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-134,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-133,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-132,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-131,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-130,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-129,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-128,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-127,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-126,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-125,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-124,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-123,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-122,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-121,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-120,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-119,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-118,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-117,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-116,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-115,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-114,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-113,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-112,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-111,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-110,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-109,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-108,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-107,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-106,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-105,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-104,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-103,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-102,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-101,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-100,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-99,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-98,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-97,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-96,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-95,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-94,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-93,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-92,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-91,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-90,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-89,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-88,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-87,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-86,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-85,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-84,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-83,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-82,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-81,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-80,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-79,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-78,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-77,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-76,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-75,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-74,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-73,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-72,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-71,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-70,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-69,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-68,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-67,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-66,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-65,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-64,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-63,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-62,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-61,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-60,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-59,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-58,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-57,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-56,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-55,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-54,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-53,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-52,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-51,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-50,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-49,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-48,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-47,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-46,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-45,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-44,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-43,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-42,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-41,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-40,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-39,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-38,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-37,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-36,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-35,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-34,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-33,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-32,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-31,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-30,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-29,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-28,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-27,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-26,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-25,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-24,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-23,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-22,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-21,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-20,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-19,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-18,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-17,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-16,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-15,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-14,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-13,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-12,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-11,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-10,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-9,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-8,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-7,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-6,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-5,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-4,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-3,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-2,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",-1,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",0,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",1,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",2,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",3,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",4,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",5,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",6,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",7,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",8,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",9,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",10,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",11,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",12,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",13,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",14,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",15,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",16,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",17,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",18,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",19,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",20,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",21,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",22,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",23,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",24,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",25,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",26,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",27,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",28,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",29,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",30,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",31,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",32,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",33,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",34,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",35,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",36,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",37,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",38,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",39,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",40,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",41,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",42,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",43,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",44,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",45,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",46,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",47,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",48,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",49,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",50,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",51,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",52,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",53,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",54,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",55,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",56,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",57,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",58,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",59,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",60,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",61,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",62,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",63,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",64,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",65,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",66,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",67,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",68,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",69,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",70,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",71,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",72,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",73,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",74,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",75,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",76,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",77,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",78,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",79,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",80,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",81,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",82,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",83,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",84,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",85,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",86,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",87,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",88,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",89,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",90,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",91,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",92,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",93,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",94,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",95,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",96,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",97,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",98,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",99,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",100,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",101,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",102,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",103,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",104,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",105,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",106,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",107,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",108,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",109,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",110,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",111,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",112,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",113,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",114,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",115,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",116,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",117,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",118,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",119,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",120,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",121,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",122,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",123,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",124,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",125,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",126,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",127,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",128,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",129,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",130,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",131,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",132,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",133,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",134,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",135,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",136,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",137,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",138,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",139,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",140,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",141,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",142,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",143,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",144,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",145,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",146,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",147,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",148,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",149,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",150,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",151,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",152,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",153,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",154,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",155,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",156,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",157,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",158,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",159,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",160,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",161,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",162,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",163,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",164,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",165,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",166,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",167,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",168,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",169,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",170,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",171,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",172,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",173,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",174,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",175,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",176,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",177,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",178,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",179,0)
+	PLSS A 0 A_FireCustomMissile("PlasmaWave",180,0)
+	stop
+	}
+}
+
+actor PlasmaWave
+{
+  obituary "%o was melted by %k's plasma wave."
+  radius 13
+  height 8
+  speed 15
+  damage 5
+  damagetype "normal"
+  renderstyle Add
+  alpha 0.75
+  seesound "weapons/plasmaf"
+  deathsound "weapons/plasmax"
+  PROJECTILE
+  +RANDOMIZE
+  states
+  {
+  Spawn:
+    PLSS AB 6 bright
+    loop
+  Death:
+    PLSE ABCDE 4 bright
+    stop
+  }
+}
+
+actor Flak
+{
+  spawnid 127
+  obituary "%o rode %k's rocket."
+  radius 11
+  height 8
+  speed 200
+  damage 0
+  deathsound "weapons/rocklx"
+  PROJECTILE
+  +RANDOMIZE
+  states
+  {
+  Spawn:
+    TNT1 A 4 bright
+	TNT1 A 0 A_CustomMissile("Flak2", 0, 0, random(0, 255), 2, random(0, 155))
+	TNT1 A 0 A_CustomMissile("Flak2", 0, 0, random(0, 255), 2, random(0, 155))
+	TNT1 A 0 A_CustomMissile("Flak2", 0, 0, random(0, 255), 2, random(0, 155))
+	TNT1 A 0 A_CustomMissile("Flak2", 0, 0, random(0, 255), 2, random(0, 155))
+	TNT1 A 0 A_CustomMissile("Flak2", 0, 0, random(0, 255), 2, random(0, 155))
+	TNT1 A 0 A_CustomMissile("Flak2", 0, 0, random(0, 255), 2, random(0, 155))
+	TNT1 A 0 A_CustomMissile("Flak2", 0, 0, random(0, 255), 2, random(0, 155))
+	TNT1 A 0 A_CustomMissile("Flak2", 0, 0, random(0, 255), 2, random(0, 155))
+	TNT1 A 0 A_CustomMissile("Flak2", 0, 0, random(0, 255), 2, random(0, 155))
+	TNT1 A 0 A_SpawnItem("Flak2", 0, 0, 0, 0)
+	loop
+  Death:
+    MISL B 0 A_Stop
+    MISL B 8 bright A_Explode(40, 228, 0)
+    MISL C 6 bright
+    MISL D 4 bright
+    stop
+  }
+}
+
+actor Flak2 : Flak
+{
+  speed 180
+  deathsound "weapons/rocklx"
+  states
+  {
+  Spawn:
+    MISL A 0
+	goto Death
+  Death:
+    MISL B 0 A_Stop
+    MISL B 8 bright A_Explode(50, 228, 0)
+    MISL C 6 bright
+    MISL D 4 bright
+    stop
+  }
+}
+
+// *** HELPER MARINE ***
+
+ACTOR HelperMarine : CustomInventory
+{
+   Scale 0.7
+   Inventory.Amount 1
+   Inventory.MaxAmount 15
+   Inventory.PickupSound "items/getinvhelpermarine"
+   Inventory.UseSound "misc/invuse"
+   Inventory.PickupMessage "You got the Helper Marine!"
+   Inventory.Icon ARTIHLPM
+   Tag "Summons a friendly marine."
+   +INVBAR
+   +FLOATBOB
+   +FANCYPICKUPSOUND
+   States
+   {
+   Spawn:
+      HLPP ABCDEFGH 12
+      Loop
+   Use:
+      HLPR A 0 A_ThrowGrenade("HelperMarineDropper",2,10,2,0)
+      Stop
+   } 
+}
+
+ACTOR HelperMarineDropper
+{
+   Radius 23
+   Height 12
+   Mass 60
+   Scale 0.7
+   +NOTARGET
+   +ISMONSTER
+   +FRIENDLY
+   +DROPOFF
+   +MISSILE
+   +WINDTHRUST
+   +PUSHABLE
+   +CANBOUNCEWATER
+   States
+   {
+   Spawn:
+      TLPR A 1
+      Loop
+   Death:
+      TLPR A 1
+      TLPR A 11 A_PlaySound("items/teleporteron")
+      TLPR BC 11 Bright
+      TLPR BCB 11 Bright A_PlaySound("items/teleporteractive")
+      TLPR C 0 A_PlaySound("items/teleporteractive")
+      TLPR C 0 A_Jump(64,7)
+      TLPR C 0 A_Jump(72,7)
+      TLPR C 0 A_Jump(80,7)
+      TLPR C 0 A_SpawnItem("HelperMarine1",1,0,0)
+      TLPR C 1 Bright Thing_ChangeTID(0,2403)
+      TLPR C 0 A_HideThing
+      TLPR C 0 A_SpawnItem("TeleporterUsed",1,0,0)
+      Stop
+      TLPR C 0 A_SpawnItem("HelperMarine2",1,0,0)
+      Goto Death+12
+      TLPR C 0 A_SpawnItem("HelperMarine3",1,0,0)
+      Goto Death+12
+      TLPR C 0 A_SpawnItem("HelperMarine4",1,0,0)
+      Goto Death+12
+   } 
+}
+
+ACTOR HelperMarine1
+{ 
+    Health 500
+    Radius 18
+    Height 54
+    Mass 100
+    Speed 8
+    PainChance 64
+    +ISMONSTER
+    +FRIENDLY
+    +SOLID
+    +SHOOTABLE
+    +FLOORCLIP
+    +CANPUSHWALLS
+    +ACTIVATEIMPACT
+    +NOBLOCKMONST
+    +NOICEDEATH
+    +CANPASS
+    +LOOKALLAROUND
+    +SHORTMISSILERANGE
+    +TELESTOMP
+    Obituary "%o was unfortunately hit by a Helper Marine."
+    PainSound "helpermarine/pain"
+    DeathSound "helpermarine/death"
+    ActiveSound "helpermarine/active"
+    States
+    {
+    Spawn:
+        HLPM B 0
+        HLPM B 15 Teleport(2403)
+        HLPM B 20 A_PlaySound("helpermarine/sight")
+        Goto See
+    See: 
+        HLPM AAAABBBBCCCCDDDDAAAABBBBCCCCDDDDAAAABBBBCCCCDDDDAAAABBBBCCCCDDDD 1 A_Chase
+        HLPM AAAABBBBCCCCDDDDAAAABBBBCCCCDDDDAAAABBBBCCCCDDDDAAAABBBBCCCCDDDD 1 A_Chase
+        HLPM AAAABBBBCCCCDDDDAAAABBBBCCCCDDDDAAAABBBBCCCCDDDDAAAABBBBCCCCDDDD 1 A_Chase
+        HLPM AAAABBBBCCCCDDDDAAAABBBBCCCCDDDDAAAABBBBCCCCDDDDAAAABBBBCCCCDDDD 1 A_Chase
+        HLPM AAAABBBBCCCCDDDDAAAABBBBCCCCDDDDAAAABBBBCCCCDDDDAAAABBBBCCCCDDDD 1 A_Chase
+        HLPM AAAABBBBCCCCDDDDAAAABBBBCCCCDDDDAAAABBBBCCCCDDDDAAAABBBBCCCCDDDD 1 A_Chase
+        HLPM AAAABBBBCCCCDDDDAAAABBBBCCCCDDDDAAAABBBBCCCCDDDDAAAABBBBCCCCDDDD 1 A_Chase
+        HLPM AAAABBBBCCCCDDDDAAAABBBBCCCCDDDDAAAABBBBCCCCDDDDAAAABBBBCCCCDDDD 1 A_Chase
+        HLPM B 8 A_UnSetShootable
+        HLPM B 6 A_SetTranslucent(0.9)
+        HLPM B 5 A_SetTranslucent(0.8)
+        HLPM B 4 A_SetTranslucent(0.7)
+        HLPM B 3 A_SetTranslucent(0.6)
+        HLPM B 3 A_SetTranslucent(0.5)
+        HLPM B 3 A_SetTranslucent(0.4)
+        HLPM B 3 A_SetTranslucent(0.3)
+        HLPM B 3 A_SetTranslucent(0.2)
+        HLPM B 2 A_SetTranslucent(0.1)
+        HLPM B 1 A_SpawnItem("HelperMarine",1,0,0)
+        Stop
+    Melee:
+    Missile:
+	    HLPM E 0 A_Jump(128,"Missile2")
+        HLPM E 6 A_FaceTarget
+        HLPM F 2 Bright A_FaceTarget
+        HLPM F 8 Bright A_CustomMissile("HelperMarineShot",29,0,0)
+        HLPM E 8 A_FaceTarget
+        Goto See+128
+    Missile2:
+        HLPM E 6 A_FaceTarget
+        HLPM F 2 Bright A_FaceTarget
+        HLPM F 0 A_PlaySound("sniper/gun")
+        HLPM F 4 A_CustomBulletAttack(5,5,1,30,BulletPuff)
+        HLPM E 8 A_FaceTarget
+        Goto See+128
+    Pain:
+        HLPM G 5
+        HLPM G 3 A_Pain
+        Goto See+128
+    Death:
+        HLPM H 10
+        HLPM I 10 A_Scream
+        HLPM J 10 A_Fall
+        HLPM KLM 10
+        HLPM N 64
+        HLPM N 6 A_SetTranslucent(0.9)
+        HLPM N 5 A_SetTranslucent(0.8)
+        HLPM N 4 A_SetTranslucent(0.7)
+        HLPM N 3 A_SetTranslucent(0.6)
+        HLPM N 3 A_SetTranslucent(0.5)
+        HLPM N 3 A_SetTranslucent(0.4)
+        HLPM N 3 A_SetTranslucent(0.3)
+        HLPM N 3 A_SetTranslucent(0.2)
+        HLPM N 3 A_SetTranslucent(0.1)
+        Stop
+    XDeath:
+        HLPM O 5
+        HLPM P 5 A_XScream
+        HLPM Q 5 A_Fall
+        HLPM RSTUV 5
+        HLPM W 64
+        HLPM W 6 A_SetTranslucent(0.9)
+        HLPM W 5 A_SetTranslucent(0.8)
+        HLPM W 4 A_SetTranslucent(0.7)
+        HLPM W 3 A_SetTranslucent(0.6)
+        HLPM W 3 A_SetTranslucent(0.5)
+        HLPM W 3 A_SetTranslucent(0.4)
+        HLPM W 3 A_SetTranslucent(0.3)
+        HLPM W 3 A_SetTranslucent(0.2)
+        HLPM W 3 A_SetTranslucent(0.1)
+        Stop
+    }
+}
+
+ACTOR HelperMarine2 : HelperMarine1
+{ 
+    Translation 0
+    +QUICKTORETALIATE
+}
+
+ACTOR HelperMarine3 : HelperMarine1
+{ 
+    Translation 1
+    +NOTARGETSWITCH
+    +MISSILEMORE
+}
+
+ACTOR HelperMarine4 : HelperMarine1
+{ 
+    Translation 2
+    +NOTARGETSWITCH
+    +MISSILEEVENMORE
+}
+
+ACTOR HelperMarineShot
+{
+   Radius 4
+   Height 6
+   Speed 50
+   Scale 0.5
+   Damage 50
+   PROJECTILE
+   +STRIFEDAMAGE
+   +GRENADETRAIL
+   Damagetype "Friend"
+   SeeSound "weapons/bfg12850shot2"
+   DeathSound "weapons/bfg12850explode2"
+   RenderStyle Add
+   Alpha 1.0
+   States
+   {
+   Spawn:
+      B121 A 0 A_Jump(96,4)
+      B121 A 0 A_Jump(64,2)
+      B121 ABC 2 Bright
+      Goto Spawn+2
+   Death:
+      B121 D 4 Bright
+      B121 EFGH 4 Bright
+      Stop
+   }
+}
+
+// *** PORTABLE Invulnerability Sphere ***
+
+ACTOR PortableInvulnerabilitySphere : PowerupGiver replaces InvulnerabilitySphere
+{
+   Inventory.Amount 1
+   Inventory.MaxAmount 10
+   Inventory.PickupMessage "$GOTINVUL"
+   Inventory.Icon ARTIPINV
+   Inventory.PickupSound "misc/p_pkup"
+   Inventory.UseSound "misc/p_pkup"
+   Powerup.Type Invulnerable
+   Powerup.Color InverseMap
+   RenderStyle SoulTrans
+   Alpha 1
+   Tag "Invulnerability"
+   +BIGPOWERUP
+   +INVBAR
+   +FLOORCLIP
+   +COUNTITEM
+   +ADDITIVETIME
+   States
+   {
+   Spawn:
+      PINV ABCD 6 Bright
+      Loop
+   }
+}
+
+// *** PORTABLE RADIATION SUIT ***
+
+ACTOR PortableRadiationSuit : PowerupGiver replaces RadSuit
+{
+   Inventory.Amount 1
+   Inventory.MaxAmount 5
+   Inventory.PickupSound "items/getinvportablesuit"
+   Inventory.UseSound "items/portablesuit"
+   Inventory.PickupMessage "Picked up a Radiation Suit."
+   Powerup.Type "IronFeet"
+   Powerup.Duration 3150
+   Powerup.Color 10 110 10 0.25
+   Inventory.Icon ARTIRSUI
+   Tag "Radiation Suit"
+   +INVBAR
+   +FLOORCLIP
+   +ADDITIVETIME
+   +WINDTHRUST
+   States
+   {
+   Spawn:
+      RSUI A -1 Bright
+      Stop
+   } 
+} 

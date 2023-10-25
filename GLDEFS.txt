@@ -1,0 +1,233 @@
+Glow
+{
+   Flats
+   {
+   LAVA1
+      LAVA2
+      LAVA3
+      LAVA4
+   NUKAGE1
+      NUKAGE2
+      NUKAGE3
+   RROCK01
+      RROCK02
+      RROCK05
+      RROCK06
+      RROCK07
+      RROCK08
+   FLOOR1_7
+   TLITE6_1
+      TLITE6_4
+      TLITE6_5
+      TLITE6_6
+   FLAT2
+   FLAT22
+   F_SKY1
+   CEIL1_2
+      CEIL1_3
+   CEIL3_4
+   CEIL3_6
+   FLAT17
+   GRNLITE1
+   SLIME09
+      SLIME10
+      SLIME11
+      SLIME12
+   SKY1DAWN
+      SKY1DAY
+      SKY1NIGH
+      SKY1NRAI
+   SKY2DAY
+      SKY2NIGH
+      SKY2NRAI
+   SKY3DAY
+   }
+   Walls
+   {
+   FIREBLU1
+      FIREBLU2
+   FIRELAVA
+      FIRELAV2
+      FIRELAV3
+   FIREMAG1
+      FIREMAG2
+      FIREMAG3
+   FIREWALL
+      FIREWALA
+      FIREWALB
+   T14_5
+   AGB128_1
+   TOMW2_1
+      TOMW2_2
+   EXIT1
+   WARNA0
+   WLITA0
+      WLITB0
+      WLITC0
+   WALL22_1
+      WALL23_1
+      WALL23_2
+      WALL25_1
+   W65B_1
+      W65B_2
+   W73A_1
+      W73A_2
+      W73B_1
+      W74A_1
+      W74A_2
+      W74B_1
+   RW32_2
+   RW44_2
+   RW44_4
+   SFALL1
+      SFALL2
+      SFALL3
+      SFALL4
+   RWDM11A
+      RWDM11B
+      RWDM11C
+      RWDM11D
+   SKY1DAWN
+      SKY1DAY
+      SKY1NIGH
+      SKY1NRAI
+   SKY2DAY
+      SKY2NIGH
+      SKY2NRAI
+   SKY3DAY
+   }
+}
+
+Pointlight STALKER1
+{
+Color 0.0 0.8 0.2
+Size 30
+}
+
+Pointlight STALKER2
+{
+Color 0.0 0.8 0.2
+Size 35
+}
+
+Pointlight STALKER3
+{
+Color 0.0 0.8 0.2
+Size 40
+}
+
+Pointlight STALKER4
+{
+Color 0.0 0.8 0.2
+Size 50
+}
+
+Pointlight STALKER5
+{
+Color 0.0 0.3 0.1
+Size 25
+}
+
+Pointlight STALKER6
+{
+Color 0.0 0.1 0.0
+Size 15
+}
+
+Object OutcastStalker
+{
+Frame STLKA { Light STALKER1 }
+Frame STLKB { Light STALKER3 }
+Frame STLKC { Light STALKER1 }
+Frame STLKF { Light STALKER1 }
+Frame STLKG { Light STALKER2 }
+Frame STLKH { Light STALKER3 }
+Frame STLKI { Light STALKER4 }
+Frame STLKJ { Light STALKER5 }
+Frame STLKK { Light STALKER6 }
+}
+
+pointlight STKTRACER
+{
+    color 0.1 0.5 0.5
+    size 48
+}
+
+flickerlight STKTRACER_X1
+{
+    color 0.0 0.5 0.5
+    size 64
+    secondarySize 72
+    chance 0.25
+}
+
+flickerlight STKTRACER_X2
+{
+    color 0.0 0.3 0.3
+    size 80
+    secondarySize 88
+    chance 0.25
+}
+
+flickerlight STKTRACER_X3
+{
+    color 0.0 0.1 0.1
+    size 96
+    secondarySize 104
+    chance 0.25
+}
+
+object StalkerTracer
+{
+    frame STKMA { light STKTRACER    }
+    frame STKMB { light STKTRACER    }
+
+    frame STKMC { light STKTRACER_X1 }
+    frame STKMD { light STKTRACER_X2 }
+    frame STKME { light STKTRACER_X3 }
+}
+
+
+flickerlight STFOG1
+{
+    color 1.0 0.4 0.4
+    size 56
+    secondarySize 64
+    chance 0.4
+}
+
+flickerlight STFOG2
+{
+    color 1.0 0.4 0.4
+    size 40
+    secondarySize 48
+    chance 0.4
+}
+
+flickerlight STFOG3
+{
+    color 1.0 0.4 0.4
+    size 24
+    secondarySize 32
+    chance 0.4
+}
+
+flickerlight STFOG4
+{
+    color 1.0 0.4 0.4
+    size 10
+    secondarySize 16
+    chance 0.4
+}
+
+object StalkerTeleFog
+{
+    frame HFOGA { light STFOG1 }
+    frame HFOGB { light STFOG2 }
+    frame HFOGC { light STFOG2 }
+    frame HFOGD { light STFOG2 }
+    frame HFOGE { light STFOG3 }
+    frame HFOGF { light STFOG4 }
+    frame HFOGI { light STFOG4 }
+    frame HFOGJ { light STFOG3 }
+}

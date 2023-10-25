@@ -1,0 +1,1009 @@
+Actor NightmareCacodemon : Archvile
+{
+  obituary "%o was killed By a Nightmare cacodemon."
+  hitobituary "%o got too close to a Nightmare cacodemon."
+  health 500
+  radius 25
+  height 60
+  mass 200
+  speed 17
+  painchance 128
+  seesound "caco/sight"
+  painsound "caco/pain"
+  deathsound "caco/death"
+  activesound "caco/active"
+  attacksound "caco/melee"
+  DropItem WarSpirit 32
+  DropItem Mana 160
+  DropItem Mana 160
+  dropitem MeatSpawner 100
+  dropitem MeatSpawner 100
+  DropItem HBSpawner 24
+  DropItem ABSpawner 24
+  MONSTER
+  +FLOAT
+  +NOGRAVITY
+  RenderStyle Add
+  states
+  {
+  Spawn:
+    HED2 ABCD 10 A_Look
+    loop
+  See:
+    HED2 ABCD 3
+    HED2 ABCD 3 A_Chase
+    HED2 A 0 A_Jump(90,"FastSee")
+    Loop
+  FastSee:
+	HED2 A 0 A_FastChase
+    HED2 A 1 A_PlaySound("monster/blur")
+	HED2 A 1 A_FastChase
+	HED2 A 0 A_SpawnItem("NCFX3",0,0)
+	HED2 B 1 A_FastChase
+	HED2 A 0 A_SpawnItem("NCFX3",0,0)
+	HED2 B 1 A_FastChase
+	HED2 A 0 A_SpawnItem("NCFX3",0,0) 
+	HED2 C 1 A_FastChase
+	HED2 A 0 A_SpawnItem("NCFX3",0,0)
+	DISC C 1 A_FastChase
+	DISC A 0 A_SpawnItem("NCFX3",0,0)
+	DISC D 1 A_FastChase
+	DISC A 0 A_SpawnItem("NCFX3",0,0)
+	DISC D 1 A_FastChase
+    HED2 A 0 A_Jump(90,"FastSee")
+    goto See
+  Missile:
+    HED2 E 2
+    TNT1 A 0 A_Jump(120,"Missile2")
+    HED2 F 3 A_FaceTarget
+    HED2 G 5 bright A_HeadAttack    // See CacodemonBall
+    HED2 F 5 A_FaceTarget
+    HED2 G 5 bright A_HeadAttack    // See CacodemonBall
+    HED2 F 5 A_FaceTarget
+    HED2 G 5 bright A_HeadAttack    // See CacodemonBall
+    goto See
+  Missile2:
+    TNT1 A 0 A_Jump(120,"Missile2")
+    HED2 E 2
+    HED2 F 7 A_FaceTarget
+    HED2 G 5 bright A_CustomMissile("SeekerCacoBall", 20, 0, 0)
+    goto See
+  Pain:
+    HED2 H 3
+    HED2 H 3 A_Pain
+    HED2 H 6
+    goto See
+  Death:
+    HED2 I 8
+    HED2 J 8 A_Scream
+    HED2 KL 8
+    HED2 M 8 A_NoBlocking
+    HED2 N -1 A_SetFloorClip
+    stop
+  }
+}
+
+ACTOR NCFX3
+{   
+   Radius 2
+   Height 2
+   Speed 0
+   Scale 0.90
+   PROJECTILE
+   RENDERSTYLE Translucent
+   ALPHA 0.90
+   States
+   {
+   Spawn:
+      NULL A 3
+      HED2 A 3 A_FadeOut(0.10)
+      goto spawn+1
+   }
+}
+
+Actor SeekerCacoBall
+{
+	Radius 12
+	Height 8
+	Speed 6
+	Damage 4
+	Scale 0.8
+	Projectile
+	+SeekerMissile
+	SeeSound "caco/attack"
+	DeathSound "caco/shotx"
+	States
+	{
+	Spawn:
+		BAL2 A 1  A_SpawnItemEx("SeekerCacoTrail",0,0,0,0,0,0)
+		BAL2 A 8 A_SeekerMissile(15,15) 
+		BAL2 A 0 A_Tracer		
+		BAL2 B 1 A_SpawnItemEx("SeekerCacoTrail",0,0,0,0,0,0)
+		BAL2 B 8 A_SeekerMissile(15,15)
+		BAL2 B 0 A_Tracer
+		Loop
+	Death:
+		BAL2 CDE 6
+		Stop
+	}
+}
+
+ACTOR SeekerCacoTrail
+{
+	RenderStyle Add
+	Alpha 0.5
+	Scale 0.8
+  	Radius 1
+  	Height 1
+  	+NOGRAVITY
+	States
+	{
+	Spawn:
+		BAL2 AB 3 BRIGHT 
+	Death:
+		BAL2 CDE 3 BRIGHT A_FadeOut (0.2)
+		Stop
+	}
+}
+
+actor DeathElemental 21100
+{
+ Health 666
+ Radius 31
+ Height 56
+ Mass 400
+ Speed 16
+ Painchance 32
+  seesound "klayz/sight"
+  painsound "monster/hlnpai"
+  deathsound "monster/hlndth"
+ ActiveSound "pain/active"
+  attacksound "klayz/attack"
+ MONSTER
+ +FLOAT
+ +NOGRAVITY
+ Obituary "%o felt the ethereal energy of a death elemental."
+ DropItem Mana
+ DropItem Mana
+ DropItem MeatSpawner 110
+ DropItem WarSpirit 28
+ States
+ {
+ Spawn:
+     DETH A 10 A_Look
+     Loop
+ See:    
+     DETH AA 3 A_Chase
+     Loop
+ Missile:
+     DETH A 0 A_Jump(32,4)
+     DETH B 5 A_FaceTarget
+     DETH C 0 A_CustomMissile("DeathBall",32,25)
+     DETH C 5 Bright A_CustomMissile("DeathBall",32,-45)
+     goto See
+     DETH B 5 A_FaceTarget
+     DETH C 5 Bright A_DualPainAttack
+     goto See
+ Pain:
+     DETH D 6
+     DETH D 6 A_Pain
+     goto See
+ Death:
+     DETH E 8 Bright
+     DETH F 8 Bright A_Scream
+     DETH GH 8 Bright
+     DETH IJK 8 Bright A_DualPainAttack
+     DETH L 8
+     stop
+ }
+}     
+
+
+actor DeathBall
+{
+ Radius 6
+ Height 8
+ Speed 25
+ Damage 5
+ PROJECTILE
+ SeeSound "skeleton/attack"
+ DeathSound "weapons/firex5"
+ MissileType DeathBallTail
+ MissileHeight 0
+ 
+ States
+ {
+  Spawn:
+      DTHB AAAABBBBCCCC 1 Bright A_MissileAttack
+      Loop
+  Death:
+      DTHB DEFGHI 3 Bright
+      Stop
+ }
+}      
+
+
+actor DeathBallTail
+{
+ RenderStyle Add
+ Alpha 0.4
+ PROJECTILE
+ +NOCLIP
+ 
+ States
+ {
+  Spawn:
+      DBLT ABCDEFGHI 1 Bright
+      Stop
+ }
+}     
+
+actor BombElemental : PainElemental
+{
+  +FIRERESIST
+  SeeSound "bomb/sight"
+  ActiveSound "bomb/active"
+  DeathSound "bomb/death"
+  PainSound "bomb/pain"
+  MissileType BombBall 
+  MissileHeight 16
+  ExplosionRadius 1000
+  BloodColor "bf af 20"
+  Translation "169:191=160:167","160:167=160:167","209:223=160:164","232:235=164:167","16:47=160:167","128:143=92:108","144:151=96:108","13:15=109:111","236:237=108:109","238:239=110:111"
+  DropItem Mana 129
+  DropItem Mana 129   
+  DropItem Fuel 129   
+  dropitem MeatSpawner 200
+  DropItem WarSpirit 28
+  States
+  {
+  See:
+    PAIN AAABBBCCCBBB 2 A_Chase
+    Loop
+  Missile:
+    PAIN D 0 A_Jump(50,4)
+    PAIN DE 6 Bright A_FaceTarget
+    PAIN F 6 Bright A_MissileAttack
+    Goto See
+    PAIN G 0 A_SetInvulnerable
+    PAIN G 5 Bright A_FaceTarget
+    PAIN G 5 A_FaceTarget
+    PAIN G 5 Bright A_FaceTarget
+    PAIN G 5 A_FaceTarget
+    PAIN G 4 Bright A_FaceTarget
+    PAIN G 4 A_FaceTarget
+    PAIN G 4 Bright A_FaceTarget
+    PAIN G 4 A_FaceTarget
+    PAIN G 3 Bright A_FaceTarget
+    PAIN G 3 A_FaceTarget
+    PAIN G 3 Bright A_FaceTarget
+    PAIN G 3 A_FaceTarget
+    PAIN G 2 Bright A_FaceTarget
+    PAIN G 2 A_FaceTarget
+    PAIN G 2 Bright A_FaceTarget
+    PAIN G 2 A_FaceTarget
+    PAIN G 1 Bright A_FaceTarget
+    PAIN G 1 A_FaceTarget
+    PAIN G 1 Bright A_FaceTarget
+    PAIN G 1 A_FaceTarget
+    Goto Death
+  Death:
+    PAIN H 4 Bright
+    PAIN I 4 Bright A_Scream
+    PAIN JK 4 Bright
+    PAIN K 0 A_SpawnItem("PyroBoom",0)
+    PAIN K 0 Bright A_Mushroom("PyroFlare",16)
+    Stop
+  }
+}
+
+actor BombBall : FatShot
+{
+  RenderStyle Normal
+  Alpha 1.0
+  Scale 0.75
+  SeeSound "bomb/attack"
+  DeathSound "64ball/explode"
+  ExplosionDamage 5
+  Damagetype Fire
+  States
+  {
+  Spawn:
+    BRNX ABC 4 Bright
+    Loop
+  Death:
+    PAIN K 0 A_SpawnItem("PyroBoom",0)
+    PAIN K 0 Bright A_Mushroom("PyroFlare",3)
+    Stop
+  }
+}
+
+ACTOR PyroBoom
+{
+   Radius 0
+   Height 0
+   PROJECTILE
+   RENDERSTYLE ADD
+   DamageType Fire
+   ALPHA 0.95
+   Scale 0.67
+   SeeSound "weapons/boom1"
+   States
+   {
+   Spawn:
+      PYXP AB 2 Bright
+      PYXP C 2 Bright A_Explode(192,128)
+      PYXP DEFGHIJKLMNOPQRSTU 2 Bright
+      stop
+   }
+}
+
+ACTOR PyroFlare
+{
+   Radius 8
+   Height 11
+   Speed 35
+   Damage 10
+   PROJECTILE
+   RENDERSTYLE ADD
+   DamageType Fire
+   ALPHA 0.95
+   -NOGRAVITY
+   DeathSound "weapons/bang1"
+   States
+   {
+   Spawn:
+      NULL A 1 Bright A_SpawnItem("PyroFX",0,0)
+      loop
+   Death:
+      FRFX HIJ 2 Bright
+      FRFX J 0 A_Explode(64,64)
+      FRFX J 0 A_SpawnItem("DropFire",0,0)
+      FRFX KLMNO 2 Bright
+      stop
+   }
+}
+
+ACTOR PyroFX
+{   
+   Radius 0
+   Height 0
+   Speed 0
+   Scale 1.0
+   PROJECTILE
+   RENDERSTYLE ADD
+   ALPHA 0.85
+   States
+   {
+   Spawn:
+      NULL A 3 Bright
+      PYFX ABCDE 3 Bright
+      Stop 
+   }
+}
+
+ACTOR DropFire
+{
+   Radius 8
+   Height 40
+   PROJECTILE
+   RENDERSTYLE ADD
+   DamageType Fire
+   ALPHA 0.90
+   DONTHURTSHOOTER
+   -NOGRAVITY
+   +LOWGRAVITY
+   +NOEXPLODEFLOOR
+   States
+   {
+   Spawn:
+      FLME A 1 Bright A_Playsound("weapons/onfire")
+      FLME A 1 Bright A_Explode(8,16)
+      FLME BCDEFGHIJKLMN 2 Bright A_Explode(8,16)
+      FLME A 1 Bright A_Playsound("weapons/onfire")
+      FLME A 1 Bright A_Explode(8,32)
+      FLME BCDEFGHIJKLMN 2 Bright A_Explode(8,16)
+      FLME A 1 Bright A_Playsound("weapons/onfire")
+      FLME A 1 Bright A_Explode(8,32)
+      FLME BCDEFGHIJKLMN 2 Bright A_Explode(8,16)
+      FLME A 1 Bright A_Playsound("weapons/onfire")
+      FLME A 1 Bright A_Explode(8,32)
+      FLME BCDEFGHIJKLMN 2 Bright A_Explode(8,16)
+      FLME A 1 Bright A_Playsound("weapons/onfire")
+      FLME A 1 Bright A_Explode(8,32)
+      FLME BCDEFGHIJKLMN 2 Bright A_Explode(8,16)
+      FLME A 0 A_Jump(192,1)
+      loop
+      NULL A 0
+      goto death
+   Death:
+      NULL A 1 Bright
+      stop
+   }
+}
+
+ACTOR Inferno 30105
+{ 
+Health 400 
+Radius 31 
+Height 56 
+Mass 400 
+Speed 10
+MeleeDamage 8
+PainChance 128 
+MONSTER
+HITOBITUARY "%o got eaten by an inferno."
+OBITUARY "%o got incinerated by an inferno."
++FireResist
++NoGravity 
++Float
++DontFall
++DontHurtSpecies
+SEESOUND "monster/infsit" 
+PAINSOUND "monster/infpai" 
+DEATHSOUND "monster/infdth" 
+ACTIVESOUND "caco/active"
+MELEESOUND "caco/melee"
+DropItem MeatSpawner 210
+DropItem Mana 128 30 
+DropItem ManaRune 128
+DropItem LimitDemonBane 32
+states 
+   { 
+   Spawn: 
+       INFR A 10 A_Look 
+       Loop 
+   See: 
+       INFR A 3 A_Chase 
+       Loop 
+   Missile: 
+       INFR BC 5 A_FaceTarget 
+       INFR D 5 BRIGHT A_CustomMissile ("Lavaball",24,0,0,0)
+       Goto See
+   Melee: 
+       INFR ADC 5 A_FaceTarget 
+       INFR B 5 A_MeleeAttack
+       Goto See 
+   Pain: 
+       INFR E 3 
+       INFR E 3 A_Pain 
+       INFR E 6 
+       Goto See 
+   Death: 
+       INFR G 8 
+       INFR H 8 BRIGHT A_Scream
+       INFR I 8 BRIGHT
+       INFR I 0 BRIGHT A_CustomMissile("Lavaball",32,0,45,2)
+       INFR I 0 BRIGHT A_CustomMissile("Lavaball",32,0,135,2)
+       INFR I 0 BRIGHT A_CustomMissile("Lavaball",32,0,225,2)
+       INFR I 0 BRIGHT A_CustomMissile("Lavaball",32,0,315,2)
+       INFR J 8 BRIGHT
+       INFR K 8 BRIGHT A_NoBlocking 
+       INFR K 0 A_SetFloorClip
+       Stop 
+   } 
+}
+
+ACTOR Lavaball
+{
+   Radius 8
+   Height 8
+   Speed 18
+   Damage 6
+   DamageType fire
+   SpawnID 250
+   Scale 1.0
+   PROJECTILE
+   RENDERSTYLE ADD
+   ALPHA 0.95
+   +THRUGHOST
+   SeeSound "weapons/firmfi"
+   DeathSound "weapons/firex3"
+   ExplosionDamage 32
+   ExplosionRadius 96
+   DONTHURTSHOOTER
+   States
+   {
+   Spawn: 
+      BAL3 AB 4 Bright A_SpawnItem("RedPuff",0,0)
+      loop
+   Death:
+      BAL3 C 0 A_SpawnItem("DropFire",0,0)
+      BAL3 C 5 Bright A_Explode
+      BAL3 DE 5 Bright
+      stop
+   }
+}
+
+ACTOR RedPuff
+{   
+   Radius 0
+   Height 1
+   Speed 0
+   PROJECTILE
+   RENDERSTYLE ADD
+   ALPHA 0.85
+   States
+   {
+   Spawn:
+      TNT1 A 3 Bright
+      RPUF ABCDE 3 Bright
+      Stop 
+   }
+}
+
+ACTOR Defiler 21654
+{
+	//$Category monsters
+	Health 500
+	Radius 31
+	Height 56
+	Mass 500
+	Speed 9
+	PainChance 15
+	Monster 
+	+NOGRAVITY
+    +FLOAT 
+	+DROPOFF
+	+MISSILEMORE
+	SeeSound "Defiler/Sight"
+	PainSound "baron/pain"
+	DeathSound "Defiler/Death"
+	ActiveSound "baron/active"
+	Obituary "%o was hunted down by a Defiler."
+    DropItem MeatSpawner 210
+	DropItem Mana 128 30 
+    DropItem ManaRune 128
+	States
+	{
+	Spawn:
+		DEFI AB 10 A_Look
+		Loop
+	See:
+		DEFI AABBCC 2 A_VileChase
+		Loop
+	Missile:
+		DEFI D 0 BRIGHT A_Jump(65, 5)
+		DEFI D 8 BRIGHT A_FaceTarget 
+		DEFI E 8 BRIGHT	A_FaceTarget
+		DEFI F 8 BRIGHT	A_CustomMissile("DefilerShot", 15, 0, 0)
+		DEFI D 8 BRIGHT A_FaceTarget 
+		DEFI E 8 BRIGHT	A_FaceTarget
+		DEFI F 8 BRIGHT	A_CustomMissile("DefilerShot", 15, 0, 0)
+		Goto See
+		DEFI D 8 BRIGHT A_FaceTarget 
+		DEFI E 8 BRIGHT	A_FaceTarget
+		DEFI F 0 BRIGHT A_PlaySound("Defiler/Attack")
+		DEFI F 0 BRIGHT A_CustomMissile("DefilerBall", 15, 0, -45)
+		DEFI F 0 BRIGHT A_CustomMissile("DefilerBall", 15, 0, 0)
+		DEFI F 8 BRIGHT A_CustomMissile("DefilerBall", 15, 0, 45)
+		Goto See
+	Heal:
+		DEFI N 10 BRIGHT A_SpawnItem("DefilerFire", 55)
+		DEFI OP 10 BRIGHT
+		Goto See
+	Pain:
+		DEFI G 5   
+		DEFI G 5 A_Pain
+		Goto See
+	Death:
+		DEFI H 7
+		DEFI I 7 A_Scream
+		DEFI J 7 A_NoBlocking
+		DEFI KL 7
+		DEFI M 0 A_PlaySound("Defiler/Attack")
+		DEFI M 0 A_CustomMissile("DefilerBall", 20, 0, 0)
+		DEFI M 0 A_PlaySound("Defiler/Attack")
+		DEFI M 0 A_CustomMissile("DefilerBall", 20, 0, 45)
+		DEFI M 0 A_PlaySound("Defiler/Attack")
+		DEFI M 0 A_CustomMissile("DefilerBall", 20, 0, 90)
+		DEFI M 0 A_PlaySound("Defiler/Attack")
+		DEFI M 0 A_CustomMissile("DefilerBall", 20, 0, 135)
+		DEFI M 0 A_PlaySound("Defiler/Attack")
+		DEFI M 0 A_CustomMissile("DefilerBall", 20, 0, 180)
+		DEFI M 0 A_PlaySound("Defiler/Attack")
+		DEFI M 0 A_CustomMissile("DefilerBall", 20, 0, 225)
+		DEFI M 0 A_PlaySound("Defiler/Attack")
+		DEFI M 0 A_CustomMissile("DefilerBall", 20, 0, 270)
+		DEFI M 0 A_PlaySound("Defiler/Attack")
+		DEFI M 0 A_CustomMissile("DefilerBall", 20, 0, 315)
+		DEFI M 0 A_CustomMissile("DefilerShot", 20, 0, 0)
+		DEFI M 0 A_CustomMissile("DefilerShot", 20, 0, 45)
+		DEFI M 0 A_CustomMissile("DefilerShot", 20, 0, 90)
+		DEFI M 0 A_CustomMissile("DefilerShot", 20, 0, 135)
+		DEFI M 0 A_CustomMissile("DefilerShot", 20, 0, 180)
+		DEFI M 0 A_CustomMissile("DefilerShot", 20, 0, 225)
+		DEFI M 0 A_CustomMissile("DefilerShot", 20, 0, 270)
+		DEFI M 0 A_CustomMissile("DefilerShot", 20, 0, 315)
+		DEFI M 7
+		Stop
+	}
+}
+
+ACTOR DefilerFire
+{
+	+NOBLOCKMAP 
+	+NOGRAVITY
+	RenderStyle Add
+	Alpha 1
+	States
+	{
+	Spawn:
+		REFR A 2 BRIGHT  A_StartFire
+		REFR BAB 2 BRIGHT  A_Fire
+		REFR C 2 BRIGHT  A_FireCrackle
+		REFR BCBCDCDCDEDED 2 BRIGHT  A_Fire
+		REFR E 2 BRIGHT  A_FireCrackle
+		REFR FEFEFGHGHGH 2 BRIGHT  A_Fire
+		Stop
+	}
+}
+
+ACTOR DefilerBall
+{
+    Radius 8
+    Height 6
+    Scale 0.5
+    Speed 8
+    Damage 1
+	DeathSound "imp/shotx"
+    +SEEKERMISSILE
+    PROJECTILE
+    Renderstyle ADD
+	Decal DoomImpScorch
+    States
+    {
+    Spawn:
+        RVBA AB 2 Bright A_SeekerMissile (10,20)
+        Loop
+    Death:
+        RVBA CDEFGH 4 Bright
+        Stop
+    }
+}
+
+ACTOR DefilerShot 
+{
+	Scale 1.5
+    Radius 12
+    Height 16
+    Speed 16
+    Damage 5
+    PROJECTILE
+	RENDERSTYLE ADD
+	ALPHA 0.9
+    SeeSound "imp/attack"
+    DeathSound "imp/shotx"
+	Decal DoomImpScorch
+    States
+    {
+    Spawn:
+        DFSH AB 5 Bright
+        Loop
+    Death:
+        DFSH CDE 5 Bright
+        Stop
+    }
+}
+
+ACTOR PatronWizard 15934
+{
+  SeeSound "BLACKFISHSEKTO/SITES"
+  AttackSound "BishopAttack"
+  PainSound "monster/dispai" 
+  DeathSound "monster/disdth" 
+  ActiveSound "BLACKFISHSEKTO/MEANDER"
+  Health 500
+  Radius 20 
+  Height 56 
+  mass 100
+  speed 15
+  PainChance 64
+  MeleeDamage 8
+  Translation "168:191=192:199"
+  Obituary "%o was tortured by a Patron Wizard."
+  HitObituary "%o was cursed by a by a Patron Wizard."
+  DropItem Mana 128
+  DropItem ManaRune 10
+  DropItem MeatSpawner 110
+  DropItem WarSpirit 48
+  MONSTER
+  +FLOAT
+  +NOGRAVITY
+  +NOTARGET
+  +TELESTOMP
+  +GHOST
+  States
+  {
+  Spawn:
+          LDDE A 10 A_Look
+          loop
+  See:
+          LDDE A 0 A_SetShootable
+		  LDDE C 0 A_SetSolid
+          LDDE A 0 A_SetTranslucent(1.0,0) 
+          LDDE A 3 A_Chase
+          LDDE A 3 A_Chase
+          LDDE A 3 A_Chase
+          LDDE A 3 A_Chase
+          LDDE A 3 A_FastChase
+          LDDE B 3 A_Chase
+          LDDE B 3 A_Chase
+          LDDE B 3 A_Chase
+          LDDE B 3 A_Chase
+          LDDE B 3 A_FastChase
+	  loop
+  Wander:
+          LDDE C 0 A_UnSetShootable
+		  LDDE C 0 A_UnSetSolid
+          LDDE C 4 A_SetTranslucent(1.0,0) 
+          LDDE C 4 A_SetTranslucent(0.75,0) 
+          LDDE D 4 A_SetTranslucent(0.5,0) 
+          LDDE D 4 A_SetTranslucent(0.25,0) 
+          LDDE D 4 A_SetTranslucent(0.0,0) 
+          LDDE AAAAAAAAAAAAAAAAAAAA 2 A_Wander
+          LDDE A 0 A_Look
+          LDDE AAAAAAAAAAAAAAAAAAAA 2 A_Wander
+          LDDE A 0 A_Look
+          LDDE AAAAAAAAAAAAAAAAAAAA 2 A_Wander
+          LDDE A 0 A_Look
+          LDDE C 0 A_SetShootable
+		  LDDE C 0 A_SetSolid
+          LDDE D 4 A_SetTranslucent(0.0,0) 
+          LDDE D 4 A_SetTranslucent(0.25,0) 
+          LDDE D 4 A_SetTranslucent(0.5,0) 
+          LDDE C 4 A_SetTranslucent(0.75,0) 
+          LDDE C 4 A_SetTranslucent(1.0,0) 
+	  loop
+  Melee:
+  Missile:
+	  LDDE C 9 A_FaceTarget
+	  LDDE C 0 A_SetShadow
+      LDDE C 1 Bright A_PlaySound("monster/disat1")
+	  LDDE C 10 A_CustomMissile("CurseBall",32,0,0)
+	  LDDE C 0 A_SetTranslucent(0.9,0)
+	  LDDE C 9 A_FaceTarget
+	  LDDE C 0 A_SetShadow
+      LDDE C 1 Bright A_PlaySound("monster/disat1")
+	  LDDE C 10 A_CustomMissile("CurseBall",32,0,1)
+	  LDDE C 0 A_SetTranslucent(0.8,0)
+	  LDDE C 9 A_FaceTarget
+	  LDDE C 0 A_SetShadow
+      LDDE C 1 Bright A_PlaySound("monster/disat1")
+	  LDDE C 10 A_CustomMissile("CurseBall",32,0,2)
+	  LDDE C 0 A_SetTranslucent(0.7,0)
+	  LDDE C 9 A_FaceTarget
+	  LDDE C 0 A_SetShadow
+      LDDE C 1 Bright A_PlaySound("monster/disat1")
+	  LDDE C 9 A_CustomMissile("CurseBall",32,0,3)
+	  LDDE C 0 A_SetTranslucent(0.9,0)
+      LDDE C 1 Bright A_PlaySound("monster/disat2")
+	  LDDE D 0 bright A_CustomMissile("CurseBall",42,0,3,2,0)
+	  LDDE D 0 bright A_CustomMissile("CurseBall",42,0,-3,2,0)
+	  LDDE D 0 bright A_CustomMissile("CurseBall",42,0,0,2,3)
+	  LDDE D 0 bright A_CustomMissile("CurseBall",42,0,0,2,-3)
+	  LDDE D 0 bright A_CustomMissile("CurseBall",42,0,2,2,2)
+	  LDDE D 0 bright A_CustomMissile("CurseBall",42,0,-2,2,2)
+	  LDDE D 0 bright A_CustomMissile("CurseBall",42,0,2,2,-2)
+	  LDDE D 0 bright A_CustomMissile("CurseBall",42,0,-2,2,-2)
+	  LDDE D 4 bright A_CustomMissile("CurseBall",42,0,0,2)
+	  goto See
+  Pain:
+	  LDDE E 3 A_SetTranslucent(1.0,0) 
+	  LDDE E 3 A_Pain
+      LDDE A 0 A_Jump(100, "Wander")
+	  goto See
+  Death:
+	  LDDE F 6 A_SetTranslucent(1.0,0)
+	  LDDE G 6 A_Scream
+	  LDDE HI 6
+	  LDDE J 6 A_NoBlocking
+	  LDDE KL 6
+	  LDDE M -1
+	  stop
+  }
+}
+
+actor CurseBall
+{
+	radius 30
+  	height 30
+  	speed 15
+  	damage 7
+  	renderstyle Add
+  	deathsound "ball4/death"
+	Translation "168:191=192:207"
+  	PROJECTILE
+  	+RANDOMIZE
+  	+SEEKERMISSILE
+  	states
+  	{
+  	Spawn:
+    		BAL4 AB 4
+    		loop
+  	Death:  
+    		BAL4 HIJKLM 5 bright
+    		stop
+  	}
+}
+
+ACTOR FireElemental : Bishop 7099
+{ 
+   Health 666
+   Speed 8
+   Radius 31
+   Height 64
+   BloodColor Red
+   PainChance 100
+   Mass 400
+   Meleedamage 6 
+   REACTIONTIME 8 
+   Translation "122:127=180:190"
+   damagefactor "Fire", 0.1
+   MONSTER
+    EXPLOSIONDAMAGE 128
+    EXPLOSIONRADIUS 128
+   +BOSS
+   +NOGRAVITY
+   +FLOAT
+   SeeSound "monster/dissit" 
+   PainSound "monster/dispai" 
+   DeathSound "monster/disdth" 
+   ActiveSound "monster/disact"
+   Obituary "%o wasn't quick enough to avoid the Fire Elemental's flames."
+   DropItem MeatSpawner 210
+   DropItem ManaRune 64
+   DropItem WarSpirit 28
+   States 
+   { 
+	Spawn: 
+		BISH A 6 A_Look 
+		Loop 
+	See:
+		BISH A 2 A_Chase
+		BISH A 2 A_BishopChase
+		BISH A 2
+		BISH B 2 A_BishopChase
+		BISH B 2 A_Chase
+		BISH B 2 A_BishopChase
+		BISH A 1 A_BishopDecide
+		Loop
+	Blur:
+		BISH A 2 A_BishopDoBlur
+		BISH A 4 A_BishopSpawnBlur
+		Wait
+	Missile: 
+		BISH C 0 A_Jump(108, "Missile2")
+		BISH A 3 Bright A_FaceTarget 
+		BISH DDDDD 2 Bright A_SpawnItemEx ("ReverseImpBallTail", 0, 0, random(31,33), 1, 0, 0, 0, 160)
+		BISH E 3 Bright A_FaceTarget 
+		BISH F 1 A_CustomMissile ("DrunkImpBall", (random(31,33)), 6, (random(4,-4)))
+		BISH F 1 A_CustomMissile ("DrunkImpBall", (random(31,33)), 6, (random(6,14)))
+		BISH F 1 A_CustomMissile ("DrunkImpBall", (random(31,33)), 6, (random(-4,4)))
+		BISH F 1 A_CustomMissile ("DrunkImpBall", (random(31,33)), 6, (random(-6,-14)))
+		BISH F 1 A_CustomMissile ("DrunkImpBall", (random(31,33)), 6, 0)
+		BISH A 5 Bright A_FaceTarget
+		Goto See 
+	Missile2:
+		BISH A 3 A_FaceTarget
+		BISH DE 3 A_FaceTarget
+		BISH F 1 BRIGHT A_CustomMissile("FlameBreath", 30, 0, -3)
+		BISH F 0 BRIGHT A_FaceTarget
+		BISH F 1 BRIGHT A_CustomMissile("FlameBreath", 31, 0, 5)
+		BISH F 0 BRIGHT A_FaceTarget
+		BISH F 1 BRIGHT A_CustomMissile("FlameBreath", 32, 0, -7)
+		BISH F 0 BRIGHT A_FaceTarget
+		BISH F 1 BRIGHT A_CustomMissile("FlameBreath", 33, 0, 6)
+		BISH F 0 BRIGHT A_FaceTarget
+		BISH F 1 BRIGHT A_CustomMissile("FlameBreath", 32, 0, -1)
+		BISH F 0 BRIGHT A_FaceTarget
+		BISH F 1 BRIGHT A_CustomMissile("FlameBreath", 32, 0, -3)
+		BISH F 0 BRIGHT A_FaceTarget
+		BISH F 1 BRIGHT A_CustomMissile("FlameBreath", 33, 0, 4)
+		BISH F 0 BRIGHT A_FaceTarget
+		BISH F 1 BRIGHT A_CustomMissile("FlameBreath", 31, 0, -7)
+		Goto See 
+	Pain: 
+		BISH C 4 A_Pain
+		BISH CCC 3 A_BishopPainBlur
+		Goto See
+	Death:
+		BISH G 6
+		BISH H 6 Bright A_Scream
+		BISH I 5 Bright A_NoBlocking
+		BISH J 5 BRIGHT A_Explode(random[BishopBoom](25,40))
+		BISH K 5 Bright
+		BISH LM 4 Bright
+		BISH N 4 A_SpawnItem("PyroBoom",0)
+		BISH O 0 Bright A_Mushroom("PyroFlare",16)
+		BISH O 4 A_QueueCorpse
+		BISH P 300
+		Stop
+    } 
+} 
+
+actor dreadcaco 5018
+{
+  spawnid 57
+  obituary "%o was smitten by a Dreaddemon."
+  hitobituary "%o got too close to a Dreaddemon."
+  health 666
+  radius 28
+  height 40
+  mass 4000
+  reactiontime 1
+  Translation "16:47=6:8", "172:191=6:9", "214:223=36:47", "232:235=200:216"
+  speed 17
+  painchance 35
+  seesound "caco/sight"
+  painsound "caco/pain"
+  deathsound "caco/death"
+  activesound "caco/active"
+  attacksound "caco/melee"
+  DropItem Mana 160
+  DropItem Mana
+  dropitem MeatSpawner 150
+  DropItem WarSpirit 28
+  MONSTER
+  +FLOAT
+  +NOGRAVITY
+  +MISSILEMORE
+  states
+  {
+  Spawn:
+    HEAD A 10 A_Look
+    loop
+  See:
+    HEAD A 3 A_Chase
+    loop
+  Missile:
+    HEAD BC 6 A_FaceTarget
+    HEAD D 4 bright A_CustomMissile("darkcacball",24,0,0)
+	HEAD D 2 bright A_CustomMissile("darkcacball",24,8,0)
+	HEAD D 2 bright A_CustomMissile("darkcacball",24,-8,0)
+	HEAD D 1 bright A_CustomMissile("darkcacball",24,8,0)
+	HEAD D 1 bright A_CustomMissile("darkcacball",24,-8,0)
+    goto See
+  Pain:
+    HEAD E 3
+    HEAD E 3 A_Pain
+    HEAD F 6
+    goto See
+  Death:
+    HEAD G 8
+    HEAD H 8 A_Scream
+    HEAD IJ 8
+    HEAD K 8 A_NoBlocking
+    HEAD L -1 A_SetFloorClip
+    stop
+  Raise:
+    HEAD L 8 A_UnSetFloorClip
+    HEAD KJIHG 8
+    goto See
+  }
+}
+
+actor darkcacball
+{
+  spawnid 126
+  radius 9
+  height 12
+  speed 25
+  damage 3
+  renderstyle OptFuzzy
+  alpha 1.4
+  seesound "caco/attack"
+  deathsound "caco/shotx"
+  PROJECTILE
+  +RANDOMIZE
+  +SHADOW
+  states
+  {
+  Spawn:
+    BAL2 AB 4 bright A_FadeOut(0.1)
+    loop
+  Death:
+    BAL2 CDE 5 bright
+    stop
+  }
+  }

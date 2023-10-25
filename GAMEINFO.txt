@@ -1,0 +1,2 @@
+	STARTUPTITLE = "Gears of Hell v1.3"
+	STARTUPCOLORS = "000000", "611403"

@@ -1,0 +1,1017 @@
+ACTOR Predador 2518
+{
+    Health 800
+    Radius 20
+    Height 56
+    Mass 1000
+    Speed 12
+    PainChance 16
+    MeleeDamage 8
+    MONSTER
+    +FLOORCLIP
+    +DONTSQUASH
+    +DONTMORPH 
+    +DONTBLAST
+    +NOTELEOTHER
+    SeeSound "alien/sight"
+    PainSound "alien/pain"
+    DeathSound "alien/death"
+    ActiveSound "alien/active"
+    MeleeSound "alien/melee"
+    Obituary "%o was hit by an Alien."
+    HitObituary "%o was ripped open by an Alien."
+    MissileType AlienBall
+    DropItem MeatSpawner 148
+    DropItem WarSpirit 64
+	DropItem Cell
+	DropItem Cell
+	DropItem Cell
+	DropItem CellPack 64
+   DropItem HBSpawner 24
+   DropItem ABSpawner 24
+    States
+    {
+    Spawn:
+        ALN1 AB 10 A_Look
+        Loop
+    See:
+        ALN1 A 0 A_JumpIfInventory("Alien1InvisibilityChecker",1,13)
+        ALN1 AAABBBCCCDDD 2 A_Chase
+        Loop
+        ALN1 AAAAABBBBBCCCCCDDDDD 1 A_ExtChase(256,0)
+        Loop
+    Melee:
+        ALN1 E 0 A_JumpIfInventory("Alien1InvisibilityChecker",1,6)
+        ALN1 E 0 A_PlaySound("alien/attack")
+        ALN1 E 8 A_FaceTarget
+        ALN1 F 8 A_FaceTarget
+        ALN1 G 8 A_ComboAttack
+        ALN1 F 8 A_FaceTarget
+        Goto See
+        ALN1 E 0 A_TakeInventory("Alien1InvisibilityChecker",1)
+        ALN1 E 0 A_PlaySound("alien/attack")
+        ALN1 E 2 A_FaceTarget
+        ALN1 E 1 A_SetTranslucent(0.2,0)
+        ALN1 E 1 A_SetTranslucent(0.4,0)
+        ALN1 E 1 A_SetTranslucent(0.6,0)
+        ALN1 E 1 A_SetTranslucent(0.8,0)
+        ALN1 E 2 A_FaceTarget
+        ALN1 F 8 A_FaceTarget
+        ALN1 G 8 A_ComboAttack
+        ALN1 F 8 A_FaceTarget
+        Goto See
+    Missile:
+        ALN1 E 0 A_FaceTarget
+        ALN1 E 0 A_Jump(64,6)
+        ALN1 E 0 A_PlaySound("alien/attack")
+        ALN1 E 8 A_FaceTarget
+        ALN1 F 8 A_FaceTarget
+        ALN1 G 8 Bright A_ComboAttack
+        ALN1 F 8 A_FaceTarget
+        Goto See
+        ALN1 E 2 A_PlaySound("Cast/Flash")
+        ALN1 E 2 A_SetTranslucent(0.8,0)
+        ALN1 E 2 A_SetTranslucent(0.6,0)
+        ALN1 E 2 A_SetTranslucent(0.4,0)
+        ALN1 E 2 A_SetTranslucent(0.2,0)
+        ALN1 E 0 A_SetTranslucent(1,2)
+        ALN1 E 3 A_FaceTarget
+        ALN1 E 0 A_GiveInventory("Alien1InvisibilityChecker",1)
+        Goto See
+    Pain:
+        ALN1 H 3
+        ALN1 H 3 A_Pain
+        Goto See
+    Death:
+        ALN1 I 12
+        ALN1 J 12 A_Scream
+        ALN1 K 9 A_NoBlocking
+        ALN1 L 9
+        ALN1 M -1
+        Stop
+    Raise:
+        ALN1 LK 8
+        ALN1 JI 10
+        Goto See
+    Burn:                
+        APBX A 1 A_HideThing
+        BCUL I 0 A_NoBlocking
+        BCUL I 0 A_SpawnItem("BurnDeath",1,0,0)
+        APBX A -1
+        Stop
+    }
+}
+
+ACTOR AlienBall
+{
+    Radius 3
+    Height 6
+    Speed 28
+    Damage 8
+    Scale 0.6
+    PROJECTILE
+    RenderStyle Add
+    Alpha 0.75
+    SeeSound "weapons/tilshot"
+    DeathSound "weapons/prcexplode2"
+    States
+    {
+    Spawn:
+        ALNB ABCDE 3 Bright A_CustomMissile(AlienBallTrail,0,0,0,2)
+        Loop
+    Death:
+        ALNB FG 4 Bright
+        Stop
+    }
+}
+
+ACTOR Alien1InvisibilityChecker : Inventory
+{
+   Inventory.Amount 1
+   Inventory.MaxAmount 1
+}
+
+ACTOR AlienBallTrail
+{
+    Radius 1
+    Height 2
+    RenderStyle Add
+    Alpha 0.75
+    Scale 0.4
+    +NOBLOCKMAP
+    +LOWGRAVITY
+    +NOTELEPORT
+    +DONTSPLASH
+    States
+    {
+    Spawn:
+        ALNB EFG 3
+        Stop
+    }
+}
+
+actor Baatezu 10006
+{
+	Health 800
+    Radius 48
+    Height 64
+    Speed 10
+    Scale 1.08
+    PainChance 200
+    Mass 1500
+    BloodColor "00 ef 00"
+    MONSTER 
+    +FLOORCLIP
+	+BOSS
+	+BOSSDEATH
+    SeeSound "baatezu/sight"
+    PainSound "fatso/pain"
+    DeathSound "baatezu/death"
+    ActiveSound "fatso/active"
+    Obituary "%o was squashed by a baatezu."
+	DropItem Cell 196
+	DropItem Cell
+    dropitem MeatSpawner 150
+	DropItem WarSpirit 48
+    DropItem DemonicHeart 64
+    DropItem HBSpawner 24
+    DropItem ABSpawner 24
+    States
+    {
+    Spawn:
+        BAAT AB 10 A_Look
+        Loop
+    See:
+        BAAT AABBCCDDEEFF 3 A_Chase
+        Loop
+    Missile:
+        BAAT G 16 A_FatRaise
+        BAAT H 0 A_CustomMissile("BaatezuBall",20,0,random(-10,-1),0)
+        BAAT H 9 A_CustomMissile("BaatezuBall",20,0,random(1,10),0)
+        BAAT IG 5 A_FaceTarget
+        BAAT H 0 A_CustomMissile("BaatezuBall",20,0,random(-10,-1),0)
+        BAAT H 9 A_CustomMissile("BaatezuBall",20,0,random(1,10),0)
+        BAAT IG 5 A_FaceTarget
+        BAAT H 0 A_CustomMissile("BaatezuBall",20,0,random(-10,-1),0)
+        BAAT H 9 A_CustomMissile("BaatezuBall",20,0,random(1,10),0)
+        BAAT IG 5 A_FaceTarget
+        Goto See
+    Pain:
+        BAAT J 3
+        BAAT J 3 A_Pain
+        Goto See
+    Death:
+        BAAT K 6
+        BAAT L 6 A_Scream
+        BAAT M 6 A_NoBlocking
+        BAAT NOPQRS 6
+        BAAT T -1
+        Stop
+    Raise:
+        BAAT SRQPONMLK 6
+        Goto See
+    }
+}
+
+actor BaatezuBall : FatShot
+{
+    Speed 24
+    Damage 10
+    SeeSound "baatezu/fire"
+    DeathSound "baatezu/firexpl"
+    ExplosionRadius 64
+    ExplosionDamage 3
+    States
+    {
+    Spawn:
+        BTKB AB 4 Bright A_CustomMissile("BaatezuTRAIL",0,0,0,0)
+        Loop
+    Death:
+        BTTB C 0 Bright A_Explode
+        BTKB C 8 Bright
+        BTKB D 6 Bright
+        BTKB E 4 Bright
+        Stop
+    }
+}
+
+ACTOR BaatezuTRAIL
+{   
+   Radius 3
+   Height 3
+   Speed 0
+   PROJECTILE
+   RENDERSTYLE TRANSLUCENT
+   ALPHA 0.40
+   States
+   {
+   Spawn:
+      NULL A 2 Bright
+      BTKB AB 2 BRIGHT A_FadeOut(0.10)
+      Stop 
+   }
+}
+
+ACTOR 1337Ettin : Ettin
+{
+   Health 775
+   Radius 25
+   Height 64
+   Speed 10
+   Damage 6
+   Painchance 30
+   SeeSound "ettin/sight"
+   MeleeSound "ettin/hit"
+   AttackSound "ettin/hit"
+   PainSound "ettin/pain"
+   DeathSound "ettin/death"
+   ActiveSound "ettin/active"
+   Obituary "%o was smashed by an Super Ettin."
+   Translation "16:47=184:191", "128:143=176:191", "144:151=184:191", "48:79=176:191", "80:111=184:191","170:200=176:191"
+   MissileType AvaBall2
+   DropItem Mana
+   DropItem ManaRune 32
+   dropitem MeatSpawner 250
+	DropItem WarSpirit 48
+    DropItem DemonicHeart 64
+    DropItem HBSpawner 24
+    DropItem ABSpawner 24
+   	+BOSS
+	+BOSSDEATH
+   States
+     {
+      See:
+        ETTN ABCD 4 A_Chase
+        Loop
+      Pain:
+        ETTN H 8 A_Pain
+        Goto See
+      Melee:
+        ETTN EF 6 A_FaceTarget
+        ETTN G 8 A_CustomMeleeAttack(random[EttinAttack](4,12)*2)
+        Goto See
+      Missile:
+        ETTN A 0 A_Jump (136, "Missile2")
+        ETTN EF 6 A_FaceTarget
+        ETTN G 8 A_FaceTarget
+		ETTN G 0 A_CustomMissile("DesolateBullet", 35, 0, 0, 0)
+        Goto See
+      Missile2:
+        ETTN EF 6 A_FaceTarget
+        ETTN G 8 A_MissileAttack
+        Goto See
+      Ice:
+        NULL A 1 A_IceGuyDie
+        Wait
+  }
+}
+
+ACTOR SuperIceGuy : IceGuy
+{
+  Health 620
+  PainChance 72
+  Speed 7
+  Radius 22
+  Height 75
+  DamageType "Ice"
+  Monster
+  +NOBLOOD
+  +TELESTOMP
+  +NOICEDEATH
+  +BOSS
+  +BOSSDEATH
+  SeeSound "IceGuySight"
+  AttackSound "IceGuyAttack"
+  ActiveSound "IceGuyActive"
+  Obituary "%o was frozen solid by a SUPER Wendigo." 
+  DropItem Mana 210
+  DropItem Mana
+	DropItem WarSpirit 48    
+	DropItem HBSpawner 64
+	DropItem ABSpawner 64
+  States
+  {
+  See:
+    ICEY A 3 A_Chase
+    ICEY B 3 A_IceGuyChase
+    ICEY CD 3 A_Chase
+    Loop
+  Pain:
+    ICEY A 3 A_Pain
+    Goto See
+  Missile:
+    ICEY A 0 A_Jump (136, "Missile2")
+    ICEY EF 3 A_FaceTarget
+    ICEY G 8 Bright A_IceGuyAttack
+    ICEY F 4 A_FaceTarget
+    ICEY G 8 Bright A_IceGuyAttack
+    ICEY F 4 A_FaceTarget
+    ICEY G 8 Bright A_IceGuyAttack
+    ICEY F 4 A_FaceTarget
+    Goto See
+  Missile2:
+    ICEY EFG 3 A_FaceTarget
+    ICEY A 0 A_PlaySound("cast/ice1")
+    ICEY G 0 Bright A_CustomMissile ("NewShard",35,25,0)
+    ICEY A 0 A_PlaySound("cast/ice1")
+    ICEY G 0 Bright A_CustomMissile ("NewShard",35,-25,0)
+    ICEY A 0 A_PlaySound("cast/ice1")
+    ICEY G 0 Bright A_CustomMissile ("NewShard",35,0,0,0)
+    ICEY A 0 A_PlaySound("cast/ice1")
+    ICEY G 0 Bright A_CustomMissile ("NewShard",35,-15,0)
+    ICEY A 0 A_PlaySound("cast/ice1")
+    ICEY G 0 Bright A_CustomMissile ("NewShard",35,15,0)
+    ICEY F 4 A_FaceTarget
+    Goto See
+  }
+}
+
+ACTOR AdolfHitler 3304
+{
+	Health		800
+	Radius		 20
+	Height		 56
+	Speed		 8
+	PainChance	 0
+	SeeSound	"hitler/sight"
+	PainSound	"hitler/pain"
+	DeathSound	"hitler/death"
+	Obituary	"%o was cursed by Adolf Hitler."
+	Damage 9
+	MONSTER
+	+FLOORCLIP
+	+BOSS
+	+BOSSDEATH
+    DropItem Mana 128
+    DropItem Mana
+    DropItem MeatSpawner 150
+	DropItem WarSpirit 28
+	DropItem PowerupSpawner 8
+	DropItem PortablePack 64
+	States
+	{
+	Spawn:
+		HITL A 8 A_Look
+		HITL B 8 A_Look
+		Loop
+	See:
+		HITL A 2 A_PlaySound ("hitler/walk")
+		HITL A 7 A_Chase
+		HITL B 2 A_PlaySound ("hitler/walk")
+		HITL B 7 A_Chase
+		Loop
+	Missile:
+		HITL A  10 A_FaceTarget
+		HITL C  10 A_PlaySound ("hitler/attack")
+		HITL D  11 A_VileAttack
+		HITL D  8
+		Goto See
+	Death:
+		HITL G 5
+		HITL H 5 A_Scream
+		HITL I 5 A_NoBlocking
+		HITL J 5
+		HITL K -1
+		Stop
+	Raise:
+		HITL K 5
+		HITL J 5
+		HITL I 5
+		HITL H 5
+		HITL G 5
+		Goto See
+    Burn:                
+        APBX A 1 A_HideThing
+        BCUL I 0 A_NoBlocking
+        BCUL I 0 A_SpawnItem("BurnDeath",1,0,0)
+        APBX A -1
+        Stop
+	}
+}
+
+ACTOR Magicubus 21029
+{
+	Health 750
+	Radius 48
+	Height 64
+	Mass 1000
+	Speed 10
+	PainChance 80
+	MONSTER
+	+FLOORCLIP
+	SeeSound "fatso/sight"
+	PainSound "fatso/pain"
+	DeathSound "fatso/death"
+	ActiveSound "fatso/active"
+	Translation "48:79=176:191"
+	Obituary "%o was killed by a plumpabus."
+	DropItem WarSpirit 48
+    DropItem DemonicHeart 64
+    DropItem HBSpawner 24
+    DropItem ABSpawner 24
+	DropItem Mana 128
+	States
+	{
+	Spawn:
+		FATT AB 15 A_Look
+		Loop
+
+	See:
+		FATT AABBCCDDEEFF 4 A_Chase
+		Loop
+
+	Missile:
+		FATT G 20 A_FatRaise
+        FATT H 0 A_PlaySound("monster/bolt")
+		FATT H 0 BRIGHT A_CustomMissile("wizsht",32,-25,0)
+		FATT H 10 BRIGHT A_CustomMissile("wizsht",32,25,0)
+		FATT IG 5 A_FaceTarget
+        FATT H 0 A_PlaySound("monster/bolt")
+		FATT H 0 BRIGHT A_CustomMissile("SuperBaronFire",32,-25,0)
+		FATT H 10 BRIGHT A_CustomMissile("SuperBaronFire",32,25,0)
+		FATT IG 5 A_FaceTarget
+        FATT H 0 A_PlaySound("monster/bolt")
+		FATT H 0 BRIGHT A_CustomMissile("HellWizardBall2",32,-25,0)
+		FATT H 10 BRIGHT A_CustomMissile("HellWizardBall2",32,25,0)
+		FATT IG 5 A_FaceTarget
+		Goto See
+
+	Pain:
+		FATT J 3
+		FATT J 3 A_Pain
+		Goto See
+
+	Death:
+		FATT K 6
+		FATT L 6 A_Scream
+		FATT M 6 A_NoBlocking
+		FATT NOPQRS 6
+		FATT T -1
+
+	Raise:
+		FATT RQPONMLK 5
+		Goto See
+	}
+}
+
+actor RailgunNazi 16868
+{
+  obituary "%o get smashed by a DOUBLE RAILGUN Nazi!!! LOLOL."
+  health 1200
+  radius 30
+  height 56
+  mass 600
+  speed 12
+  painchance 128
+  seesound "baby/sight"
+  painsound "baby/pain"
+  deathsound "RNazi/death"
+  activesound "RNazi/active"
+  MONSTER
+  +FLOORCLIP
+  +NOTARGET
+  +BOSSDEATH
+  DropItem Cell 196
+  DropItem PortablePack
+  DropItem WarSpirit 28
+  states
+  {
+  Spawn:
+    RONZ AB 10 A_Look
+    loop
+  See:
+    RONZ A 20
+    RONZ A 3 A_BabyMetal
+    RONZ ABBCC 3 A_Chase
+    RONZ D 3 A_BabyMetal
+    RONZ DEEFF 3 A_Chase
+    goto See+1
+  Missile:
+    RONZ A 20 bright A_FaceTarget
+    RONZ G 8 bright A_CustomRailgun (20,-15,red,none,0,1,0)
+    RONZ G 8 bright A_CustomRailgun (20,15,red,none,0,1,0)
+    RONZ H 4 bright
+    RONZ H 1 bright A_SpidRefire
+    goto Missile+1
+  Pain:
+    RONZ I 3
+    RONZ I 3 A_Pain
+    goto See+1
+  Death:
+    RONZ J 20 A_Scream
+    RONZ K 7 A_NoBlocking
+    RONZ LMNO 7
+    RONZ P -1 A_BossDeath
+    stop
+  Raise:
+    RONZ PONMLKJ 5
+    goto See+1
+  }
+}
+
+actor Fatcubus
+{
+  spawnid 112
+  obituary "%o was gunned down by a mancubwar."
+  health 1000
+  radius 54
+  maxstepheight 30
+  bloodcolor white
+  maxdropoffheight 30
+  height 64
+  scale 1.2
+  Translation "48:79=8:47"
+  mass 1000
+  speed 8
+  painchance 150
+  seesound "fatso/sight"
+  painsound "fatso/pain"
+  deathsound "fatso/death"
+  MONSTER
+  +FLOORCLIP
+  DropItem ClipBox 196
+  DropItem ClipBox
+  DropItem WarSpirit 128
+   DropItem DemonicHeart 128
+    DropItem HBSpawner 64
+    DropItem ABSpawner 64
+  states
+  {
+  Spawn:
+    FATT AB 15 A_Look
+    loop
+  See:
+    FATT AABBCCDDEEFF 4 A_Chase
+    loop
+  Missile:
+    FATT G 2 A_FaceTarget
+	FATT G 2 A_PlaySound("chainguy/attack")
+    FATT H 3 bright A_CustomBulletAttack(10,2,4,1) 
+	FATT H 0 A_CPosRefire 
+    goto Missile
+  Pain:
+    FATT J 3
+    FATT J 3 A_Pain
+    goto See
+  Death:
+    FATT K 6
+    FATT L 6 A_Scream
+    FATT M 6 A_NoBlocking
+    FATT NOPQRS 6
+    FATT T -1 A_BossDeath
+    stop
+  Raise:
+    FATT RQPONMLK 5
+    goto See
+  }
+}
+
+Actor stonefatso : fatso 1813
+{
+translation "48:63=80:95","64:79=96:111"
+health 1350
+mass 9999
+painchance 0
++NOBLOOD
+DropItem MeatSpawner 210
+DropItem WarSpirit 64
+DropItem Fuel 128 40
+states
+{
+death:
+NULL A 1 A_NoBlocking
+STON IIIIIIIIII 0 A_CustomMissile("StoneDemonMiniBoulder",16,0,random(0,359),2,random(0,40))
+stop
+xdeath:
+goto death
+}
+}
+
+
+actor AirElemental : cyberdemon
+{ 
+    Health 1000
+    Radius 25
+    Height 56
+    Speed 14
+    Mass 99999999999
+    Scale 0.28
+    painchance 75
+    MONSTER 
+    +FLOORCLIP
+    +NOGRAVITY
+    +FLOAT
+    +NOICEDEATH
+    +FIRERESIST
+    RenderStyle Translucent
+    Alpha 0.6
+    Obituary "%o felt the breeze."
+	SeeSound "dsoul/sight"
+	PainSound "dsoul/pain"
+	DeathSound "dsoul/death"
+	ActiveSound "dsoul/active"
+    MeleeDamage 5
+    DropItem WarSpirit
+	DropItem ManaRune
+    DropItem SoulSphere 128
+    DropItem ManaRune 64
+    DropItem PowerupSpawner 120
+    States
+    {
+    Spawn:
+		AREL A 3 A_Look
+		Loop
+    See:
+		AREL BCDEFGH 3  A_Chase
+		Loop
+    Melee:
+        AREL IJK 4 A_FaceTarget
+        AREL L 4 A_MeleeAttack
+        AREL MNO 4
+        Goto See
+    Missile:
+		NULL A 0 A_Jump(128,"Missile2")
+		NULL A 0 A_Jump(128,"Missile1")
+		loop
+   Missile1:
+        AREL IJK 4 A_FaceTarget
+        AREL L 0 A_CustomMissile("Airball",32,0,45)
+        AREL L 0 A_CustomMissile("Airball",32,0,40)
+        AREL L 0 A_CustomMissile("Airball",32,0,35)
+        AREL L 0 A_CustomMissile("Airball",32,0,30)
+        AREL L 0 A_CustomMissile("Airball",32,0,25)
+        AREL L 0 A_CustomMissile("Airball",32,0,20)
+        AREL L 0 A_CustomMissile("Airball",32,0,15)
+        AREL L 0 A_CustomMissile("Airball",32,0,10)
+        AREL L 0 A_CustomMissile("Airball",32,0,5)
+        AREL L 0 A_CustomMissile("Airball",32,0,-45)
+        AREL L 0 A_CustomMissile("Airball",32,0,-40)
+        AREL L 0 A_CustomMissile("Airball",32,0,-35)
+        AREL L 0 A_CustomMissile("Airball",32,0,-30)
+        AREL L 0 A_CustomMissile("Airball",32,0,-25)
+        AREL L 0 A_CustomMissile("Airball",32,0,-20)
+        AREL L 0 A_CustomMissile("Airball",32,0,-15)
+        AREL L 0 A_CustomMissile("Airball",32,0,-10)
+        AREL L 0 A_CustomMissile("Airball",32,0,-5)
+        AREL L 8 A_CustomMissile("Airball",32,0,0)
+        AREL MNO 4
+        goto See
+    Missile2:
+		AREL IJK 4 A_FaceTarget
+		AREL L 4 A_CustomMissile("SAirElementalWhirlwind", 32, 0, 0, 2)
+		AREL LMNO 4
+        goto See
+    Pain:
+        AREL P 2
+        AREL Q 2 A_Pain
+        AREL RSTU 2
+        Goto See
+    Death:
+		AREL OP 1
+		AREL Q 1 A_Scream
+		AREL RSTUVWXYZ 3
+		NULL AAAAAAAAAAAAAAAAAAAAAAAA 0 A_SpawnItemEx("Smoke",0,0,35,random(-5,5),random(-5,5),random(-5,5),random(1,360))
+		NULL A 0 A_NoBlocking
+		Stop
+    }
+}
+
+Actor Airball
+{
+	radius 23
+  	height 19
+  	speed 10
+  	damage 2
+  	renderstyle Add
+    SeeSound "Dark/Fire"
+  	deathsound "ball3/shotx"
+  	PROJECTILE
+  	+RANDOMIZE
+  	states
+  	{
+  	Spawn:
+            BLL3 A 5
+    		loop
+  	Death:  
+    		BLL3 BCDEF 5 bright
+    		stop
+  	}
+}
+
+Actor SAirElementalWhirlwind
+{
+	Projectile
+	Speed 6
+	Damage (random(1,3)*1)
+	Radius 8
+	Height 30
+	+DOOMBOUNCE
+	+RIPPER
+	+BLOODLESSIMPACT
+	+SEEKERMISSILE
+	Scale 0.5
+	ReactionTime 20
+	RenderStyle Add
+	Alpha 0.67
+	States
+	{
+	Spawn:
+		FX07 DEFG 3
+		NULL A 0 A_CountDown
+		FX07 A 3 A_SeekerMissile(30,5)
+		NULL AAA 0 A_SpawnItemEx("AirElementExp",0,0,random(10,40),random(-5,5),random(-5,5),random(-5,5),random(1,360))
+		FX07 B 3 A_SeekerMissile(30,5)
+		NULL AAA 0 A_SpawnItemEx("AirElementExp",0,0,random(10,40),random(-5,5),random(-5,5),random(-5,5),random(1,360))
+		FX07 C 3 A_SeekerMissile(30,5)
+		NULL AAA 0 A_SpawnItemEx("AirElementExp",0,0,random(10,40),random(-5,5),random(-5,5),random(-5,5),random(1,360))
+		FX07 B 3 A_SeekerMissile(30,5)
+		NULL AAA 0 A_SpawnItemEx("AirElementExp",0,0,random(10,40),random(-5,5),random(-5,5),random(-5,5),random(1,360))
+		Goto Spawn+4
+	Death:
+		FX07 GFED 3
+		FX07 D 1 A_FadeOut
+		Wait
+	}
+}
+
+actor CrystalElemental
+{
+    Health 800
+    Radius 15
+    Height 64
+    Speed 10
+    PainChance 1
+    Scale 0.32
+    MONSTER 
+    +FLOORCLIP
+    +MISSILEEVENMORE
+    +REFLECTIVE
+	+NOPAIN
+    +NOBLOOD
+    RenderStyle Add
+    Obituary "%o couldn't break the Crystal Elemental."
+    MeleeDamage 6
+	DropItem WarSpirit 128
+	DropItem DemonicHeart
+	DropItem Mana 190
+	DropItem ManaRune 128
+    SeeSound "IceGuySight"
+    AttackSound "IceGuyAttack"
+    ActiveSound "IceGuyActive"
+    States
+    {
+    Spawn:
+        DIEL A 20 A_Look
+        Loop
+    See:
+        DIEL BCDEFGHI 3 A_Chase
+        Loop
+    Melee:
+        DIEL JK 4 A_FaceTarget
+        DIEL L 4 A_MeleeAttack
+        DIEL MNOPQ 4
+        Goto See
+    Missile:
+	    DIEL R 12 A_FaceTarget
+	    DIEL RSRSRSRSRS 3 A_CustomMissile("StingerShotFanatic",random(10,64),random(15,-15),random(-6,6))
+	    DIEL A 3 A_FaceTarget
+	    DIEL A 3 A_CPosReFire
+	    Goto See
+    Pain:
+        DIEL R 2
+        DIEL S 2 A_Pain
+        DIEL TUV 2
+        Goto See
+    Death:
+        DIEL RRSS 1 A_SpawnItemEx("StoneDemonMiniBoulder",0,0,16,random(8,16),0,random(0,3),random(0,359),0)
+        DIEL W 2 A_Scream
+        DIEL XXYY 1 A_SpawnItemEx("StoneDemonMiniBoulder",0,0,16,random(8,16),0,random(0,3),random(0,359),0)
+        DIEL Z 2 A_NoBlocking
+		DIEL ZZZZZZZZZ 0 A_SpawnItemEx("StoneDemonMiniBoulder",0,0,16,random(8,16),0,random(0,3),random(0,359),0)
+        DIED A -1 A_BossDeath
+        Stop
+    Raise:
+        DIED A 2
+        DIEL ZYXWSR 2
+        Goto See
+    }
+}
+
+//===========================================================================
+//===========================================================================
+
+actor Tank
+{
+    Health 1500
+    Radius 24
+    Height 64
+    Scale 0.52
+    Speed 10
+    PainChance 18
+    Mass 9000
+    MONSTER 
+	+BOSSDEATH
+    +FLOORCLIP
+    +MISSILEEVENMORE
+    +BOSS
+    +NORADIUSDMG
+    +NOBLOOD
+    +DONTMORPH
+    SeeSound "q2tank/sight"
+    PainSound "q2tank/pain"
+    DeathSound "q2tank/death"
+    ActiveSound "q2tank/idle"
+    AttackSound "weapons/riflefre"
+    Obituary "%o found a tank."
+	DropItem Cell 150
+    DropItem ClipBox 150
+    DropItem RocketBox 196
+    DropItem WarSpirit 48
+    DropItem PortablePack 90
+	DropItem LimitNeoRocketLauncher 90
+    States
+    {
+    Spawn:
+	  TK1I A 5 A_Look
+        Loop
+    See:
+	  NULL A 0 A_PlaySound("q2tank/step")
+	  TK1W A 7
+        TK1W BCD 6 A_Chase
+	  NULL A 0 A_PlaySound("q2tank/step")
+	  TK1W E 7
+        TK1W FGH 6 A_Chase
+        Loop
+    Missile:
+	  NULL A 0 A_Jump(128,14)
+	  TK1B ABCD 6 A_FaceTarget
+	  TK1B E 4 Bright A_CustomMissile("TankBlaster", 40, -15, 0, 1)
+	  TK1B D 4 A_FaceTarget
+	  TK1B E 4 Bright A_CustomMissile("TankBlaster", 40, -15, 0, 1)
+	  TK1B D 4 A_FaceTarget
+	  TK1B E 4 Bright A_CustomMissile("TankBlaster", 40, -15, 0, 1)
+	  TK1B DCBA 6
+	  Goto See
+	  NULL A 0 A_Jump(96,35)
+	  TK1C ABCDE 4 A_FaceTarget
+	  NULL A 0 A_PlaySound("q2tank/step")
+	  NULL Z 0 Bright A_CustomMissile("ShotSmoke",45,20,5+Random(30,-30))
+	  TK1C F 4 Bright A_CustomBulletAttack(5,5,1,1)
+	  NULL A 0 A_PlaySound("q2tank/step")
+	  NULL Z 0 Bright A_CustomMissile("ShotSmoke",45,20,5+Random(30,-30))
+	  TK1C F 4 Bright A_CustomBulletAttack(5,5,1,1)
+	  NULL A 0 A_PlaySound("q2tank/step")
+	  NULL Z 0 Bright A_CustomMissile("ShotSmoke",45,20,5+Random(30,-30))
+	  TK1C F 4 Bright A_CustomBulletAttack(5,5,1,1)
+	  NULL A 0 A_PlaySound("q2tank/step")
+	  NULL Z 0 Bright A_CustomMissile("ShotSmoke",45,20,5+Random(30,-30))
+	  TK1C F 4 Bright A_CustomBulletAttack(5,5,1,1)
+	  NULL A 0 A_PlaySound("q2tank/step")
+	  NULL Z 0 Bright A_CustomMissile("ShotSmoke",45,20,5+Random(30,-30))
+	  TK1C F 4 Bright A_CustomBulletAttack(5,5,1,1)
+	  NULL A 0 A_PlaySound("q2tank/step")
+	  NULL Z 0 Bright A_CustomMissile("ShotSmoke",45,20,5+Random(30,-30))
+	  TK1C F 4 Bright A_CustomBulletAttack(5,5,1,2)
+	  NULL A 0 A_PlaySound("q2tank/step")
+	  NULL Z 0 Bright A_CustomMissile("ShotSmoke",45,20,5+Random(30,-30))
+	  TK1C F 4 Bright A_CustomBulletAttack(5,5,1,2)
+	  NULL A 0 A_PlaySound("q2tank/step")
+	  NULL Z 0 Bright A_CustomMissile("ShotSmoke",45,20,5+Random(30,-30))
+	  TK1C F 4 Bright A_CustomBulletAttack(5,5,1,2)
+	  NULL A 0 A_PlaySound("q2tank/step")
+	  NULL Z 0 Bright A_CustomMissile("ShotSmoke",45,20,5+Random(30,-30))
+	  TK1C F 4 Bright A_CustomBulletAttack(5,5,1,2)
+	  NULL A 0 A_PlaySound("q2tank/step")
+	  NULL Z 0 Bright A_CustomMissile("ShotSmoke",45,20,5+Random(30,-30))
+	  TK1C F 4 Bright A_CustomBulletAttack(5,5,1,3)
+	  NULL A 0 A_PlaySound("q2tank/step")
+	  NULL Z 0 Bright A_CustomMissile("ShotSmoke",45,20,5+Random(30,-30))
+	  TK1C F 4 Bright A_CustomBulletAttack(5,5,1,3)
+	  NULL A 0 A_PlaySound("q2tank/step")
+	  NULL Z 0 Bright A_CustomMissile("ShotSmoke",45,20,5+Random(30,-30))
+	  TK1C F 4 Bright A_CustomBulletAttack(5,5,1,3)
+	  NULL A 0 A_PlaySound("q2tank/step")
+	  NULL Z 0 Bright A_CustomMissile("ShotSmoke",45,20,5+Random(30,-30))
+	  TK1C F 4 Bright A_CustomBulletAttack(5,5,1,4)
+	  NULL A 0 A_PlaySound("q2tank/step")
+	  NULL Z 0 Bright A_CustomMissile("ShotSmoke",45,20,5+Random(30,-30))
+	  TK1C F 4 Bright A_CustomBulletAttack(5,5,1,4)
+	  NULL A 0 A_PlaySound("q2tank/step")
+	  NULL Z 0 Bright A_CustomMissile("ShotSmoke",45,20,5+Random(30,-30))
+	  TK1C F 4 Bright A_CustomBulletAttack(5,5,1,5)
+	  TK1C EDCBA 4
+	  Goto See
+	  TK1R ABCDE 6 A_FaceTarget
+	  TK1R F 0 A_PlaySound("q2tank/mechsound1")
+	  TK1R FGHIJK 6 A_FaceTarget
+	  TK1R L 8 A_FaceTarget
+	  TK1R M 6 Bright A_CustomMissile("BitchRocket", 70, 25, 0)
+	  TK1R N 6 A_FaceTarget
+	  TK1R O 6 Bright A_CustomMissile("BitchRocket", 70, 20, 0)
+	  TK1R P 6 A_FaceTarget
+	  TK1R Q 6 Bright A_CustomMissile("BitchRocket", 70, 15, 0)
+	  TK1R RSTUVWX 7
+	  Goto See
+    Pain:
+        TK1P A 20 A_Pain
+        TK1P B 8 
+        Goto See
+    Death:
+	  NULL A 0 A_TossGib
+	  NULL A 0 A_TossGib
+	  NULL A 0 A_TossGib
+	  TK1D A 1 A_Scream
+	  TK1D ABCDEF 6
+	  NULL A 0 A_TossGib
+	  NULL A 0 A_TossGib
+	  NULL A 0 A_TossGib
+	  TK1D GHIJKLM 6
+	  NULL A 0 A_TossGib
+	  NULL A 0 A_TossGib
+	  NULL A 0 A_TossGib
+	  TK1D NOPQRS 6
+	  NULL A 0 A_TossGib
+	  NULL A 0 A_TossGib
+	  NULL A 0 A_TossGib
+	  NULL A 0 A_KillMaster
+	  TK1D T -1 A_NoBlocking
+	  Stop
+	Ice:
+		TK1P A 5 A_GenericFreezeDeath
+		TK1P A 0 A_KillMaster
+		TK1P A 1 A_FreezeDeathChunks
+		Wait
+    Raise:
+	  TK1D TSRQPO 6
+	  Goto See
+    }
+}
+
+actor TankBlaster
+{
+    Mass 1
+    Radius 8
+    Height 6
+    Speed 24
+    +ROCKETTRAIL
+    Damage 8
+    SeeSound "q2tank/blasterattack"
+    DeathSound "q2weapon/laserhit"
+    PROJECTILE
+    States
+    {
+    Spawn:
+        ENFL A 1 Bright A_SpawnItemEx("Q2BlasterParticle",random(-2,2),random(-2,2),random(0,5),0,0,0,0,0)
+	  TNT1 AAAAAA 0 A_SpawnItemEx("Q2BlasterParticle",random(-2,2),random(-2,2),random(0,5),0,0,0,0,0)
+        Loop
+    Death:
+	  TNT1 AAAAAAAAAAAA 0 A_SpawnItemEx("Q2BlasterParticleGravity",0,0,4,random(-3,3),random(-3,3),random(1,3),random(305,410),0)
+	  ENFL BCD 4 Bright
+        Stop
+    }
+}
+
+Actor FTankD : Tank 
+{
+	+AMBUSH
+}

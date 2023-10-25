@@ -1,0 +1,109 @@
+class Revolver : DoomWeapon
+{
+	//$Category ".44 Magnum"
+	//$Title ".44 Magnum"
+ 	Default
+	{
+		Weapon.SelectionOrder 1090;
+		+WEAPON.NOALERT
+		+WEAPON.NOAUTOAIM
+		Weapon.slotnumber 2;
+		Weapon.Ammogive 0;
+		Weapon.AmmoUse1 0;
+		Weapon.AmmoUse2 0;
+		Weapon.AmmoType1 "RifleShells";
+		Weapon.AmmoType2 "BPistolAmmo2";
+		Inventory.Pickupmessage "You got the Revolver!";
+		Obituary "%o was blasted by a Revolver";
+		inventory.pickupsound "weapons/getweapon02";
+		Tag "Revolver";
+		scale 0.45;
+	}
+	States
+	{
+	Ready:
+		REVO A 1 A_WeaponReady(WRF_ALLOWRELOAD|WRF_ALLOWUSER1);
+		Loop;
+	Deselect:
+		TNT1 A 0 A_PlaySound("DRAW", CHAN_WEAPON);
+	PutAway:
+		REVO C 1 A_Lower;
+		Loop;
+	Select:
+		TNT1 A 0 A_PlaySound("DRAW", CHAN_WEAPON);
+	PullOut:
+		REVO A 1 A_Raise;
+		Loop;
+	User1: 
+		TNT1 A 0 A_SpawnItemEx("LimitRevolver", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER);
+		TNT1 A 0 A_TakeInventory("Token",1);
+		TNT1 A 0 A_TakeInventory("Revolver",1);
+		stop;
+	Fire:
+	    TNT1 A 0 A_JumpIfInventory("BPistolAmmo2",1,1);
+        Goto NoAmmo;
+		REVF A 1 BRIGHT;
+		TNT1 A 0 A_TakeInventory("BPistolAmmo2",1);
+		TNT1 A 0 A_AlertMonsters;
+		TNT1 A 0 A_FireBullets (0, 0, 1, 65, "Puff2", FBF_NORANDOM);
+		TNT1 A 0 A_PlaySound("RVLVFIR", CHAN_WEAPON);
+		REVO B 1;
+		REVO C 1;
+		REVO D 3;
+		REVO C 2;
+		REVO B 2;
+		REVO A 4 A_ReFire;
+		Goto Ready;
+	NoAmmo:	
+		REVO A 2 A_PlaySound("weapons/empty");
+		REVO BCB 3;
+	Reload:
+		TNT1 A 0 A_JumpIfInventory("RifleShells",1,1);
+		Goto Ready;
+		TNT1 A 0 A_JumpIfInventory("BPistolAmmo2",6,"Ready");
+		// Uncomment the next line if you want it to waste extra bullets you didn't spend before reload (realistic but anti-player)
+		//TNT1 A 0 A_Takeinventory("BPistolAmmo2",6);
+		REVQ ABCD 2;
+		REVR AB 2;
+		TNT1 A 0 A_PlaySound("CHAMB");
+		REVR CDEFGHI 1;
+		TNT1 A 0  A_SpawnItemEx("762MMCasingSpawner", frandom(15,20), 0,frandom(height/2,height/2+frandom(0.5,1.5)),0,frandom(1.5,3.5),frandom(-2,-5),0,SXF_NOCHECKPOSITION);
+		TNT1 A 0  A_SpawnItemEx("762MMCasingSpawner", frandom(15,20), 0,frandom(height/2,height/2+frandom(0.5,1.5)),0,frandom(1.5,3.5),frandom(-2,-5),0,SXF_NOCHECKPOSITION);
+		TNT1 A 0  A_SpawnItemEx("762MMCasingSpawner", frandom(15,20), 0,frandom(height/2,height/2+frandom(0.5,1.5)),0,frandom(1.5,3.5),frandom(-2,-5),0,SXF_NOCHECKPOSITION);
+		TNT1 A 0  A_SpawnItemEx("762MMCasingSpawner", frandom(15,20), 0,frandom(height/2,height/2+frandom(0.5,1.5)),0,frandom(1.5,3.5),frandom(-2,-5),0,SXF_NOCHECKPOSITION);
+		TNT1 A 0  A_SpawnItemEx("762MMCasingSpawner", frandom(15,20), 0,frandom(height/2,height/2+frandom(0.5,1.5)),0,frandom(1.5,3.5),frandom(-2,-5),0,SXF_NOCHECKPOSITION);
+		TNT1 A 0  A_SpawnItemEx("762MMCasingSpawner", frandom(15,20), 0,frandom(height/2,height/2+frandom(0.5,1.5)),0,frandom(1.5,3.5),frandom(-2,-5),0,SXF_NOCHECKPOSITION);
+		TNT1 A 0 A_PlaySound("DCASING",CHAN_BODY, 2.0);
+		REVR JKLMNOPQ 1;
+		TNT1 A 0 A_PlaySound("SNAP");
+		REVR RSTUVWXYEDC 1;
+		TNT1 A 0 A_PlaySound("pistol_u");
+		REVR BA 2;
+		REVQ DCBA 2;
+	ReloadRepeat:	
+		TNT1 A 0 A_JumpIfInventory("BPistolAmmo2", 6, "ReloadFinish");
+		TNT1 A 0 A_JumpIfInventory("RifleShells", 1, 1);
+		Goto ReloadFinish;
+		TNT1 A 0 A_GiveInventory("BPistolAmmo2", 1);
+		TNT1 A 0 A_Takeinventory("RifleShells",1);
+		Goto ReloadRepeat;
+	ReloadFinish:
+		Goto Ready;
+ 	Spawn:
+		REVI A -1;
+		Stop;
+	}
+}
+
+// This is a FAKE ammo used to track the amount of rounds in chamber
+Class BPistolAmmo2 : Ammo
+{
+	Default
+	{
+		Inventory.Amount 6;
+		Inventory.MaxAmount 6;
+		Ammo.BackpackAmount 0;
+		Ammo.BackpackMaxAmount 6;
+		Decal "BulletChip";
+	}
+}

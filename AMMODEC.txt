@@ -1,0 +1,164 @@
+actor Mana : Ammo
+{
+  Inventory.PickupMessage "Picked up a mana cube."
+  Inventory.PickupSound "heretic/itempickup"
+  Inventory.Amount 10
+  Inventory.MaxAmount 300
+  Ammo.BackpackAmount 20
+  Ammo.BackpackMaxAmount 666
+  Inventory.icon "YMANQ0"
+  +FLOATBOB
+  States
+  {
+  Spawn:
+    YMAN ABCDEFGHIJKLMNOP 2
+    Loop
+  }
+}
+
+Actor ManaRune : Mana
+{
+    height 20
+    radius 16
+	+FLOORCLIP
+	+FLOATBOB
+	Scale 0.2
+	RENDERSTYLE NORMAL
+	Alpha 1
+	+FANCYPICKUPSOUND
+	Inventory.Amount 50
+	Inventory.PickupMessage "You found a Mana rune, rare item!!"
+	Inventory.PickupSound "BishopActive"
+	States
+	{
+	Spawn:
+		MADA ABC 4
+		loop
+	}	
+}
+
+ACTOR RifleShells : Ammo
+{
+   Inventory.Amount 5
+   Inventory.MaxAmount 50
+   Ammo.BackpackAmount 5
+   Ammo.BackpackMaxAmount 100
+   Inventory.PickupMessage "Picked up some Rifle shells."
+   Inventory.Icon RFLAC0
+   States
+   {
+   Spawn:
+      RFLA A -1
+      Stop
+   }
+}
+
+ACTOR RifleShellBox : RifleShells
+{
+   Inventory.Amount 20
+   Inventory.PickupMessage "Got a box of Rifle shells."
+   States
+   {
+   Spawn:
+      RFLB A -1
+      Stop
+   }
+}
+
+ACTOR ShotgunClip : Ammo
+{
+	Inventory.MaxAmount 2
+}
+
+ACTOR Fuel : Ammo
+{
+   Inventory.PickupSound "misc/i_pkup"  
+   Inventory.PickupMessage "Picked up a Fuel tank"
+   Inventory.Amount 6
+   Inventory.MaxAmount 200
+   Ammo.BackpackAmount 0
+   Ammo.BackpackMaxAmount 400
+   Inventory.Icon FUELA0
+   States
+   {
+   Spawn:
+      FUEL A -1
+      Stop
+   }
+}
+
+ACTOR 3Fuel : Fuel
+{
+   Inventory.Amount 48
+   Inventory.PickupMessage "Picked up a 3 Fuel tank."
+   States
+   {
+   Spawn:
+      FULP A -1
+      Stop
+   }
+}
+
+ACTOR HandGrenadeAmmo : Ammo
+{
+   Inventory.Amount 1
+   Inventory.MaxAmount 25
+   Ammo.BackpackAmount 1
+   Ammo.BackpackMaxAmount 50
+   Inventory.PickupMessage "You should not see this message, the weapon is the ammo"
+   Inventory.Icon PGRND0
+   Scale 0.5
+   States
+   {
+   Spawn:
+      NULL D -1
+      Loop
+   }
+}
+
+ACTOR HandGrenadeBox : HandGrenadeAmmo
+{
+   Inventory.Amount 5
+   Inventory.PickupMessage "Got a box of Grenades."
+   States
+   {
+   Spawn:
+      PGRN E -1
+      Stop
+   }
+}
+
+ACTOR ThrowPower : Ammo
+{
+   Inventory.MaxAmount 30
+   Ammo.BackpackMaxAmount 30
+   Inventory.Icon THROW
+}
+
+ACTOR HeavyMissile : Ammo 8515
+{
+	+FLOORCLIP
+   Inventory.Amount 1
+   Radius 10
+   Inventory.MaxAmount 10
+   Scale 0.7
+   Ammo.BackpackAmount 1
+   Ammo.BackpackMaxAmount 20
+   Inventory.PickupMessage "Picked up a heavy missile."
+//   Inventory.Icon MI13B0
+   Inventory.Icon "HMISA0"
+   States
+   {
+   Spawn:
+      HMIS A -1
+      Loop
+   }
+}
+
+ACTOR GoreCount: Ammo
+{
+     Inventory.Amount 1
+     Inventory.MaxAmount 1
+     Ammo.BackpackAmount 0
+     Ammo.BackpackMaxAmount 1
+}

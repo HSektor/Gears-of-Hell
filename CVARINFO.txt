@@ -1,0 +1,4 @@
+user bool user_ForcePistolStart = false;
+user bool GoH_LimitSystem = true;
+user int maxweap = 6;
+user bool user_RunHealth = false;

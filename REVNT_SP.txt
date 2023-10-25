@@ -1,0 +1,1190 @@
+Actor NightmareImp : ChaingunGuy
+{ 
+    Health 250 
+    Speed 12
+    MONSTER 
+    +FLOORCLIP 
+    RenderStyle Add
+    ALPHA 1.2
+    Scale 0.72
+    SpawnId 231
+    BloodColor "4A 0 FF"
+    Obituary "%o was blasted by a Nightmare Imp!"  
+	DropItem Mana
+	DropItem WarSpirit 32
+    dropitem MeatSpawner 100
+    DropItem HBSpawner 24
+    DropItem ABSpawner 24
+    attacksound "imp/melee"
+    seesound "imp/sight"
+    painsound "imp/pain"
+    deathsound "imp/death"
+    activesound "imp/active"
+    States 
+    { 
+    Spawn: 
+        NTRO A 10 A_Look 
+        Loop 
+    See: 
+        NTRO A 3 A_Chase 
+        NTRO A 3 A_Chase 
+        NTRO B 3 A_Chase 
+        NTRO B 3 A_Chase 
+        NTRO C 3 A_Chase 
+        NTRO C 3 A_Chase 
+        NTRO D 3 A_Chase 
+        NTRO D 3 A_Chase 
+        Loop 
+      Melee:
+	  NTRO HI 7 A_FaceTarget
+	  NTRO J 5 A_SargAttack
+	  Goto See
+    Missile:
+	  NTRO EF 7 A_FaceTarget
+	  NTRO G 5 A_CustomMissile("NightMareImpBall", 32, 0, 0)
+	  NTRO HI 6 A_FaceTarget
+	  NTRO J 4 A_CustomMissile("NightMareImpBall", 28, 0, 0)
+	  Goto See
+    Pain: 
+        NTRO K 4 A_Pain 
+        NTRO K 3 A_Pain 
+        Goto See 
+    Death: 
+        NTRO L 8
+        NTRO M 8 A_Scream 
+        NTRO N 6 A_NoBlocking 
+        NTRO O 6 
+        NTRO P -1 
+        Stop 
+    XDeath:
+        NTRO Q 5
+        NTRO R 5 A_XScream
+    TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+    TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+        NTRO S 5 A_NoBlocking
+        NTRO TUVW 5
+        NTRO X -1
+        Stop
+    Raise: 
+        NTRO PONML 6 
+        Goto See 
+    Burn:                
+        APBX A 1 A_HideThing
+        BCUL I 0 A_NoBlocking
+        BCUL I 0 A_SpawnItem("BurnDeath",1,0,0)
+        APBX A -1
+        Stop
+    } 
+} 
+
+actor NightMareImpBall : DoomImpBall
+{
+    Speed 15
+    Damage 4
+    States
+    {
+    Spawn:
+        NMBL ABC 4 Bright
+        Loop
+    Death:
+        NMBL D 4 Bright
+        NMBL E 4 Bright 
+        NMBL F 4 Bright 
+        NMBL G 3 Bright 
+        NMBL H 3 Bright 
+        NMBL I 3 Bright 
+        Stop
+    }
+}
+
+ACTOR Deathknight 27686
+{
+	Health 350
+	Speed 18
+        Scale 0.75
+	Radius 15
+	Height 48
+	ReactionTime 25
+	PainChance 35
+	Mass 150
+	MONSTER
+	+FLOORCLIP
+	+BOSS
+	+BOSSDEATH
+	SeeSound "Dknight/see"
+	PainSound "Dknight/pain"
+	DeathSound "Dknight/death"
+	MeleeSound "Dknight/melee"
+	MeleeDamage 18
+    dropitem MeatSpawner 150
+	DropItem WarSpirit 128
+	DropItem Mana 128
+	DropItem ManaRune 32
+	Obituary "%o saw the Dark Knights unholy light"
+	HitObituary "%o was sliced by the Dark Knights Axe"
+	States
+	{
+	Spawn:
+	DKNI AB 6 A_Look
+	 Loop
+	See:
+	DKNI AABBCCDD 3 A_Chase
+	Loop
+	Missile:
+        DKNI A 0 A_Jump(180,"Missile2")
+	DKNI EF 5 A_FaceTarget
+	DKNI G 6 A_CustomMissile ("ObsidianTracer2", 24, 0, 0)
+	Goto See
+	Missile2:
+        DKNI A 0 A_Jump(180,"Missile3")
+	DKNI EF 5 A_FaceTarget
+        DKNI G 1
+	DKNI G 0 A_CustomMissile("DeathPlasma",27,0,-8,0)
+	DKNI G 0 A_CustomMissile("DeathPlasma",27,0,8,0)
+	DKNI G 0 A_CustomMissile("DeathPlasma",27,0,-4,0)
+	DKNI G 0 A_CustomMissile("DeathPlasma",27,0,4,0)
+	DKNI G 0 A_CustomMissile("DeathPlasma",27,0,0,0)
+	Goto See
+	Missile3:
+        DKNI A 0 A_Jump(180,"Missile4")
+	DKNI EF 5 A_FaceTarget
+        DKNI GGGGGG 3 A_CustomMissile ("DarkBall", 24, 0, 0)
+	Goto See
+	Missile4:
+	DKNI EF 5 A_FaceTarget
+        DKNI G 1
+        DKNI G 0 A_CustomMissile("DarkSpear",27,0,8,0)
+        DKNI G 0 A_CustomMissile("DarkSpear",27,0,-8,0)
+	Goto See
+	Melee:
+	DKNI EF 6 A_FaceTarget
+	DKNI G 6 A_MeleeAttack
+	Goto See
+	Pain:
+	DKNI H 3
+	DKNI H 4 A_Pain
+	Goto See
+	Death:
+	DKNI I 6
+	DKNI J 6 A_Scream
+	DKNI KLMNOPQ 6
+	Stop
+	}
+}
+
+ACTOR DeathPlasma 
+{
+Radius 6
+Height 5
+Speed 25
+Damage 5
+PROJECTILE
++STRIFEDAMAGE
+SeeSound "Dknight/missile"
+DeathSound "Imp/attackX"
+States
+{
+ Spawn:APLS AB 2
+       Loop
+ Death: APLS CDE 4
+       Stop
+}
+
+}
+
+Actor DarkBall
+{
+    Radius 3
+    Height 4
+    Speed 8
+    Damage (10)
+    Projectile
+    Renderstyle Translucent
+    +RANDOMIZE
+    Alpha 0.8
+    Scale 0.2
+    SeeSound "imp/attack"
+    DeathSound "imp/shotx"
+    States
+    {
+    Spawn:
+        DRBL AABBCCDDEEFFGGHH 1 bright A_BishopMissileWeave
+        Loop
+    Death:
+        DRBL AIJKLM 3 bright
+        Stop
+    }
+}
+
+Actor DarkSpear
+{
+  Radius 4
+  Height 4
+  Speed 15
+  Damage (10)
+  Projectile
+  +RANDOMIZE
+  RenderStyle Translucent
+  Alpha 0.7
+  SeeSound "Dark/Fire"
+  DeathSound "Dark/Hit"
+  States
+  {
+  Spawn:
+    DRBT A 1 bright
+    Loop
+  Death:
+    DRBT BCDE 5 bright
+    Stop
+  }
+}
+
+actor Malevos : Revenant 3120
+{
+  Health 350
+  PainChance 200
+  Speed 17
+  HitObituary "%o was karate-chopped by a malevos."
+  Obituary "%o was squished by a malevos."
+  +BOSS
+  +BOSSDEATH
+  DropItem Cell 196
+  DropItem Cell 196
+  DropItem MeatSpawner 150
+  DropItem WarSpirit 28
+  States
+  {
+  Spawn:
+    MVEL AB 10 A_Look
+    Loop
+  See:
+    MVEL AABBCCDDEEFF 3 A_Chase
+    Loop
+  Missile:
+    MVEL G 0 A_Jump(127,4)
+    MVEL J 10 A_FaceTarget 
+    MVEL K 10 A_CustomMissile("MalevonantTracer",64,0,0,0)
+    MVEL K 10 A_FaceTarget
+    Goto See
+	MVEL G 0 A_Jump(127,4)
+    MVEL J 10 A_FaceTarget 
+    MVEL K 10 A_CustomMissile("MalevonantTracer",64,0,0,0)
+    MVEL K 10 A_FaceTarget
+    MVEL J 10 A_FaceTarget 
+	TRLE B 0 BRIGHT A_CustomMissile("MalSpawner",24,-5,-30,0)
+    TRLE B 0 BRIGHT A_CustomMissile("MalSpawner",24,5,30,0)
+    MVEL K 20 A_FaceTarget
+    Goto See
+  Melee:
+    MVEL G 1 A_FaceTarget
+    MVEL G 4 A_SkelWhoosh
+    MVEL H 4 A_FaceTarget
+    MVEL I 4 A_SkelFist
+    Goto See
+  Pain:
+    MVEL L 3
+    MVEL L 3 A_Pain
+    Goto Missile
+  Death:
+    MVEL L 6
+    MVEL M 6 A_Scream
+    MVEL N 6 A_NoBlocking
+    MVEL OP 6
+    MVEL Q -1
+    Stop
+  Raise:
+    MVEL PONML 6
+    Goto See
+  }
+}
+
+actor MalevonantTracer : RevenantTracer
+{
+  Speed 14
+  +SEEKERMISSILE
+  PROJECTILE
+  RENDERSTYLE ADD
+  ALPHA 0.67
+  +FLOAT
+  Damage 10
+  States
+  {
+  Spawn:
+    MVPB AB 4 Bright A_Tracer2
+    Loop
+  Death:
+    MVXP ABC 8 Bright
+    Stop
+  }
+}
+
+ACTOR MalSpawner
+{
+   Radius 5
+   Height 5
+   Speed 12
+   RENDERSTYLE ADD
+   Alpha 0.75
+   PROJECTILE
+   +ThruGhost
+   -NoGravity
+   +LowGravity
+   SeeSound "skeleton/attack"
+   DeathSound "skeleton/tracex"
+   states
+   {
+   Spawn:
+      FATB AB 1 BRIGHT A_SpawnItem("SpiritImpBallTrail",0,0)
+      FATB AB 1 BRIGHT A_SpawnItem("SpiritImpBallTrail",10,0)
+      FATB AB 1 BRIGHT A_SpawnItem("SpiritImpBallTrail",-10,0)
+      FATB AB 1 BRIGHT A_SpawnItem("SpiritImpBallTrail",0,-10)
+      FATB AB 1 BRIGHT A_SpawnItem("SpiritImpBallTrail",0,10)
+      Loop
+   Death:
+      FATB A 3 BRIGHT
+      FATB B 3 BRIGHT A_SpawnItem("Skeleton",0,0)
+      FBXP ABC 3 BRIGHT
+      Stop
+   }
+}
+
+ACTOR CorruptFBIAgent 3311
+{
+	Health		350
+	Radius		 20
+	Height		 56
+	Speed		  8
+	PainChance	150
+	Scale		1.1
+	SeeSound	"corruptfbi/sight"
+	PainSound	"corruptfbi/pain"
+	DeathSound	"corruptfbi/death"
+	ActiveSound	"corruptfbi/active"
+	Obituary	"%o was blown away by a corrupt FBI agent."
+	DropItem ShellBox
+	DropItem MeatSpawner 110
+	DropItem LimitBloodAlphaSawedoff 32
+	DropItem PortablePack 64
+	DropItem WarSpirit 28
+	MONSTER
+	+FLOORCLIP
+	+BOSS
+	+BOSSDEATH
+	States
+	{
+	Spawn:
+		CFBI A 10 A_Look
+		CFBI B 10 A_Look
+		Loop
+	See:
+		CFBI A 3 A_Chase
+		CFBI A 3 A_Chase
+		CFBI B 3 A_Chase
+		CFBI B 3 A_Chase
+		CFBI C 3 A_Chase
+		CFBI C 3 A_Chase
+		CFBI D 3 A_Chase
+		CFBI D 3 A_Chase
+		Loop
+	Missile:
+		CFBI E 8        A_FaceTarget
+		CFBI E 5        A_FaceTarget
+        CFBI F 5 Bright A_CustomBulletAttack(4,4,3,5)
+        CFBI A 0 A_PlaySound("BlackShotgun/Fire")
+		CFBI A 5        A_CPosRefire
+		Goto Missile+1
+	Pain:
+		CFBI G 3
+		CFBI G 3 A_Pain
+		Goto See
+	Death:
+		CFBI H 5
+		CFBI I 5 A_Scream
+		CFBI J 5 A_NoBlocking
+		CFBI K 5
+		CFBI L -1
+		Stop
+	XDeath:
+		CFBI M 5
+		CFBI N 5 A_XScream
+        TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+        TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+		CFBI O 5 A_NoBlocking
+		CFBI P 5
+		CFBI Q 5
+		CFBI R -1
+		Stop
+	Raise:
+		CFBI L 5
+		CFBI K 5
+		CFBI J 5
+		CFBI I 5
+		CFBI H 5
+		Goto See
+    Burn:                
+        APBX A 1 A_HideThing
+        BCUL I 0 A_NoBlocking
+        BCUL I 0 A_SpawnItem("BurnDeath",1,0,0)
+        APBX A -1
+        Stop
+	}
+}
+
+ACTOR Boxer 21030
+{
+	Health 400
+	Radius 20
+	Height 56
+	Mass 500
+	Speed 18
+	MeleeDamage 10
+	PainChance 100
+	MONSTER
+	+FLOORCLIP
+	SeeSound "skeleton/sight"
+	PainSound "skeleton/pain"
+	DeathSound "skeleton/death"
+	ActiveSound "skeleton/active"
+	MeleeSound "skeleton/melee"
+	Translation "16:47=112:127", "128:143=176:191", "144:151=184:191", "48:79=176:191", "80:111=112:127"
+	HitObituary "%o was punched by a Boxer"
+	DropItem Mana 196
+	DropItem Clip 196
+	DropItem MeatSpawner 110
+	DropItem WarSpirit 28
+	States
+	{
+	Spawn:
+		SKEL AB 10 A_Look
+		Loop
+
+	See:
+		SKEL AABBCCDDEEFF 2 A_Chase
+		Loop
+
+	Melee:
+		SKEL G 0 A_FaceTarget
+		SKEL G 6 A_SkelWhoosh
+		SKEL H 6 A_FaceTarget
+		SKEL I 6 A_MeleeAttack
+		Goto See
+	 Missile:
+		SKEL G 0 A_FaceTarget
+		SKEL G 12 A_SkelWhoosh
+		SKEL H 6 A_FaceTarget
+		SKEL I 6 BRIGHT A_CustomMissile("HarpoonShot",32,0)
+		SKEL I 0 A_CustomMissile("FakeLoreShot",32,0)
+		SKEL I 0 A_SpidReFire
+		Goto Melee
+
+	Pain:
+		SKEL L 5
+		SKEL L 5 A_Pain
+		Goto See
+
+	Death:
+		SKEL LM 7
+		SKEL N 7 A_Scream
+		SKEL O 7 A_NoBlocking
+		SKEL P 7
+		SKEL Q -1
+		Stop
+
+	Raise:
+		SKEL QPONML 5
+		Goto See
+	}
+}
+
+
+ACTOR FakeLoreShot : LoreShot
+{
+    Speed 15
+    Damage 1
+    Height 2
+    Radius 2
+    SeeSound "weapons/harpoonshoot"
+    DeathSound "weapons/harpoonhit"
+    RENDERSTYLE NONE
+    States
+    {
+    Spawn:
+       OCLW A 2
+       Loop
+    }
+}
+
+ACTOR HarpoonShot
+{
+     Speed 15
+     Height 2
+     Radius 2
+     Mass 10
+     Damage 0
+     SeeSound None
+     DeathSound None
+     PROJECTILE
+     States
+     {
+     Spawn:
+        HSHT A 1 A_CustomMissile("ChainLink",0,0,0)
+        Loop       
+     Death: 
+        HSHT A 1
+        Stop   
+     }
+}
+
+ACTOR ChainLink
+{
+    Speed 0
+    Height 2
+    Radius 2
+    Mass 10
+    Damage 0
+    PROJECTILE
+    States
+    {
+    Spawn:
+       LINK A 20
+       Goto Death       
+    Death: 
+       LINK A 0 A_CustomMissile("ChainDrop",0,0,0)
+       Stop
+    }
+}
+
+ACTOR ChainDrop : ChainLink
+{
+    -NOGRAVITY
+    States
+    {
+    Death:
+       LINK A 0
+       Stop
+    }
+}
+
+actor Archer 7296	
+{
+    Health 350
+    Radius 20
+    Height 56
+    Speed 10
+    PainChance 75
+    Scale 0.25
+    MONSTER 
+    +FLOORCLIP
+	+NOBLOOD
+    seesound "MMSkeleton/sit"
+    painsound "skeleton/pain"
+    deathsound "MMSkeleton/death"
+    activesound "MMSkeleton/active"
+    Obituary "%o thought skeletons couldn't aim."
+	DropItem WarSpirit 64
+	DropItem Mana 190
+	DropItem Mana 128
+	DropItem ManaRune 8
+    States
+    {
+    Spawn:
+        SKAR A 20 A_Look
+        Loop
+    See:
+        SKAR BCDEFGHI 3 A_Chase
+    Missile:
+	    NULL A 0 A_Jump(64,"FireArrow")
+	    NULL A 0 A_Jump(64,"FireArrow2")
+	    NULL A 0 A_Jump(64,"RailAttack")
+        SKAR JKLM 4 A_FaceTarget
+        SKAR N 6
+        SKAR O 7
+        SKAR P 4 A_CustomMissile("Arrw",32,0,0,0)
+        SKAR Q 4
+    	  Goto See
+    FireArrow:
+        SKAR JKLM 4 A_FaceTarget
+        SKAR N 6
+        SKAR O 7
+        SKAR P 4 A_CustomMissile("FireArrow",32,0,0,0)
+        SKAR Q 4
+    	  Goto See
+    FireArrow2:
+        SKAR JK 8 A_FaceTarget
+        SKAR L 2 A_CustomMissile("ArrowFire", 32, 3, 0)
+        SKAR MNOPQ 5
+    	Goto See
+    RailAttack:
+        SKAR J 10 A_FaceTarget
+        SKAR K 8 A_FaceTarget
+        SKAR L 0 A_CustomRailgun(random(5,15),0,none,"White",1,5)
+	    SKAR L 4 A_CustomRailgun(random(5,15),0,none,"00 00 00",1,5)
+        SKAR MNOPQ 5 A_FaceTarget
+		SKAR BCDEFGHI 2 A_Wander
+    	Goto See
+    Pain:
+        SKAR R 2
+        SKAR S 2 A_Pain
+        SKAR TUVW 2
+        Goto See
+    Death:
+        SKAR R 2
+        SKAR S 2 A_Scream
+        SKAR XYZ 2
+        SKAD A 2 A_NoBlocking
+        SKAD B -1
+        Stop
+    Raise:
+        SKAD BA 4
+        SKAR ZYXSR 4
+        Goto See
+    }
+}
+
+ACTOR Arrw
+{
+   Radius 4
+   Height 6
+   Speed 20
+   Damage 8
+   RENDERSTYLE Normal
+   PROJECTILE
+   +THRUGHOST
+   +RIPPER
+   +NOGRAVITY
+   SeeSound "weapon/dsbowfi"
+   DeathSound "weapon/bowhit"
+   States
+   {
+   Spawn:
+      ARRO A 2 
+      loop
+   Death:
+      ARRO AAA 10 A_FadeOut(0.10)
+      stop
+   }
+}
+
+ACTOR ArrowFire
+{ 
+   Radius 3 
+   Height 2 
+   Speed 50
+   Scale .5
+   Damage 12
+   PROJECTILE 
+   +NOGRAVITY 
+   +NOEXTREMEDEATH
+   SeeSound "weapons/bowfire"
+   DeathSound "weapons/bowhit"
+   States 
+   { 
+   Spawn: 
+      ARRW AAAAAA 2 A_SpawnItemEx("BulletPuff",0,0,0,0,0,0,0,128) 
+      ARRW A 0 A_Changeflag("NOGRAVITY", 0)
+	  ARRW A 0 A_Changeflag("LOWGRAVITY", 1)
+	  Loop
+   Death: 
+      ARRW A 0 
+      ARRW A 1
+      Stop 
+   } 
+} 
+
+ACTOR FireArrow
+{
+   Radius 4
+   Height 6
+   Speed 25
+   Damage 15
+   RENDERSTYLE Normal
+   PROJECTILE
+   +THRUGHOST
+   +RIPPER
+   +NOGRAVITY
+   SeeSound "weapon/dsbowfi"
+   DeathSound "weapon/bowhit"
+   States
+   {
+   Spawn:
+      ARRO A 2 Bright A_CustomMissile("FireArrowTrail",0,0,0)
+      loop
+   Death:
+      ARRO AAA 10 A_FadeOut(0.10)
+      stop
+   }
+}
+
+Actor FireArrowTrail
+{
+	Projectile
+	Speed 0
+	+NOCLIP
+	RenderStyle Add
+	Alpha 0.3
+	Scale 0.15
+	States
+	{
+    Spawn:
+      FLPJ A 1 BRIGHT A_PlaySound("vile/firecrkl")
+      FLPJ BAB 1 BRIGHT
+      XFIR A 1 BRIGHT
+      FLPJ A 1 BRIGHT
+      XFIR ABABCBCDCDEDEFEF 1 BRIGHT
+      Stop
+    Death:
+      XFIR A 2 BRIGHT A_PlaySound("vile/firecrkl")
+      XFIR BCDEF 2 BRIGHT
+      Stop
+	}
+}
+
+//===========================================================================
+//===========================================================================
+
+actor Gunner //revenant
+{
+    Health 400
+    Radius 20
+    Height 64
+    Scale 0.45
+    Speed 10
+    PainChance 100
+    Mass 200
+    MONSTER 
+    +FLOORCLIP
+    +MISSILEMORE
+    DropItem Clip 150
+    DropItem RocketAmmo 128
+    SeeSound "q2infantry/sight"
+    PainSound "q2gunner/pain"
+    DeathSound "q2gunner/death"
+    ActiveSound "q2gunner/seeking"
+    AttackSound "q2gunner/chaingunattack"
+    Obituary "%o Was killed by a gunner."
+	DropItem ClipBox 150
+    DropItem RocketAmmo 128
+    DropItem RocketAmmo 128
+    DropItem RocketAmmo 128
+    DropItem PortablePack 64
+    dropitem MeatSpawner 90
+    DropItem WarSpirit 48
+    States
+    {
+    Spawn:
+	  GNNI A 5 A_Look
+        Loop
+    See:
+	  GNNW AABBCCDDEEFF 2 A_Chase
+	Loop
+    Missile:
+	  NULL A 0 A_Jump(128,14)
+	  GNNA C 12 A_FaceTarget
+	  GNNA A 0 A_PlaySound("q2weapon/grenadelaunfire")
+	  GNNA A 4 A_CustomMissile("GunnerGrenade", 50, -20, 0)
+	  GNNA BC 6 A_FaceTarget
+	  GNNA A 0 A_PlaySound("q2weapon/grenadelaunfire")
+	  GNNA A 4 A_CustomMissile("GunnerGrenade", 50, -20, 0)
+	  GNNA BC 6 A_FaceTarget
+	  GNNA A 0 A_PlaySound("q2weapon/grenadelaunfire")
+	  GNNA A 4 A_CustomMissile("GunnerGrenade", 50, -20, 0)
+	  GNNA BC 6 A_FaceTarget
+	  Goto See
+	  GNNA DEFG 5 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA H 4 Bright A_CustomBulletAttack(5,5,1,4)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA I 4 Bright A_CustomBulletAttack(5,5,1,3)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA J 4 Bright A_CustomBulletAttack(5,5,1,4)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA H 4 Bright A_CustomBulletAttack(5,5,1,3)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA I 4 Bright A_CustomBulletAttack(5,5,1,4)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA J 4 Bright A_CustomBulletAttack(5,5,1,3)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA H 4 Bright A_CustomBulletAttack(5,5,1,4)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA I 4 Bright A_CustomBulletAttack(5,5,1,3)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA J 4 Bright A_CustomBulletAttack(5,5,1,4)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA H 4 Bright A_CustomBulletAttack(5,5,1,3)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA I 4 Bright A_CustomBulletAttack(5,5,1,4)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA J 4 Bright A_CustomBulletAttack(5,5,1,3)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA H 4 Bright A_CustomBulletAttack(5,5,1,4)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA I 4 Bright A_CustomBulletAttack(5,5,1,3)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA J 4 Bright A_CustomBulletAttack(5,5,1,4)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA H 4 Bright A_CustomBulletAttack(5,5,1,3)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA I 4 Bright A_CustomBulletAttack(5,5,1,4)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA J 4 Bright A_CustomBulletAttack(5,5,1,3)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA H 4 Bright A_CustomBulletAttack(5,5,1,4)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA I 4 Bright A_CustomBulletAttack(5,5,1,3)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA J 4 Bright A_CustomBulletAttack(5,5,1,4)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA H 4 Bright A_CustomBulletAttack(5,5,1,3)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA I 4 Bright A_CustomBulletAttack(5,5,1,4)
+	  GNNA Z 0 A_FaceTarget
+	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+	  GNNA J 4 Bright A_CustomBulletAttack(5,5,1,3)
+	  GNNA Z 0 A_FaceTarget
+	  GNNA KLM 6
+	  Goto See
+    Pain:
+	  GNNP A 6 A_Pain 
+	  Goto See
+    Death:
+	  GNND A 5 A_Scream
+	  GNND BCDEFGH 4
+	  GNND I 5 A_NoBlocking
+	  GNND JK 4
+	  GNND K -1
+	  Stop
+    Raise:
+	  GNND KJIHGFEDCBA 4
+	  Goto See
+    }
+}
+
+actor GunnerGrenade
+{
+    Radius 8
+    Height 8
+    Speed 20
+    Scale 0.65
+    Damage 2
+    ExplosionDamage 32
+    ExplosionRadius 64
+    PROJECTILE
+    +DOOMBOUNCE
+    +GRENADETRAIL
+    +CANBOUNCEWATER
+    SeeSound "q2weapon/grenadelbounce"
+    DeathSound "weapons/rockexplo"
+    States
+    {
+    Spawn:
+	  NULL A 0 A_PlaySound("null")
+        QGRP KJIHGFEDCBA 3 Bright A_Gravity
+        Goto Spawn+1
+    Death:
+	  NULL A 0 A_NoGravity
+	  TNT1 A 0 A_CustomMissile("ExplosionSmoke",0,0,0)
+        EXPL AA 0 A_CustomMissile("ExploSmoke",0+Random(0,25),0+Random(5,-5),0+Random(0,370))
+        EXPL B 3 Bright A_Explode
+        EXPL CDEFGHIJKLMNOPQRSTU 2 Bright
+        Stop
+    }
+}
+Actor FGunnerD : Gunner 
+{
+	+AMBUSH
+}
+
+ACTOR BipodStalker
+{
+  Health 400
+  Height 56
+  Radius 20
+  Speed 12
+  bloodcolor "76 0 156"
+  Monster
+  +FLOORCLIP
+  +NOPAIN
+  SeeSound "Bipod/See"
+  ActiveSound "Bipod/Act"
+  DeathSound "Bipod/Death"
+  Obituary "%o was desintegrated by a Bipod Stalker."
+  DropItem Cell
+  DropItem Cell 150
+  DropItem Cell 128
+  DropItem CellPack 128
+  DropItem PortablePack 64
+  dropitem MeatSpawner 90
+  DropItem WarSpirit 48
+  DropItem LimitLaserCannon 32
+  scale 0.30
+  Translation "0:111=#[255,0,0]"
+  States
+  {
+  Spawn:
+	BISK A 10 A_Look
+	Loop
+  See:
+	BISK A 3 A_PlaySound("sentry/see")
+	BISK BBCC 3 A_Chase
+	BISK D 3 A_PlaySound("sentry/see")
+	BISK DEE 3 A_Chase
+	Loop
+  Missile:
+	NULL A 0 A_JumpIfCloser(128,"RedGrenade")
+	BISK A 6 A_FaceTarget
+	BISK F 5 Bright A_PlaySound("LaserCannon/Fire")
+	BISK F 0 A_CustomRailgun(9,-5,none,"FF 00 00",0,0,0,none,0,0,0,0,1,1,"None",20)
+	BISK G 5 Bright A_PlaySound("LaserCannon/Fire")
+	BISK G 0 A_CustomRailgun(9,5,none,"FF 00 00",0,0,0,none,0,0,0,0,1,1,"None",20)
+	BISK G 6 A_MonsterRefire(15, "See")
+    Goto Missile+1
+  RedGrenade:
+    BISK A 16 A_FaceTarget
+	BISK F 2 A_Custommissile ("Redgrenade",48,2,0)
+	BISK G 2 A_Custommissile ("Redgrenade",48,-2,0)
+    BISK A 4 A_SpidRefire
+    Goto See
+  Death:
+	BISK HIJKL 5
+	BISK M 5 A_ScreamAndUnblock
+	BISK N 5
+	BISK O 5
+	TNT1 A -1
+	Stop
+  }
+}
+
+Actor Desolet
+{
+	//$Category monsters
+	Health 250
+	Radius 20
+	Height 56
+	Mass 1000
+	Speed 13
+	PainChance 15
+	MONSTER
+	+FLOORCLIP
+	+DONTHURTSPECIES
+	scale 0.5
+	SeeSound "desolator/sight"
+	PainSound "desolator/pain"
+	DeathSound "desolator/death"
+	ActiveSound "baron/active"
+	Translation "80:111=168:191"
+	Obituary "%o was defeated by a Desolet."
+	DropItem WarSpirit 128
+    dropitem MeatSpawner
+    dropitem Mana 120
+    dropitem Mana 64
+	States
+	{
+	Spawn:
+		DLDM AB 10 A_Look 
+		Loop
+	See:
+		DLDM AABBCCDD 4 Bright A_Chase
+		Loop
+	Melee:
+		DLDM E 8 A_FaceTarget
+		DLDM F 8 A_PlaySound ("SlimeBall/Shoot")
+		DLDM F 0 A_CustomMissile ("FallFire", 32, 0, random(-10,10), 2, random(10,20))
+		DLDM F 0 A_CustomMissile ("FallFire", 32, 0, random(-10,10), 2, random(10,20))
+		DLDM F 0 A_CustomMissile ("FallFire", 32, 0, random(-10,10), 2, random(10,20))
+		DLDM F 0 A_CustomMissile ("FallFire", 32, 0, random(-10,10), 2, random(10,20))
+		DLDM F 0 A_CustomMissile ("FallFire", 32, 0, random(-10,10), 2, random(10,20))
+		DLDM G 8
+		goto See
+	Missile:
+		DLDM E 8 A_FaceTarget
+		DLDM F 2 A_FaceTarget
+		DLDM G 1 A_FaceTarget
+		DLDM G 3 A_CustomMissile("DesoletBullet", 32, 0, 0 ,0)
+		Goto See
+	Pain:
+		DLDM E 6 A_Pain
+ 		Goto See
+	Death:
+		DLDM H 6 A_Scream
+		DLDM IJK 6
+		DLDM L 6 A_NoBlocking
+		DLDM MNO 6
+		DLDM P -1   
+		Stop
+	}
+}
+
+Actor DesoletBullet
+{
+	Radius 8
+	Height 8
+	Speed 8
+	Damage 3
+	PROJECTILE
+	SeeSound "imp/attack"
+	DeathSound "desolator/explosions"
+	Decal DoomImpScorch
+	States
+	{
+	Spawn: 
+		FRBU ABC 4 Bright
+		Loop
+	Death:	
+		FRBU D 4 Bright
+		FRBU D 0 A_CustomMissile("FireXplosion", 0, 0, random(0,359), 2, random(-45,45))
+		FRBU D 0 A_CustomMissile("FireXplosion", 0, 0, random(0,359), 2, random(-45,45))
+		FRBU D 0 A_CustomMissile("FireXplosion", 0, 0, random(0,359), 2, random(-45,45))
+		FBRU EFGHI 4 Bright
+		Stop
+	}
+}
+
+Actor FallFire
+{
+	Radius 8
+	Height 8
+	Speed 10
+	Mass 200
+	Damage 1
+	DeathSound "imp/shotx"
+	PROJECTILE
+	+RANDOMIZE
+	-NOGRAVITY
+	Decal DoomImpScorch
+	States
+	{
+	Spawn: 
+		STKX ABC 4 Bright
+		Loop
+	Death:
+		FRRR ABCDEFGHIJ 4 Bright
+		Stop
+	}
+}
+
+//from Corridor 7
+//Jetpack behavior by IMX
+ACTOR Otrebor
+{
+    Health 250
+    Radius 20
+    Height 56
+    Speed 14
+    PainChance 128
+    MONSTER 
+    +FLOORCLIP
+	+NOINFIGHTING
+	+NOTARGET
+	seesound "Ten/sight"
+	painsound "Ten/pain"
+	deathsound "Ten/death"
+	activesound "Ten/active"
+    AttackSound "Weapons/ScorpionFire"
+    Obituary "%o was ambushed by a Otrebor."
+    DropItem Clip
+    DropItem ClipBox
+	DropItem LimitBlood2Scorpions 64
+    DropItem HBSpawner 68
+    DropItem ABSpawner 68
+    dropitem MeatSpawner 200
+    dropitem PortablePack 180
+	DropItem WarSpirit 64
+    States
+    {
+    Spawn:
+		OTBR A 10 A_Look
+        Loop
+    See:
+        OTBR ABCD 3 A_Chase
+		Loop
+	See:
+		OTBR A 0 A_JumpIfCloser(512, 2)
+		OTBR ABCD 3 A_Chase
+		Loop
+		OTBR A 0 A_CheckSight("2")
+		OTBR A 0 A_Jump(32, "Dodge")
+		OTBR A 0
+		Goto See+2
+	Dodge:
+        OTBR A 0 A_Jump(128,"Jump")
+        OTBR A 0 A_Jump(128,"Jump2")
+		OTBR A 0 A_FaceTarget
+		OTBR A 0 A_PlaySoundEx("Otrebor/Dash", "SoundSlot7", 1)
+		OTBR A 10 ThrustThing(Angle*256/360-random(0,180), 8, 1, 0)
+		OTBR A 0 A_Stop
+		Goto See+2		
+	Jump:
+		OTBR A 0 A_Jump(64, 4)
+		OTBR A 2 A_FaceTarget 
+		OTBR A 0 A_PlaySoundEx("Otrebor/Dash", "SoundSlot7", 1)
+		OTBR A 0 ThrustThingZ(0, 32, 0, 0)
+		OTBR A 0 ThrustThing(angle*256/360, 20, 0, 0)
+		OTBR BCD 3 //jumping animation
+	OnAir:
+		OTBR A 1 A_CheckFloor("Land")
+		Loop
+	Pain:
+		OTBR A 1 A_Pain
+        OTBR A 0 A_Jump(128,"Jump2")
+        Goto See
+	Jump2:
+		OTBR A 0 A_Jump(64, 4)
+		OTBR A 2 A_FaceTarget 
+		OTBR A 0 A_PlaySoundEx("Otrebor/Dash", "SoundSlot7", 1)
+		OTBR A 0 ThrustThingZ(0, 64, 0, 0)
+		OTBR A 0 ThrustThing(angle*256/360-128, 20, 0, 0)
+		OTBR BCD 3 //jumping animation
+		OTBR A 0 A_Stop
+		Goto See+2
+	OnAir2:
+		OTBR A 1 A_CheckFloor("Land")
+		Loop	
+	Land:
+		OTBR A 2 A_Stop
+		Goto See+2
+    Missile:
+		OTBF A 6 A_FaceTarget
+		NULL Z 0 Bright A_CustomMissile("Smoke",35,8,5+Random(30,-30))
+		OTBF B 3 Bright A_CustomBulletAttack(4,2,1,random(3,6))
+		OTBF C 3 A_FaceTarget
+		NULL Z 0 Bright A_CustomMissile("Smoke",35,-8,5+Random(30,-30))
+		OTBF D 3 Bright A_CustomBulletAttack(4,2,1,random(3,6))
+		OTBR A 0 A_Jump(64, "Dodge")
+		OTBF E 3 A_MonsterRefire(130, "Dodge")
+		OTBF A 1 
+		Goto Missile
+    Death:
+        OTBD A 4 A_Scream
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
+        OTBD BCDEF 3
+        OTBD G 4 A_NoBlocking
+        OTBD H -1
+        Stop
+    Raise:
+        OTBD HGFEDCBA 3
+        Goto See
+    }
+}
