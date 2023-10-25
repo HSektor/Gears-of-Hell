@@ -5,7 +5,6 @@
 - [ ] New pickup sprites for the PlasmaAutoRifle  
 - [ ] fix/buff punching revenant  
 - [ ] novos sons de pickup gerais  
-- [ ] fix knife alt behavior  
 - [ ] fix autoplasmarifle alt fire  
 - [ ] rework the LongRifle (buff and remove from lower spawns), Punch (less boring), Chainsaw_ (maybe just remove?), MachinePistol (new sprites and better sounds) and BloodSSG (idk)  
 - [ ] create item spawns for marine corpses  
@@ -13,12 +12,14 @@
 - [ ] get CherubAngel (Spider Mastermind) from Bitter  
 - [ ] maybe remove/rework the Q2 monsters?  
 
-### In Progress
+### In Progress  
 
-- [ ] work on Otrebor  
 - [ ] work on the ToggableItems (Angel Wings)  
+- [ ] fix knife alt behavior  
 
 ### Done ✓
 
 - [x] create a github repository
 - [x] rework that grey chaingunner  
+- [x] work on Otrebor  
+- [x] The limit system is now optional   
