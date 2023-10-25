@@ -20,10 +20,14 @@ _ZMan_
 _X-CrAzYkOoL-X_
 * __Code for the Weapon Limit System__  
 _Yholl_
-* __Code for the Weapon Limit System and General Help__  
-_Misery_
 * __Code for the Weapon Limit System__  
 _VoidWeaver_
+* __Code for the Weapon Limit System and General Help__  
+_Misery_
+* __Code for the Weapon Limit System and General Help__  
+_Mikk-_
+* __Code for the Weapon Limit System and General Help__  
+_Brohnesorge_
 * __ACS__  
 _vaecrius_
 * __Actors__  
@@ -132,8 +136,8 @@ _Kaiser_
 _Nanami_
 * __ZScript Code__  
 _doomplayer_
-* __ZScript Code__  
-_Mikk-_
+* __ZScript Code Help__  
+_Rat Circus_
 * __Corridor 7 rips__  
 _SPECT_
 * __Serious Sam rips__  
