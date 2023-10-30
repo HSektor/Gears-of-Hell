@@ -114,6 +114,7 @@
 
 1.3
 =====
+#[Important] the weapon limit is now optional  
 #fixed machine pistol and icewand drops  
 #fixed drop velocity/force  
 #fixed chainsaw not being throwable 
@@ -124,7 +125,7 @@
 #reduced Heavyrockets spawn  
 #removed lots of redudant sprites/sounds  
 #removed the Klayz (overlapping with D3caco and octobrain imo)  
-#new enemies! Hunker (from Hades 2), GreatScorpionMinion, BipodStalker and BiomechBipod (from Mouse), Crystal Elemental and Air Elemental (from Might and Magic), Ailoprobe and Bandor (from Corridor 7) and more!  
+#new enemies! Hunker (from Hades 2), GreatScorpionMinion, BipodStalker and BiomechBipod (from Mouse), Crystal Elemental and Air Elemental (from Might and Magic), Ailoprobe, Otrebor and Bandor (from Corridor 7) and more!  
 #merged zrebel and grey chaingunner into one enemy
 #lots of code cleaning/update  
 #lots of buffing and nerfing (mostly making enemies less spongy and swapping some spawners)  
@@ -141,3 +142,7 @@
 #RailGuy replaced by BiomechBipod  
 #dead monsters spawn replacements  
 #probably lots of other things that I can't remember, lol  
+
+1.3b
+=====
+# better grammar on the mod menu
