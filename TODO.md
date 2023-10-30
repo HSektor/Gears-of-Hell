@@ -1,5 +1,9 @@
 ### Todo
 
+- [ ] verify weapon limit bugs  
+- [ ] verify SuperRocketLauncher infinite ammo bug  
+- [ ] nerf: Tank, CoolPistol second fire, Motherdemon, Dalek, EvilDoomGuy, UberZombie  
+- [ ] Buff: Stinger  
 - [ ] new behavior for spirit master  
 - [ ] New sprites for the DKGuns3 Railgun, SuperRocket and GodHand  
 - [ ] New pickup sprites for the PlasmaAutoRifle  
@@ -16,10 +20,8 @@
 
 - [ ] work on the ToggableItems (Angel Wings)  
 - [ ] fix knife alt behavior  
+- [ ] fix Menu grammar  
 
 ### Done ✓
 
-- [x] create a github repository
-- [x] rework that grey chaingunner  
-- [x] work on Otrebor  
-- [x] The limit system is now optional   
+- [x] create a github repository  
