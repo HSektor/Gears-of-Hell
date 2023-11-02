@@ -4,7 +4,6 @@
 - [ ] verify SuperRocketLauncher infinite ammo bug  
 - [ ] nerf: Tank, CoolPistol second fire, Motherdemon, Dalek, EvilDoomGuy, UberZombie  
 - [ ] Buff: Stinger
-- [ ] force HUD
 - [ ] new behavior for spirit master  
 - [ ] New sprites for the DKGuns3 Railgun, SuperRocket and GodHand  
 - [ ] New pickup sprites for the PlasmaAutoRifle  
@@ -21,8 +20,9 @@
 
 - [ ] work on the ToggableItems (Angel Wings)  
 - [ ] fix knife alt behavior  
-- [ ] fix Menu grammar  
 
 ### Done ✓
 
 - [x] create a github repository  
+- [x] work on the normal HUD
+- [x] fix Menu grammar  
