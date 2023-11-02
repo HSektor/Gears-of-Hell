@@ -3,7 +3,6 @@
 - [ ] verify weapon limit bugs  
 - [ ] verify SuperRocketLauncher infinite ammo bug  
 - [ ] nerf: Tank, CoolPistol second fire, Motherdemon, Dalek, EvilDoomGuy, UberZombie  
-- [ ] Buff: Stinger
 - [ ] new behavior for spirit master  
 - [ ] New sprites for the DKGuns3 Railgun, SuperRocket and GodHand  
 - [ ] New pickup sprites for the PlasmaAutoRifle  
@@ -25,4 +24,5 @@
 
 - [x] create a github repository  
 - [x] work on the normal HUD
-- [x] fix Menu grammar  
+- [x] fix Menu grammar
+- [x] slightly buffed the Stinger (faster fire rate)
