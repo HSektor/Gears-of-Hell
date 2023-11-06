@@ -10,13 +10,13 @@
 - [ ] rework the LongRifle (buff and remove from lower spawns), Punch (less boring), Chainsaw_ (maybe just remove?), MachinePistol (new sprites and better sounds) and BloodSSG (idk)  
 - [ ] create item spawns for marine corpses  
 - [ ] get Brute (Baron Spawn) and Former Berserker (Cyber Spawn) from A New Hellspawn  
-- [ ] get CherubAngel (Spider Mastermind) from Bitter  
+- [ ] get CherubAngel (Spider Mastermind) from Bitter
+- [ ] get Tank Commander (Archvile) from Cherno's resources
 
 ### In Progress  
 
 - [ ] work on the ToggableItems (Angel Wings)  
 - [ ] fix knife alt behavior  
-- [ ] maybe remove/rework the Q2 monsters?  
 - [ ] verify weapon limit bugs  
 
 ### Done ✓
@@ -27,3 +27,4 @@
 - [x] fixed SuperRocketLauncher infinite ammo bug  
 - [x] slightly buffed the Stinger (faster fire rate)
 - [x] nerfted Tank, CoolPistol second fire
+- [x] reworked most Q2 monsters
