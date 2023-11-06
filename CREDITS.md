@@ -64,6 +64,8 @@ _Bouncy_
 _Cutmanmike_
 * __Actors and Sprites__  
 _nexar2_
+* __Actors and Sprites__  
+_icytux_
 * __Beta Tester__  
 _Ricardo Assad_
 * __Decorate Code__  
@@ -100,8 +102,6 @@ _Enjay_
 _Marrub_
 * __Sprites__  
 _Hellstorm Archon_
-* __Sprites__  
-_icytux_
 * __Sprites__  
 _Captain J_
 * __Sprites__  
