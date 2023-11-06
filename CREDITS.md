@@ -45,6 +45,8 @@ _AlwaysDoomed_
 * __Actors and Decorate Code__  
 _WRW Team_
 * __Actors and Decorate Code__  
+_Ichor_
+* __Actors and Decorate Code__  
 _Doom Armory Team_
 * __Actors and Decorate Code__  
 _Duducrazy_
@@ -70,8 +72,6 @@ _Pedro VC_
 _Captain Ventris_
 * __Decorate Code__  
 _Daniel_
-* __Decorate Code__  
-_Ichor_
 * __Decorate Code__  
 _MartinHowe_
 * __Decorate Code__  
