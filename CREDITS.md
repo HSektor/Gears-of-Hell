@@ -120,6 +120,8 @@ _Carbon Dioxide_
 _Zirius1994_
 * __Sprites__  
 _zrrion the insect_
+* __Sprites__  
+_Kaiser_
 * __Sprites and Actors__  
 _LilWhiteMouse_
 * __Sprites, Actors and Sounds__  
@@ -131,7 +133,7 @@ _Deco_
 * __Sprite sources__  
 _Ghost623671 from Gamebanana.com_
 * __Sprite rips__  
-_Kaiser_
+_Sinael_
 * __ZScript Code__  
 _Nanami_
 * __ZScript Code__  
