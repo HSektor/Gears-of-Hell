@@ -1,7 +1,7 @@
 ### Todo
 
-- [ ] nerf: UberZombie  
-- [ ] new behavior for spirit master  
+- [ ] new behavior for spirit master
+- [ ] rework Uberzombie?
 - [ ] New sprites for the DKGuns3 Railgun, SuperRocket and GodHand  
 - [ ] New pickup sprites for the PlasmaAutoRifle  
 - [ ] fix/buff punching revenant  
