@@ -1,6 +1,6 @@
 ### Todo
 
-- [ ] nerf: EvilDoomGuy, UberZombie  
+- [ ] nerf: UberZombie  
 - [ ] new behavior for spirit master  
 - [ ] New sprites for the DKGuns3 Railgun, SuperRocket and GodHand  
 - [ ] New pickup sprites for the PlasmaAutoRifle  
@@ -27,4 +27,4 @@
 - [x] fixed SuperRocketLauncher infinite ammo bug  
 - [x] slightly buffed the Stinger (faster fire rate)
 - [x] nerfted Tank, CoolPistol alt fire, Motherdemon, Dalek
-- [x] reworked most Q2 monsters
+- [x] reworked most Q2 monsters and EvilDoomGuy
