@@ -179,5 +179,3 @@ _DeathMatchParadise Sweps_
 _Zipper Interactive_
 * __Hell2Pay resources__  
 _Wraith Corporation_
-* __DeathDrome resources__  
-_Zipper Interactive_
