@@ -26,6 +26,7 @@
 - [x] fixed Menu grammar
 - [x] fixed SuperRocketLauncher infinite ammo bug  
 - [x] fixed Marine monsters not counting as kills
+- [x] fixed Invulnerability Sphere and Radiation Suit inventory icons
 - [x] increased max clip ammo to 600
 - [x] slightly buffed the Stinger (faster fire rate)
 - [x] nerfted Tank, CoolPistol alt fire, Motherdemon, Dalek
