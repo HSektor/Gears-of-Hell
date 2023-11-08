@@ -25,6 +25,8 @@
 - [x] work on the normal HUD
 - [x] fixed Menu grammar
 - [x] fixed SuperRocketLauncher infinite ammo bug  
+- [x] fixed Marine monsters not counting as kills
+- [x] increased max clip ammo to 600
 - [x] slightly buffed the Stinger (faster fire rate)
 - [x] nerfted Tank, CoolPistol alt fire, Motherdemon, Dalek
 - [x] reworked most Q2 monsters and EvilDoomGuy
