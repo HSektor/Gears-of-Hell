@@ -145,4 +145,12 @@
 
 1.3b
 =====
-# better grammar on the mod menu
+# better grammar on the mod menu  
+# new normal scale HUD  
+# fixed SuperRocketLauncher infinite ammo bug  
+# fixed Marine monsters not counting as kills  
+# fixed Invulnerability Sphere and Radiation Suit inventory icons  
+# increased max clip ammo to 600  
+# slightly buffed the Stinger (faster fire rate)  
+# nerfted Tank, CoolPistol alt fire, Motherdemon, Dalek  
+# reworked most Q2 monsters and EvilDoomGuy  
