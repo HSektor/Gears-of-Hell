@@ -143,7 +143,7 @@
 #dead monsters spawn replacements  
 #probably lots of other things that I can't remember, lol  
 
-1.4
+1.3b
 =====
 #better grammar on the mod menu  
 #new normal scale HUD  
