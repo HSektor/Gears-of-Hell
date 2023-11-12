@@ -128,6 +128,8 @@ _LilWhiteMouse_
 _CaptainToenail_
 * __Sprites and Sounds__  
 _Xaser_
+* __Sprites and Code__  
+_Eriance_
 * __Sprite edit and Code__  
 _Deco_
 * __Sprite sources__  
