@@ -2,7 +2,7 @@
 
 - [ ] verify flak cannon bugs
 - [ ] rework Uberzombie?
-- [ ] New sprites for the DKGuns3 Railgun, SuperRocket and GodHand  
+- [ ] New sprites for the DKGuns3 Railgun and GodHand  
 - [ ] New pickup sprites for the PlasmaAutoRifle  
 - [ ] fix/buff punching revenant  
 - [ ] novos sons de pickup gerais  
@@ -12,6 +12,7 @@
 - [ ] get Brute (Baron Spawn) and Former Berserker (Cyber Spawn) from A New Hellspawn  
 - [ ] get CherubAngel (Spider Mastermind) from Bitter
 - [ ] get Tank Commander (Archvile) from Cherno's resources
+- [ ] get D3Chaingunner (Chaingunner) from Captain J
 
 ### In Progress  
 
@@ -21,4 +22,6 @@
 
 ### Done ✓
 
-- [x] create a github repository  
+- [x] create a github repository
+- [x] removed some unused actors and sprites
+- [x] reworked the SuperRocketLauncher (Now called Anti Tank Missile Launcher)
