@@ -1,6 +1,5 @@
 ### Todo
 
-- [ ] verify flak cannon bugs
 - [ ] rework Uberzombie?
 - [ ] New sprites for the DKGuns3 Railgun and GodHand  
 - [ ] New pickup sprites for the PlasmaAutoRifle  
@@ -25,3 +24,5 @@
 - [x] create a github repository
 - [x] removed some unused actors and sprites
 - [x] reworked the SuperRocketLauncher (Now called Anti Tank Missile Launcher)
+- [x] verify flak cannon bugs
+- [x] reworked Magicubus
