@@ -29,3 +29,4 @@
 - [x] reworked the SuperRocketLauncher (Now called Anti Tank Missile Launcher), DemonCannon (new alt-fire)
 - [x] reworked Magicubus, Otrebor, InsanitySpider
 - [x] verify flak cannon bugs
+- [x] implemented a Pistol spawn for the sake of completion
