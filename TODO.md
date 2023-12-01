@@ -23,8 +23,8 @@
 
 ### Done ✓
 
-- [x] create a github repository
-- [x] New monsters: CyberBrute!
+- [x] create a github repository  
+- [x] New monsters: CyberBrute!  
 - [x] removed some unused actors and sprites
 - [x] removed some redundant monsters (Fatcubus (just uninspired imo), Rifle Troop (too many accurate hitscanners), Cybersarge (reworking into Cyber Commando), Uberzombie (merged into Otrebor), Superbaron (uninspired), Nightmare Baron (too similar to HellWizard))
 - [x] moved SpiritImp to Imp spawn
