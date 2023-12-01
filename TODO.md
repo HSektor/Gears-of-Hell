@@ -5,7 +5,9 @@
 - [ ] fix/buff punching revenant  
 - [ ] novos sons de pickup gerais  
 - [ ] fix autoplasmarifle alt fire  
-- [ ] rework the Punch (less boring), Chainsaw_ (maybe just remove?), MachinePistol (new sprites and better sounds) and BloodSSG (idk), AlienCannon (idk), SurrealKnight (maybe use the Samurai Sprites from beta Shadow Warrior)
+- [ ] implement reload to QuadShotgun
+- [ ] rework DemonMeat (give it sprites that aren't similar to gibs/gore)
+- [ ] rework the Punch (less boring), Chainsaw_ (maybe just remove?), MachinePistol (new sprites and better sounds) and BloodSSG (idk), AlienCannon (idk), SurrealKnight (maybe use the Samurai Sprites from beta Shadow Warrior), M14 (make it more fun to use?)
 - [ ] create item spawns for marine corpses  
 - [ ] get Brute (Baron Spawn) and Former Berserker (Cyber Spawn) from A New Hellspawn  
 - [ ] get CherubAngel (Spider Mastermind) from Bitter
