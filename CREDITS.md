@@ -153,6 +153,8 @@ _Sinister-One_
 
 * __Fallout New Vegas resources__  
 _Obsidian Entertainment_
+* __Fallout New Vegas resources__  
+_Bethesda Softworks_
 * __Hellrider Doom TC resources__  
 _Hellbound Crew_
 * __Serious Sam resources__  
@@ -165,7 +167,7 @@ _Valve_
 _Epic Games_
 * __Doom, Doom Beta and Quake resources__  
 _Id Software_
-* __Heretic, Hexen and Necrodome resources__  
+* __Heretic, Hexen, Necrodome and Wolfenstein (2009) resources__  
 _Raven Software_
 * __TimeSplitters resources__  
 _Free Radical Design_
