@@ -9,7 +9,6 @@
 - [ ] rework the Punch (less boring), Chainsaw_ (maybe just remove?), BloodSSG (idk), AlienCannon (idk), SurrealKnight (maybe use the Samurai Sprites from beta Shadow Warrior)
 - [ ] create item spawns for marine corpses  
 - [ ] get Brute (Baron Spawn) from A New Hellspawn  
-- [ ] get CherubAngel (Spider Mastermind) from Bitter  
 - [ ] get Tank Commander (Archvile) from Cherno's resources  
 
 ### In Progress  
@@ -18,7 +17,7 @@
 ### Done ✓
 
 - [x] create a github repository  
-- [x] New monsters: CyberBrute, Former Berserker, Doom 3 Chaingunguy!  
+- [x] New monsters: CyberBrute, Cherub, Former Berserker, Doom 3 Chaingunguy!  
 - [x] New weapon: Laser Automag!
 - [x] New sounds for the Miningun
 - [x] removed some unused actors and sprites
