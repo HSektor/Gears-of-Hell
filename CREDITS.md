@@ -165,7 +165,7 @@ _3dRealm_
 _Valve_
 * __Unreal resources__  
 _Epic Games_
-* __Doom, Doom Beta and Quake resources__  
+* __Doom, Doom Beta, Doom 64, Doom 3 and Quake resources__  
 _Id Software_
 * __Heretic, Hexen, Necrodome and Wolfenstein (2009) resources__  
 _Raven Software_
