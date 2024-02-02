@@ -9,6 +9,7 @@
 - [ ] rework the Punch (less boring), Chainsaw_ (maybe just remove?), BloodSSG (idk), AlienCannon (idk), SurrealKnight (maybe use the Samurai Sprites from beta Shadow Warrior)
 - [ ] create item spawns for marine corpses  
 - [ ] get Brute (Baron Spawn) from A New Hellspawn  
+- [ ] get Beholder (Pain Elemental) and Lizardman (Imps) from Burgish
 - [ ] get Tank Commander (Archvile) from Cherno's resources  
 
 ### In Progress  
