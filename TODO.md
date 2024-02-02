@@ -19,7 +19,7 @@
 
 - [x] create a github repository  
 - [x] New monsters: CyberBrute, Cherub, Former Berserker, Doom 3 Chaingunguy!  
-- [x] New weapon: Laser Automag!
+- [x] New weapons: Laser Automag, Grenade Launcher!
 - [x] New sounds for the Miningun
 - [x] removed some unused actors and sprites
 - [x] removed Machine Pistol (reworked into Laser Automag)
