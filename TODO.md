@@ -2,7 +2,6 @@
 
 - [ ] New pickup sprites for the PlasmaAutoRifle  
 - [ ] fix/buff punching revenant  
-- [ ] novos sons de pickup gerais  
 - [ ] fix autoplasmarifle alt fire  
 - [ ] implement reload to QuadShotgun  
 - [ ] rework DemonMeat (give it sprites that aren't similar to gibs/gore)  
