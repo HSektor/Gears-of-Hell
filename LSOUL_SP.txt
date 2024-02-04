@@ -186,7 +186,7 @@ ACTOR VampireBatNesting 3306
 
 ACTOR Flyer
 { 
-   Health 100
+   Health 70
    Speed 10 
    Radius 16
    Height 32
@@ -211,47 +211,15 @@ ACTOR Flyer
    DropItem LimitQ2Blaster 16
     States
     {
-   Spawn: 
-		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
-		LYEW AB 5 A_Look 
-		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
-		LYEW CD 5 A_Look 
-		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
-		LYEW EF 5 A_Look 
-		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
-		LYEW GH 5 A_Look 
-		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
-		LYEW IJ 5 A_Look 
-		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
-		LYEW KL 5 A_Look 
-		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
-		LYEW MN 5 A_Look 
-		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
-		LYEW OP 5 A_Look 
-		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
-		LYEW QR 5 A_Look 
+	Spawn: 
+		LYEW A 0
+		LYEW A 0 A_PlaySound("q2flyer/doingnothing",6,0.4,1,5)
+		LYEW ABCDEFGHIJKLMNOPQR 5 A_Look 
 		Loop 
-   See: 
-		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
-		LYEW AB 5 A_Chase 
-		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
-		LYEW CD 5 A_Chase 
-		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
-		LYEW EF 5 A_Chase 
-		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
-		LYEW GH 5 A_Chase 
-		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
-		LYEW IJ 5 A_Chase 
-		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
-		LYEW KL 5 A_Chase 
-		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
-		LYEW MN 5 A_Chase 
-		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
-		LYEW OP 5 A_Chase 
-		LYEW A 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
-		LYEW QR 5 A_Chase 
+	See: 
+		LYEW ABCDEFGHIJKLMNOPQR 5 A_Chase 
 		Loop 
-   Melee:
+	Melee:
 		LYEM ABCDEF 3 A_FaceTarget
 		LYEM G 0 A_PlaySound("q2flyer/wingattack2")
 		LYEM G 4 A_MeleeAttack
@@ -260,30 +228,61 @@ ACTOR Flyer
 		LYEM L 4 A_MeleeAttack
 		LYEM MNOPQR 3
 		Goto See
-   Missile: 
-		ZZZZ Z 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
-		LYEA ABCD 5 A_FaceTarget
-		ZZZZ Z 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
-		LYEA E 3 Bright A_CustomMissile("WeakBlasterBolt",21,-10,0)
+	Missile: 
+		LYEA ABCD 4 A_FaceTarget
+		LYEA E 2 Bright 
+		{
+		A_SpawnProjectile("WeakBlasterBolt",21,-10,0);
+		A_Chase(0,0);
+		}
 		LYEA Z 0 A_FaceTarget
-		LYEA F 3 Bright A_CustomMissile("WeakBlasterBolt",21,10,0)
+		LYEA F 2 Bright 
+		{
+		A_SpawnProjectile("WeakBlasterBolt",21,10,0);
+		A_Chase(0,0);
+		}
 		LYEA Z 0 A_FaceTarget
-		LYEA G 3 Bright A_CustomMissile("WeakBlasterBolt",21,-10,0)
-		ZZZZ Z 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEA G 2 Bright 
+		{
+		A_SpawnProjectile("WeakBlasterBolt",21,-10,0);
+		A_Chase(0,0);
+		}
 		LYEA Z 0 A_FaceTarget
-		LYEA H 3 Bright A_CustomMissile("WeakBlasterBolt",21,10,0)
+		LYEA H 2 Bright 
+		{
+		A_SpawnProjectile("WeakBlasterBolt",21,10,0);
+		A_Chase(0,0);
+		}
 		LYEA Z 0 A_FaceTarget
-		LYEA I 3 Bright A_CustomMissile("WeakBlasterBolt",21,-10,0)
+		LYEA I 2 Bright 
+		{
+		A_SpawnProjectile("WeakBlasterBolt",21,-10,0);
+		A_Chase(0,0);
+		}
 		LYEA Z 0 A_FaceTarget
-		LYEA J 3 Bright A_CustomMissile("WeakBlasterBolt",21,10,0)
-		ZZZZ Z 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
+		LYEA J 2 Bright 
+		{
+		A_SpawnProjectile("WeakBlasterBolt",21,10,0);
+		A_Chase(0,0);
+		}
 		LYEA Z 0 A_FaceTarget
-		LYEA K 3 Bright A_CustomMissile("WeakBlasterBolt",21,-10,0)
+		LYEA K 2 Bright 
+		{
+		A_SpawnProjectile("WeakBlasterBolt",21,-10,0);
+		A_Chase(0,0);
+		}
 		LYEA Z 0 A_FaceTarget
-		LYEA L 3 Bright A_CustomMissile("WeakBlasterBolt",21,10,0)
-		ZZZZ Z 0 A_PlaySound("q2flyer/doingnothing",4,0.2)
-		LYEA MN 6 A_FaceTarget
+		LYEA L 2 Bright 
+		{
+		A_SpawnProjectile("WeakBlasterBolt",21,10,0);
+		A_Chase(0,0);
+		}
+		LYEA MN 4 A_FaceTarget
 		Goto See 
+	Pain: 
+		LYEP ABC 4
+		LYEP D 4 A_Pain 
+		Goto See
    Pain: 
 		LYEP ABC 4
 		LYEP D 4 A_Pain 

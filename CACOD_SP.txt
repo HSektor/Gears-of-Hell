@@ -876,6 +876,8 @@ ACTOR Hover
    +NOGRAVITY
    +FLOAT
    +NOBLOOD
+   +PUSHABLE
+   PushFactor 0.2
    SeeSound "q2hover/sight"
    PainSound "q2hover/pain"
    DeathSound "q2hover/death"
@@ -886,63 +888,44 @@ ACTOR Hover
    DropItem Cell
     States
     {
-   Spawn: 
-	HVRW A 0 A_PlaySound("q2hover/flying", 4, 0.5)
-      HVRW AB 7 A_Look 
-	HVRW A 0 A_PlaySound("q2hover/flying", 4, 0.5)
-      HVRW CD 7 A_Look 
-	HVRW A 0 A_PlaySound("q2hover/flying", 4, 0.5)
-      HVRW EF 7 A_Look 
-	HVRW A 0 A_PlaySound("q2hover/flying", 4, 0.5)
-      HVRW GH 7 A_Look 
-	HVRW A 0 A_PlaySound("q2hover/flying", 4, 0.5)
-      HVRW IJ 7 A_Look 
-	HVRW A 0 A_PlaySound("q2hover/flying", 4, 0.5)
-      HVRW K 7 A_Look 
-      Loop 
-   See: 
-	HVRW A 0 A_PlaySound("q2hover/flying", 4, 0.5)
-      HVRW AB 7 A_Chase 
-	HVRW A 0 A_PlaySound("q2hover/flying", 4, 0.5)
-      HVRW CD 7 A_Chase 
-	HVRW A 0 A_PlaySound("q2hover/flying", 4, 0.5)
-      HVRW EF 7 A_Chase 
-	HVRW A 0 A_PlaySound("q2hover/flying", 4, 0.5)
-      HVRW GH 7 A_Chase 
-	HVRW A 0 A_PlaySound("q2hover/flying", 4, 0.5)
-      HVRW IJ 7 A_Chase 
-	HVRW A 0 A_PlaySound("q2hover/flying", 4, 0.5)
-      HVRW K 7 A_Chase 
-	Loop
-   Missile: 
-      HVRA ABCD 4 A_FaceTarget 
-      HVRA EE 4 bright A_CustomMissile("WeakBlasterBolt", 24, 0, 0, 1)
-      HVRA E 0 A_FaceTarget
-      HVRA EE 4 bright A_CustomMissile("WeakBlasterBolt", 24, 0, 0, 1)
-      HVRA E 0 A_FaceTarget
-      HVRA EE 4 bright A_CustomMissile("WeakBlasterBolt", 24, 0, 0, 1)
-      HVRA E 0 A_FaceTarget
-      HVRA EE 4 bright A_CustomMissile("WeakBlasterBolt", 24, 0, 0, 1)
-      HVRA E 0 A_FaceTarget
-      HVRA FGH 4 A_FaceTarget 
-      Goto See 
-   Pain: 
-      HVRP A 4 A_Pain 
-      Goto See 
-   Death: 
-	HVRD A 0 A_StopSound
-      HVRD A 6 A_Scream
-      HVRD B 6 A_NoBlocking
-      HVRD C 6 A_SetFloorClip
-      Wait 
-   Crash:
-	HVRD DEFGHIJ 3
-	NULL A 0 A_SpawnItemEx("Kaboom",0,0,random(20,40),0,0,0,0,1)
-	NULL AAAAAAAA 0 A_TossGib
-	TNT1 A 0 A_CustomMissile("ExplosionSmoke",0,0,0)
-	EXPL A 0 A_CustomMissile("ExploSmoke",0+Random(0,25),0+Random(5,-5),0+Random(0,370))
-	LYEP A 5 A_CustomMissile("Q2FlyingThingsExplo",0,0,0)
-	Stop
+    Spawn: 
+		HVRW A 0 
+		HVRW A 0 A_PlaySound("q2hover/flying",6,0.4,5)
+		HVRW ABCDEFGHIJK 7 A_Look 
+		Loop 
+    See: 
+		HVRW A 0 A_PlaySound("q2hover/flying",6,0.4,5)
+		HVRW ABCDEFGHIJK 7 A_Chase 
+		Loop
+	Missile: 
+		HVRA ABCD 4 A_FaceTarget 
+		HVRA EE 4 bright A_CustomMissile("WeakBlasterBolt", 24, 0, 0, 1)
+		HVRA E 0 A_FaceTarget
+		HVRA EE 4 bright A_CustomMissile("WeakBlasterBolt", 24, 0, 0, 1)
+		HVRA E 0 A_FaceTarget
+		HVRA EE 4 bright A_CustomMissile("WeakBlasterBolt", 24, 0, 0, 1)
+		HVRA E 0 A_FaceTarget
+		HVRA EE 4 bright A_CustomMissile("WeakBlasterBolt", 24, 0, 0, 1)
+		HVRA E 0 A_FaceTarget
+		HVRA FGH 4 A_FaceTarget 
+		Goto See 
+	Pain: 
+		HVRP A 4 A_Pain 
+		Goto See 
+	Death: 
+		HVRD A 0 A_StopSound(6)
+		HVRD A 6 A_Scream
+		HVRD B 6 A_NoBlocking
+		HVRD C 6 A_SetFloorClip
+		Wait 
+	Crash:
+		HVRD DEFGHIJ 3
+		NULL A 0 A_SpawnItemEx("Kaboom",0,0,random(20,40),0,0,0,0,1)
+		NULL AAAAAAAA 0 A_TossGib
+		TNT1 A 0 A_CustomMissile("ExplosionSmoke",0,0,0)
+		EXPL A 0 A_CustomMissile("ExploSmoke",0+Random(0,25),0+Random(5,-5),0+Random(0,370))
+		LYEP A 5 A_CustomMissile("Q2FlyingThingsExplo",0,0,0)
+		Stop
    } 
 } 
 

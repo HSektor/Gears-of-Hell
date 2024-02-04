@@ -68,6 +68,8 @@ Actor Cheat1 : RandomSpawner
    DropItem LimitRaygun
    DropItem LimitLSCMinigun
    DropItem LimitM14
+   DropItem LimitLaserAutomag
+   DropItem LimitQGrenadeLauncher
 }
 
 //===========================================================================
@@ -345,7 +347,7 @@ Actor RLSpawner : CustomInventory replaces RocketLauncher
 	States
 	{
 	Spawn:
-	      TNT1 A 0 A_Jump(128,"R01","R02")
+	      TNT1 A 0 A_Jump(128,"R01","R02", "R04")
 	      TNT1 A 0 A_Jump(32,"R03")
 	      TNT1 A 0 A_SpawnItemEx("MMZombie",random(10,-10),random(10,-10),0,0,0,0,0,0,200)
 		  loop
@@ -360,6 +362,10 @@ Actor RLSpawner : CustomInventory replaces RocketLauncher
 	R03:
 	      TNT1 A 0 A_SpawnItem("LimitSuperRocket", 0, 0, 0, 0)
 		  TNT1 A 0 A_SpawnItemEx("HeavyMissile",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	R04:
+		  TNT1 A 0 A_SpawnItem("LimitQGrenadeLauncher", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("RocketAmmo",random(10,-10),random(10,-10),0,0,0,0,0,64)
 		  Goto Spawn2
 	Spawn2:
 		  TNT1 A -1 A_ChangeFlag("THRUACTORS",false)
@@ -646,6 +652,50 @@ Actor BFGSpawner : CustomInventory replaces BFG9000
 //===========================================================================
 //===========================================================================
 
+Actor PistolSpawner : CustomInventory replaces Pistol
+{
+	Inventory.Amount 0
+	Inventory.MaxAmount 999
+	Inventory.RespawnTics 1032
+	+INVENTORY.ALWAYSPICKUP
+	+INVENTORY.QUIET
+	-COUNTITEM
+	+THRUACTORS
+	RenderStyle None
+	States
+	{
+	Spawn:
+	      TNT1 A 0 A_Jump(128,"P01","P02","P03","P04","P05")
+	      TNT1 A 0 A_SpawnItemEx("MMZombie",random(10,-10),random(10,-10),0,0,0,0,0,0,200)
+		  loop
+	P01:
+	      TNT1 A 0 A_SpawnItem("LimitCoolPistol", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Clip",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	P02:
+	      TNT1 A 0 A_SpawnItem("LimitQ2Blaster", 0, 0, 0, 0)
+		  Goto Spawn2
+	P03:
+	      TNT1 A 0 A_SpawnItem("LimitLaserAutomag", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Cell",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	P04:
+	      TNT1 A 0 A_SpawnItem("LimitRevolver", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Clip",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	P05:
+	      TNT1 A 0 A_SpawnItem("LimitFlaregun", 0, 0, 0, 0)
+		  TNT1 A 0 A_SpawnItemEx("Fuel",random(10,-10),random(10,-10),0,0,0,0,0,64)
+		  Goto Spawn2
+	Spawn2:
+		  TNT1 A -1 A_ChangeFlag("THRUACTORS",false)
+		  Loop
+	}
+}
+
+//===========================================================================
+//===========================================================================
+
 Actor ZombiemanSpawner : RandomSpawner replaces Zombieman
 {
    DropItem "ZSecPistol" 255 5
@@ -659,6 +709,7 @@ Actor ZombiemanSpawner : RandomSpawner replaces Zombieman
    DropItem "BloodSoldier" 255 5
    DropItem "FSoldier" 255 5
    DropItem "Q2Soldier1" 255 5
+   DropItem "RapidFireTrooper" 255 5
    DropItem "Ailoprobe" 255 3
    DropItem "magmaZombieMan" 255 2
    DropItem "LiquidZombieMan" 255 2
@@ -675,19 +726,14 @@ Actor SZombieManSpawner : ZombieManSpawner replaces StealthZombieMan
 
 Actor ShotgunguySpawner : RandomSpawner replaces ShotgunGuy
 {
-   DropItem "RapidFireTrooper" 255 5
    DropItem "ZSecShotgun" 255 5
    DropItem "ShotgunSoldier" 255 5
    DropItem "Pigcop" 255 5
    DropItem "BottleBum" 255 5
    DropItem "MolotovBum" 255 5
    DropItem "cyborg" 255 5
-   DropItem "Uberzombie" 255 5
    DropItem "UndeadPriest" 255 5
    DropItem "Q2Soldier2" 255 5
-   DropItem "RifleTroop" 255 5
-   DropItem "Parasite" 255 5
-   DropItem "KnightArcher" 255 5
    DropItem "BiomechBipod" 255 4
    DropItem "NightmareZombie" 255 3
    DropItem "Bandor" 255 3
@@ -711,12 +757,13 @@ Actor ChaingunGuySpawner : RandomSpawner replaces ChaingunGuy
    DropItem "Q2Soldier3" 255 5
    DropItem "EliteZombie" 255 5
    DropItem "ZSecMachinegun" 255 5
-   DropItem "CyberSarge" 255 4
-   DropItem "MarineNoob" 255 4
+   DropItem "KnightArcher" 255 5
    DropItem "Trooper_M20" 255 4
+   DropItem "D3ChaingunGuy" 255 3
    DropItem "GoreRocketGuy" 255 3
    DropItem "NightmareShotgunguy" 255 3
    DropItem "UndeadCultist" 255 3
+   DropItem "MarineNoob" 255 3
    DropItem "MagmaChaingunguy" 255 2
    DropItem "stonechaingunguy" 255 2
    DropItem "LiquidChaingunguy" 255 2
@@ -765,11 +812,13 @@ Actor ImpSpawner : RandomSpawner replaces DoomImp
    DropItem "TrickImp" 255 5
    DropItem "SunMonk" 255 5
    DropItem "Hellion" 255 5
+   DropItem "Parasite" 255 5
    DropItem "ArchMinion" 255 2
    DropItem "StoneDoomImp" 255 2
    DropItem "magmaDoomImp" 255 2
    DropItem "WaterImp" 255 2
    DropItem "NewMarineRailgun" 255 1
+   DropItem "SpiritImp" 255 1
 }
 
 Actor SImpSpawner  : ImpSpawner replaces StealthDoomImp
@@ -793,6 +842,7 @@ Actor DemonSpawner : RandomSpawner replaces Demon
    DropItem "BaronDemon"
    DropItem "BerserkMarine"
    DropItem "Berserker"
+   DropItem "Q2Mutant"
    DropItem "Tenaj"
 }
 
@@ -864,16 +914,17 @@ Actor PainElementalSpawner : RandomSpawner replaces PainElemental
 
 Actor HellKnightSpawner : RandomSpawner replaces HellKnight
 {
-   DropItem "MagicImp"
-   DropItem "OldHellWarrior"
-   DropItem "CursedMummy"
-   DropItem "FWarrior"
-   DropItem "Q2Mutant"   
-   DropItem "EXMonk"
-   DropItem "D3HellKnight"
-   DropItem "Nemesis"
-   DropItem "HellSquire" 
-   DropItem "ApocZombie"
+   DropItem "OldHellWarrior" 255 10
+   DropItem "Nemesis" 255 10
+   DropItem "FWarrior" 255 10
+   DropItem "D3HellKnight" 255 10
+   DropItem "CursedMummy" 255 9
+   DropItem "HellSquire"  255 9
+   DropItem "MagicImp" 255 8
+   DropItem "EXMonk" 255 8
+   DropItem "Q2Brains" 255 5
+   DropItem "ApocZombie" 255 5
+   DropItem "IronMaiden" 255 5
 }
 
 Actor SHellKnightSpawner : HellKnightSpawner replaces StealthHellKnight
@@ -887,13 +938,11 @@ Actor BaronOfHellSpawner : RandomSpawner replaces BaronOfHell
    DropItem "Chex" 255 15
    DropItem "SpiritMaster" 255 15
    DropItem "ObsidianStatue" 255 15
-   DropItem "SuperBaron" 255 15
-   DropItem "IronMaiden" 255 15
    DropItem "AcidDemon" 255 15
    DropItem "SurrealKnight" 255 10
-   DropItem "Q2Brains" 255 10
-   DropItem "MegaMarine" 255 5
+   DropItem "Tank" 255 8
    DropItem "TRNemesis" 255 5
+   DropItem "MegaMarine" 255 3
 } 
 
 Actor SBaronOfHellSpawner : BaronOfHellSpawner replaces StealthBaron
@@ -930,6 +979,7 @@ ACTOR ArchVileSpawner : RandomSpawner replaces Archvile
 	DropItem "Trickvile" 256 7
     DropItem "Terminator" 255 7
 	DropItem "shadowImp" 256 5
+	DropItem "TankCommander" 256 5
 	DropItem "Icevile" 256 4
     DropItem "Earthvile" 255 4
 	spawnid 111
@@ -943,16 +993,15 @@ Actor SArchVileSpawner : ArchVileSpawner replaces StealthArchvile
 
 Actor MancubusSpawner : RandomSpawner replaces Fatso
 {
-	DropItem "1337Ettin" 255
-	DropItem "SuperIceGuy" 255
-    DropItem "Magicubus" 225
-    DropItem "Predador" 255
-	DropItem "Baatezu" 255
-	DropItem "Fatcubus" 255
-    DropItem "stonefatso" 255
-	DropItem "Tank" 255
-	DropItem "AirElemental" 255
-	DropItem "CrystalElemental" 255
+	DropItem "1337Ettin" 255 10
+	DropItem "SuperIceGuy" 255 10
+    DropItem "Magicubus" 225 10
+	DropItem "Baatezu" 255 10
+    DropItem "stonefatso" 255 10
+    DropItem "Predador" 255 8
+	DropItem "AirElemental" 255 8
+    DropItem "Gladiator" 255 8
+	DropItem "CrystalElemental" 255 6
 	//DropItem "AdolfHitler" 255
 	//DropItem "RailgunNazi" 255
 }
@@ -972,9 +1021,9 @@ Actor ArachnotronSpawner : RandomSpawner replaces Arachnotron
 	DropItem "GScorpionMinion" 255 8
 	DropItem "Gladiator" 255 8
 	DropItem "SuperD3Trite" 255 5
-    DropItem "RailgunnerEX" 225 5
 	DropItem "MiniBattlelord" 255 5
 	DropItem "Hunker" 255 5
+    DropItem "RailgunnerEX" 225 2
 }
 
 Actor DalekSpawner : RandomSpawner
@@ -1007,6 +1056,7 @@ Actor SpiderMastermindSpawner : RandomSpawner replaces SpiderMastermind
 	DropItem "UltimateImp"
 	DropItem "Balor"
 	DropItem "ReverendMother"
+	DropItem "FormerBerserker"
 }
 
 //===========================================================================
@@ -1021,11 +1071,11 @@ ACTOR CyberdemonSpawner : RandomSpawner replaces Cyberdemon
 	DropItem "DiamondGolem" 255 15
 	DropItem "HellWizard" 255 15
 	DropItem "DemonMonk" 255 15
-	DropItem "NightmareBaron" 255 15
 	DropItem "MotherDemon" 255 10
 	DropItem "LichKing" 255 10
 	DropItem "Desolator" 255 10
-	DropItem "Burns" 255 6
+	DropItem "Cherub" 255 5
+	DropItem "Burns" 255 4
 	DropItem "Thiny93" 255 3
 	DropItem "RareImp" 255 3
 }

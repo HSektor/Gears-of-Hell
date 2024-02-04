@@ -185,6 +185,8 @@ generator HellWarriorBall    	 BaronScorch
 generator CrackodemonBall        CacoScorch
 generator Blusoul                CacoScorch
 generator LaserFX                BulletMark
+generator LaserFX2               BulletMark
+generator LaserFXAutomag                BulletMark
 generator Flakgrenade2           Scorch
 generator M202A1Rocket           Scorch
 generator FireRocket             Scorch
@@ -295,3 +297,7 @@ Decal RaygunDecal
 Generator Bloodshot                     BloodSplat
 Generator GoreWyrm                      BloodSplat
 Generator GoreShot1                     BloodSplat
+
+generator VulcanBullet                  BulletChip
+generator SwarmRocket                   Scorch
+generator SwarmMissile                  RevenantScorch

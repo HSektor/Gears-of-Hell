@@ -58,7 +58,7 @@ actor CoolPistol : GoHWeapon
     TNT1 A 0 A_JumpIfNoAmmo("Deselect")
     CPSG A 2
     TNT1 A 0 ACS_Execute(287,0,12,random(4,8),0)
-    CPSG B 2 Bright A_RailAttack(30,8,1,None,"FF A5 00") 
+    CPSG B 2 Bright A_RailAttack(20,8,1,None,"FF A5 00") 
     CPSG C 2 Bright
     CPSG D 2 A_FireProjectile("BulletCasing",50+Random(-20,20),0,0,1)
     CPSG B 0 A_Recoil(4)
@@ -429,69 +429,67 @@ ACTOR NeoShotgun : GoHWeapon
    States
    {
    Spawn:
-   NSHO P 1
-   Loop
+	   NSHO P 1
+	   Loop
    Ready:
-   NSHO A 1 A_WeaponReady(WRF_ALLOWUSER1)
-   loop
+	   NSHO A 1 A_WeaponReady(WRF_ALLOWUSER1)
+	   loop
    User1: 
-   TNT1 A 0 A_SpawnItemEx("LimitNeoShotgun", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER)
-   TNT1 A 0 A_TakeInventory("Token",1)
-   TNT1 A 0 A_TakeInventory("NeoShotgun",1)
-   stop
+	   TNT1 A 0 A_SpawnItemEx("LimitNeoShotgun", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER)
+	   TNT1 A 0 A_TakeInventory("Token",1)
+	   TNT1 A 0 A_TakeInventory("NeoShotgun",1)
+	   stop
    Select:
-   NSHO A 1 A_RAISE
-   NULL AA 0 A_Raise
-   Loop
+	   NSHO A 1 A_RAISE
+	   NULL AA 0 A_Raise
+	   Loop
    Deselect:
-   NSHO A 1 A_LOWER
-   NULL AA 0 A_Lower
-   Loop
+	   NSHO A 1 A_LOWER
+	   NULL AA 0 A_Lower
+	   Loop
    fire:
-   TNT1 A 0 A_JumpIfNoAmmo("Deselect")
-   NULL A 0 A_PlayWeaponSound("weapons/mossberg500fire")
-   NULL A 0 A_GunFlash
-   TNT1 A 0 ACS_Execute(287,0,40,random(-5,5),0)
-   NSHO D 3 BRIGHT A_FireBullets(5, 5, 6, 4, "Puff2", 1)
-   NSHO A 0 A_FireProjectile("ShotgunCasingSpawner",-90+random(-10,10),0,2,-3)
-   NSHO E 3 BRIGHT
-   NSHO A 8 ACS_Execute(287,0,-20,0,0)
-   NSHO A 0 A_PlaySound("weapons/mossberg500cock")
-   NULL A 0 
-   NSHO B 5 ACS_Execute(287,0,-20,0,0)
-   NSHO CB 3
-   NSHO A 8
-   Goto ready
+	   TNT1 A 0 A_JumpIfNoAmmo("Deselect")
+	   NULL A 0 A_PlayWeaponSound("weapons/mossberg500fire")
+	   NULL A 0 A_GunFlash
+	   TNT1 A 0 ACS_Execute(287,0,40,random(-5,5),0)
+	   NSHO D 3 BRIGHT A_FireBullets(5, 5, 6, 4, "Puff2", 1)
+	   NSHO A 0 A_FireProjectile("ShotgunCasingSpawner",-90+random(-10,10),0,2,-3)
+	   NSHO E 3 BRIGHT
+	   NSHO A 8 ACS_Execute(287,0,-20,0,0)
+	   NSHO A 0 A_PlaySound("weapons/mossberg500cock")
+	   NULL A 0 
+	   NSHO B 5 ACS_Execute(287,0,-20,0,0)
+	   NSHO CB 3
+	   NSHO A 8
+	   Goto ready
    Altfire:
-   TNT1 A 0 A_JumpIfNoAmmo("Deselect")
-   NULL A 0 A_PlayWeaponSound("weapons/mossberg500fire")
-   NULL A 0 A_GunFlash
-   TNT1 A 0 ACS_Execute(287,0,60,random(-5,5),0)
-   NSHO D 4 BRIGHT A_FireBullets(5,4,6,2,"BulletExp",1)
-   NSHO A 0 A_FireProjectile("ShotgunCasingSpawner",-90+random(-10,10),0,2,-3)
-   NSHO E 3 BRIGHT
-   NSHO A 8 ACS_Execute(287,0,-30,0,0)
-   NSHO A 0 A_PlaySound("weapons/mossberg500cock")
-   NULL A 0 
-   NSHO B 5 ACS_Execute(287,0,-30,0,0)
-   NSHO CB 3
-   NSHO A 10
-   Goto ready
+	   TNT1 A 0 A_JumpIfNoAmmo("Deselect")
+	   NULL A 0 A_PlayWeaponSound("weapons/mossberg500fire")
+	   NULL A 0 A_GunFlash
+	   TNT1 A 0 ACS_Execute(287,0,60,random(-5,5),0)
+	   NSHO D 4 BRIGHT A_FireBullets(5,4,6,2,"BulletExp",1)
+	   NSHO A 0 A_FireProjectile("ShotgunCasingSpawner",-90+random(-10,10),0,2,-3)
+	   NSHO E 3 BRIGHT
+	   NSHO A 8 ACS_Execute(287,0,-30,0,0)
+	   NSHO A 0 A_PlaySound("weapons/mossberg500cock")
+	   NULL A 0 
+	   NSHO B 5 ACS_Execute(287,0,-30,0,0)
+	   NSHO CB 3
+	   NSHO A 10
+	   Goto ready
    }
 }
 
 ACTOR BulletExp
 {
     Damage 11
-    ExplosionDamage 11
+    ExplosionDamage 8
     ExplosionRadius 5
     Renderstyle Add
 	Radius 10
 	Height 32
 	Speed 0
 	Scale 0.20
-	SeeSound "weapons/bulletexplode"
-	DeathSound "weapons/bulletexplode"
     Damagetype Fire
 	PROJECTILE
 	+NOCLIP
@@ -499,7 +497,8 @@ ACTOR BulletExp
    States
    {
    Spawn:
-      EXP1 ABC 1 BRIGHT A_Explode 
+	  EXP1 A 1 A_StartSound("weapons/bulletexplode", 6, 0, 0.8)
+      EXP1 BC 1 BRIGHT A_Explode 
       EXP1 DEFGHIJKLMNOPQ 1 BRIGHT 
       Stop
    }
@@ -618,21 +617,21 @@ ACTOR AlienShotgunAltReloader3 : Inventory
    Inventory.MaxAmount 1
 }
 
-//from...i dunno? (maybe re-do it?)
-actor MachinePistol : GoHWeapon 20888
+//sprites from zrrion
+actor LaserAutomag : GoHWeapon 20888
 {
-  obituary "%o was punctured %k's machinepistol."
+  obituary "%o was punctured %k's Laser Automag."
   radius 20
   height 16
-  attacksound "MP/Fire"
-  inventory.pickupmessage "You got the machinepistol!"
+  inventory.pickupmessage "You got the Laser Automag!"
   Inventory.PickupSound "weapons/getweapon07"
   weapon.kickback 100
+  attacksound "LaserAutomag/Fire"
   weapon.upsound "MP/Up"
-  weapon.ammotype1 "Clip"
-  weapon.ammotype2 "Clip"
+  weapon.ammotype1 "Cell"
+  weapon.ammotype2 "Cell"
   weapon.ammouse1 1
-  weapon.ammouse2 2
+  weapon.ammouse2 1
   weapon.ammogive 0
   decal BulletMark
   +WEAPON.NOALERT
@@ -642,9 +641,9 @@ actor MachinePistol : GoHWeapon 20888
     MPIS A 1 A_WeaponReady(WRF_ALLOWUSER1)
     loop
    User1: 
-    TNT1 A 0 A_SpawnItemEx("LimitMachinePistol", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER)
+    TNT1 A 0 A_SpawnItemEx("LimitLaserAutomag", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER)
     TNT1 A 0 A_TakeInventory("Token",1)
-    TNT1 A 0 A_TakeInventory("MachinePistol",1)
+    TNT1 A 0 A_TakeInventory("LaserAutomag",1)
     stop
   Deselect: 
     MPIS A 1 A_Lower
@@ -656,22 +655,118 @@ actor MachinePistol : GoHWeapon 20888
     loop
   Fire:
     TNT1 A 0 A_JumpIfNoAmmo("Deselect")
-    MPIS B 0 A_FireBullets (4, 4, 1, 4, "Puff2")
-    MPIS B 4 offset (0,34)A_GunFlash
+    MPIS A 2
+    MPIS B 1 offset(0,34) A_GunFlash
 	TNT1 A 0 ACS_Execute(287,0,12,random(-4,4),0)
-    MPIS C 4 offset (0,36)A_FireBullets (4, 4, 1, 6, "Puff2")
+	MPIS C 1 A_StartSound("LaserAutomag/Fire", CHAN_WEAPON, CHANF_OVERLAP)
+    MPIS C 1 offset (0,36) A_FireProjectile("LaserFXAutomag",0,1,5,6)
 	TNT1 A 0 ACS_Execute(287,0,-12,0,0)
-    MPIS C 0 A_FireProjectile("BulletCasingSpawner",-90+random(-10,10),0,2,-3)
     MPIS C 0 A_ReFire
     goto Ready
-  AltFire:
-    TNT1 A 0 A_JumpIfNoAmmo("Deselect")
-    MPIS B 0 A_FireBullets (1, 1, 1, random(10,25), "Puff2")
-	TNT1 A 0 ACS_Execute(287,0,16,random(-4,4),0)
-    MPIS BC 2 A_GunFlash
-    MPIS A 16 ACS_Execute(287,0,-16,0,0)
-    MPIS A 0 A_ReFire
-    goto Ready
+   AltFire:
+	MPIS A 3 A_StartSound("LaserAutomag/Charge", CHAN_7)
+   AltHold:
+	MPIS B 2 A_GiveInventory("LaserAutomagToken")
+	MPIS B 1 A_Refire("AltHold2")
+	Goto AltRelease1
+   AltHold2:
+	MPIS C 2 A_GiveInventory("LaserAutomagToken")
+	MPIS C 1 A_Refire("AltHold3")
+	Goto AltRelease2
+   AltHold3:
+	MPIS B 2 A_GiveInventory("LaserAutomagToken")
+	MPIS B 1 A_Refire("AltHold4")
+	Goto AltRelease3
+   AltHold4:
+	MPIS C 2 A_GiveInventory("LaserAutomagToken")
+	MPIS C 1 A_Refire("AltHold5")
+	Goto AltRelease4	
+   AltHold5:
+	MPIS B 2 A_GiveInventory("LaserAutomagToken")
+	MPIS B 1 A_Refire("AltHold6")
+	Goto AltRelease5
+   AltHold6:
+	MPIS B 2 A_GiveInventory("LaserAutomagToken")
+	MPIS B 1 A_Refire("AltHold7")
+	Goto AltRelease6
+   AltHold7:
+	MPIS C 2 A_GiveInventory("LaserAutomagToken")
+	TNT1 A 0 A_TakeInventory("LaserAutomagToken",7)
+	TNT1 A 0 A_GunFlash
+	TNT1 A 0 A_StartSound("LaserAutomag/Fire", CHAN_WEAPON)
+    MPIS C 1 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+    MPIS C 0 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+    MPIS C 0 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+    MPIS C 0 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+    MPIS C 0 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+    MPIS C 0 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+    MPIS C 0 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+	MPIS B 2
+	MPIS A 17 
+	Goto Ready
+  AltRelease1:
+	TNT1 A 0 A_TakeInventory("LaserAutomagToken",7)
+	TNT1 A 0 A_GunFlash
+	TNT1 A 0 A_StartSound("LaserAutomag/Fire", CHAN_WEAPON)
+    MPIS C 1 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+	MPIS B 2
+	MPIS A 11 
+	Goto Ready
+  AltRelease2:
+	TNT1 A 0 A_TakeInventory("LaserAutomagToken",7)
+	TNT1 A 0 A_GunFlash
+	TNT1 A 0 A_StartSound("LaserAutomag/Fire", CHAN_WEAPON)
+    MPIS C 1 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+    MPIS C 0 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+	MPIS B 2
+	MPIS A 12 
+	Goto Ready
+  AltRelease3:
+	TNT1 A 0 A_TakeInventory("LaserAutomagToken",7)
+	TNT1 A 0 A_GunFlash
+	TNT1 A 0 A_StartSound("LaserAutomag/Fire", CHAN_WEAPON)
+    MPIS C 1 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+    MPIS C 0 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+    MPIS C 0 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+ 	MPIS B 2
+	MPIS A 13 
+	Goto Ready
+  AltRelease4:
+	TNT1 A 0 A_TakeInventory("LaserAutomagToken",7)
+	TNT1 A 0 A_GunFlash
+	TNT1 A 0 A_StartSound("LaserAutomag/Fire", CHAN_WEAPON)
+    MPIS C 1 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+    MPIS C 0 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+    MPIS C 0 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+    MPIS C 0 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+	MPIS B 2
+	MPIS A 14 
+	Goto Ready
+  AltRelease5:
+	TNT1 A 0 A_TakeInventory("LaserAutomagToken",7)
+	TNT1 A 0 A_GunFlash
+	TNT1 A 0 A_StartSound("LaserAutomag/Fire", CHAN_WEAPON)
+    MPIS C 1 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+    MPIS C 0 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+    MPIS C 0 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+    MPIS C 0 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+    MPIS C 0 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+	MPIS B 2
+	MPIS A 15 
+	Goto Ready
+  AltRelease6:
+	TNT1 A 0 A_TakeInventory("LaserAutomagToken",7)
+	TNT1 A 0 A_GunFlash
+	TNT1 A 0 A_StartSound("LaserAutomag/Fire", CHAN_WEAPON)
+    MPIS C 1 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+    MPIS C 0 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+    MPIS C 0 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+    MPIS C 0 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+    MPIS C 0 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+    MPIS C 0 Bright A_FireCustomMissile("LaserFXAutomag",random(-5,5),1,random(-10,20),random(-10,20))
+	MPIS B 2
+	MPIS A 16
+	Goto Ready
   Flash:
     TNT1 A 4 bright A_Light1
     TNT1 A 5 bright A_Light2
@@ -681,6 +776,33 @@ actor MachinePistol : GoHWeapon 20888
     MPIS D -1
     stop
   }
+}
+
+
+Actor LaserAutomagToken : Inventory
+{
+	Inventory.MaxAmount 7
+}
+
+ACTOR LaserFXAutomag
+{
+PROJECTILE
+RenderStyle TRANSLUCENT
+Alpha 0.5
+Height 4
+Radius 4
+Speed 24
+Damage 3
+DeathSound "LaserHit"
+States
+{
+Spawn:
+LBFX A 12 BRIGHT
+Loop
+Death:
+LBFX FGHI 3 BRIGHT
+Stop
+}
 }
 
 //from Daniel's Arsenal
@@ -1092,154 +1214,86 @@ ACTOR	MaelStromBolt4F : MaelStromBolt4
 	Damage 5
 }	
 
-//from ARSENAL
-ACTOR LongRifle : GoHWeapon
+//Credits for jdredalert
+ACTOR SuperRocket : Weapon
 {
-   Weapon.SelectionOrder 1280
-   Inventory.PickupSound "weapons/getweapon08"
-   Inventory.PickupMessage "You got the Rifle!"
-   Obituary "%o was caught by %k's Rifle."
-   Weapon.AmmoType1 "RifleShells"
-   Weapon.AmmoType2 "RifleShells"
-   Weapon.AmmoGive 0
-   Weapon.AmmoUse1 1
-   Weapon.AmmoUse2 1
-   scale 0.85
-   +NOALERT
-   +NOAUTOFIRE
-   States
-   {
-   Spawn:
-      RFLW A -1
-      Stop
-   Ready:
-      LRIF A 1 A_WeaponReady(WRF_ALLOWUSER1)
-      loop
-   User1: 
-      TNT1 A 0 A_SpawnItemEx("LimitLongRifle", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER)
-      TNT1 A 0 A_TakeInventory("Token",1)
-      TNT1 A 0 A_TakeInventory("LongRifle",1)
-      stop
-   Deselect: 
-      TNT1 A 0 A_TakeInventory ("Sniper_Zoomed", 2)
-      TNT1 A 0 A_ZoomFactor(1.0)
-      LRIF A 1 A_Lower
-	  NULL AA 0 A_Lower
-      Goto Deselect+2
-   Select:
-      LRIF A 1 A_Raise
-	  NULL AA 0 A_Raise
-      Loop
-   Fire:
-      TNT1 A 0 A_JumpIfNoAmmo("Deselect")
-      LRIF A 3 A_FireProjectile("CheapAlert",0,0,0,0)
-      LRIF B 0 A_PlayWeaponSound("Sniper/Gun")
-      LRIF B 0 A_Light2
-      LRIF B 0 A_Recoil(2.5)
-      LRIF B 4 Bright A_FireBullets(0,0,5,25,"Puff2",1)
-	  TNT1 A 0 ACS_Execute(287,0,40,random(-4,4),0)
-      LRIF B 0 A_FireProjectile("762MMCasingSpawner",-90+random(-10,10),0,2,-3)
-      LRIF C 0 A_Recoil(-2)
-      LRIF C 0 A_Light0
-	  LRIF C 20
-      LRIF D 6 ACS_Execute(287,0,-20,0,0)
-      LRIF A 2 ACS_Execute(287,0,-20,0,0)
-      LRIF A 0 A_ReFire
-      Goto Ready
-   AltFire:
-      ASNS A 0 A_SetCrosshair(50)
-      LRIF CD 3
-      TNT1 A 0 A_JumpIfInventory("Sniper_Zoomed", 2, "ZoomOut")
-      TNT1 A 0 A_JumpIfInventory("Sniper_Zoomed", 1, "Zoom2")
-      //fall through
-   Zoom1:
-      TNT1 A 0 A_PlayWeaponSound("weapons/riflescope")
-      TNT1 A 0 A_ZoomFactor(2.0)
-      TNT1 A 0 A_GiveInventory ("Sniper_Zoomed", 1)
-      Goto "AltFireDone"
-   Zoom2:
-      TNT1 A 0 A_PlayWeaponSound("weapons/riflescope")
-      TNT1 A 0 A_ZoomFactor(4.0)
-      TNT1 A 0 A_GiveInventory ("Sniper_Zoomed", 1)
-      Goto "AltFireDone"
-   ZoomOut:
-      TNT1 A 0 A_PlayWeaponSound("weapons/riflescope")
-      TNT1 A 0 A_ZoomFactor(1.0)
-      TNT1 A 0 A_TakeInventory ("Sniper_Zoomed", 2)
-      Goto "AltFireDone"
-   AltFireDone:
-      LRIF D 5 A_ReFire
-      Goto "Ready" 
-   }
-}
-
-actor Sniper_Zoomed : Inventory
-{
-  inventory.maxamount 2
-}
-
-//Credits for DuduKrazy
-ACTOR SuperRocket : GoHWeapon
-{
-   Inventory.PickupMessage "M202A1 Rocket Launcher"
-   Inventory.PickupSound "weapons/getweapon05"
-   Weapon.AmmoGive 0
-   Weapon.AmmoType "HeavyMissile"
-   Weapon.Ammouse 1
-   Weapon.AmmoGive2 0
-   Weapon.AmmoType2 "HeavyMissile"
-   Weapon.Ammouse2 2
-   +NOAUTOFIRE
-   Scale 0.55
-   States
-   {
-   Spawn:
-      M20P A -1
-      LOOP
-   Ready: 
-	  RPG5 A 1 A_WeaponReady(WRF_ALLOWUSER1)
-      loop
-   User1: 
-      TNT1 A 0 A_SpawnItemEx("LimitSuperRocket", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER)
-      TNT1 A 0 A_TakeInventory("Token",1)
-      TNT1 A 0 A_TakeInventory("SuperRocket",1)
-      stop
-   Deselect: 
-      RPG5 A 1
-	  RPGR FEDCB 1
-	  RPGR A 1
-	  NULL AA 0 A_Lower
-      Goto Deselect+7
-   Select: 
-      RPGR ABCDEF 1
-      RPG5 A 1 A_Raise
-	  NULL AA 0 A_Lower
-      Goto Select+7
-   Fire:
-      RPG5 B 0 A_Light1
-      RPG5 B 0 A_PlayWeaponSound("weapons/m202a1")
-	  RPG5 B 1 Bright A_FireProjectile("M202A1Rocket",0.5,1,14,1)
-      RPG5 B 1 ACS_Execute(287,0,250,random(-24,24),0)
-	  RPG5 C 0 A_Light2
-      RPG5 CC 1 Bright ACS_Execute(287,0,-50,0,0)
-      RPG5 D 0 A_Light0
-      RPG5 CD 1 ACS_Execute(287,0,-50,0,0)
-      RPG5 EFGHI 3 ACS_Execute(287,0,-5,0,0)
-      RPG5 A 2
-      Goto Ready
-    AltFire:
-      RPG5 B 0 A_Light1
-      RPG5 B 0 A_PlayWeaponSound("weapons/m202a1")
-      RPG5 B 1 Bright A_FireProjectile("FireRocket",0.5,1,14,1)
-	  RPG5 B 1 ACS_Execute(287,0,250,random(-24,24),0)
-      RPG5 B 0 A_Light2
-      RPG5 CC 1 Bright ACS_Execute(287,0,-50,0,0)
-      RPG5 C 0 A_Light0
-      RPG5 CD 1 ACS_Execute(287,0,-50,0,0)
-      RPG5 EFGHI 2 ACS_Execute(287,0,-5,0,0)
-      RPG5 A 2
-      Goto Ready
-   }
+  Inventory.PickupSound "weapons/getweapon05"
+  Weapon.AmmoGive 0
+  Weapon.AmmoType1 "HeavyMissile"
+  Weapon.Ammouse1 1
+  Weapon.AmmoGive2 0
+  Weapon.AmmoType2 "HeavyMissile"
+  Weapon.Ammouse2 2
+  scale 0.5
+  +WEAPON.NOAUTOFIRE
+  Inventory.PickupMessage "$You got the Anti Tank Missile Launcher!"
+  States
+  {
+  Ready:
+    NULL A 0 A_JumpIfNoAmmo(1) 
+    PNZF A 1 A_WeaponReady(WRF_ALLOWRELOAD)
+    Loop
+    PNZF C 1 A_WeaponReady(WRF_ALLOWRELOAD)
+    Loop
+  Deselect:
+    PNZF A 1 A_Lower
+    Loop
+  Select:
+    PNZF A 1 A_Raise
+    Loop
+  Fire:
+    NULL A 0 A_JumpIfNoAmmo("DryFire") 
+	TNT1 A 0 A_PlaySound("weapons/antitankfire")
+    PNZF B 1 ACS_Execute(287,0,-50,0,0)
+    PNZF B 1 Bright A_FireCustomMissile("M202A1Rocket",0,1,30,20,0)
+	TNT1 A 0 A_FireCustomMissile("ExplosionSmoke",0,0,0,5)
+	PNZF C 1 ACS_Execute(287,0,50,0,0)
+	PNZF C 2 Offset(38,38)
+	PNZF C 2 Offset(44,44)
+	PNZF C 2 Offset(38,38)
+	PNZF C 15 Offset(-1,32)
+	NULL A 0 A_CheckReload
+	Goto Reloading
+  Dryfire:
+	PNZF A 0 A_PlayWeaponSound("weapons/empty")
+	PNZF C 2
+	PNZF A 0 A_CheckReload
+	Goto Ready
+  AltFire:
+    NULL A 0 A_JumpIfNoAmmo("DryFire") 
+	TNT1 A 0 A_PlaySound("weapons/antitankfire")
+    PNZF B 1 ACS_Execute(287,0,-50,0,0)
+    PNZF B 1 Bright A_FireCustomMissile("FireRocket",0,1,30,20,0)
+	TNT1 A 0 A_FireCustomMissile("ExplosionSmoke",0,0,0,5)
+	PNZF C 1 ACS_Execute(287,0,50,0,0)
+	PNZF C 2 Offset(38,38)
+	PNZF C 3 Offset(44,44)
+	PNZF C 3 Offset(38,38)
+	PNZF C 20 Offset(-1,32)
+	NULL A 0 A_CheckReload
+	Goto Reloading
+  Reloading:
+	PNZF C 1 Offset(0,45) A_PlaySound("weapons/antitankreload ", 2)
+	PNZF C 1 Offset(0,60)
+	PNZF C 1 Offset(0,75)
+	PNZF C 1 Offset(0,90)
+	PNZF C 1 Offset(0,105)
+	PNZF C 1 Offset(0,120)
+	PNZF C 1 Offset(0,135)
+	PNZF C 30 Offset(0,150)
+	PNZF A 1 Offset(0,135)
+    PNZF A 1 Offset(0,120)
+    PNZF A 1 Offset(0,105)
+    PNZF A 1 Offset(0,90)
+    PNZF A 1 Offset(0,75)
+    PNZF A 1 Offset(0,60)
+    PNZF A 1 Offset(0,45)
+    PNZF A 1 Offset(0,32)
+    Goto Ready
+  Spawn:
+    PNZF S -1
+    Stop
+  }
 }
 
 ACTOR M202A1Rocket
@@ -1341,20 +1395,6 @@ ACTOR M202A1RocketTrail
     }
 }
 
-Actor GunSmoke : M202A1RocketTrail
-{
-    Scale 0.1
-	Renderstyle Add
-	ALPHA 0.3
-}
-
-Actor SmallGunSmoke : M202A1RocketTrail
-{
-    Scale 0.05
-	Renderstyle Add
-	ALPHA 0.3
-}
-
 ACTOR RLSmokeSpawner
 {
 	Speed 20
@@ -1367,103 +1407,6 @@ ACTOR RLSmokeSpawner
 		TNT1 AA 1 A_CustomMissile("RLSmoke",0,0,0,2,random(-10,10))
 		Stop
 	}
-}
-
-ACTOR Rocket2
-{
-	PROJECTILE
-	Damage 60
-	ExplosionDamage 192
-	ExplosionRadius 128
-	Speed 50
-	Height 8
-	Radius 8
-	Scale 0.45
-        +NOGRAVITY
-	States
-	{
-    Spawn:
-	GLNB A 1 A_CustomMissile("LioydRocketTrail",0,0,0)
-	Loop
-    Death:
-        EXP2 B 0 A_CustomMissile("ExplosionSmoke",0,0,0)
-        EXP2 B 0 A_CustomMissile("Rckt2Explosion",0,0,0)
-        Stop
-   	}
-}
-
-ACTOR RapidFireRocket
-{
-	PROJECTILE
-	Damage 20
-	Speed 50
-	Height 8
-	Radius 8
-        Mass 5
-	Scale 0.45
-        -NOGRAVITY
-	States
-	{
-    Spawn:
-	GLNB A 1 A_CustomMissile("LioydRocketTrail",0,0,0)
-	Loop
-    Death:
-        GLNB A 0 BRIGHT A_Scream
-        GLNB A 0 BRIGHT
-        GLNB A 0 A_CustomMissile("ExplosionSmoke",0,0,0)
-        GLNB A 0 A_CustomMissile("RFRcktExplosion",0,0,0)
-        Stop
-   	}
-}
-
-ACTOR RFRcktExplosion
-{
-     PROJECTILE
-     Renderstyle Add
-     ExplosionDamage 50
-     ExplosionRadius 64
-     Speed 0
-     Height 1
-     Radius 1
-     Scale 0.25
-     DeathSound "weapons/rcktxpl"
-     +NOGRAVITY
-     States
-     {
-        Spawn:
-            EXP2 A 0
-            Goto Death
-        Death:
-            EXP2 A 0 A_Scream
-            EXP2 A 1 A_Explode
-            EXP2 BCDEFGHIJKLMNOPQRSTUVWXY 1
-        Stop
-     }
-}
-
-ACTOR Rckt2Explosion
-{
-     PROJECTILE
-     Renderstyle Add
-     ExplosionDamage 192
-     ExplosionRadius 128
-     Speed 0
-     Height 1
-     Radius 1
-     Scale 0.45
-     DeathSound "weapons/rcktxpl"
-     +NOGRAVITY
-     States
-     {
-        Spawn:
-            EXP2 A 0
-            Goto Death
-        Death:
-            EXP2 A 1 A_Scream
-            EXP2 A 1 A_Explode
-            EXP2 BCDEFGHIJKLMNOPQRSTUVWXY 2
-        Stop
-     }
 }
 
 ACTOR Smoke
@@ -1485,13 +1428,6 @@ ACTOR Smoke
       SMOK OPQ 1
       Stop
    }
-}
-
-ACTOR LioydRocketTrail : Smoke
-{
-  RENDERSTYLE TRANSLUCENT
-  Scale 0.2
-  Alpha 0.5
 }
 
 ACTOR RLSmoke : Smoke
@@ -1680,7 +1616,7 @@ Inventory.MaxAmount 2
 }
 
 //from ARSENAL
-ACTOR Knife : GoHWeapon
+ACTOR KnifeBackup : GoHWeapon
 {
    Weapon.SelectionOrder 2210
    Inventory.PickupSound "weapons/knifeidle"
@@ -1755,6 +1691,87 @@ ACTOR Knife : GoHWeapon
       KNFG J 0 A_TakeInventory("Knife",1)
 	  TNT1 A 0 A_TakeInventory("Token",1)
       Goto Ready
+   }
+}
+
+ACTOR Knife : GoHWeapon
+{
+   Weapon.SelectionOrder 2210
+   Inventory.PickupSound "weapons/knifeidle"
+   Inventory.PickupMessage "You got the Knife!"
+   Obituary "%o was ripped by %k's Knife."
+   +WIMPY_WEAPON
+   +MELEEWEAPON
+   +NOALERT
+   States
+   {
+   Spawn:
+      KNFS A -1
+      Stop
+   Ready:
+      KNFG A 0 A_JumpIfInventory("KnifeAltChecker",1,"AltReady")
+      KNFG A 1 A_WeaponReady(WRF_ALLOWUSER1)
+      Goto Ready+1
+   AltReady:
+      KNFG G 1 A_WeaponReady(WRF_ALLOWUSER1)
+      Goto Ready
+   User1: 
+      TNT1 A 0 A_SpawnItemEx("LimitKnife", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER)
+      TNT1 A 0 A_TakeInventory("Token",1)
+      TNT1 A 0 A_TakeInventory("Knife",1)
+      stop
+   Deselect:
+      KNFG A 0 A_JumpIfInventory("KnifeAltChecker",1,3)
+      KNFG A 1 A_Lower
+	  NULL AA 0 A_Lower
+      Goto Deselect+1
+      KNFG G 0 A_TakeInventory("KnifeAltChecker",1)
+      KNFG G 1 A_Lower
+	  NULL AA 0 A_Lower
+      Goto Deselect+3
+   Select:
+      KNFG A 0 A_PlayWeaponSound("weapons/knifeup")
+      KNFG A 0 A_JumpIfInventory("KnifeAltChecker",1,3)
+      KNFG A 1 A_Raise
+	  NULL AA 0 A_Raise
+      Goto Select+2
+      KNFG G 1 A_Raise
+	  NULL AA 0 A_Raise
+      Goto Select+3
+   Fire:
+      KNFG A 0 A_JumpIfInventory("KnifeAltChecker",1,"Throw")
+      KNFG A 0 A_JumpIfInventory("PowerStrength",1,6)
+      KNFG B 3 A_PlayWeaponSound("weapons/knifeidle")
+      KNFG C 4
+      KNFG DE 4 A_CustomPunch(3,0,0,"Puff2")
+      KNFG F 5 A_CustomPunch(3,0,0,"Puff2")
+      goto Ready
+      KNFG B 3 A_PlayWeaponSound("weapons/knifeidle")
+      KNFG C 4
+      KNFG DE 4 A_CustomPunch(30,0,0,"Puff2")
+      KNFG F 5 A_CustomPunch(30,0,0,"Puff2")
+      goto Ready
+   Throw:
+      KNFG G 4 A_PlayWeaponSound("weapons/knifeidle")
+      KNFG H 0 A_FireProjectile("CheapAlert",0,0,0,0)
+      KNFG H 4 A_ThrowGrenade("KnifeShot",2,18,3,1)
+      KNFG G 0 A_Recoil(-5)
+      KNFG I 4
+      KNFG JJJJJJJJJJJJJJJ 1 A_Lower
+      KNFG J 0 A_TakeInventory("Knife",1)
+	  TNT1 A 0 A_TakeInventory("Token",1)
+      Goto Ready
+   AltFire:
+      KNFG A 0 A_JumpIfInventory("KnifeAltChecker",1,"Low")
+      KNFG A 0 A_GiveInventory("KnifeAltChecker",1)
+      KNFG AAAAAAAAAAAAAAA 1 A_Lower
+      KNFG GGGGGGGGGGGGGGG 1 A_Raise
+      goto Ready+1
+   Low:
+      KNFG A 0 A_TakeInventory("KnifeAltChecker",1)
+      KNFG GGGGGGGGGGGGGGG 1 A_Lower
+      KNFG AAAAAAAAAAAAAAA 1 A_Raise
+      goto Ready
    }
 }
 
@@ -2986,4 +3003,170 @@ ACTOR GoreFX1
       FGOR KLM 3 Bright
       Stop 
    }
+}
+
+
+//from ARSENAL
+ACTOR LongRifle : GoHWeapon
+{
+   Weapon.SelectionOrder 1280
+   Inventory.PickupSound "weapons/getweapon08"
+   Inventory.PickupMessage "You got the Rifle!"
+   Obituary "%o was caught by %k's Rifle."
+   Weapon.AmmoType1 "RifleShells"
+   Weapon.AmmoType2 "RifleShells"
+   Weapon.AmmoGive 0
+   Weapon.AmmoUse1 1
+   Weapon.AmmoUse2 0
+   scale 0.85
+   +NOALERT
+   +NOAUTOFIRE
+   States
+   {
+   Spawn:
+      RFLW A -1
+      Stop
+   User1: 
+      TNT1 A 0 A_SpawnItemEx("LimitLongRifle", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER)
+      TNT1 A 0 A_TakeInventory("Token",1)
+      TNT1 A 0 A_TakeInventory("LongRifle",1)
+      stop
+   Select:
+      LRIF A 1 A_Raise
+	  NULL AA 0 A_Raise
+      Loop
+   Deselect: 
+      TNT1 A 0 
+	  {
+	  A_JumpIfInventory("Sniper_Zoomed", 2, "Z2Deselect");
+      A_JumpIfInventory("Sniper_Zoomed", 1, "Z1Deselect");
+	  }
+      LRIF A 1 A_Lower
+	  NULL AA 0 A_Lower
+      Loop
+   Z1Deselect: 
+	  TNT1 A 0 A_PlaySound("weapons/riflescope", 8, 1.0, 0)
+      TNT1 A 0 A_TakeInventory ("Sniper_Zoomed", 1)
+      TNT1 A 0 A_ZoomFactor(1.0)
+	  LRIF A 1 
+	  Goto Deselect
+   Z2Deselect: 
+	  TNT1 A 0 A_PlaySound("weapons/riflescope", 8, 1.0, 0)
+      TNT1 A 0 A_TakeInventory ("Sniper_Zoomed", 2)
+      TNT1 A 0 A_ZoomFactor(1.0)
+	  LRIF A 1 
+	  Goto Deselect
+   Ready:
+	  TNT1 A 0 A_JumpIfInventory("Sniper_Zoomed", 1, "ZoomReady")
+      LRIF A 1 A_WeaponReady(WRF_ALLOWUSER1)
+	  Goto Ready+1
+   ZoomReady:
+	  LRIF E 1 A_WeaponReady(WRF_ALLOWUSER1)
+	  Goto Ready
+   Fire:
+	  TNT1 A 0 A_JumpIfInventory("Sniper_Zoomed", 1, "ZoomFire")
+      TNT1 A 0 A_JumpIfNoAmmo("Dryfire")
+      LRIF A 3 A_FireProjectile("CheapAlert",0,0,0,0)
+      LRIF B 0 A_PlayWeaponSound("Sniper/Gun")
+      LRIF B 0 A_Light2
+      LRIF B 0 A_Recoil(2.5)
+	  LRIF B 4 Bright A_FireProjectile("RifleBullet",0,1,0,0)
+	  TNT1 A 0 ACS_Execute(287,0,40,random(-4,4),0)
+      LRIF B 0 A_FireProjectile("762MMCasingSpawner",-90+random(-10,10),0,2,-3)
+      LRIF C 0 A_Recoil(-2)
+      LRIF C 0 A_Light0
+	  LRIF C 20
+      LRIF D 6 ACS_Execute(287,0,-20,0,0)
+      LRIF A 2 ACS_Execute(287,0,-20,0,0)
+      LRIF A 0 A_ReFire
+      Goto Ready
+   ZoomFire:
+      TNT1 A 0 A_JumpIfNoAmmo("ZoomDryfire")
+      LRIF E 3 A_FireProjectile("CheapAlert",0,0,0,0)
+      LRIF B 0 A_PlayWeaponSound("Sniper/Gun")
+      LRIF B 0 A_Light2
+      LRIF B 0 A_Recoil(2.5)
+	  LRIF E 4 Bright A_FireProjectile("RifleBullet",0,1,0,0)
+      //LRIF E 4 Bright A_FireBullets(0,0,5,25,"Puff2",1)
+	  TNT1 A 0 ACS_Execute(287,0,20,random(-2,2),0)
+      LRIF B 0 A_FireProjectile("762MMCasingSpawner",-90+random(-10,10),0,2,-3)
+      LRIF C 0 A_Recoil(-2)
+      LRIF C 0 A_Light0
+	  LRIF E 20
+      LRIF E 6 ACS_Execute(287,0,-20,0,0)
+      LRIF E 2 ACS_Execute(287,0,-20,0,0)
+      LRIF A 0 A_ReFire
+      Goto Ready
+   AltFire:
+      //ASNS A 0 A_SetCrosshair(50)
+      LRIF E 6
+      TNT1 A 0 A_JumpIfInventory("Sniper_Zoomed", 2, "ZoomOut")
+      TNT1 A 0 A_JumpIfInventory("Sniper_Zoomed", 1, "Zoom2")
+      //fall through
+   Zoom1:
+      TNT1 A 0 A_PlayWeaponSound("weapons/riflescope")
+      TNT1 A 0 A_ZoomFactor(2.0)
+      TNT1 A 0 A_GiveInventory ("Sniper_Zoomed", 1)
+      Goto "AltFireDone"
+   Zoom2:
+      TNT1 A 0 A_PlayWeaponSound("weapons/riflescope")
+      TNT1 A 0 A_ZoomFactor(4.0)
+      TNT1 A 0 A_GiveInventory ("Sniper_Zoomed", 1)
+      Goto "AltFireDone"
+   ZoomOut:
+      TNT1 A 0 A_PlayWeaponSound("weapons/riflescope")
+      TNT1 A 0 A_ZoomFactor(1.0)
+      TNT1 A 0 A_TakeInventory ("Sniper_Zoomed", 2)
+      Goto "AltFireDone"
+   AltFireDone:
+      LRIF E 5 A_ReFire
+      Goto "Ready" 
+   Dryfire:
+	  LRIF A 0 A_PlayWeaponSound("weapons/empty")
+	  LRIF A 2
+	  LRIF A 0 A_CheckReload
+	  Goto Ready
+   ZoomDryfire:
+	  LRIF A 0 A_PlayWeaponSound("weapons/empty")
+	  LRIF E 2
+	  LRIF A 0 A_CheckReload
+	  Goto Ready
+   }
+}
+
+actor Sniper_Zoomed : Inventory
+{
+  inventory.maxamount 2
+}
+
+ACTOR RifleBullet
+{
+   Radius 1
+   Height 1
+   Speed 180
+   Damage 25
+   Mass 150
+   Scale 0.01
+   Gravity 1
+   Projectile
+   +MISSILE
+   +ROCKETTRAIL
+   +ACTIVATEIMPACT
+   States
+   {
+   Spawn:
+      TNT1 A 0 A_CustomMissile ("SniperTrail",0,0,0,5)
+      FLAS A 2
+      Loop
+   Death:
+      TNT1 A 0 A_SpawnItem("Puff2",0,0,0,0)
+	  Stop
+   }
+}
+
+ACTOR SniperTrail : Smoke
+{
+  RENDERSTYLE TRANSLUCENT
+  Scale 0.1
+  Alpha 0.2
 }

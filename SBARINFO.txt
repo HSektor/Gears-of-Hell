@@ -2,7 +2,7 @@
 height 32;
 monospacefonts true, "0";
 
-statusbar normal // Standard Doom Status bar
+/*statusbar normal // Standard Doom Status bar
 {
     drawimage "STBAR", 0, 168;
     drawimage "STTPRCNT", 90, 171;
@@ -47,6 +47,62 @@ statusbar normal // Standard Doom Status bar
     {
         drawmugshot 5, 143, 168;
     }
+}*/
+statusbar normal // ZDoom HUD
+{
+    drawimage "STBARNUL", 0, 168;
+	
+	//health
+	drawimage "MINI_HP", 0, 191;
+	drawnumber 4, STAT_LWR, red, health, 42, 193, red, 100, lightblue, 101;
+
+	//armor
+	drawimage "MINI_ARM", 0, 181;
+	drawnumber 4, STAT_LWR, green, armor, whennotzero, 42, 183, red, 100, lightblue, 101;
+
+	//ammo
+	drawimage "MINI_AMO", 303, 200, centerbottom;
+	drawimage ammoicon1, 273, 200, centerbottom, 11, 11, forcescale;
+	drawnumber 4, STAT_LWR, red, ammo1,  307, 192;
+	usesammo
+	{
+		usessecondaryammo
+		{
+         	drawimage "MINI_AMO", 303, 190, centerbottom;
+	        drawimage ammoicon2, 273, 190, centerbottom, 11, 11, forcescale;
+	        drawnumber 4, STAT_LWR, red, ammo2,  307, 182;
+		}
+	}
+	
+	
+	DrawKeyBar 9, horizontal, 9, 0, 168;
+	
+	/*InInventory Token, 1
+		{ 
+		Drawimage "PISTA0", -24, 48, centerbottom, 11, 11, forcescale;
+		DrawNumber 1, SMALLFONT, White, Token, alignment (right), -21, 40, 0, Gray, 0, Gold, 6;
+		}*/
+	
+	drawswitchableimage weaponslot 1, "", "STYSNUM1", 180, 180;
+	drawswitchableimage weaponslot 2, "", "STYSNUM2", 185, 180;
+	drawswitchableimage weaponslot 3, "", "STYSNUM3", 190, 180;
+	drawswitchableimage weaponslot 4, "", "STYSNUM4", 195, 180;
+	drawswitchableimage weaponslot 5, "", "STYSNUM5", 200, 180;
+	drawswitchableimage weaponslot 6, "", "STYSNUM6", 180, 190;
+	drawswitchableimage weaponslot 7, "", "STYSNUM7", 185, 190;
+	drawswitchableimage weaponslot 8, "", "STYSNUM8", 190, 190;
+	drawswitchableimage weaponslot 9, "", "STYSNUM9", 195, 190;
+	drawswitchableimage weaponslot 0, "", "STYSNUM0", 200, 190;
+
+	drawselectedinventory alternateonempty, alwaysshowcounter, STATSMAL, 100, 168, 130, 190, gold
+	{
+		drawmugshot "STF", 5, 100, 168;
+	}
+
+	gamemode deathmatch
+	{
+		drawnumber 3, HUDFONT_DOOM, untranslated, frags, alignment(left), 16+center, -17;
+	}
 }
 
 statusbar fullscreen, fullscreenoffsets // ZDoom HUD
@@ -60,7 +116,7 @@ statusbar fullscreen, fullscreenoffsets // ZDoom HUD
 	drawnumber 4, STAT_LWR, green, armor, whennotzero, 42, -18, red, 100, lightblue, 101;
 
 	//health
-	drawimage "MINI_HP", 0, -30;
+	drawimage "MINI_AMO", 0, -30;
 	drawnumber 4, STAT_LWR, red, "Token", 42, -28, red, 100, lightblue, 101;
 
 	//ammo

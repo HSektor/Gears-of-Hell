@@ -1,0 +1,7 @@
+
+Doom version = 19
+Patch format = 6
+
+
+Ammo 0 (Bullets)
+Max ammo = 600

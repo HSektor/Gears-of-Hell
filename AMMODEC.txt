@@ -102,9 +102,9 @@ ACTOR 3Fuel : Fuel
 ACTOR HandGrenadeAmmo : Ammo
 {
    Inventory.Amount 1
-   Inventory.MaxAmount 25
+   Inventory.MaxAmount 10
    Ammo.BackpackAmount 1
-   Ammo.BackpackMaxAmount 50
+   Ammo.BackpackMaxAmount 20
    Inventory.PickupMessage "You should not see this message, the weapon is the ammo"
    Inventory.Icon PGRND0
    Scale 0.5
@@ -135,13 +135,13 @@ ACTOR ThrowPower : Ammo
    Inventory.Icon THROW
 }
 
-ACTOR HeavyMissile : Ammo 8515
+ACTOR HeavyMissile : Ammo
 {
 	+FLOORCLIP
-   Inventory.Amount 1
    Radius 10
-   Inventory.MaxAmount 10
    Scale 0.7
+   Inventory.Amount 1
+   Inventory.MaxAmount 10
    Ammo.BackpackAmount 1
    Ammo.BackpackMaxAmount 20
    Inventory.PickupMessage "Picked up a heavy missile."
@@ -161,4 +161,10 @@ ACTOR GoreCount: Ammo
      Inventory.MaxAmount 1
      Ammo.BackpackAmount 0
      Ammo.BackpackMaxAmount 1
+}
+
+
+ACTOR ClipBox2 : ClipBox replaces ClipBox
+{
+Scale 0.8
 }

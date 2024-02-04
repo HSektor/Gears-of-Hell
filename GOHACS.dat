@@ -1,0 +1,42 @@
+#Library "GOHACS"
+#include "zcommon.acs"
+
+//Parameters
+global Bool 1:ForcePistolStart;
+
+
+// Muzzle climb script
+// originally from Hideous Destructor
+// code by vaecrius
+script 287 (int climb, int twist)
+{ 
+	int playerpitch = GetActorPitch(0) - ((random(1,3)+5)*climb);
+	if (playerpitch > -5780)
+		{
+		SetActorPitch (0, playerpitch);
+		}
+	int playerangle = GetActorAngle(0) - ((random(1,2)+4)*twist);
+	SetActorAngle (0, playerangle);
+}
+
+
+//Forced Pistol Start script by me. Code based on DoomRL by Yholl
+Script "ForcePistolStart" (void)
+{
+    SetResultValue(GetCVar("user_ForcePistolStart"));
+}
+
+
+Script "ForcePistolStartMode" enter
+{
+	if (GetCVar ("user_ForcePistolStart"))
+	{
+		ClearInventory();
+		GiveInventory("Fists", 1);
+		GiveInventory("Clip", 42);
+		GiveInventory("Cell", 30);
+		GiveInventory("Q2Blaster", 1);
+		GiveInventory("CoolPistol", 1);
+		GiveInventory("Token", 2);
+	}
+}

@@ -3,10 +3,10 @@ weaponsection GoH
 addplayerclass Doomer nomenu
 
 setslot 1 Fists BaseballBat Knife Chainsaw_
-setslot 2 Q2Blaster CoolPistol Flaregun MachinePistol Revolver
+setslot 2 Q2Blaster CoolPistol Flaregun LaserAutomag Revolver
 setslot 3 WinchesterRifle Longrifle NeoShotgun BloodAlphaSawedoff PKShotgun QuadShotgun
 setslot 4 Blood2Scorpions M14 Tommygun AliensGBR PlasmaAutoRifle LSCMinigun
-setslot 5 DispersionRocketLauncher MultiRocketLauncher NeoRocketLauncher SuperRocket
+setslot 5 QGrenadeLauncher DispersionRocketLauncher MultiRocketLauncher NeoRocketLauncher SuperRocket
 setslot 6 LaserCannon Raygun PlasmaGun LSCQ2Railgun ShockRifle2000
 setslot 7 RailCannon AlienCannon PhotonReactorCannon DarkMatterGun
 setslot 8 Stinger UnmakerMKVI FlakCannon

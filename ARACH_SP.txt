@@ -85,8 +85,10 @@ Actor SuperD3Trite : D3Trite
   scale 1.0
   painchance 100
   MeleeDamage 8
+  MeleeRange 64
   Damage 8
   DamageFactor "Trite", 0.0
+  MaxTargetRange 256
   +BOSS
   +BOSSDEATH
   DropItem WarSpirit 48
@@ -106,6 +108,7 @@ Actor SuperD3Trite : D3Trite
     TRIT A 0 A_PlaySound("D3Trite/Idle")
     Loop
   See:
+    TRIT A 0 A_Jump(32, "Melee")
     TRIT A 2 A_Chase
     TRIT A 0 A_PlaySoundEx("D3Trite/Step", "SoundSlot7", 0)
     TRIT B 2 A_Chase
@@ -116,11 +119,14 @@ Actor SuperD3Trite : D3Trite
     TRIT D 0 A_PlaySoundEx("D3Trite/Step", "SoundSlot7", 0)
     Loop
   Melee:
-    TRIT A 6 A_FaceTarget
-    TRIT A 0 A_PlaySound("D3Trite/Attack")
-    TRIT E 6 A_MeleeAttack
+    TRIT AAA 3 A_FaceTarget
+    TRIT F 0 A_PlaySound("D3Trite/Attack")
+    TRIT F 0 A_SkullAttack
+    TRIT F 10 ThrustThingZ(0, 6, 0, 1)
+    TRIT E 8 A_Stop
     Goto See
   Missile:
+    TRIT A 0 A_Jump(192, "Melee")
     TRIT AAA 3 A_FaceTarget
     TRIT F 0 A_PlaySound("D3Trite/Attack")
     TRIT F 6 A_PainAttack("D3Trite2")
@@ -264,14 +270,14 @@ Actor LightMech 21026
 		Goto See
 
 	Death:
-    BSPI J 0 A_Scream
-    BSPI J 20 A_SpawnItem("NashGore_GibGenerator")
-    BSPI K 7 A_NoBlocking
-    BSPI LM 7
-    BSPI N 7
-    BSPI O 7
-    BSPI P -1 A_BossDeath
-    stop
+		BSPI J 0 A_Scream
+		BSPI J 20 A_SpawnItem("NashGore_GibGenerator")
+		BSPI K 7 A_NoBlocking
+		BSPI LM 7
+		BSPI N 7
+		BSPI O 7
+		BSPI P -1 A_BossDeath
+		stop
 
 	Raise:
 		BSPI PONMLKJ 5
@@ -761,8 +767,6 @@ actor RailgunnerEX 32010
 	Damage 30
 	MONSTER 
 	+FLOORCLIP
-	+CANPUSHWALLS
-	+CANUSEWALLS
 	-ACTIVATEMCROSS
 	+TELESTOMP
     +BOSS
@@ -984,6 +988,7 @@ ACTOR MiniBattlelord
     DropItem Healthvile 64
 	DropItem WarSpirit 28
 	DropItem LimitLSCMinigun 50
+	DropItem LimitQGrenadeLauncher 50
 	DropItem PowerupSpawner 64
 	States
 	{
@@ -997,29 +1002,16 @@ ACTOR MiniBattlelord
 		LORD D 4 A_chase
 		Loop
 	Missile:
-		LORD G 0 A_JUMP (120,"Missile2")
- 		LORD G 20 Bright A_Facetarget
- 		LORD G 0 A_PLAYSOUND ("BOFIRE")
- 		LORD H 8 A_ThrowGrenade("Mortar", 10, 20, 10)
- 		LORD G 8 Bright A_Facetarget
- 		LORD G 0 A_PLAYSOUND ("BOFIRE")
- 		LORD H 8 A_ThrowGrenade("Mortar", 10, 20, 10)
- 		LORD G 8 Bright A_Facetarget
- 		LORD G 0 A_PLAYSOUND ("BOFIRE")
- 		LORD H 8 A_ThrowGrenade("Mortar", 10, 20, 10)
-	 	LORD G 20 Bright A_Facetarget
- 		goto see
-	Missile2:
  		LORD E 3 bright A_FaceTarget
 		LORD EF 4 bright A_CustomBulletAttack(5, 5, 1, 2, "BulletPuff")
  		LORD F 1 bright A_SpidRefire
- 		goto Missile2+1
+ 		goto Missile+1
 	Pain:
 		LORD I 4 A_PAIN
 		LORD I 0 A_JUMP (100,1)
 		Goto See
 		LORD I 0
- 		Goto Missile2+1
+ 		Goto Missile+1
 	Death:
 		LORD I 10 A_Scream
 		LORD IJKL 10
@@ -1034,7 +1026,7 @@ ACTOR MiniBattlelord
 actor DalekBase
 {
   obituary "%o was exterminated by a Dalek."
-  health 1250
+  health 650
   radius 20
   height 56
   mass 10000
@@ -1063,10 +1055,10 @@ actor DalekBase
     DALK A 1 A_Chase
     loop
   Missile:
-    DALK A 24 A_FaceTarget
+    DALK A 28 A_FaceTarget
     DALK A 0 A_PlaySound ("Dalek/Speech")
-    DALK A 8 A_FaceTarget
-    DALK A 8 bright A_CustomMissile ("DalekLaser", 33, -6, random (-4,4) ,1)
+    DALK A 12 A_FaceTarget
+    DALK A 10 bright A_CustomMissile ("DalekLaser", 33, -6, random (-4,4) ,1)
     DALK A 0 A_SentinelRefire
     goto Missile+2
   Pain:
@@ -1389,76 +1381,3 @@ ACTOR GScorpionMinion : ScorpionMinion
     }
 }
 
-//===========================================================================
-//===========================================================================
-
-ACTOR Gladiator 
-{
-    Health 550
-    Radius 25
-    Height 60
-    Mass 800
-    Speed 13
-    PainChance 90
-    Scale 0.42
-    MONSTER 
-    +FLOORCLIP
-    SeeSound "q2gladiator/sight"
-    PainSound "q2gladiator/pain"
-    DeathSound "q2gladiator/death1"
-    ActiveSound "q2gladiator/idle"
-    MeleeDamage 5
-    Obituary "%o was killed by a gladiator."
-	+BOSSDEATH
-    +DONTMORPH
-	DropItem Cell 64
-	DropItem CellPack 64
-	DropItem Portablepack 64
-	dropitem MeatSpawner 75
-	DropItem WarSpirit 50
-	DropItem LimitLSCQ2Railgun 64
-    States
-    {
-    Spawn:
-        GLAI A 10 A_Look
-        Loop
-    See:
-        GLAW ABCDEF 4 A_Chase
-		Loop
-    Missile:
-	    NULL A 0 A_PlaySound("q2weapon/railgunreload")
-	    GLAA F 22 A_FaceTarget
-	    NULL A 0 A_PlaySound("q2weapon/railgunfire")
-	    GLAA G 8 A_CustomRailgun(random(50,150),10,"white",none,0,0,5)
-	    Goto See
-    Melee:
-	    GLAA ABC 5 A_FaceTarget
-	    GLAA D 5 A_MeleeAttack
-	    GLAA EF 4 A_FaceTarget
-        Goto See
-    Pain:
-        GLAP A 1
-        GLAP A 3 A_Pain
-        Goto See
-    Death:
-        GLAD A 4 A_Scream
-        GLAD BC 4
-        GLAD D 3 A_NoBlocking	
-	    GLAD EFGHIJK 3
-        GLAD L -1 A_KillMaster
-        Stop
-	Ice:
-		GLAP A 5 A_GenericFreezeDeath
-		GLAP A 0 A_KillMaster
-		GLAP A 1 A_FreezeDeathChunks
-		Wait
-    Raise:
-        GLAD LKJIHGFEDCBA 3
-        Goto See
-    }
-}
-
-Actor FGladiatorD : Gladiator 
-{
-	+AMBUSH
-}
