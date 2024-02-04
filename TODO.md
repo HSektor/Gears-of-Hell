@@ -13,12 +13,11 @@
 
 ### In Progress  
 - [ ] verify weapon limit bugs
-- [ ] implementing Tank Commander (Archvile) from Cherno's resources  
 
 ### Done ✓
 
 - [x] create a github repository  
-- [x] New monsters: CyberBrute, Cherub, Former Berserker, Doom 3 Chaingunguy!  
+- [x] New monsters: CyberBrute, Cherub, Former Berserker, Doom 3 Chaingunguy, TankCommander!  
 - [x] New weapons: Laser Automag, Grenade Launcher!
 - [x] New sounds for the Miningun
 - [x] removed some unused actors and sprites
