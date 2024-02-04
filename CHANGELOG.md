@@ -153,4 +153,20 @@
 - increased max clip ammo to 600  
 - slightly buffed the Stinger (faster fire rate)  
 - nerfted Tank, CoolPistol alt fire, Motherdemon, Dalek  
-- reworked most Q2 monsters and EvilDoomGuy  
+- reworked most Q2 monsters and EvilDoomGuy
+
+1.4
+====
+- New monsters: CyberBrute, Cherub, Former Berserker, Doom 3 Chaingunguy and TankCommander!  
+- New weapons: Laser Automag and Grenade Launcher!
+- New sounds for the Miningun
+- Removed some unused actors and sprites
+- Removed Machine Pistol (reworked into Laser Automag)
+- Removed some redundant monsters (Fatcubus (just uninspired imo), Rifle Troop (too many accurate hitscanners), Cybersarge (reworking into Cyber Commando), Uberzombie (merged into Otrebor), Superbaron (uninspired), Nightmare Baron (too similar to HellWizard))
+- Moved SpiritImp to Imp spawn
+- Moved RapidFireTrooper to Zombieman spawn
+- Moved Knight Archer to the Chaingunguy again ¯\_(ツ)_/¯ 
+- Reworked the SuperRocketLauncher (Now called Anti Tank Missile Launcher), DemonCannon (new alt-fire), Shockrifle2000 (simplified, new sprites), M14 (new sounds), LongRifle (new sprites, new zoom, dryfire, removed from lower spawns), God Hand (new sprites)
+- Reworked Magicubus, Otrebor, InsanitySpider, NightmareZombie
+- Fixed Minigun infinite ammo bug when holding fire
+- Implemented a Pistol spawn for the sake of completion  
