@@ -10,10 +10,10 @@
 - [ ] make the stickybomb actually shootable
 - [ ] get Brute (Baron Spawn) from A New Hellspawn  
 - [ ] get Beholder (Pain Elemental) and Lizardman (Imps) from Burgish
-- [ ] get Tank Commander (Archvile) from Cherno's resources  
 
 ### In Progress  
 - [ ] verify weapon limit bugs
+- [ ] implementing Tank Commander (Archvile) from Cherno's resources  
 
 ### Done ✓
 
