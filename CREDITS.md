@@ -117,6 +117,8 @@ _Doom Nukem_
 * __Sprites__  
 _Carbon Dioxide_
 * __Sprites__  
+_Cherno_
+* __Sprites__  
 _Zirius1994_
 * __Sprites__  
 _zrrion the insect_
