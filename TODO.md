@@ -10,6 +10,7 @@
 - [ ] make the stickybomb actually shootable
 - [ ] get Brute (Baron Spawn) from A New Hellspawn  
 - [ ] get Beholder (Pain Elemental) and Lizardman (Imps) from Burgish
+- [ ] implement "joke mod" cvar in spawners
 
 ### In Progress  
 - [ ] verify weapon limit bugs
