@@ -444,12 +444,12 @@ Actor ArmorChip : ArmorBonus
     Inventory.Icon CHIPA0
     Armor.Saveamount 2
     Armor.Maxsaveamount 500
-    Inventory.PickupMessage "Picked up a eletric armor Chip."
+    Inventory.PickupMessage "Picked up an armor shard."
     Scale 0.7
     States
     {
     Spawn:
-        CHIP ABC 3
+        CHIP ABCD 3
         Loop
     }
 }
@@ -461,7 +461,7 @@ ACTOR SeriousPills : HealthBonus
   Inventory.PickupSound "dssepill"
   +ALWAYSPICKUP
   +FLOATBOB
-  Inventory.PickupMessage "You picked up +1 health"
+  Inventory.PickupMessage "You picked up a health vial"
 	States
 	{
 	Spawn:
@@ -478,7 +478,7 @@ Actor SeriousArmor : ArmorBonus
     Armor.Saveamount 1
     Armor.Maxsaveamount 500
 	Inventory.PickupSound "dssearm"
-    Inventory.PickupMessage "You picked up +1 armor"
+    Inventory.PickupMessage "You picked up an armor bonus"
 	+ALWAYSPICKUP
     +FLOATBOB
     States

@@ -1,8 +1,7 @@
 #include "LimWeaps"
 #include "ZWeaps1"
 #include "ZItems"
-
-//const maxweap = 6;
+//#include "ZAkimbo"
 
 Class ZGohPlayer : DoomPlayer
 {
@@ -73,7 +72,7 @@ Class TokenSystem : CustomInventory
          TNT1 A 0 A_Jump (256, 2);
          TNT1 A 0 A_GiveInventory ("Token");
          
-         TNT1 A 0 A_JumpIfInventory ("MachinePistol", 1, 2);
+         TNT1 A 0 A_JumpIfInventory ("LaserAutomag", 1, 2);
          TNT1 A 0 A_Jump (256, 2);
          TNT1 A 0 A_GiveInventory ("Token");
          
@@ -141,6 +140,10 @@ Class TokenSystem : CustomInventory
          TNT1 A 0 A_Jump (256, 2);
          TNT1 A 0 A_GiveInventory ("Token");
          
+         TNT1 A 0 A_JumpIfInventory ("QGrenadeLauncher", 1, 2);
+         TNT1 A 0 A_Jump (256, 2);
+         TNT1 A 0 A_GiveInventory ("Token");
+		 
          TNT1 A 0 A_JumpIfInventory ("NeoRocketLauncher", 1, 2);
          TNT1 A 0 A_Jump (256, 2);
          TNT1 A 0 A_GiveInventory ("Token");
@@ -242,8 +245,11 @@ Class TokenSystem : CustomInventory
          TNT1 A 0 A_GiveInventory ("Token");
 		 
          TNT1 A 0 A_Jump (256, "FinalCheck");
-	Nothing:
+	Full:
 		 TNT1 A 0 A_PrintBold ("\cgYou're holding too many weapons. You might want to drop something.");
+		 Fail;
+	Nothing:
+		 TNT1 A 0 ;
 		 Fail;
      }
 }

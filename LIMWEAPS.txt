@@ -14,7 +14,8 @@ Class LimitChainsaw_ : TokenSystem
       Pickup:
          Goto Super::Pickup;
       FinalCheck:
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory ("Chainsaw_", 1, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("Chainsaw_");
          Stop;
    }
@@ -35,7 +36,8 @@ Class LimitKnife : TokenSystem
       Pickup:
          Goto Super::Pickup;
       FinalCheck:
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory ("Knife", 1, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("Knife");
          Stop;
    }
@@ -57,7 +59,8 @@ Class LimitBaseballBat : TokenSystem
       Pickup:
          Goto Super::Pickup;
       FinalCheck:
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory ("BaseballBat", 1, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("BaseballBat");
          Stop;
    }
@@ -77,7 +80,8 @@ Class LimitQ2Blaster : TokenSystem
       Pickup:
          Goto Super::Pickup;
       FinalCheck:
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory ("Q2Blaster", 1, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("Q2Blaster");
          Stop;
    }
@@ -99,7 +103,7 @@ Class LimitCoolPistol : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("CoolPistol", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("CoolPistol");
          Stop;
       Ammo:
@@ -109,11 +113,11 @@ Class LimitCoolPistol : TokenSystem
    }
 }
 
-Class LimitMachinePistol : TokenSystem
+Class LimitLaserAutomag : TokenSystem
 {
    Default
    {
-        Inventory.pickupmessage "You got the machinepistol!";
+        Inventory.pickupmessage "You got the Laser Automag!";
         Inventory.PickupSound "weapons/getweapon07";
    }   
 
@@ -125,12 +129,12 @@ Class LimitMachinePistol : TokenSystem
       Pickup:
          Goto Super::Pickup;
       FinalCheck:
-         TNT1 A 0 A_JumpIfInventory ("MachinePistol", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
-         TNT1 A 0 A_GiveInventory ("MachinePistol");
+         TNT1 A 0 A_JumpIfInventory ("LaserAutomag", 1, "Ammo");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
+         TNT1 A 0 A_GiveInventory ("LaserAutomag");
          Stop;
       Ammo:
-         TNT1 A 0 A_GiveInventory ("Clip", 10);
+         TNT1 A 0 A_GiveInventory ("Cell", 10);
          Stop;
    }
 }
@@ -152,7 +156,7 @@ Class LimitRevolver : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("Revolver", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("Revolver");
          Stop;
       Ammo:
@@ -177,7 +181,7 @@ Class LimitFlaregun : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("Flaregun", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("Flaregun");
          Stop;
       Ammo:
@@ -202,7 +206,7 @@ Class LimitWinchesterRifle : TokenSystem
          Goto Super::Pickup;
       FinalCheck:	  
          TNT1 A 0 A_JumpIfInventory ("WinchesterRifle", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("WinchesterRifle");
          Stop;
       Ammo:
@@ -228,7 +232,7 @@ Class LimitLongrifle : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("Longrifle", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("Longrifle");
          Stop;
       Ammo:
@@ -254,7 +258,7 @@ Class LimitNeoShotgun : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("NeoShotgun", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("NeoShotgun");
          Stop;
       Ammo:
@@ -280,7 +284,7 @@ Class LimitBloodAlphaSawedoff : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("BloodAlphaSawedoff", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("BloodAlphaSawedoff");
          Stop;
       Ammo:
@@ -306,7 +310,7 @@ Class LimitPKShotgun : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("PKShotgun", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("PKShotgun");
          Stop;
       Ammo:
@@ -333,7 +337,7 @@ Class LimitQuadShotgun : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("QuadShotgun", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("QuadShotgun");
          Stop;
       Ammo:
@@ -353,13 +357,13 @@ Class LimitBlood2Scorpions : TokenSystem
    States
    {
       Spawn:
-         B2SM A -1;
+         MP7S A -1;
          Stop;
       Pickup:
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("Blood2Scorpions", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("Blood2Scorpions");
          Stop;
       Ammo:
@@ -384,7 +388,7 @@ Class LimitM14 : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("M14", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("M14");
          Stop;
       Ammo:
@@ -410,7 +414,7 @@ Class LimitTommygun : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("Tommygun", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("Tommygun");
          Stop;
       Ammo:
@@ -435,7 +439,7 @@ Class LimitAliensGBR : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("AliensGBR", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("AliensGBR");
          Stop;
       Ammo:
@@ -460,7 +464,7 @@ Class LimitPlasmaAutoRifle : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("PlasmaAutoRifle", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("PlasmaAutoRifle");
          Stop;
       Ammo:
@@ -486,11 +490,36 @@ Class LimitLSCMinigun : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("LSCMinigun", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("LSCMinigun");
          Stop;
       Ammo:
          TNT1 A 0 A_GiveInventory ("Clip", 40);
+         Stop;
+   }
+}
+
+Class LimitQGrenadeLauncher : TokenSystem
+{
+   Default
+   {
+      Inventory.PickupSound "weapons/getweapon06";
+      Inventory.PickupMessage "You got the Grenade Launcher!";
+   }   
+   States   
+   {
+      Spawn:
+         GNDL S -1;
+         Stop;
+      Pickup:
+         Goto Super::Pickup;
+      FinalCheck:
+         TNT1 A 0 A_JumpIfInventory ("QGrenadeLauncher", 1, "Ammo");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
+         TNT1 A 0 A_GiveInventory ("QGrenadeLauncher");
+         Stop;
+      Ammo:
+         TNT1 A 0 A_GiveInventory ("RocketAmmo", 5);
          Stop;
    }
 }
@@ -511,7 +540,7 @@ Class LimitDispersionRocketLauncher : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("DispersionRocketLauncher", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("DispersionRocketLauncher");
          Stop;
       Ammo:
@@ -537,7 +566,7 @@ Class LimitMultiRocketLauncher : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("MultiRocketLauncher", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("MultiRocketLauncher");
          Stop;
       Ammo:        
@@ -564,7 +593,7 @@ Class LimitNeoRocketLauncher : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("NeoRocketLauncher", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("NeoRocketLauncher");
          Stop;
       Ammo:        
@@ -577,20 +606,20 @@ Class LimitSuperRocket : TokenSystem
 {
    Default
    {
-      Inventory.PickupMessage "M202A1 Rocket Launcher";
+      Inventory.PickupMessage "$You got the Anti Tank Missile Launcher!";
       Inventory.PickupSound "weapons/getweapon05";
       scale 0.55;
    }   
    States   
    {
-      Spawn:
-         M20P A -1;
-         Stop;
+	  Spawn:
+		PNZF S -1;
+		Stop;
       Pickup:
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("SuperRocket", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("SuperRocket");
          Stop;
       Ammo:        
@@ -616,7 +645,7 @@ Class LimitLaserCannon : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("LaserCannon", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("LaserCannon");
          Stop;
       Ammo:        
@@ -641,7 +670,7 @@ Class LimitRaygun : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("Raygun", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("Raygun");
          Stop;
       Ammo:        
@@ -667,7 +696,7 @@ Class LimitPlasmaGun : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("PlasmaGun", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("PlasmaGun");
          Stop;
       Ammo:        
@@ -693,7 +722,7 @@ Class LimitLSCQ2Railgun : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("LSCQ2Railgun", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("LSCQ2Railgun");
          Stop;
       Ammo:        
@@ -712,13 +741,13 @@ Class LimitShockRifle2000 : TokenSystem
    States   
    {
       Spawn:
-         SHOC A -1;
+         SHOC K -1;
          Stop;
       Pickup:
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("ShockRifle2000", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("ShockRifle2000");
          Stop;
       Ammo:        
@@ -744,7 +773,7 @@ Class LimitRailCannon : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("RailCannon", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("RailCannon");
          Stop;
       Ammo:        
@@ -770,7 +799,7 @@ Class LimitAlienCannon : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("AlienCannon", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("AlienCannon");
          Stop;
       Ammo:        
@@ -800,7 +829,7 @@ Class LimitPhotonReactorCannon : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("PhotonReactorCannon", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("PhotonReactorCannon");
          Stop;
       Ammo:        
@@ -825,7 +854,7 @@ Class LimitDarkMatterGun : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("DarkMatterGun", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("DarkMatterGun");
          Stop;
       Ammo:        
@@ -850,7 +879,7 @@ Class LimitStinger : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("Stinger", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("Stinger");
          Stop;
       Ammo:        
@@ -876,7 +905,7 @@ Class LimitUnmakerMKVI : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("UnmakerMKVI", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("UnmakerMKVI");
          Stop;
       Ammo:        
@@ -902,7 +931,7 @@ Class LimitFlakCannon : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("FlakCannon", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("FlakCannon");
          Stop;
       Ammo:        
@@ -929,7 +958,7 @@ Class LimitIceWand : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("IceWand", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("IceWand");
          Stop;
       Ammo:        
@@ -954,7 +983,7 @@ Class LimitGoreWyrm : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("GoreWyrm", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("GoreWyrm");
          Stop;
       Ammo:
@@ -979,7 +1008,7 @@ Class LimitSuperCrossbow : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("SuperCrossbow", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("SuperCrossbow");
          Stop;
       Ammo:
@@ -1004,7 +1033,7 @@ Class LimitEmbercaster : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("Embercaster", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("Embercaster");
          Stop;
       Ammo:
@@ -1030,7 +1059,7 @@ Class LimitDemonCannon : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("DemonCannon", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("DemonCannon");
          Stop;
       Ammo:
@@ -1055,7 +1084,7 @@ Class LimitSerpentStaff : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("SerpentStaff", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("SerpentStaff");
          Stop;
       Ammo:
@@ -1081,7 +1110,7 @@ Class LimitUnmaker : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("Unmaker", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("Unmaker");
          Stop;
       Ammo:
@@ -1106,7 +1135,7 @@ Class LimitDemonicFirepower : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("DemonicFirepower", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("DemonicFirepower");
          Stop;
       Ammo:
@@ -1131,7 +1160,7 @@ Class LimitDemonBane : TokenSystem
         Goto Super::Pickup;
       FinalCheck:
         TNT1 A 0 A_JumpIfInventory ("DemonBane", 1, "Ammo");
-        TNT1 A 0 A_JumpIfInventory ("Token", GetCVar("maxweap"), "Nothing");
+        TNT1 A 0 A_JumpIfInventory ("Token", GetCVar("maxweap"), "Full");
         TNT1 A 0 A_GiveInventory ("DemonBane");
         Stop;
       Ammo:
@@ -1146,18 +1175,18 @@ Class LimitGodHand : TokenSystem
    {
       Inventory.PickupSound "rareimp/holy";
       Inventory.PickupMessage "You incorpored the spirit of Rare Imp";
-      scale 2;
+      scale 0.85;
    }   
    States   
    {
       Spawn:
-		RADE ABCDEFGHIHGFEDCBA 5;
+		GODS S 5;
 		loop;
       Pickup:
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("GodHand", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("GodHand");
          Stop;
       Ammo:
@@ -1183,7 +1212,7 @@ Class LimitPowerStaff : TokenSystem
          Goto Super::Pickup;
       FinalCheck:
          TNT1 A 0 A_JumpIfInventory ("PowerStaff", 1, "Ammo");
-         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Nothing");
+         TNT1 A 0 A_JumpIfInventory("Token", invoker.limitweap, "Full");
          TNT1 A 0 A_GiveInventory ("PowerStaff");
          Stop;
       Ammo:

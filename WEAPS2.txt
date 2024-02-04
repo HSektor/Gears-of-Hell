@@ -4,75 +4,66 @@ actor ShockRifle2000 : GoHWeapon 6084
   Inventory.PickupMessage "T-2000 Shock Rifle"
   Inventory.PickupSound "weapons/getweapon07"
   obituary "%o had no chance to survive %k's 2000 Shock Rifle."
-  Weapon.AmmoGive 0
-  Weapon.AmmoType "Cell"
-  Weapon.Ammouse 2
+  Weapon.AmmoType1 "cell"
+  Weapon.AmmoType2 "cell"
+  Weapon.AmmoGive1 0
+  Weapon.AmmoUse1 2
+  Weapon.AmmoGive2 0
+  Weapon.AmmoUse2 2
   Weapon.Kickback 20
   +NOALERT
   states
   {
   Spawn:
-    SHOC A -1
+    SHOC K -1
     LOOP
   Ready:
-    SHCK A 0 A_JumpIfInventory("firemodechecker2",1,"Ready2")
-  Ready1:
-    SHCK ABCDEDCB 1 A_WeaponReady(WRF_ALLOWUSER1)
-    loop
-  Ready2:
-    SHK2 ABCDEDCB 1 A_WeaponReady(WRF_ALLOWUSER1)
-    loop
+    SHCK A 1 A_WeaponReady(WRF_ALLOWUSER1)
+	Loop
   User1: 
     TNT1 A 0 A_SpawnItemEx("LimitShockRifle2000", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER)
     TNT1 A 0 A_TakeInventory("Token",1)
     TNT1 A 0 A_TakeInventory("ShockRifle2000",1)
     stop
   Deselect:
-    SHCK E 1 A_Lower
+    SHCK A 1 A_Lower
 	NULL AA 0 A_Lower
     loop
   Select:
-    SHCK E 1 A_Raise
+    SHCK A 1 A_Raise
 	NULL AA 0 A_RAISE
     loop
   Fire:
-    TNT1 A 0 A_JumpIfNoAmmo("Deselect")
-    SHCK E 0 A_JumpIfInventory("firemodechecker2",1,"Fire2")	
-   Fire1:
-      SHCK F 1 Bright
-      SHCK G 0 A_Light1
-      SHCK G 0 A_PlayWeaponSound("weapons/shock")
-      SHCK GH 1 Bright A_FireProjectile("Lightning2",0.5,1,6,1)
-      SHCK I 0 A_Light2
-      SHCK I 0 ACS_Execute(287,0,30,random(2,4),0)
-      SHCK I 1 Bright A_FireProjectile("Lightning2",0.5,0,6,1)
-      SHCK A 0 A_Light0
-      SHCK I 0 ACS_Execute(287,0,-30,random(-2,-4),0)
-      SHCK A 1 A_ReFire
-      Goto Ready
-   Fire2:
-      SHK2 F 0 A_Light1
-      SHK2 F 0 A_PlayWeaponSound("weapons/microwave")
-      SHCK I 0 ACS_Execute(287,0,30,random(2,4),0)
-      SHK2 F 1 A_RailAttack(53,5,1,"FF 00 00",none,1,1)
-      SHK2 G 0 A_Light0
-      SHK2 G 1 Bright
-      SHCK I 0 ACS_Execute(287,0,-30,random(-2,-4),0)
-      SHK2 HI 1
-      SHK2 A 2
-      SHK2 A 1 A_ReFire
-      Goto Ready	
-  AltFire: 
-    SHCK A 0 A_Playsound("weapons/prototyperifleswitch") 
-    SHCK A 0 A_GiveInventory("firemodechecker2",1) 
-    SHCK A 0 A_JumpIfInventory("firemodechecker2",2,"AltFire2") 
-    SHCK I 5
-    SHK2 A 5
-    goto Ready
-  AltFire2:
-    SHK2 I 5 A_TakeInventory("firemodechecker2",2) 
-    SHCK A 5
-    goto Ready
+    TNT1 A 0 A_JumpIfNoAmmo("Dryfire")
+	SHK1 F 1 Bright
+	SHK1 G 0 A_Light1
+	SHK1 G 0 A_PlayWeaponSound("weapons/shock")
+	SHK1 GF 1 Bright A_FireProjectile("Lightning2",0,1,0,1)
+	SHK1 F 0 A_Light2
+	SHK1 F 0 ACS_Execute(287,0,30,random(2,4),0)
+	SHK1 GF 1 Bright A_FireProjectile("Lightning2",0,1,0,1)
+	SHK1 A 0 A_Light0
+	SHK1 A 0 ACS_Execute(287,0,-30,random(-2,-4),0)
+	SHCK A 4 A_ReFire
+	Goto Ready
+   AltFire:
+    TNT1 A 0 A_JumpIfNoAmmo("Dryfire")
+	SHK2 F 0 A_Light1
+	SHK2 F 0 A_PlayWeaponSound("weapons/microwave")
+	SHK2 F 0 ACS_Execute(287,0,30,random(2,4),0)
+	SHK2 F 1 A_RailAttack(53,0,1,"FFA35B",none,1,1)
+	SHK2 G 0 A_Light0
+	SHK2 G 2 Bright
+	SHK2 A 0 ACS_Execute(287,0,-30,random(-2,-4),0)
+	SHK2 GF 1
+	SHCK A 2
+	SHCK A 1 A_ReFire
+	Goto Ready
+   Dryfire:
+	SHCK A 0 A_PlayWeaponSound("weapons/empty")
+	SHCK A 2
+	SHCK A 0 A_CheckReload
+	Goto Ready
   }
 }
 
@@ -401,7 +392,7 @@ ACTOR DispersionRocketLauncher : GoHWeapon
    +PRIMARY_USES_BOTH
    Weapon.AmmoType1 "RocketAmmo"
    Weapon.AmmoType2 "Fuel"
-   Weapon.AmmoGive1 2
+   Weapon.AmmoGive1 0
    Weapon.AmmoGive2 0
    Weapon.AmmoUse1 1
    Weapon.AmmoUse2 10
@@ -1725,7 +1716,7 @@ ACTOR DemonCannon : GoHWeapon
    weapon.ammotype1 "Mana"
    weapon.ammotype2 "Mana"
    weapon.ammouse1 3
-   weapon.ammouse2 1
+   weapon.ammouse2 10
    weapon.ammogive 0
    Scale 0.38
    States
@@ -1776,14 +1767,13 @@ ACTOR DemonCannon : GoHWeapon
       OMCN B 0 A_Light1
       OMCN B 0 A_PlayWeaponSound("weapons/demoncannon")
 	  TNT1 A 0 ACS_Execute(287,0,10,random(-3,3),0)
-      OMCN B 1 Bright A_FireProjectile("SuperBaronFire",0,1,4,8)
+      OMCN B 4 Bright A_FireProjectile("DesolateBolt",0,1,4,8)
 	  TNT1 A 0 ACS_Execute(287,0,-10,random(-3,3),0)
       OMCN C 0 Bright
       OMCN D 0 A_Light0 
-      OMCN D 2
-      OMCN EF 2
-      OMCN G 5 A_ReFire
-      OMCN A 1 A_ReFire
+      OMCN D 4
+      OMCN EF 3
+      OMCN G 2
       Goto Ready
    } 
 }
@@ -1926,7 +1916,7 @@ ACTOR FirepowerSpreadNuker
      NULL A 3
      Goto Death
     Death:
-     NULL A 0 A_BFGSpray("NukeFire",100)
+     NULL A 0 A_BFGSpray("NukeFire",25)
      Stop
    }
 }
@@ -1936,7 +1926,7 @@ ACTOR NukeFire
      Speed 0
      Height 1
      Radius 1
-     ExplosionDamage 40
+     ExplosionDamage 20
      ExplosionRadius 64
      SeeSound "vile/firecrkl"
      PROJECTILE
@@ -1966,7 +1956,7 @@ ACTOR UnmakerMKVI : GoHWeapon
    Inventory.PickupSound "misc/w_pkup"
    Weapon.AmmoType "Mana" 
    Weapon.AmmoType2 "Mana"  
-   Weapon.AmmoUse 10
+   Weapon.AmmoUse 8
    Weapon.AmmoUse2 5  
    Weapon.AmmoGive 0
    Scale 0.50
@@ -1976,7 +1966,6 @@ ACTOR UnmakerMKVI : GoHWeapon
       UNM6 A -1
       Loop
    Ready: 
-      DDHR A 0 SetPlayerProperty(0,1,6)
       DDHR AEFGHGFE 1 A_WeaponReady(WRF_ALLOWUSER1)
       Loop
    User1: 
@@ -1984,8 +1973,7 @@ ACTOR UnmakerMKVI : GoHWeapon
 	  TNT1 A 0 A_TakeInventory("Token",1)
 	  TNT1 A 0 A_TakeInventory("UnmakerMKVI",1)
 	  stop
-   Deselect: 
-      DDHR A 0 SetPlayerProperty(0,0,6)   
+   Deselect:  
       DDHR H 1 A_Lower
 	  NULL AA 0 A_Lower
       Loop
@@ -2249,7 +2237,7 @@ actor GodHand : GoHWeapon
   Weapon.AmmoGive 0
   Weapon.AmmoUse 2
   Weapon.AmmoUse2 12
-  Scale 2.0
+  scale 0.85
   Inventory.PickupSound "rareimp/holy" 
   Inventory.PickupMessage "You incorpored the spirit of Rare Imp"
   +FLOATBOB
@@ -2257,7 +2245,7 @@ actor GodHand : GoHWeapon
   states
   {
   Ready:
-    GODH A 1 A_WeaponReady(WRF_ALLOWUSER1)
+    GODS A 1 A_WeaponReady(WRF_ALLOWUSER1)
     loop
   User1: 
 	TNT1 A 0 A_SpawnItemEx("LimitGodHand", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER)
@@ -2265,94 +2253,37 @@ actor GodHand : GoHWeapon
 	TNT1 A 0 A_TakeInventory("GodHand",1)
     stop
   Deselect:
-    GODH A 1 A_Lower
+    GODS A 1 A_Lower
 	NULL AA 0 A_Lower
     loop
   Select: 
-    GODH A 1 A_Raise
+    GODS A 1 A_Raise
 	NULL AA 0 A_Raise
     loop
   Spawn: 
-    RADE ABCDEFGHIHGFEDCBA 5 A_Raise
+    GODS S 5
     loop
   Fire:
     TNT1 A 0 A_JumpIfNoAmmo("Deselect")
-    GODH A 3
-    GODH B 3
-    GODH C 4 BRIGHT
-    GODH D 4 BRIGHT A_TakeInventory("Mana",2)
-    GODH F 2 A_FireProjectile("WhiteLight",1,0,0,0)
-    GODH G 5 BRIGHT A_Refire
-    GODH H 4 BRIGHT
+    GODS A 3
+    GODS BCD 3 BRIGHT
+    GODS E 4 BRIGHT A_TakeInventory("Mana",2)
+    GODS F 2 A_FireProjectile("WhiteLight",1,0,0,0)
+    GODS E 5 BRIGHT A_Refire
+    GODS DCBA 2 BRIGHT
     goto ready
   Altfire: 
     TNT1 A 0 A_JumpIfNoAmmo("Deselect")
-    GODH A 3
-    GODH B 3
-    GODH C 4 BRIGHT
-    GODH D 4 BRIGHT
-    GODH F 5 Bright A_FireProjectile("bigball",1,0,0,0)
-	GODH F 0 A_FireProjectile("bigball",0,1,13,5)
-    GODH F 0 A_FireProjectile("bigball",0,1,0,-15)
-    GODH F 0 A_FireProjectile("bigball",0,1,-18,12)
-    GODH G 5 BRIGHT
-    GODH H 4 BRIGHT
+    GODS A 3
+    GODS BCGHI 3 BRIGHT
+    GODS J 5 Bright A_FireProjectile("bigball",1,0,0,0)
+	GODS F 0 A_FireProjectile("bigball",0,1,13,5)
+    GODS F 0 A_FireProjectile("bigball",0,1,0,-15)
+    GODS F 0 A_FireProjectile("bigball",0,1,-18,12)
+    GODS IHGBC 2 BRIGHT
+    GODS A 4 BRIGHT
     goto ready
   }
-}
-
-ACTOR Blood2Scorpions : GoHWeapon
-{
-	Decal BulletChip
-	Inventory.RespawnTics	450
-	Inventory.PickupMessage "You got the Dual Scorpion SMG's!"
-	Inventory.PickupSound "weapons/getscorpions"
-	Obituary "%o got shredded by %k's Scorpion SMG's."
-	+COUNTITEM
-	Weapon.AmmoType		"Clip"
-	Weapon.AmmoGive		0
-	Weapon.AmmoUse		1
-	Radius				12
-	Height				12
-	Scale 1.30
-	Weapon.Kickback 40
-	States
-	{
-    Spawn:
-	    B2SM A -1
-		Stop
-	Ready:
-		B2SC A 1 A_WeaponReady(WRF_ALLOWUSER1)
-		LOOP
-    User1: 
-	    TNT1 A 0 A_SpawnItemEx("LimitBlood2Scorpions", 70, 0, -10, 15, 0, 5, 0, SXF_SETMASTER)
-		TNT1 A 0 A_TakeInventory("Token",1)
-		TNT1 A 0 A_TakeInventory("Blood2Scorpions",1)
-		stop
-	Deselect:
-		B2SC A 1 A_Lower
-	    NULL AA 0 A_Lower
-		LOOP
-	Select:
-		B2SC A 1 A_Raise
-	    NULL AA 0 A_Raise
-      	Loop
-	Fire:
-        TNT1 A 0 A_JumpIfNoAmmo("Deselect")
-		NULL A 0 A_PlaySound("Weapons/ScorpionFire")
-		NULL A 0 A_FireBullets(3,4,-1,4,"BulletPuff",1)
-		NULL A 0 A_PlaySound("Weapons/ScorpionFire")
-		NULL A 0 A_FireBullets(4,3,-1,4,"BulletPuff",1)
-		B2SC B 1 BRIGHT A_Light2
-		NULL A 0 ACS_Execute(287,0,25,random(-9,9),0)
-		B2SC B 0 A_FireProjectile("BulletCasing",45+random(-8,8),0,2,3)
-		B2SC B 0 A_FireProjectile("BulletCasing",-45+random(-8,8),0,2,3)
-		B2SC C 1 BRIGHT A_Light1
-		B2SC A 0 A_Light0
-		B2SC A 1 ACS_Execute(287,0,-25,random(-9,9),0)
-		B2SC A 1 A_Refire
-		Goto Ready
-	}
 }
 
 //Code from q2weaps.wad
@@ -2497,7 +2428,7 @@ ACTOR FastLavaball
    }
 }
 
-//Capitain Toietail
+//Captain Toenail
 actor LaserCannon : GoHWeapon
 {
   obituary "%k burnt a hole in %o with a lasercannon."
@@ -2580,7 +2511,7 @@ actor NoGibPuff : BulletPuff
 +NOEXTREMEDEATH
 }
 
-//by CaptainToenail
+//by Captain Toenail
 actor MultiRocketLauncher : GoHWeapon
 {
   radius 20 
@@ -2623,7 +2554,7 @@ actor MultiRocketLauncher : GoHWeapon
     UROK C 2
     UROK D 0 radius_quake(2, 2, 0, 1, 0)
     UROK D 0 A_Recoil (1)
-    UROK D 2 A_FireProjectile ("SmolRocket")
+    UROK D 2 A_FireProjectile ("Rocket2")
     UROK E 2
     UROK F 2 A_PlayWeaponSound ("MultiLauncher/Rotate")
     UROK GH 2
@@ -2652,11 +2583,11 @@ actor MultiRocketLauncher : GoHWeapon
     UROK D 0 radius_quake(2, 2, 0, 1, 0)
     UROK D 0 A_Recoil (3)
     UROK D 2
-    UROK D 0 A_FireProjectile ("SmolRocket", -6, 1, 0, 0, 1)
-    UROK D 0 A_FireProjectile ("SmolRocket", -3, 1, 0, 0, 1)
-    UROK D 0 A_FireProjectile ("SmolRocket", 0, 1, 0, 0, 1)
-    UROK D 0 A_FireProjectile ("SmolRocket", 3, 1, 0, 0, 1)
-    UROK D 0 A_FireProjectile ("SmolRocket", 6, 1, 0, 0, 1)
+    UROK D 0 A_FireProjectile ("Rocket2", -6, 1, 0, 0, 1)
+    UROK D 0 A_FireProjectile ("Rocket2", -3, 1, 0, 0, 1)
+    UROK D 0 A_FireProjectile ("Rocket2", 0, 1, 0, 0, 1)
+    UROK D 0 A_FireProjectile ("Rocket2", 3, 1, 0, 0, 1)
+    UROK D 0 A_FireProjectile ("Rocket2", 6, 1, 0, 0, 1)
     UROK E 2
     UROK F 3 A_PlayWeaponSound ("MultiLauncher/Rotate")
     UROK GH 3
@@ -2670,6 +2601,55 @@ actor MultiRocketLauncher : GoHWeapon
     TNT1 A 0 bright A_Light0
     stop
   }
+}
+
+ACTOR Rocket2
+{
+	PROJECTILE
+	Damage 20
+	ExplosionDamage 64
+	ExplosionRadius 64
+	Speed 25
+	Height 8
+	Radius 8
+	Scale 0.45
+    +NOGRAVITY
+	SeeSound "DSD3RL"
+	States
+	{
+    Spawn:
+	GLNB A 1 A_CustomMissile("NadeTrail",0,0,0)
+	Loop
+    Death:
+        EXP2 B 0 A_CustomMissile("ExplosionSmoke",0,0,0)
+        EXP2 B 0 A_CustomMissile("Rckt2Explosion",0,0,0)
+        Stop
+   	}
+}
+
+ACTOR Rckt2Explosion
+{
+     PROJECTILE
+     Renderstyle Add
+     ExplosionDamage 64
+     ExplosionRadius 64
+     Speed 0
+     Height 1
+     Radius 1
+     Scale 0.45
+     DeathSound "weapons/rcktxpl"
+     +NOGRAVITY
+     States
+     {
+        Spawn:
+            EXP2 A 0
+            Goto Death
+        Death:
+            EXP2 A 1 A_Scream
+            EXP2 A 1 A_Explode
+            EXP2 BCDEFGHIJKLMNOPQRSTUVWXY 2
+        Stop
+     }
 }
 
 actor SmolRocket : Rocket
@@ -2698,7 +2678,7 @@ actor SmolRocket : Rocket
 	}
 }
 
-//By CaptainToenail
+//By Captain Toenail
 actor Raygun : GoHWeapon
 {
   obituary "%o was blasted by %k's raygun."
@@ -2981,7 +2961,7 @@ Actor RaygunParticle
   }
 }
 
-//By CaptainToenail
+//By Captain Toenail
 actor PlasmaAutoRifle : GoHWeapon
 {
   Weapon.SelectionOrder 100

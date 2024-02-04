@@ -13,13 +13,13 @@ ACTOR SubZero 21003
 	PainSound "SubZero/pain" 
 	DeathSound "SubZero/death" 
 	ActiveSound "SubZero/active" 
-	DropItem LimitIceWand 16
+	DropItem LimitIceWand 8
 	DropItem Mana 210
     dropitem PortablePack 90
     DropItem WarSpirit 32
 	DropItem ManaRune 4
-  DropItem HBSpawner 24
-  DropItem ABSpawner 24
+    DropItem HBSpawner 24
+    DropItem ABSpawner 24
     BloodColor White
 	Obituary "%o was freeze by THE SUBZERO!FATALITY!!."
 	States 
@@ -73,7 +73,7 @@ ACTOR Moe 21669
 	Scale 0.5
 	MONSTER 
 	+FLOORCLIP 
-        +LONGMELEERANGE
+    +LONGMELEERANGE
 	SeeSound "moe/see" 
 	AttackSound "moe/shot"
 	PainSound "moe/pain" 
@@ -214,7 +214,7 @@ actor NeoNazi : WolfensteinSS
   Obituary "%o was killed by an NeoNazi."
   AttackSound "weapons/m20"
   Dropitem Clip
-  Dropitem ClipBox
+  Dropitem ClipBox 16
   DropItem HealthVile 210
   DropItem PortablePack 64
   DropItem WarSpirit 28
@@ -266,7 +266,8 @@ ACTOR SSSoldier 3301
 	DeathSound	"sssoldier/death"
 	ActiveSound	"wolfss/active"
 	Obituary	"%o was killed by an SS soldier."
-    DropItem ClipBox 36
+    Dropitem Clip
+    Dropitem ClipBox 16
     DropItem HealthVile 210
     DropItem PortablePack 64
     DropItem WarSpirit 32
@@ -347,7 +348,7 @@ ACTOR SSCommando 3302
 	ActiveSound	"wolfss/active"
 	Obituary	"%o was killed by an SS commando."
     DropItem Clip
-    DropItem Clip
+    DropItem ClipBox 16
     DropItem HealthVile 210
     DropItem PortablePack 64
     DropItem WarSpirit 32
@@ -432,7 +433,7 @@ ACTOR RedNazi 21038
 	DeathSound "wolfss/death" 
 	ActiveSound "wolfss/active" 
     Dropitem Clip
-    Dropitem ClipBox
+    Dropitem ClipBox 16
     DropItem HealthVile 210
     DropItem PortablePack 64
     DropItem WarSpirit 28
@@ -440,9 +441,9 @@ ACTOR RedNazi 21038
 	Obituary "%o met a red nazi."
 	States 
 	{ 
-         Spawn:
-                SSWV A 1 A_Look
-                loop
+	Spawn:
+		SSWV A 1 A_Look
+		loop
 	
 	See:
 		SSWV AABBCCDD 4 A_Chase
@@ -470,6 +471,7 @@ ACTOR RedNazi 21038
 		SSWV K 5 A_NoBlocking 
 		SSWV L 5 
 		SSWV M -1 
+        stop
     XDeath:
         SSWV N 5
         SSWV O 5 A_XScream
@@ -537,8 +539,8 @@ actor NaziPistol
     NZ01 L -1
     stop
   XDeath:
-    NZ01 M 5
-    NZ01 N 5 A_XScream
+    NZ01 M 2
+    NZ01 N 3 A_XScream
     TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
     TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
     NZ01 O 5 A_NoBlocking
@@ -555,4 +557,76 @@ actor NaziPistol
     NZ01 KJIH 5
     goto See
   }
+}
+
+ACTOR LaserNazi
+{
+	Health 50
+	Radius 20 
+	Height 56 
+	Mass 100 
+	Speed 8 
+	PainChance 70 
+	MONSTER 
+	+FLOORCLIP 
+	SeeSound "wolfss/sight" 
+	PainSound "wolfss/pain" 
+	DeathSound "wolfss/death" 
+	ActiveSound "wolfss/active" 
+	DropItem Cell
+	DropItem Cell
+	DropItem LimitRaygun 32
+    DropItem HealthVile 210
+    DropItem PortablePack 64
+    DropItem WarSpirit 28
+	Obituary "%o met a nazi with a rayrgun."
+	States 
+	{ 
+	Spawn:
+		SSLS I 1 A_Look
+		loop
+	
+	See:
+		SSLS AABBCCDD 3 A_Chase
+		Loop
+
+	Missile:
+		SSLS F 5 A_FaceTarget
+		SSLS G 5 A_FaceTarget
+		TNT1 A 0 BRIGHT A_PlaySound ("Raygun/Fire")
+		SSLS H 3 A_CustomMissile("WeakRaygunBall", 30, 10)
+		SSLS G 3 A_FaceTarget
+		TNT1 A 0 BRIGHT A_PlaySound ("Raygun/Fire")
+		SSLS H 3 A_CustomMissile("WeakRaygunBall", 30, 10)
+		SSLS G 3 A_FaceTarget
+		TNT1 A 0 BRIGHT A_PlaySound ("Raygun/Fire")
+		SSLS H 3 A_CustomMissile("WeakRaygunBall", 30, 10)
+		SSLS G 2 A_PlaySound ("Raygun/Out")
+		SSLS F 8
+		SSLS F 20 A_PlaySound ("Raygun/In")
+		SSLS F 2 A_PlaySound ("Raygun/Close") 
+	   Goto See
+ 
+	Pain: 
+		SSLS P 3 
+		SSLS P 3 A_Pain 
+		Goto See 
+
+	Death: 
+		SSLS V 5 
+		SSLS W 5 A_Scream 
+		SSLS X 5 A_NoBlocking 
+		SSLS Y 5 
+		SSLS Z -1 
+        stop
+	Burn:                
+        APBX A 1 A_HideThing
+        BCUL I 0 A_NoBlocking
+        BCUL I 0 A_SpawnItem("BurnDeath",1,0,0)
+        APBX A -1
+        Stop
+	Raise: 
+		SSLS YXWV 5 
+		Goto See 
+	} 
 }

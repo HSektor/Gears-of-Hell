@@ -23,6 +23,10 @@ weapons/deagle50ae		DSDEAGLE
 //Machine Pistol
 MP/Fire			        MPFIRE
 MP/Up			        MPCOCK
+$random LaserAutomag/Fire  { LaserAutomag/Fire1 LaserAutomag/Fire2 }
+LaserAutomag/Fire1      DSLSAG1
+LaserAutomag/Fire2      DSLSAG2
+LaserAutomag/Charge     DSLSAGC
 
 //Baseball Bat
 weapons/baseballswing1		dsbbtws1
@@ -53,7 +57,9 @@ weapons/riflescope		dsrifsco
 weapons/weaponup                DSWEPUP
 weapons/weapondown              DSWEPDWN
 
-weapons/m202a1			DSM22FIR
+weapons/antitankreload      MISREL
+weapons/antitankfire        PANZF
+weapons/m202a1			    DSM22FIR
 weapons/m202a1rocketfly		DSM22FLY
 weapons/m202a1rocketexp		DSM22EX1
 
@@ -1818,7 +1824,69 @@ $Random Bipod/Death { Bipod/Death1 Bipod/Death2 Bipod/Death3 }
 ailo/see          DSAILSEE
 ailo/death        DSAILDTH
 
-//
+//Ailoprobe
+CyberBrute/see1          DSCBSEE1
+CyberBrute/see2          DSCBSEE2
+CyberBrute/see3          DSCBSEE3
+CyberBrute/see4          DSCBSEE4
+CyberBrute/see5          DSCBSEE5
+CyberBrute/see6          DSCBSEE6
+$Random CyberBrute/See { CyberBrute/see1 CyberBrute/see2 CyberBrute/see3 CyberBrute/see4 CyberBrute/see5 CyberBrute/see6 }
+CyberBrute/act        DSCBACT
+
+//D3Chaingunguy
+D3Chaingunguy/Windup      D3CHNUP
+D3Chaingunguy/WindDown    D3CHNDW
+$Random D3Chaingunguy/Fire { D3Chaingunguy/Fire1 D3Chaingunguy/Fire2 D3Chaingunguy/Fire3 D3Chaingunguy/Fire4 }
+D3Chaingunguy/Fire1           D3CHNF1
+D3Chaingunguy/Fire2           D3CHNF2
+D3Chaingunguy/Fire3           D3CHNF3
+D3Chaingunguy/Fire4           D3CHNF4
+
+//FormerBerserker
+$RANDOM FormerBerserker/FBERSight {FormerBerserker/FBERSit1 FormerBerserker/FBERSit2}
+FormerBerserker/FBERSit1 	FBRSIT1
+FormerBerserker/FBERSit2	FBRSIT2
+$RANDOM FormerBerserker/FBERPain {FormerBerserker/FBERPain1 FormerBerserker/FBERPain2}
+FormerBerserker/FBERPain1	FBRPN1
+FormerBerserker/FBERPain2	FBRPN2
+$RANDOM FormerBerserker/FBERDeath {FormerBerserker/FBERDeath1 FormerBerserker/FBERDeath2}
+FormerBerserker/FBERDeath1	FBRDTH1
+FormerBerserker/FBERDeath2	FBRDTH2
+$RANDOM FormerBerserker/FBERActive {FormerBerserker/FBERActive1 FormerBerserker/FBERActive2 FormerBerserker/FBERActive3 FormerBerserker/FBERActive4}
+FormerBerserker/FBERActive1 				FBRACT1
+FormerBerserker/FBERActive2 				FBRACT2
+FormerBerserker/FBERActive3 				FBRACT3
+FormerBerserker/FBERActive4 				FBRACT4
+FormerBerserker/Grenade 					FBRGREN
+FormerBerserker/VulcanFire 					FBRVULC
+FormerBerserker/VulcanShell 				FBRVULC2
+FormerBerserker/SwarmLaunch 				FBRSWRM
+FormerBerserker/SwarmLaunch2 				FBRSWRM2
+
+//CherubAngel
+Cherub/Sight1 		ANGLSIT1
+Cherub/Sight2 		ANGLSIT2
+Cherub/Pain   		ANGLPN
+Cherub/Defend 		ANGLDEF
+Cherub/Death 		ANGLDTH
+$RANDOM Cherub/Attack {Cherub/Attack1 Cherub/Attack2}
+Cherub/Attack1 		ANGLATK1
+Cherub/Attack2 		ANGLATK2
+
+Cherub/Charging 	ANGLCHRG
+Cherub/PulseCannon 	ANGLCAN
+$Limit Cherub/PulseCannon 0
+Cherub/Akadiyama 	ANGLAKAD
+$Limit Cherub/Akadiyama 0
+
+Cherub/Cluster ANGLCLSR
+$Limit Cherub/Cluster 0
+
+$RANDOM Cherub/Wing {Cherub/Wing1 Cherub/Wing2 Cherub/Wing3}
+Cherub/Wing1 ANGLFLP1
+Cherub/Wing2 ANGLFLP2
+Cherub/Wing3 ANGLFLP3
 //======================================
 //ITEMS AND MISC
 //======================================

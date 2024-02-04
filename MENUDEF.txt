@@ -13,16 +13,16 @@ OptionMenu "GoH"
 	StaticText 	""
 	StaticText "This mod can have a system that limits the number of weapons you have.", 3
 	StaticText "Any changes in this will only take effect on the next map/death.", 3
-	StaticText "This weapon limit does not count your fists and grenades.", 3	
-	StaticText "Remember to bind the key to drop your weapon if you use this.", 3	
-	Option "Limit System", GoH_LimitSystem, "OnOff"
+	StaticText "The weapon limit does not count your fists and grenades.", 3	
+	StaticText "Remember to bind the key to drop your weapon on the Gears of Hell Controls.", 3	
+	Option "Toggle Limit System", GoH_LimitSystem, "OnOff"
 	Slider "Max number of weapons", maxweap, 2, 100, 1, 1, GoH_LimitSystem
 	StaticText 	""
 	StaticText "Game mode where your inventory is always reseted.", 3
-	Option "Force Pistol Start", "user_ForcePistolStart", "OnOff"
+	Option "Pistol Start Mode", "user_ForcePistolStart", "OnOff"
 	StaticText 	""
 	StaticText "Option to slow down the player speed below 25HP or less.", 3
-	Option "Allow slow speed after below 25HP", "user_RunHealth", "OnOff"
+	Option "Toggle slow speed below 25HP", "user_RunHealth", "OnOff"
 	StaticText 	""
 	StaticText 	""
 	Submenu "Gears of Hell Controls",		"GOHControls"

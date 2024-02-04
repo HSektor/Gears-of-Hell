@@ -267,6 +267,7 @@ ACTOR Battlelord 7069
     DropItem Healthvile 64
 	DropItem WarSpirit 28
 	DropItem LimitLSCMinigun 150
+	DropItem LimitQGrenadeLauncher 150
 	DropItem PowerupSpawner
     Damage 4
 	States
@@ -284,19 +285,19 @@ ACTOR Battlelord 7069
 		LORD G 0 A_JUMP (120,"Missile2")
  		LORD G 20 Bright A_Facetarget
  		LORD G 0 A_PLAYSOUND ("BOFIRE")
- 		LORD H 8 A_ThrowGrenade("Mortar", 20, 20, 10)
+ 		LORD H 8 A_ThrowGrenade("StickyGrenade", 20, 20, 10)
  		LORD G 8 Bright A_Facetarget
  		LORD G 0 A_PLAYSOUND ("BOFIRE")
- 		LORD H 8 A_ThrowGrenade("Mortar", 20, 20, 10)
+ 		LORD H 8 A_ThrowGrenade("StickyGrenade", 20, 20, 10)
  		LORD G 8 Bright A_Facetarget
  		LORD G 0 A_PLAYSOUND ("BOFIRE")
- 		LORD H 8 A_ThrowGrenade("Mortar", 20, 20, 10)
+ 		LORD H 8 A_ThrowGrenade("StickyGrenade", 20, 20, 10)
 	 	LORD G 8 Bright A_Facetarget
  		LORD G 0 A_PLAYSOUND ("BOFIRE")
- 		LORD H 8 A_ThrowGrenade("Mortar", 20, 20, 10)
+ 		LORD H 8 A_ThrowGrenade("StickyGrenade", 20, 20, 10)
 	 	LORD G 8 Bright A_Facetarget
  		LORD G 0 A_PLAYSOUND ("BOFIRE")
- 		LORD H 8 A_ThrowGrenade("Mortar", 20, 20, 10)
+ 		LORD H 8 A_ThrowGrenade("StickyGrenade", 20, 20, 10)
 	 	LORD G 20 Bright A_Facetarget
  		goto see
 	Missile2:
@@ -323,29 +324,58 @@ ACTOR Battlelord 7069
 
 ACTOR Mortar
 {
-	radius 6
-	height 8
-	speed 18
-	damage 20
-	explosiondamage 64
-	Explosionradius 128
-	Seesound "OVLOATK"
-	DeathSound "BOEXP"
-	+NOBLOCKMAP
-    -NOGRAVITY
+	Projectile
+	+Shootable
+	+HITTRACER
+	+DontSplash
+	+ForceRadiusDmg
 	+MISSILE 
-	+ACTIVATEIMPACT 
-	+ACTIVATEPCROSS 
-	+NOTELEPORT 
-	+CANBOUNCEWATER 
+	+DontFall //Stops it from falling after sticking to targets.
+	+EXTREMEDEATH
+	-NOGRAVITY
+	Gravity 0.65
+	Health 1
+	Radius 8
+	Height 8
+	Speed 18
+	Damage 0
+	RenderStyle Translucent
+	Scale 0.75
+	Seesound "OVLOATK"	
+	DeathSound "BOEXP"
 	States
 	{
-	Spawn:
-		MORT A 0 A_CustomMissile("MortarGhost", 0, 0, 0, 0)
-		MORT ABCD 4 A_SeekerMissile(90,90)
-		Loop
+	Spawn:	
+		MORT A 0 Bright ThrustThingZ(0,50,0,1)
+		TNT1 A 0 A_SpawnProjectile("MortarGhost",0,0,0)
+		MORT A 2 Bright ThrustThingZ(0,15,0,1)
+		TNT1 A 0 A_SpawnProjectile("MortarGhost",0,0,0)
+		MORT B 2 Bright ThrustThingZ(0,10,0,1)
+		TNT1 A 0 A_SpawnProjectile("MortarGhost",0,0,0)
+		MORT C 2 Bright ThrustThingZ(0,3,0,1)
+		TNT1 A 0 A_SpawnProjectile("MortarGhost",0,0,0)
+		MORT D 2 Bright ThrustThingZ(0,1,0,1)
+		TNT1 A 0 A_SpawnProjectile("MortarGhost",0,0,0)
+		MORT ABCD 4 Bright A_SpawnProjectile("MortarGhost",0,0,0)
+		Goto Spawn+10
 	Death:
+		MORT D 0 A_ChangeFlag("THRUACTORS",1)
+		MORT D 0 A_NoGravity
+		MORT ABCDABCDABCD 5
         EXP2 A 2 Bright A_Explode
+        EXP2 BCDEFGHIJKLMN 2 Bright
+		Stop
+	XDeath:
+		TNT1 A 0 A_ChangeFlag("THRUACTORS",1)
+		TNT1 A 0 A_Stop		
+		TNT1 A 0 A_NoGravity
+		Goto Stickening
+	Stickening:
+		MORT DDDDDDDDDDDDDDDDDDDDDDDDDDDD 1 Bright A_Warp(AAPTR_TRACER,0,0,32,0,WARPF_COPYINTERPOLATION|WARPF_NOCHECKPOSITION)
+		MORT DDDDDDDDDDDDDDDDDDDDDDDDDDDD 1 Bright A_Warp(AAPTR_TRACER,0,0,32,0,WARPF_COPYINTERPOLATION|WARPF_NOCHECKPOSITION)
+		Goto Explode
+	Explode:
+        EXP2 A 2 Bright A_Explode(20,16)
         EXP2 BCDEFGHIJKLMN 2 Bright
 		Stop
 	}
@@ -353,12 +383,12 @@ ACTOR Mortar
 
 actor MortarGhost
 {
-    Scale 0.65
-    Speed 0
-    +NOCLIP
-    Projectile
-    RenderStyle Add
-    Alpha 0.5
+	Scale 0.65
+	Speed 0
+	+NOCLIP
+	Projectile
+	RenderStyle Add
+	Alpha 0.7
     States
     {
 	Spawn:
@@ -845,8 +875,7 @@ ACTOR InsanitySpider : SpiderMastermind 9600
     Radius 96
     Obituary "%o was nuked into oblivion by the Insanty Spider."
     DropItem CellPack
-    DropItem LimitDemonCannon 64
-    DropItem ClipBox
+    DropItem CellPack
     DropItem MeatSpawner 210
     DropItem PortablePack 64
 	DropItem WarSpirit 28
@@ -867,11 +896,8 @@ ACTOR InsanitySpider : SpiderMastermind 9600
     Missile:
         INSP A 20 A_FaceTarget
         INSP G 2 A_FaceTarget
-        INSP H 0 A_CustomMissile ("SuperBaronFire", 32, 0, 0) 
-        INSP H 0 A_CustomMissile ("SuperBaronFire", 32, 0, 10)
-        INSP H 0 A_CustomMissile ("SuperBaronFire", 32, 0, -10)
-        INSP H 0 A_CustomMissile ("SuperBaronFire", 32, 0, 20)
-        INSP H 2 A_CustomMissile ("SuperBaronFire", 32, 0, -20) 
+        INSP G 0 A_PlaySound("ScorpLaser")
+        INSP H 1 A_CustomMissile ("LaserFX3",34,0,random(-10,10),0,random(-8,8))
         INSP G 0 A_SpidRefire
         Goto Missile+1
     Pain:
@@ -882,8 +908,8 @@ ACTOR InsanitySpider : SpiderMastermind 9600
         INSP J 20 A_Scream
         INSP K 10
         INSP L 10
-   	INSP M 1 A_CustomMissile ("Kaboom", 25, 0, 16, 2, 32)
-   	INSP M 1 A_CustomMissile ("Kaboom", 18, 0, -132, 2, 12)
+   	    INSP M 1 A_CustomMissile ("Kaboom", 25, 0, 16, 2, 32)
+    	INSP M 1 A_CustomMissile ("Kaboom", 18, 0, -132, 2, 12)
     	INSP M 1 A_CustomMissile ("Kaboom", 15, 0, 48, 2, 64)
         INSP M 1 A_CustomMissile ("Kaboom", 20, 0, -64, 2, 100)
         INSP M 1 A_CustomMissile ("Kaboom", 32, 0, 112, 2, 32)
@@ -923,6 +949,11 @@ ACTOR InsanitySpider : SpiderMastermind 9600
         Stop
     }
 } 
+
+Actor LaserFX3 : LaserFX
+{
+Speed 15
+}
 
 ACTOR Balor 3121
 { 
@@ -1755,11 +1786,11 @@ ACTOR ArchvileFirex5 : ArchvileFire
 
 actor TankBoss 7382
 {
-    Health 5000
+    Health 3000
     Radius 72
     Height 95
     Scale 0.7
-    Speed 6
+    Speed 12
     PainChance 15
     Mass 9000
     MONSTER 
@@ -1771,6 +1802,8 @@ actor TankBoss 7382
     +NOBLOOD
 	+NOICEDEATH
     +DONTMORPH
+    +NOINFIGHTING
+    +NOTARGET
     SeeSound "q2bosstank/sight"
     PainSound "q2bosstank/pain"
     DeathSound "q2bosstank/death"
@@ -1786,6 +1819,7 @@ actor TankBoss 7382
     DropItem LimitNeoRocketLauncher 128
     DropItem LimitLSCMinigun 128
 	DropItem LimitSuperRocket 64
+	DropItem LimitQGrenadeLauncher 64
     DropItem WarSpirit 28
     DropItem PowerupSpawner
     States
@@ -1795,11 +1829,12 @@ actor TankBoss 7382
         Loop
     See:
 	  NULL A 0 A_PlaySound("q2bosstank/walk")
-      BS1W AABB 4 A_Chase
-      BS1W CCDD 4 A_Chase
+      BS1W AABB 3 A_Chase
+      BS1W CCDD 3 A_Chase
       Loop
     Missile:
-	  NULL A 0 A_Jump(96,14)
+	  NULL A 0 A_Jump(96,"Minigun")
+	  NULL A 0 A_Jump(96,"GLauncher")
 	  NULL A 0 A_StopSound
 	  BS1A FG 10 A_FaceTarget
 	  BS1A Z 0 A_FaceTarget
@@ -1810,24 +1845,35 @@ actor TankBoss 7382
 	  BS1A J 10 Bright A_CustomMissile("BossTankRocket",118,-44,0)
 	  BS1A KLMN 14
 	  Goto See
+    Minigun:
 	  NULL A 0 A_StopSound
 	  BS1A ABCD 5 A_FaceTarget
 	  BS1A ABCD 4 A_FaceTarget
-	  BS1A A 3 Bright A_CustomBulletAttack(4,4,1,3,BulletPuff)
+	MinigunLoop:
+	  BS1A A 3 Bright A_CustomBulletAttack(8,8,1,3,BulletPuff)
 	  BS1A Z 0 Bright A_CustomMissile("ShotSmoke",105,44,5+Random(30,-30))
 	  BS1A Z 0 A_FaceTarget
-	  BS1A B 3 Bright A_CustomBulletAttack(4,4,1,2,BulletPuff)
+	  BS1A B 3 Bright A_CustomBulletAttack(8,8,1,2,BulletPuff)
 	  BS1A Z 0 Bright A_CustomMissile("ShotSmoke",106,44,5+Random(30,-30))
 	  BS1A Z 0 A_FaceTarget
-	  BS1A C 3 Bright A_CustomBulletAttack(4,4,1,3,BulletPuff)
+	  BS1A C 3 Bright A_CustomBulletAttack(8,8,1,3,BulletPuff)
 	  BS1A Z 0 Bright A_CustomMissile("ShotSmoke",107,44,5+Random(30,-30))
 	  BS1A Z 0 A_FaceTarget
-	  BS1A D 3 Bright A_CustomBulletAttack(4,4,1,2,BulletPuff)
+	  BS1A D 3 Bright A_CustomBulletAttack(8,8,1,2,BulletPuff)
 	  BS1A Z 0 Bright A_CustomMissile("ShotSmoke",104,44,5+Random(30,-30))
 	  BS1A Z 0 A_FaceTarget
 	  BS1A E 0 A_CPosRefire
 	  BS1A A 0
-	  Goto Missile+25
+	  Goto MinigunLoop
+    GLauncher:
+	  NULL A 0 A_StopSound
+	  BS1A FG 10 A_FaceTarget
+	  BS1A Z 0 A_FaceTarget
+	  BS1A H 10 Bright A_CustomMissile("GunnerGrenade",122,-36,0)
+	  BS1A Z 0 A_FaceTarget
+	  BS1A I 10 Bright A_CustomMissile("GunnerGrenade",120,-40,0)
+	  BS1A KLMN 14
+	  Goto See
     Pain:
       BS1P A 2
       BS1P A 5 A_Pain
@@ -1935,6 +1981,8 @@ actor HoverBoss
     +NOBLOOD
 	+NOICEDEATH
     +DONTMORPH
+    +NOINFIGHTING
+    +NOTARGET
     SeeSound "q2flyingboss/sight"
     DeathSound "q2flyingboss/death"
     PainSound "q2flyingboss/pain"
@@ -1962,28 +2010,26 @@ actor HoverBoss
 		BS2W AAAAAA 2 Bright A_Chase
 		Loop
     Missile:
-		BS2A A 0 A_Jump(96,12)
+		BS2A A 0 A_Jump(96,"Rockets")
 		BS2A A 0 A_PlaySound("q2flyingboss/walk")
 		BS2A AAAA 4 A_FaceTarget
 		BS2A A 0 A_PlaySound("q2flyingboss/walk")
 		BS2A A 3 Bright A_CustomBulletAttack(9,9,2,5,"Puff2")
-		BS2A Z 0 A_CustomMissile("Smoke",75,57,5+Random(30,-30))
-		BS2A Z 0 A_CustomMissile("Smoke",75,-57,5+Random(30,-30))
+		BS2A Z 0 A_SpawnProjectile("Smoke",75,57,5+Random(30,-30))
+		BS2A Z 0 A_SpawnProjectile("Smoke",75,-57,5+Random(30,-30))
 		BS2A E 0 A_CPosRefire
 		BS2A A 0
-		Goto Missile+6
-		BS2A B 0 A_PlaySound("q2flyingboss/walk")
+		Goto Missile+5
+    Rockets:
 		BS2A BBCCDD 5 A_FaceTarget
 		BS2A B 0 A_PlaySound("q2flyingboss/walk")
-		BS2A D 0 A_CustomMissile("BossTankRocket",10,18,0)
-		BS2A D 0 A_CustomMissile("BossTankRocket",10,9,0)
-		BS2A D 0 A_CustomMissile("BossTankRocket",10,0,0)
-		BS2A D 0 A_CustomMissile("BossTankRocket",10,-9,0)
-		BS2A D 0 A_CustomMissile("BossTankRocket",10,-18,0)
+		BS2A D 0 A_SpawnProjectile("BossTankRocket",10,18,0)
+		BS2A D 0 A_SpawnProjectile("BossTankRocket",10,9,0)
+		BS2A D 0 A_SpawnProjectile("BossTankRocket",10,-9,0)
+		BS2A D 0 A_SpawnProjectile("BossTankRocket",10,-18,0)
 		BS2A CB 10
 		Goto See
     Pain:
-		BS2P A 0 A_PlaySound("q2flyingboss/walk")
 		BS2P A 3 
 		BS2P A 3 A_Pain
 		Goto See
@@ -1991,31 +2037,31 @@ actor HoverBoss
 		BS2D A 0 A_StopSound
 		BS2D A 6 A_LowGravity
 		BS2D B 6 A_Scream
-		BS2D C 5 A_CustomMissile("Kaboom",0+Random(5,80),0+Random(35,-35),0+Random(0,370))
+		BS2D C 5 A_SpawnProjectile("Kaboom",0+Random(5,80),0+Random(35,-35),0+Random(0,370))
 		BS2D D 5 A_NoBlocking
 		BS2D E 4 
-		BS2D F 5 A_CustomMissile("Kaboom",0+Random(5,80),0+Random(35,-35),0+Random(0,370))
+		BS2D F 5 A_SpawnProjectile("Kaboom",0+Random(5,80),0+Random(35,-35),0+Random(0,370))
 		BS2D G 5 
 		Wait
     Crash:
 		BS2D H 6 A_SetFloorClip
 		BS2D I 6 A_NoBlocking
-		NULL A 0 A_CustomMissile("Kaboom",0+Random(5,80),0+Random(35,-35),0+Random(0,370))
+		NULL A 0 A_SpawnProjectile("Kaboom",0+Random(5,80),0+Random(35,-35),0+Random(0,370))
 		BS2D J 6
 		BS2D K 6
 		BS2D L 6
 		BS2D M 6
-		NULL A 0 A_CustomMissile("Kaboom",0+Random(5,80),0+Random(35,-35),0+Random(0,370))
-		NULL A 0 A_CustomMissile("Kaboom",0+Random(5,80),0+Random(35,-35),0+Random(0,370))
+		NULL A 0 A_SpawnProjectile("Kaboom",0+Random(5,80),0+Random(35,-35),0+Random(0,370))
+		NULL A 0 A_SpawnProjectile("Kaboom",0+Random(5,80),0+Random(35,-35),0+Random(0,370))
 		BS2D N 6
 		BS2D O 6
-		NULL A 0 A_CustomMissile("Kaboom",0+Random(5,80),0+Random(35,-35),0+Random(0,370))
-		NULL A 0 A_CustomMissile("Kaboom",0+Random(5,80),0+Random(35,-35),0+Random(0,370))
+		NULL A 0 A_SpawnProjectile("Kaboom",0+Random(5,80),0+Random(35,-35),0+Random(0,370))
+		NULL A 0 A_SpawnProjectile("Kaboom",0+Random(5,80),0+Random(35,-35),0+Random(0,370))
 		BS2D P 20
 		NULL AAAAAAAAAAAAAAAAAAAAA 0 A_TossGib
-		NULL A 0 A_CustomMissile("Kaboom",0+Random(5,80),0+Random(35,-35),0+Random(0,370))
-		NULL A 0 A_CustomMissile("Kaboom",0+Random(5,80),0+Random(35,-35),0+Random(0,370))
-		NULL A 0 A_CustomMissile("Kaboom",0+Random(5,80),0+Random(35,-35),0+Random(0,370))
+		NULL A 0 A_SpawnProjectile("Kaboom",0+Random(5,80),0+Random(35,-35),0+Random(0,370))
+		NULL A 0 A_SpawnProjectile("Kaboom",0+Random(5,80),0+Random(35,-35),0+Random(0,370))
+		NULL A 0 A_SpawnProjectile("Kaboom",0+Random(5,80),0+Random(35,-35),0+Random(0,370))
 		NULL A 1 A_KillMaster
 		Stop
     }
@@ -2318,6 +2364,340 @@ NCLP F 4
 Goto Spawn+3
 Death:
 NCLP A 100 A_Gravity
+Stop
+}
+}
+
+ACTOR FormerBerserker 30001
+{
+    Health 3000
+    Radius 64
+    Height 128
+    Speed 6
+    PainChance 25
+    MONSTER 
+    +NORADIUSDMG
+    +NOBLOOD
+    +BOSS
+    Mass 5000
+    Scale 0.50
+    SeeSound "FormerBerserker/FBERSight"
+    PainSound "FormerBerserker/FBERPain"
+    DeathSound "FormerBerserker/FBERDeath"
+    ActiveSound "FormerBerserker/FBERActive"
+    Obituary "%o was killed by a former berserker."
+	DropItem Cell 196
+	DropItem ClipBox 196
+    DropItem RocketBox 128
+    DropItem Healthvile 64
+	DropItem WarSpirit 28
+	DropItem LimitLSCMinigun 150
+	DropItem LimitMultiRocketLauncher 150
+	DropItem LimitQGrenadeLauncher 150
+	DropItem PowerupSpawner
+    States
+    {
+    Spawn:
+        FBER A 10 A_Look
+        Loop
+    See:
+		FBER BB 4 A_Chase
+		FBER B 0 A_CustomMissile("BerserkerFootPrint", 0, 24, 0)
+		FBER CC 4 A_Chase
+		FBER DD 4 A_Chase
+		FBER D 0 A_CustomMissile("BerserkerFootPrint", 0, -24, 0)
+		FBER EE 4 A_Chase
+		Loop
+	Missile: 
+		FBER A 0 A_Jump(64, "Vulcan")
+		FBER A 0 A_Jump(64, "Grenades")
+		FBER A 0 A_Jump(64, "Rockets")
+		FBER A 0 A_Jump(64, "Phosphorous")
+		Loop
+	Vulcan: 
+		FBER A 10 A_FaceTarget
+		FBER A 1 A_FaceTarget
+		FBER I 0 A_PlaySound ("FormerBerserker/VulcanFire")
+		FBER I 1 BRIGHT A_CustomMissile("VulcanBullet", 56, 33, 2) 
+		FBER I 1 A_CustomMissile("VulcanShell", 56, 33, -80) 
+		FBER I 0 A_PlaySound ("FormerBerserker/VulcanFire")
+		FBER J 1 BRIGHT A_CustomMissile("VulcanBullet", 41, 41, 2) 
+		FBER J 1 A_CustomMissile("VulcanShell", 41, 41, -80) 
+		FBER I 0 A_PlaySound ("FormerBerserker/VulcanFire")
+		FBER K 1 BRIGHT A_CustomMissile("VulcanBullet", 41, 24, 2) 
+		FBER K 1 A_CustomMissile("VulcanShell", 41, 24, -80) 
+		FBER I 0 A_CPosRefire
+		Goto Vulcan+2
+	Grenades: 
+		FBER G 4
+		FBER H 0 A_PlaySound ("FormerBerserker/Grenade")
+		FBER H 4 BRIGHT A_CustomMissile("BerGrenade", 48, random(-5,5), random(-10,10)) 
+		FBER G 4
+		FBER H 4 BRIGHT A_CustomMissile("BerGrenade", 48, random(-5,5), random(-10,10))  
+		FBER G 4
+		Goto See
+	Rockets: 
+		FBER A 4
+		FBER L 4
+		FBER M 8 BRIGHT A_CustomMissile("SwarmRocket", 104, -37, 0)  
+		FBER L 4
+		FBER A 4
+		Goto See
+	Phosphorous: 
+		FBER G 4
+		FBER H 2 BRIGHT A_CustomMissile("Redgrenade", 48, random(-5,5), random(-10,10))  
+		FBER G 2
+		FBER H 2 BRIGHT A_CustomMissile("Redgrenade", 48, random(-5,5), random(-10,10))
+		FBER G 2
+		FBER H 2 BRIGHT A_CustomMissile("Redgrenade", 48, random(-5,5), random(-10,10)) 
+		FBER G 2
+		Goto See
+    Pain:
+		FBER F 3
+		FBER F 3 A_Pain
+		FBER F 0 A_Jump(64, 2)
+		FBER F 0
+		Goto See
+		FBER F 16 A_CustomMissile("BerserkerFlag", 0, 0, 0)
+		Goto See
+    Death:
+		FBER N 6 BRIGHT A_CustomMissile("Kaboom", 74, -20, 0)  
+		FBER N 6 BRIGHT A_CustomMissile("Kaboom", 59, 35, 0)  
+		FBER N 6 BRIGHT A_CustomMissile("Kaboom", 90, 46, 0)  
+		FBER O 6 A_Scream
+		FBER O 6 BRIGHT A_CustomMissile("Kaboom", 37, 50, 0)  
+		FBER P 6 A_Fall
+		FBER P 6 BRIGHT A_CustomMissile("Kaboom", 74, -20, 0)  
+		FBER Q 6
+		FBER R -1
+		Stop
+    }
+}
+
+ACTOR VulcanBullet
+{
+Radius 16
+Height 16
+Speed 32
+PROJECTILE
+Damage 2
+States
+{
+Spawn:
+TRCR A 1 BRIGHT
+TRCR A 1 BRIGHT
+Loop
+Death:
+PUFF A 0 A_Jump(128, 2)
+PUFF A 0 A_Jump(128, 2)
+PUFF A 2 BRIGHT
+PUFF B 2 BRIGHT
+PUFF C 2 BRIGHT
+Stop
+}
+}
+
+
+ACTOR VulcanShell
+{
+Radius 1
+Height 1
+Speed 12
+PROJECTILE
++DOOMBOUNCE
+Damage 0
+Scale 0.10
+SeeSound "FormerBerserker/VulcanShell"
+States
+{
+Spawn:
+CSNG A 0 A_Jump(128,3)
+CSNG A 0 A_Jump(128,3)
+CSNG A 0 A_Jump(128,3)
+CSNG A 4 A_Gravity
+CSNG B 4
+CSNG C 4
+CSNG D 4
+CSNG E 4
+Goto Spawn+3
+Death:
+CSNG E 100 A_Gravity
+Stop
+}
+}
+
+ACTOR SwarmDummy
+{
+Radius 1
+Height 1
+Speed 0
++ISMONSTER
+RENDERSTYLE NONE
+States
+{
+Spawn:
+SWRM A 1 A_Look
+Loop
+See:
+SWRM A 0 A_PlaySound ("FormerBerserker/SwarmLaunch2")
+SWRM A 1 BRIGHT A_CustomMissile("SwarmMissile", 0, 8, -90)
+SWRM A 1 BRIGHT A_CustomMissile("SwarmMissile", 0, -8, 90)  
+SWRM A 1 BRIGHT A_CustomMissile("SwarmMissile", 8, 16, -80)  
+SWRM A 1 BRIGHT A_CustomMissile("SwarmMissile", 8, -16, 80)  
+SWRM A 1 BRIGHT A_CustomMissile("SwarmMissile", 16, 8, -70)  
+SWRM A 1 BRIGHT A_CustomMissile("SwarmMissile", 16, -8, 70)  
+SWRM A 999
+Stop
+}
+}
+
+
+ACTOR SwarmRocket
+{
+Radius 4
+Height 8
+Speed 12
+PROJECTILE
+Damage 5
+SeeSound "FormerBerserker/SwarmLaunch"
+DontHurtShooter
+Scale 0.75
+States
+{
+Spawn:
+SWRM ABABA 2 A_CustomMissile ("ExploSmoke", 0, 0, 0)
+SWRM BABAB 2 A_CustomMissile ("ExploSmoke", 0, 0, 0)
+SWRM ABABA 2 A_CustomMissile ("ExploSmoke", 0, 0, 0)
+SWRM BAB 2 A_CustomMissile ("ExploSmoke", 0, 0, 0)
+SWRM A 2 BRIGHT A_CustomMissile("SwarmDummy", 0, 0, 0)  
+SWR3 AB 2 A_CustomMissile ("ExploSmoke", 0, 0, 0)
+Goto Spawn+20
+Death:
+SWRM A 4  BRIGHT A_CustomMissile("Kaboom", 0, 0, 0)  
+Stop
+}
+}
+
+
+ACTOR SwarmMissile
+{
+Radius 4
+Height 8
+Speed 12
+PROJECTILE
++SEEKERMISSILE
+Damage 5
+Scale 0.50
+DeathSound "weapons/rcktxpl"
+DontHurtShooter
+ExplosionDamage 5
+ExplosionRadius 128
+States
+{
+Spawn:
+SWR2 A 0 A_PlaySound ("FormerBerserker/SwarmLaunch2")
+SWR2 ABAB 1 A_CustomMissile ("ExploSmoke", 0, 0, 0)
+SWR2 B 0 A_SeekerMissile (20, 30)
+SWR2 ABAB 1 A_CustomMissile ("ExploSmoke", 0, 0, 0)
+Goto Spawn+1
+Death:
+BBOM A 2 BRIGHT
+BBOM B 2 BRIGHT A_Explode
+BBOM C 2 BRIGHT
+BBOM D 2 BRIGHT
+BBOM E 2 BRIGHT
+BBOM F 2 BRIGHT
+BBOM G 2 BRIGHT
+BBOM H 2 BRIGHT
+BBOM I 2 BRIGHT
+BBOM J 2 BRIGHT
+BBOM K 2 BRIGHT
+BBOM L 2 BRIGHT
+BBOM M 2 BRIGHT
+BBOM N 2 BRIGHT
+Stop
+}
+}
+
+ACTOR BerGrenade
+{
+Radius 4
+Height 4
+Speed 16
++NOBLOCKMAP
++DROPOFF
++MISSILE
++NOTELEPORT
++DOOMBOUNCE
+Damage 10
+SeeSound "q2weapon/grenadelbounce"
+DeathSound "weapons/rcktxpl"
+Scale 0.10
+States
+{
+Spawn:
+BGRN ABCDEF 3
+Loop
+Death:
+BBOM A 0 Bright A_custommissile("VulcanBullet",0,0,0,2,0)
+BBOM A 0 Bright A_custommissile("VulcanBullet",0,0,20,2,0)
+BBOM A 0 Bright A_custommissile("VulcanBullet",0,0,40,2,0)
+BBOM A 0 Bright A_custommissile("VulcanBullet",0,0,60,2,0)
+BBOM A 0 Bright A_custommissile("VulcanBullet",0,0,80,2,0)
+BBOM A 0 Bright A_custommissile("VulcanBullet",0,0,100,2,0)
+BBOM A 0 Bright A_custommissile("VulcanBullet",0,0,120,2,0)
+BBOM A 0 Bright A_custommissile("VulcanBullet",0,0,140,2,0)
+BBOM A 0 Bright A_custommissile("VulcanBullet",0,0,160,2,0)
+BBOM A 0 Bright A_custommissile("VulcanBullet",0,0,180,2,0)
+BBOM A 0 Bright A_custommissile("VulcanBullet",0,0,200,2,0)
+BBOM A 0 Bright A_custommissile("VulcanBullet",0,0,220,2,0)
+BBOM A 0 Bright A_custommissile("VulcanBullet",0,0,240,2,0)
+BBOM A 0 Bright A_custommissile("VulcanBullet",0,0,260,2,0)
+BBOM A 0 Bright A_custommissile("VulcanBullet",0,0,280,2,0)
+BBOM A 0 Bright A_custommissile("VulcanBullet",0,0,300,2,0)
+BBOM A 0 Bright A_custommissile("VulcanBullet",0,0,320,2,0)
+BBOM A 0 Bright A_custommissile("VulcanBullet",0,0,340,2,0)
+BBOM A 4 BRIGHT A_CustomMissile("Kaboom", 4, 0, 0)  
+PUFF A 4 A_Jump(128, 2)
+BBOM A 4 BRIGHT A_CustomMissile("Kaboom", 16, -16, 0)  
+PUFF A 4 A_Jump(128, 2)
+BBOM A 4 BRIGHT A_CustomMissile("Kaboom", 16, 16, 0)  
+PUFF A 4 A_Jump(128, 2)
+BBOM A 4 BRIGHT A_CustomMissile("Kaboom", 12, 0, 0)  
+BBOM A 1
+Stop
+}
+}
+
+ACTOR BerserkerFlag
+{
+    SPAWNID 242
+    Speed 0
+    RENDERSTYLE None
+    States
+    {
+    Spawn:
+        HHND S 8
+        Stop
+    }
+}
+
+ACTOR BerserkerFootPrint
+{
+Speed 0
++NONSHOOTABLE
++NOTELEPORT
++NOCLIP
++NOBLOCKMAP
+XScale 0.50
+YScale 0.20
+RenderStyle Translucent
+Alpha 0.50
+States
+{
+Spawn:
+PRNT B 8
+PRNT AAA 100
 Stop
 }
 }

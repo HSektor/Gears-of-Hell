@@ -265,7 +265,7 @@ ACTOR RedBall
 	+RANDOMIZE
 	RenderStyle "ADD"
 	Alpha 0.75
-        Scale 0.5
+    Scale 0.5
 	SeeSound "Red/attack"
 	DeathSound "imp/shotx"
 	MissileType RedTrail
@@ -332,7 +332,7 @@ ACTOR Nemesis : HellKnight
 	Missile:
 		NEME EF 8 A_FaceTarget
 		NEME A 0 A_PlayWeaponSound("weapon/unaltfire")
-		NEME G 8 bright A_CustomRailgun(30,0,none,"Red",1,1)
+		NEME G 12 bright A_CustomRailgun(30,0,none,"Red",1,0,1)
 		NEME FE 8
 		Goto See
 	Death:
@@ -918,83 +918,6 @@ actor EXMonk
     }
 }
 
-ACTOR Q2Mutant
-{
-	Health 555
-	Radius 28
-	Height 72 
-	Mass 400 
-	Speed 15
-	MeleeDamage 8
-	Damage 8
-	PainChance 120
-	Scale 0.75
-	MONSTER 
-   SeeSound "q2mutant/sight"
-   PainSound "q2mutant/pain"
-   DeathSound "q2mutant/death"
-   ActiveSound "q2mutant/seeking"
-   MeleeSound "q2mutant/meleehit"
-   AttackSound ""
-    DropItem MeatSpawner 110
-    DropItem WarSpirit 50
-    DropItem WarSpirit 48
-	+BOSS
-	+FLOORCLIP 
-	Obituary "%o was disemboweled by a mutant."
-	States
-	{
-	Spawn:
-		Q2MI A 5 A_Look
-		Loop
-	See:
-		Q2MW A 5 A_Chase
-		Q2MW B 3 A_Chase
-		Q2MW CC 3 A_Chase
-		Q2MW D 3 A_Chase
-		Q2MW E 3 A_Chase
-		Q2MW F 5 A_Chase
-		Loop
-	Melee:
-		Q2MA ABCD 4 A_FaceTarget
-		Q2MA Z 0 A_PlaySound("q2mutant/meleeswing")
-		Q2MA E 5 A_MeleeAttack
-		Q2MA FG 4 A_FaceTarget
-		Q2MA Z 0 A_PlaySound("q2mutant/meleeswing")
-		Q2MA H 4 A_MeleeAttack
-		Q2MA I 4 A_FaceTarget
-		Goto See
-	Missile:
-		Q2MW A 0 A_PlaySound("q2mutant/sight")
-		Q2MW AB 3 A_Facetarget
-		Q2MW C 12 A_SkullAttack
-		Q2MW D 8 A_SkullAttack
-		Q2MW EF 4 
-		Goto See
-	Pain:
-		Q2MP A 5
-		Q2MP A 5 A_Pain
-		Goto See
-	Death:
-		TNT1 A 0
-		TNT1 A 0 
-		Q2MD A 4
-		Q2MD B 4 A_Scream
-		Q2MD C 4 A_NoBlocking
-		Q2MD DEFGH 4
-		Q2MD I -1
-		Stop
-    Raise:
-		Q2MD IHGFEDCBA 4
-		Goto See
-	}
-}
-
-Actor FQ2MutantD : Q2Mutant 
-{
-	+AMBUSH
-}
-
 actor FWarrior
 {
     Health 600
@@ -1236,4 +1159,443 @@ ACTOR ApocLightning : Lightning2
 {
     Speed 30
     Damage 1
+}
+
+//===========================================================================
+//===========================================================================
+
+actor IronMaiden
+{
+    Health 500
+    Radius 20
+    Height 64
+    Scale 0.4
+    Speed 5
+    PainChance 150
+    Mass 400
+    MONSTER 
+    +FLOORCLIP
+    +DONTMORPH
+    SeeSound "q2bitch/sight"
+    PainSound "q2bitch/pain"
+    DeathSound "q2bitch/death"
+    ActiveSound "q2bitch/search"
+    MeleeSound "implord/macehit"
+    Obituary "%o was exploded by the Iron Maiden."
+    HitObituary "%o shouldn't have approached that much to the Iron Maiden."
+    MeleeDamage 8
+    DropItem LimitNeoRocketLauncher 128
+	DropItem RocketAmmo
+    DropItem RocketAmmo
+    DropItem RocketBox
+    DropItem MeatSpawner 110
+    DropItem PortablePack 64
+    DropItem WarSpirit 28
+    +BOSSDEATH
+    States
+    {
+    Spawn:
+        BITI AAAAAAAAAAAAAAAA 5 A_Look
+	    NULL A 0 A_PlaySound("q2bitch/doingnothing")
+	    BITI AAAAAAAAAA 6 A_Look
+	    NULL A 0 A_Jump(128,7)
+	    BITI AAAAAAA 6 A_Look
+	    BITI AAAAAAAAAA 6 A_Look
+        Loop
+    See:
+        BITW AABBCCDDEEFF 2 A_Chase
+        Loop
+    Missile:
+	    NULL A 0 A_PlaySound("q2bitch/attackscream")
+        BITA ABCD 6 A_FaceTarget
+        BITA D 5 A_SpawnProjectile("BitchRocket2",29,-6, 0, CMF_AIMDIRECTION)
+	    BITA E 5
+        Goto See
+    Pain:
+        BITP A 2
+        BITP A 5 A_Pain
+        Goto See
+    Death:
+        BITD A 6
+        BITD B 6 A_Scream
+        BITD C 6
+        BITD D 6 A_NoBlocking
+        BITD EFG 6
+        BITD HIJKLMN 5
+        BITD O -1 A_KillMaster
+        Stop
+	Ice:
+		BITP A 5 A_GenericFreezeDeath
+		BITP A 0 A_KillMaster
+		BITP A 1 A_FreezeDeathChunks
+		Wait
+    Raise:
+	    BITD ONMLKJIHGFEDCBA 4
+	    Goto See
+    }
+}
+
+actor BitchRocket
+{
+	Radius 12
+	Height 8
+	Speed 20
+	Damage 17
+	Projectile
+	Scale 0.45
+	+ROCKETTRAIL
+	SeeSound "q2weapon/rocketlauncherfire"
+	States
+	{
+	Spawn:
+		QROK A 2 A_CustomMissile("QRockTrail",2,0,0)
+		TNT1 A 0 A_SpawnItemEx("Q2RocketExtra",0,0,0,1,0,random(-1,1),random(1,360))
+		Loop
+	Death:
+		TNT1 A 0 A_CustomMissile("ExplosionSmoke",0,0,0)
+	    EXPL AA 0 A_CustomMissile("ExploSmoke",0+Random(0,25),0+Random(5,-5),0+Random(0,370))
+		TNT1 AAAAAAA 0 A_SpawnItemEx("Q2RocketExtra",0,0,0,1,0,random(-1,3),random(1,360))
+	    EXPL A 0 A_CustomMissile("RocketExplosion",0,0,0,0)
+		EXP3 A 0 Bright A_Explode(128,128)
+		Stop
+	}
+}
+
+actor BitchRocket2 : BitchRocket
+{
+	Speed 12
+	Damage 15
+	States
+	{
+	Death:
+		TNT1 A 0 A_CustomMissile("RLSmoke",0,0,0)
+	    EXPL AA 0 A_CustomMissile("ExploSmoke",0+Random(0,25),0+Random(5,-5),0+Random(0,370))
+		TNT1 AAAAAAA 0 A_SpawnItemEx("Q2RocketExtra",0,0,0,1,0,random(-1,3),random(1,360))
+	    EXPL A 0 A_CustomMissile("RocketExplosion2",0,0,0,0)
+		EXP3 A 0 Bright A_Explode(50,64)
+		Stop
+		}
+}
+
+Actor Q2RocketExtra
+{
+   Height 4
+   Radius 4
+   Speed 3
+   Scale 0.5
+   +NOCLIP
+   PROJECTILE
+   -NOGRAVITY
+   +DONTBLAST
+   +LOWGRAVITY
+   Gravity 0.5
+   +DONTSPLASH
+   RenderStyle Add
+   States
+   {
+   Spawn:
+      ICPR K 0
+	  WRBL K 1 Bright ThrustThingZ(0,random(-2,12),0,1)
+      WRBL KKKKKK 3 Bright
+	  WRBL K 1 Bright A_FadeOut
+	  Wait
+   }
+}
+
+Actor RocketExplosion
+{
+    Radius 5
+    Height 5
+    Speed 0
+    +NOCLIP
+	Speed 0
+	Projectile
+	SeeSound "weapons/rockexplo"
+	States
+	{
+	Spawn:
+		EXP3 BCDEFGHIJKLMNOPQRSTUVWXYZ 2 Bright A_FadeOut(0.025)
+		Wait
+	}
+}
+
+Actor RocketExplosion2 : RocketExplosion
+{
+      Radius 2
+      Height 2
+      Scale 0.5
+}
+
+actor YellowBit
+{
+    Mass 1
+    Radius 1
+    Height 1
+    Speed 5
+    Damage 0
+    PROJECTILE
+    +NOCLIP
+    States
+    {
+    Spawn:
+        YELL AAAA 5
+        Stop
+    }
+}
+Actor IronMaidenD : IronMaiden
+{
+	+AMBUSH
+}
+
+//===========================================================================
+//===========================================================================
+//	Enless credits to Serious Cacodemon for make this guy's shield!
+//	Just awesome!!!
+//===========================================================================
+//===========================================================================
+ACTOR Q2Brains
+{
+    Health 400
+    Radius 20
+    Height 56
+    Speed 8
+    Mass 1000
+    PainChance 90
+    Scale 0.48
+    minmissilechance 250
+    MONSTER 
+    +FLOORCLIP
+    SeeSound "q2brains/sight"
+    PainSound "q2brains/pain"
+    DeathSound "q2brains/death"
+    ActiveSound "q2brains/seeking"
+    MeleeDamage 6
+    Obituary "%o was slaughtered by a weird entity."
+	dropitem ItemSpawner 8
+    dropitem MeatSpawner 150
+    DropItem CellPack
+    DropItem WarSpirit 48
+    Dropitem PortablePack 88
+    States
+    {
+    Spawn:
+        BRNI A 5 A_Look
+		BRNI A 0 A_SpawnItem("Q2BrainsShieldup3",4,0,0)
+        Loop
+    See:
+		BRNW A 0 A_SpawnItem("Q2BrainsShieldup",12,0,0)
+		BRNW A 6 A_Chase
+		BRNW B 0 A_SpawnItem("Q2BrainsShieldup",12,0,0)
+		BRNW B 6 A_Chase
+		BRNW C 0 A_SpawnItem("Q2BrainsShieldup",12,0,0)
+		BRNW C 6 A_Chase
+		BRNW D 0 A_SpawnItem("Q2BrainsShieldup",12,0,0)
+		BRNW D 6 A_Chase
+		BRNW A 0 A_SpawnItem("Q2BrainsShieldup2",12,0,0)
+		BRNW E 7 A_Chase
+		Loop
+	Melee:
+		BRNA A 0 A_SpawnItem("Q2BrainsShieldup3",4,0,0)
+		BRNA A 5 A_FaceTarget
+		BRNA B 0 A_SpawnItem("Q2BrainsShieldup3",4,0,0)
+		BRNA B 5 A_FaceTarget
+		BRNA C 0 A_SpawnItem("Q2BrainsShieldup3",4,0,0)
+		BRNA C 5 A_FaceTarget
+		BRNA D 0 A_SpawnItem("Q2BrainsShieldup3",4,0,0)
+		BRNA D 5 A_FaceTarget
+		BRNA E 0 A_SpawnItem("Q2BrainsShieldup3",4,0,0)
+		BRNA E 5 A_FaceTarget
+		BRNA E 0 A_SpawnItem("Q2BrainsShieldup3",4,0,0)
+		BRNA F 5 A_MeleeAttack
+		BRNA G 0 A_SpawnItem("Q2BrainsShieldup3",4,0,0)
+		BRNA G 5 A_MeleeAttack
+		BRNA H 0 A_SpawnItem("Q2BrainsShieldup4",4,0,0)
+		BRNA H 4
+		BRNI A 0 A_SpawnItem("Q2BrainsShieldup",4,0,0)
+		BRNI A 6
+		Goto See
+	Missile:
+		BRNA A 1 A_JumpIfTargetInLOS(1, 0, JLOSF_TARGETLOS, 512) // Is there something that is being aimed at?
+		Goto See
+		BRNA A 0 A_SpawnItem("Q2BrainsShieldup3",4,0,0)
+		BRNI A 5 A_FaceTarget
+		BRNA B 0 A_SpawnItem("Q2BrainsShieldup3",4,0,0)
+		BRNI A 1 A_CustomRailgun(0,0,none,"red",1,1,1,none, 1,1,512, 0,1.0,1.0,none,28)
+		BRNI A 1 A_CustomRailgun(0,0,none,"red",1,1,1,none, 1,1,512, 0,1.0,1.0,none,28)
+		BRNI A 1 A_CustomRailgun(5,0,none,"red",1,1,1,none, 1,1,512, 0,1.0,1.0,none,28)
+    LaserLoop:
+		BRNA A 0 A_CheckRange(512, "See", True ) // Is there something that is being aimed at?
+		BRNI A 1 A_CustomRailgun(0,-2,none,"red",1,1,1,none, 1,1,512, 0,1.0,1.0,none,28)
+		BRNI A 1 A_CustomRailgun(0,-2,none,"red",1,1,1,none, 1,1,512, 0,1.0,1.0,none,28)
+		BRNI A 1 A_CustomRailgun(random(1,2),-2,none,"red",1,1,1,none, 1,1,512, 0,1.0,1.0,none,28)
+		BRNI A 1 A_CustomRailgun(0,2,none,"red",1,1,1,none, 1,1,512, 0,1.0,1.0,none,28)
+		BRNI A 1 A_CustomRailgun(0,2,none,"red",1,1,1,none, 1,1,512, 0,1.0,1.0,none,28)
+		BRNI A 1 A_CustomRailgun(random(1,2),2,none,"red",1,1,1,none, 1,1,512, 0,1.0,1.0,none,28)
+		BRNI A 0 A_MonsterRefire(130, "See")
+		Loop
+    LaserEnd:
+		TNT1 A 0 A_PlaySound("q2parasite/tongueinside")
+		PARA EF 5
+		Goto See
+    Pain:
+	    BRNP A 0 A_SpawnItem("Q2BrainsShieldup4",4,0,0)
+        BRNP A 1
+        BRNP A 3 A_Pain
+        Goto See
+    Death:
+        BRND A 4 A_Scream
+        BRND BC 4
+        BRND D 3 A_NoBlocking
+        BRND E -1
+        Stop
+    Raise:
+        BRND EDCBA 4
+        Goto See
+    }
+}
+
+
+Actor Q2BrainsShieldup
+{
+radius 21
+height 68
+health 99999999
+painchance 255
+mass 99999999999
+RENDERSTYLE ADD
++SHOOTABLE
++NOCLIP
++NOBLOOD
++NOGRAVITY
+states
+  {
+  Spawn:
+  TNT1 A 1
+  TNT1 A 0 A_GiveInventory("Q2BrainsShieldChecker",1)
+  TNT1 A 0 A_JumpIfInventory("Q2BrainsShieldChecker",7,1)
+  loop
+  TNT1 A 0
+  stop
+  Pain:
+  TNT1 A 0 A_JumpIfInventory("Q2BrainsShieldChecker",7,6)
+  TNT1 A 0 A_JumpIfInventory("Q2BrainsShieldalreadyup",1,6)
+  TNT1 A 0 A_GiveInventory("Q2BrainsShieldalreadyup",1)
+  TNT1 A 1 A_SpawnItem("Q2BrainsShield",24,0,0)
+  TNT1 A 0 A_GiveInventory("Q2BrainsShieldChecker",1)
+  TNT1 A 0 A_TakeInventory("Q2BrainsShieldAlreadyup",1)
+  goto Spawn
+  TNT1 A 0
+  stop
+  TNT1 A 0
+  goto Spawn
+  }  
+}
+
+Actor Q2BrainsShieldup2 : Q2BrainsShieldup
+{
+states
+  {
+  Spawn:
+  TNT1 A 1
+  TNT1 A 0 A_GiveInventory("Q2BrainsShieldChecker",1)
+  TNT1 A 0 A_JumpIfInventory("Q2BrainsShieldChecker",8,1)
+  loop
+  TNT1 A 0
+  stop
+  Pain:
+  TNT1 A 0 A_JumpIfInventory("Q2BrainsShieldChecker",7,6)
+  TNT1 A 0 A_JumpIfInventory("Q2BrainsShieldalreadyup",1,6)
+  TNT1 A 0 A_GiveInventory("Q2BrainsShieldalreadyup",1)
+  TNT1 A 1 A_SpawnItem("Q2BrainsShield",24,0,0)
+  TNT1 A 0 A_GiveInventory("Q2BrainsShieldChecker",1)
+  TNT1 A 0 A_TakeInventory("Q2BrainsShieldAlreadyup",1)
+  goto Spawn
+  TNT1 A 0
+  stop
+  TNT1 A 0
+  goto Spawn
+  }  
+}
+
+Actor Q2BrainsShieldup3 : Q2BrainsShieldup
+{
+states
+  {
+  Spawn:
+  TNT1 A 1
+  TNT1 A 0 A_GiveInventory("Q2BrainsShieldChecker",1)
+  TNT1 A 0 A_JumpIfInventory("Q2BrainsShieldChecker",6,1)
+  loop
+  TNT1 A 0
+  stop
+  Pain:
+  TNT1 A 0 A_JumpIfInventory("Q2BrainsShieldChecker",7,6)
+  TNT1 A 0 A_JumpIfInventory("Q2BrainsShieldalreadyup",1,6)
+  TNT1 A 0 A_GiveInventory("Q2BrainsShieldalreadyup",1)
+  TNT1 A 1 A_SpawnItem("Q2BrainsShield",24,0,0)
+  TNT1 A 0 A_GiveInventory("Q2BrainsShieldChecker",1)
+  TNT1 A 0 A_TakeInventory("Q2BrainsShieldAlreadyup",1)
+  goto Spawn
+  TNT1 A 0
+  stop
+  TNT1 A 0
+  goto Spawn
+  }  
+}
+
+Actor Q2BrainsShieldup4 : Q2BrainsShieldup
+{
+states
+  {
+  Spawn:
+  TNT1 A 1
+  TNT1 A 0 A_GiveInventory("Q2BrainsShieldChecker",1)
+  TNT1 A 0 A_JumpIfInventory("Q2BrainsShieldChecker",5,1)
+  loop
+  TNT1 A 0
+  stop
+  Pain:
+  TNT1 A 0 A_JumpIfInventory("Q2BrainsShieldChecker",7,6)
+  TNT1 A 0 A_JumpIfInventory("Q2BrainsShieldalreadyup",1,6)
+  TNT1 A 0 A_GiveInventory("Q2BrainsShieldalreadyup",1)
+  TNT1 A 1 A_SpawnItem("Q2BrainsShield",24,0,0)
+  TNT1 A 0 A_GiveInventory("Q2BrainsShieldChecker",1)
+  TNT1 A 0 A_TakeInventory("Q2BrainsShieldAlreadyup",1)
+  goto Spawn
+  TNT1 A 0
+  stop
+  TNT1 A 0
+  goto Spawn
+  }  
+}
+
+Actor Q2BrainsShield
+{
+radius 0
+height 0
++NOCLIP
+RENDERSTYLE ADD
+states
+  {
+  Spawn:
+  BRN5 A 3
+  stop
+  }
+}
+
+Actor Q2BrainsShieldChecker : Inventory
+{
+inventory.amount 1
+inventory.maxamount 8
+}
+
+Actor Q2BrainsShieldalreadyup : Inventory
+{
+inventory.amount 1
+inventory.maxamount 1
+}
+
+Actor FQ2BrainsD : Q2Brains 
+{
+	+AMBUSH
 }

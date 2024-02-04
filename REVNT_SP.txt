@@ -35,16 +35,16 @@ Actor NightmareImp : ChaingunGuy
         NTRO D 3 A_Chase 
         NTRO D 3 A_Chase 
         Loop 
-      Melee:
-	  NTRO HI 7 A_FaceTarget
-	  NTRO J 5 A_SargAttack
-	  Goto See
+    Melee:
+	    NTRO HI 7 A_FaceTarget
+	    NTRO J 5 A_SargAttack
+	    Goto See
     Missile:
-	  NTRO EF 7 A_FaceTarget
-	  NTRO G 5 A_CustomMissile("NightMareImpBall", 32, 0, 0)
-	  NTRO HI 6 A_FaceTarget
-	  NTRO J 4 A_CustomMissile("NightMareImpBall", 28, 0, 0)
-	  Goto See
+	    NTRO EF 7 A_FaceTarget
+	    NTRO G 5 A_CustomMissile("NightMareImpBall", 32, 0, 0)
+	    NTRO HI 6 A_FaceTarget
+	    NTRO J 4 A_CustomMissile("NightMareImpBall", 28, 0, 0)
+	    Goto See
     Pain: 
         NTRO K 4 A_Pain 
         NTRO K 3 A_Pain 
@@ -754,8 +754,6 @@ actor Gunner //revenant
     MONSTER 
     +FLOORCLIP
     +MISSILEMORE
-    DropItem Clip 150
-    DropItem RocketAmmo 128
     SeeSound "q2infantry/sight"
     PainSound "q2gunner/pain"
     DeathSound "q2gunner/death"
@@ -769,115 +767,59 @@ actor Gunner //revenant
     DropItem PortablePack 64
     dropitem MeatSpawner 90
     DropItem WarSpirit 48
+	DropItem LimitQGrenadeLauncher 18
     States
     {
     Spawn:
-	  GNNI A 5 A_Look
+		GNNI A 5 A_Look
         Loop
     See:
-	  GNNW AABBCCDDEEFF 2 A_Chase
-	Loop
+		GNNW AABBCCDDEEFF 2 A_Chase
+		Loop
     Missile:
-	  NULL A 0 A_Jump(128,14)
-	  GNNA C 12 A_FaceTarget
-	  GNNA A 0 A_PlaySound("q2weapon/grenadelaunfire")
-	  GNNA A 4 A_CustomMissile("GunnerGrenade", 50, -20, 0)
-	  GNNA BC 6 A_FaceTarget
-	  GNNA A 0 A_PlaySound("q2weapon/grenadelaunfire")
-	  GNNA A 4 A_CustomMissile("GunnerGrenade", 50, -20, 0)
-	  GNNA BC 6 A_FaceTarget
-	  GNNA A 0 A_PlaySound("q2weapon/grenadelaunfire")
-	  GNNA A 4 A_CustomMissile("GunnerGrenade", 50, -20, 0)
-	  GNNA BC 6 A_FaceTarget
-	  Goto See
-	  GNNA DEFG 5 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA H 4 Bright A_CustomBulletAttack(5,5,1,4)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA I 4 Bright A_CustomBulletAttack(5,5,1,3)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA J 4 Bright A_CustomBulletAttack(5,5,1,4)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA H 4 Bright A_CustomBulletAttack(5,5,1,3)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA I 4 Bright A_CustomBulletAttack(5,5,1,4)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA J 4 Bright A_CustomBulletAttack(5,5,1,3)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA H 4 Bright A_CustomBulletAttack(5,5,1,4)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA I 4 Bright A_CustomBulletAttack(5,5,1,3)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA J 4 Bright A_CustomBulletAttack(5,5,1,4)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA H 4 Bright A_CustomBulletAttack(5,5,1,3)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA I 4 Bright A_CustomBulletAttack(5,5,1,4)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA J 4 Bright A_CustomBulletAttack(5,5,1,3)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA H 4 Bright A_CustomBulletAttack(5,5,1,4)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA I 4 Bright A_CustomBulletAttack(5,5,1,3)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA J 4 Bright A_CustomBulletAttack(5,5,1,4)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA H 4 Bright A_CustomBulletAttack(5,5,1,3)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA I 4 Bright A_CustomBulletAttack(5,5,1,4)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA J 4 Bright A_CustomBulletAttack(5,5,1,3)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA H 4 Bright A_CustomBulletAttack(5,5,1,4)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA I 4 Bright A_CustomBulletAttack(5,5,1,3)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA J 4 Bright A_CustomBulletAttack(5,5,1,4)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA H 4 Bright A_CustomBulletAttack(5,5,1,3)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA I 4 Bright A_CustomBulletAttack(5,5,1,4)
-	  GNNA Z 0 A_FaceTarget
-	  NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
-	  GNNA J 4 Bright A_CustomBulletAttack(5,5,1,3)
-	  GNNA Z 0 A_FaceTarget
-	  GNNA KLM 6
-	  Goto See
+		TNT1 A 0 A_Jump(128,"MGun")
+    Grenades:
+		GNNA C 12 A_FaceTarget(0,0)
+		GNNA A 0 A_PlaySound("q2weapon/grenadelaunfire")
+		GNNA A 4 A_CustomMissile("GunnerGrenade", 50, -20, 0)
+		GNNA BC 6 A_FaceTarget
+		GNNA A 0 A_PlaySound("q2weapon/grenadelaunfire")
+		GNNA A 4 A_CustomMissile("GunnerGrenade", 50, -20, 0)
+		GNNA BC 6 A_FaceTarget
+		GNNA A 0 A_PlaySound("q2weapon/grenadelaunfire")
+		GNNA A 4 A_CustomMissile("GunnerGrenade", 50, -20, 0)
+		GNNA BC 6 A_FaceTarget
+		Goto See
+    MGun:
+		GNNA DEFG 5 A_FaceTarget(0,0)
+    MGunLoop:
+		NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+		GNNA H 4 Bright A_CustomBulletAttack(5,5,1,4)
+		GNNA Z 0 A_FaceTarget
+		NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+		GNNA I 4 Bright A_CustomBulletAttack(5,5,1,3)
+		GNNA Z 0 A_FaceTarget
+		NULL Z 0 Bright A_CustomMissile("Smoke",45,15,5+Random(30,-30))
+		GNNA J 4 Bright A_CustomBulletAttack(5,5,1,4)
+		TNT1 A 0 A_Jump(16,"MGunEnd")
+		TNT1 A 0 A_MonsterRefire(0,"MGunEnd")
+		Loop
+    MGunEnd:
+		GNNA KLM 6
+		Goto See
     Pain:
-	  GNNP A 6 A_Pain 
-	  Goto See
+		GNNP A 6 A_Pain 
+		Goto See
     Death:
-	  GNND A 5 A_Scream
-	  GNND BCDEFGH 4
-	  GNND I 5 A_NoBlocking
-	  GNND JK 4
-	  GNND K -1
-	  Stop
+		GNND A 5 A_Scream
+		GNND BCDEFGH 4
+		GNND I 5 A_NoBlocking
+		GNND JK 4
+		GNND K -1
+		Stop
     Raise:
-	  GNND KJIHGFEDCBA 4
-	  Goto See
+		GNND KJIHGFEDCBA 4
+		Goto See
     }
 }
 
@@ -1101,11 +1043,9 @@ ACTOR Otrebor
 	painsound "Ten/pain"
 	deathsound "Ten/death"
 	activesound "Ten/active"
-    AttackSound "Weapons/ScorpionFire"
     Obituary "%o was ambushed by a Otrebor."
-    DropItem Clip
-    DropItem ClipBox
-	DropItem LimitBlood2Scorpions 64
+    DropItem Cell
+	DropItem Cell 64
     DropItem HBSpawner 68
     DropItem ABSpawner 68
     dropitem MeatSpawner 200
@@ -1165,16 +1105,22 @@ ACTOR Otrebor
 		OTBR A 2 A_Stop
 		Goto See+2
     Missile:
-		OTBF A 6 A_FaceTarget
-		NULL Z 0 Bright A_CustomMissile("Smoke",35,8,5+Random(30,-30))
-		OTBF B 3 Bright A_CustomBulletAttack(4,2,1,random(3,6))
+		OTBF A 5 A_FaceTarget
+		NULL Z 0 Bright A_CustomMissile("Smoke",35,8,5+Random(30,-30))		
+		OTBF B 1 A_Custommissile ("CatharsiBall",35,8,15)
+		OTBF B 1 A_Custommissile ("CatharsiBall",35,8,30)
+		OTBF B 1 A_Custommissile ("CatharsiBall",35,8,45)
+		OTBF B 1 A_Custommissile ("CatharsiBall",35,8,60)
 		OTBF C 3 A_FaceTarget
-		NULL Z 0 Bright A_CustomMissile("Smoke",35,-8,5+Random(30,-30))
-		OTBF D 3 Bright A_CustomBulletAttack(4,2,1,random(3,6))
+		NULL Z 0 Bright A_CustomMissile("Smoke",35,-8,5+Random(30,-30))	
+		OTBF D 1 A_Custommissile ("CatharsiBall",35,-8,-15)
+		OTBF D 1 A_Custommissile ("CatharsiBall",35,-8,-30)
+		OTBF D 1 A_Custommissile ("CatharsiBall",35,-8,-45)
+		OTBF D 1 A_Custommissile ("CatharsiBall",35,-8,-60)
 		OTBR A 0 A_Jump(64, "Dodge")
-		OTBF E 3 A_MonsterRefire(130, "Dodge")
+		OTBF E 2 A_MonsterRefire(130, "Dodge")
 		OTBF A 1 
-		Goto Missile
+		Goto Missile+1
     Death:
         OTBD A 4 A_Scream
 		TNT1 A 0 A_SpawnItem("NashGore_GibGenerator")
