@@ -1,6 +1,10 @@
 ### Todo
 
 - [ ] New pickup sprites for the PlasmaAutoRifle  
+- [ ] New sprites for the D3 plasma rifle
+- [ ] new puff type for the Embercaster
+- [ ] New sounds for the minigun
+- [ ] nerf the GoreShotgun
 - [ ] fix/buff punching revenant  
 - [ ] fix autoplasmarifle alt fire  
 - [ ] implement reload to QuadShotgun  
