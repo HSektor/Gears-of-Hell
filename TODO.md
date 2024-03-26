@@ -1,10 +1,13 @@
 ### Todo
 
 - [ ] New pickup sprites for the PlasmaAutoRifle  
-- [ ] New sprites for the D3 plasma rifle
+- [ ] New sprites for the D3 plasma rifle and Baseball Bat
 - [ ] new puff type for the Embercaster
 - [ ] New sounds for the minigun
 - [ ] nerf the GoreShotgun
+- [ ] swap KEYCONF for Player.WeaponSlot 
+- [ ] organize the weapons
+- [ ] rework the grenade (see other mods with throwable grenades)
 - [ ] fix/buff punching revenant  
 - [ ] fix autoplasmarifle alt fire  
 - [ ] implement reload to QuadShotgun  
@@ -20,4 +23,6 @@
 - [ ] verify weapon limit bugs
 
 ### Done ✓
+- [X] fixed grenade weapon switch bug
+- [X] more ammo drops
 
