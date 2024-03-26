@@ -21,8 +21,8 @@
 
 ### In Progress  
 - [ ] verify weapon limit bugs
+- [ ] more ammo drops
 
 ### Done ✓
 - [X] fixed grenade weapon switch bug
-- [X] more ammo drops
 
